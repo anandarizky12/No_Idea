@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Checkbox, Typography } from "antd";
 import { Card } from "antd";
 import { handleChange } from "../utils";
-import { login } from "../../actions/user";
+import { register } from "../../actions/user";
 
-function Login() {
+function Register() {
   const [state, setState] = useState({
+    username: "",
     email: "",
     password: "",
   });
@@ -15,7 +16,7 @@ function Login() {
   };
 
   const handleSubmit = (e: any) => {
-    login(state.email, state.password);
+    register(state.username, state.email, state.password);
   };
   return (
     <div
@@ -29,7 +30,7 @@ function Login() {
       className=""
     >
       <Card
-        title="Please Login Down Below"
+        title="Please Register Down Below"
         bordered={true}
         style={{ width: 400 }}
       >
@@ -42,6 +43,16 @@ function Login() {
           onFinish={(e) => handleSubmit(e)}
           onFinishFailed={onFinishFailed}
         >
+          <Form.Item
+            label="Username"
+            name="Username"
+            rules={[{ required: true, message: "Please input your Username!" }]}
+          >
+            <Input
+              name="username"
+              onChange={(e) => handleChange(e, state, setState)}
+            />
+          </Form.Item>
           <Form.Item
             label="Email"
             name="Email"
@@ -70,7 +81,7 @@ function Login() {
             wrapperCol={{ offset: 8, span: 16 }}
           >
             <Typography>
-              Already Have an Account? <a href="/register">Click Here</a>
+              Already Have an Account? <a href="/login">Click Here</a>
             </Typography>
           </Form.Item>
 
@@ -85,4 +96,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

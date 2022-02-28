@@ -2,6 +2,7 @@ import React from "react";
 import "./App.less";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<h1> HOME </h1>} />
         <Route path="/login" element={<Login />} />
-        <Route path="/contact" element={<h1>Contact</h1>} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );
