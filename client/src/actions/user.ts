@@ -33,6 +33,10 @@ export const login =
             payload: token,
           });
           setAlert({ message: "Succesfully Login", typeAlert: 1 });
+        })
+        .catch((err) => {
+          console.log(err);
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
         });
     } catch (err: any) {
       setAlert({ message: err.message, typeAlert: 4 });
