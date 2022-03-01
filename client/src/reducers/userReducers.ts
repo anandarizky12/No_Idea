@@ -28,15 +28,14 @@ const user = (state = initialState, action: any) => {
 
   switch (action.type) {
     case actionTypes.LOGIN_USER:
-      console.log(payload.username, payload.email);
       setCookie("username", payload.username);
 
-      return authObj;
+      return null;
     case actionTypes.LOGIN_SUCCESS:
       setCookie("is_auth", true);
       setCookie("email", payload.email);
       setCookie("username", payload.username);
-      return authObj;
+      return null;
 
     case actionTypes.LOGIN_FAILED:
       authObj = {
@@ -55,10 +54,7 @@ const user = (state = initialState, action: any) => {
       removeCookie("is_auth");
       removeCookie("email");
       removeCookie("username");
-      return {
-        ...state,
-        is_auth: false,
-      };
+      return null;
 
     case actionTypes.LOGOUT_FAILED:
       return {
@@ -70,7 +66,7 @@ const user = (state = initialState, action: any) => {
         token: payload,
       };
       setCookie("token", payload);
-      return authObj;
+      return null;
     default:
       return state;
   }

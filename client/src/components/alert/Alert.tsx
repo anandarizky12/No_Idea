@@ -3,7 +3,7 @@ import { Alert } from "antd";
 export const AlertComponents = (alert: any) => {
   console.log(alert.alert.typeAlert);
   return (
-    <div style={{ position: "absolute", top: 18, right: 18 }}>
+    <div style={{ position: "absolute", top: 5, right: 5 }}>
       {/* <Alert description={message}"Success Tips" type="success" showIcon />
       <Alert description={message}"Informational Notes" type="info" showIcon />
       <Alert description={message}"Warning" type="warning" showIcon closable />
