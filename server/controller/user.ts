@@ -53,7 +53,10 @@ exports.Register = async (req: any, res: any) => {
       {
         id: user.id,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRE,
+      }
     );
     res.status(200).send({
       status: 200,

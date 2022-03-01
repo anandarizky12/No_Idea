@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Checkbox, Typography } from "antd";
 import { Card } from "antd";
-import { handleChange } from "../utils";
+import { handleChange } from "../../utils/utils";
 import { login } from "../../actions/user";
+import { useDispatch } from "react-redux";
 
 function Login() {
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -15,7 +18,7 @@ function Login() {
   };
 
   const handleSubmit = (e: any) => {
-    login(state.email, state.password);
+    dispatch(login(state.email, state.password));
   };
   return (
     <div

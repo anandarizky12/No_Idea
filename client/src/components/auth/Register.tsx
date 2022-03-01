@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Checkbox, Typography } from "antd";
 import { Card } from "antd";
-import { handleChange } from "../utils";
+import { handleChange } from "../../utils/utils";
 import { register } from "../../actions/user";
 
 function Register() {
