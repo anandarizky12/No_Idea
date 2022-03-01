@@ -2,9 +2,18 @@ import { setCookie, removeCookie, getCookie } from "../utils/utils";
 import * as actionTypes from "../actions/actions_type/actions_type_user";
 
 let initialState: any;
-const authCookie = getCookie("auth");
-if (authCookie) {
-  initialState = JSON.parse(authCookie);
+
+if (typeof localStorage !== "undefined") {
+  const authCookie = getCookie("auth");
+  if (authCookie) {
+    initialState = authCookie;
+  } else {
+    initialState = {
+      is_auth: false,
+      detail_user: {},
+      token: null,
+    };
+  }
 } else {
   initialState = {
     is_auth: false,
@@ -19,20 +28,14 @@ const user = (state = initialState, action: any) => {
 
   switch (action.type) {
     case actionTypes.LOGIN_USER:
-      authObj = {
-        ...state,
-        is_auth: true,
-        detail_user: payload.user,
-        // token: payload.token,
-      };
-      setCookie("auth", authObj);
+      console.log(payload.username, payload.email);
+      setCookie("username", payload.username);
+
       return authObj;
     case actionTypes.LOGIN_SUCCESS:
-      authObj = {
-        ...state,
-        is_auth: true,
-      };
-      setCookie("auth", authObj);
+      setCookie("is_auth", true);
+      setCookie("email", payload.email);
+      setCookie("username", payload.username);
       return authObj;
 
     case actionTypes.LOGIN_FAILED:
@@ -49,7 +52,9 @@ const user = (state = initialState, action: any) => {
         detail_user: {},
       };
     case actionTypes.LOGOUT_SUCCESS:
-      removeCookie("auth");
+      removeCookie("is_auth");
+      removeCookie("email");
+      removeCookie("username");
       return {
         ...state,
         is_auth: false,
@@ -64,7 +69,7 @@ const user = (state = initialState, action: any) => {
         ...state,
         token: payload,
       };
-      setCookie("auth", authObj);
+      setCookie("token", payload);
       return authObj;
     default:
       return state;

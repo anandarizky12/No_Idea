@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-export const setCookie = (key: string, value: string) => {
+export const setCookie = (key: string, value: any) => {
   if (typeof window !== "undefined") {
     Cookies.set(key, value, {
       expires: 1,
@@ -18,10 +18,10 @@ export const removeCookie = (key: string) => {
 };
 
 export const getCookie = (key: any) => {
-  if (typeof window !== "undefined") {
-    return Cookies.get(key);
-  }
-  return null;
+  // if (typeof window !== "undefined") {
+  return Cookies.get(key);
+  // }
+  // return null;
 };
 
 export const handleChange = (e: any, state: any, setValue: any) => {

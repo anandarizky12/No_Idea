@@ -4,10 +4,11 @@ import { Card } from "antd";
 import { handleChange } from "../../utils/utils";
 import { login } from "../../actions/user";
 import { useDispatch } from "react-redux";
-
+import { AlertComponents } from "../alert/Alert";
+import Alert from "antd/lib/alert";
 function Login() {
   const dispatch = useDispatch();
-
+  const [alert, setAlert] = useState({ message: null, typeAlert: null });
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -18,8 +19,9 @@ function Login() {
   };
 
   const handleSubmit = (e: any) => {
-    dispatch(login(state.email, state.password));
+    dispatch(login(state.email, state.password, setAlert));
   };
+
   return (
     <div
       style={{
@@ -84,6 +86,8 @@ function Login() {
           </Form.Item>
         </Form>
       </Card>
+
+      {alert.message !== null ? <AlertComponents alert={alert} /> : null}
     </div>
   );
 }

@@ -21,26 +21,41 @@ interface ILoginSuccess {
 
 export const login: ActionCreator<
   ThunkAction<Promise<any>, IBasicState, null, ILoginSuccess>
-> = (email: string, password: string) => {
+> = (email: string, password: string, setAlert: any) => {
   return async (dispatch: Dispatch) => {
     try {
       await axios
         .post("http://localhost:5000/api/login", { email, password })
         .then((res) => {
-          const { user } = res.data;
+          const { username, email, token } = res.data.data;
+          console.log(res.data.data);
 
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             payload: {
-              user,
+              username,
+              email,
             },
+          });
+
+          dispatch({
+            type: actionTypes.LOGIN_USER,
+            payload: {
+              username,
+            },
+          });
+          dispatch({
+            type: actionTypes.SET_TOKEN,
+            payload: token,
           });
         })
         .catch((err) => {
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
           console.log(err.response.data);
         });
     } catch (err: any) {
-      console.log(err);
+      setAlert({ message: err.message, typeAlert: 4 });
+      console.log(err, "kagumi");
     }
   };
 };
