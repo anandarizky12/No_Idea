@@ -12,8 +12,6 @@ export const login =
         .post("http://localhost:5000/api/login", { email, password })
         .then((res) => {
           const { username, email, token } = res.data.data;
-
-          console.log(res.data.data);
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             payload: {
@@ -44,17 +42,39 @@ export const login =
     }
   };
 
-export const register = (username: String, email: String, password: String) => {
-  axios
-    .post("http://localhost:5000/api/register", {
-      username,
-      email,
-      password,
-    })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err.response.data);
-    });
+export const register =
+  (username: String, email: String, password: String, setAlert: any) =>
+  async () => {
+    try {
+      await axios
+        .post("http://localhost:5000/api/register", {
+          username,
+          email,
+          password,
+        })
+        .then((res) => {
+          setAlert({
+            message: "Succesfully Registered Account",
+            typeAlert: 1,
+          });
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 500);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
+        });
+    } catch (err: any) {
+      setAlert({ message: err.message, typeAlert: 4 });
+      console.log(err);
+    }
+  };
+
+export const logout = () => {
+  removeCookie("username");
+  removeCookie("email");
+  removeCookie("token");
+  removeCookie("is_auth");
+  window.location.href = "/login";
 };

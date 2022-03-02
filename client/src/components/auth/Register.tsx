@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Checkbox, Typography } from "antd";
+import { Form, Input, Button, Typography } from "antd";
 import { Card } from "antd";
+import { useDispatch } from "react-redux";
 import { handleChange } from "../../utils/utils";
 import { register } from "../../actions/user";
+import { AlertComponents } from "../alert/Alert";
+import { getCookie } from "../../utils/utils";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const Dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLog = getCookie("token");
+  const [alert, setAlert] = useState({ message: null, typeAlert: null });
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -15,8 +23,14 @@ function Register() {
     console.log("Failed:", errorInfo);
   };
 
+  useEffect(() => {
+    if (isLog) {
+      navigate("/");
+    }
+  }, [isLog]);
+
   const handleSubmit = (e: any) => {
-    register(state.username, state.email, state.password);
+    Dispatch(register(state.username, state.email, state.password, setAlert));
   };
   return (
     <div
@@ -92,6 +106,7 @@ function Register() {
           </Form.Item>
         </Form>
       </Card>
+      {alert.message !== null ? <AlertComponents alert={alert} /> : null}
     </div>
   );
 }

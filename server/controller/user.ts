@@ -21,9 +21,7 @@ exports.Register = async (req: any, res: any) => {
     if (error) {
       return res.status(500).send({
         status: 500,
-        error: {
-          message: error.details[0].message,
-        },
+        message: error.details[0].message,
       });
     }
 
