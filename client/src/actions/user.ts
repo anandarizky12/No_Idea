@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as actionTypes from "./actions_type/actions_type_user";
 import { removeCookie } from "../utils/utils";
-import { ActionCreator, Dispatch } from "redux";
+import { Dispatch } from "redux";
 
 //make function to login and dispatch action
 export const login =
@@ -71,7 +71,7 @@ export const register =
     }
   };
 
-export const logout = () => {
+export const logout = (): void => {
   removeCookie("username");
   removeCookie("email");
   removeCookie("token");

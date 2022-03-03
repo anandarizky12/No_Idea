@@ -3,7 +3,7 @@ export {};
 const jwt = require("jsonwebtoken");
 
 //make sure the user is authenticated to acces specific routes
-exports.authenticate = async (req: any, res: any, next: any) => {
+exports.authenticate = async ({ req, res, next }: any) => {
   let header, token;
   if (
     !(header = req.header("Authorization")) ||

@@ -4,7 +4,7 @@ import { logout } from "../actions/user";
 function Home() {
   const Dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
-  console.log(user);
+
   const Logout = () => {
     Dispatch(logout());
   };

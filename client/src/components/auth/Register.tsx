@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Form, Input, Button, Typography } from "antd";
 import { Card } from "antd";
 import { useDispatch } from "react-redux";
@@ -12,14 +12,14 @@ function Register() {
   const Dispatch = useDispatch();
   const navigate = useNavigate();
   const isLog = getCookie("token");
-  const [alert, setAlert] = useState({ message: null, typeAlert: null });
+  const [alert, setAlert] = useState({ message: "", typeAlert: "" });
   const [state, setState] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: any): void => {
     console.log("Failed:", errorInfo);
   };
 
@@ -29,7 +29,7 @@ function Register() {
     }
   }, [isLog]);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (): void => {
     Dispatch(register(state.username, state.email, state.password, setAlert));
   };
   return (
@@ -54,7 +54,7 @@ function Register() {
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           autoComplete="off"
-          onFinish={(e) => handleSubmit(e)}
+          onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
         >
           <Form.Item
@@ -95,7 +95,8 @@ function Register() {
             wrapperCol={{ offset: 8, span: 16 }}
           >
             <Typography>
-              Already Have an Account? <a href="/login">Click Here</a>
+              Already Have an Account?{" "}
+              <a onClick={() => navigate("/login")}>Click Here</a>
             </Typography>
           </Form.Item>
 

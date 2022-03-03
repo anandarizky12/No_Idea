@@ -1,12 +1,11 @@
 export {};
-
 const joi = require("@hapi/joi");
 const db = require("../models");
 const User = db.user;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.Register = async (req: any, res: any) => {
+exports.Register = async ({ req, res }: any) => {
   try {
     const { username, email, password } = req.body;
 
@@ -73,7 +72,7 @@ exports.Register = async (req: any, res: any) => {
     });
   }
 };
-exports.Login = async (req: any, res: any) => {
+exports.Login = async ({ req, res }: any) => {
   try {
     const { email, password } = req.body;
 
@@ -131,7 +130,7 @@ exports.Login = async (req: any, res: any) => {
   }
 };
 
-exports.readAllUsers = async (req: any, res: any) => {
+exports.readAllUsers = async ({ req, res }: any) => {
   try {
     const users = await User.findAll({
       attributes: { exclude: ["password"] },
@@ -150,7 +149,7 @@ exports.readAllUsers = async (req: any, res: any) => {
   }
 };
 
-exports.readUser = async (req: any, res: any) => {
+exports.readUser = async ({ req, res }: any) => {
   try {
     const { id } = req.params;
 

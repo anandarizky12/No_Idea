@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Checkbox, Typography } from "antd";
+import { Form, Input, Button, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Card } from "antd";
 import { handleChange } from "../../utils/utils";
@@ -11,7 +11,7 @@ import { getCookie } from "../../utils/utils";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [alert, setAlert] = useState({ message: null, typeAlert: null });
+  const [alert, setAlert] = useState({ message: "", typeAlert: "" });
   const isLog = getCookie("token");
   const [state, setState] = useState({
     email: "",
@@ -24,11 +24,11 @@ function Login() {
     }
   }, [isLog]);
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: any): void => {
     console.log("Failed:", errorInfo);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (): void => {
     dispatch(login(state.email, state.password, setAlert));
   };
 
@@ -54,7 +54,7 @@ function Login() {
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           autoComplete="off"
-          onFinish={(e) => handleSubmit(e)}
+          onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
         >
           <Form.Item
@@ -85,7 +85,8 @@ function Login() {
             wrapperCol={{ offset: 8, span: 16 }}
           >
             <Typography>
-              Already Have an Account? <a href="/register">Click Here</a>
+              Already Have an Account?{" "}
+              <a onClick={() => navigate("/register")}>Click Here</a>
             </Typography>
           </Form.Item>
 
