@@ -5,10 +5,10 @@ const Task = db.task;
 
 module.exports = (sequelize: any, Sequelize: any) => {
   const Answer_task = sequelize.define("answer_task", {
-    students_id: sequelize.INTEGER,
-    answer: sequelize.STRING,
-    score_id: sequelize.INTEGER,
-    task_id: sequelize.INTEGER,
+    students_id: Sequelize.INTEGER,
+    answer: Sequelize.STRING,
+    score_id: Sequelize.INTEGER,
+    task_id: Sequelize.INTEGER,
   });
 
   Answer_task.belongsTo(User, {
