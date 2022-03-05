@@ -6,10 +6,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.createClassroom = async (req: any, res: any) => {
-  return res.status(200).send({
-    status: 200,
-    message: "Create Class Success",
-  });
+  try {
+    //  cosnt { }
+  } catch (err) {}
 };
 
 // exports.Login = async (req: any, res: any) => {
