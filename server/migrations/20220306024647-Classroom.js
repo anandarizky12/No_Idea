@@ -10,6 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: Sequelize.STRING,
+      description: Sequelize.STRING,
       members_id: {
         type: Sequelize.INTEGER,
         references: {

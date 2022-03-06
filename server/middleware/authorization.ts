@@ -1,8 +1,7 @@
 export {};
 
 const jwt = require("jsonwebtoken");
-const db = require("../models");
-const User = db.user;
+const { User } = require("../models");
 
 //make sure the user is authenticated to acces specific routes
 exports.authenticate = async ({ req, res, next }: any) => {

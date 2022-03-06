@@ -18,6 +18,8 @@ module.exports = (sequelize: any, Sequelize: any) => {
     {
       name: Sequelize.STRING,
       teacher_id: Sequelize.INTEGER,
+      description: Sequelize.STRING,
+      banner: Sequelize.STRING,
       // members_id: Sequelize.INTEGER,
       // assignment_id: Sequelize.INTEGER,
       // teacher_id: Sequelize.INTEGER,

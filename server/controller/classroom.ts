@@ -7,7 +7,7 @@ exports.createClassroom = async (req: any, res: any) => {
     const { classcode, name, teacher_id } = req.body;
     const schema = joi.object({
       name: joi.string().min(3).required(),
-      // teacher_id: joi.integer().min(1).required(),
+      teacher_id: joi.number(),
       classcode: joi.string().min(8).required(),
     });
     const { error } = schema.validate(req.body);
