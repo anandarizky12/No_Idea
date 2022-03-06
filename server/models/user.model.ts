@@ -5,10 +5,12 @@ const { Model } = require("sequelize");
 module.exports = (sequelize: any, Sequelize: any) => {
   class User extends Model {
     static associate(models: any) {
-      User.belongsToMany(models.Student_Classroom, {
+      User.belongsToMany(models.Classroom, {
+        through: "Students_Classroom",
         foreignKey: {
           name: "student_id",
         },
+        as: "classrooms",
       });
     }
   }

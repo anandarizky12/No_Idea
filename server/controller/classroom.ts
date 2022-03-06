@@ -5,6 +5,7 @@ const { User, Classroom, Student_Classroom } = require("../models");
 exports.createClassroom = async (req: any, res: any) => {
   try {
     const { classcode, name, teacher_id } = req.body;
+
     const schema = joi.object({
       name: joi.string().min(3).required(),
       teacher_id: joi.number(),
@@ -49,10 +50,11 @@ exports.createClassroom = async (req: any, res: any) => {
 exports.joinClassroom = async (req: any, res: any) => {
   try {
     const { student_id, classroom_id, classcode } = req.body;
+
     const schema = joi.object({
       student_id: joi.number().required(),
       classroom_id: joi.number().required(),
-      classcode: joi.string().min(5).required(),
+      classcode: [joi.string().min(5).required(), joi.number().required()],
     });
     const { error } = schema.validate(req.body);
     if (error) {
@@ -111,6 +113,65 @@ exports.joinClassroom = async (req: any, res: any) => {
     });
   }
 };
+
+exports.leaveClassroom = async (req: any, res: any) => {
+  try {
+    const { student_id, classroom_id } = req.body;
+
+    const schema = joi.object({
+      student_id: joi.number().required(),
+      classroom_id: joi.number().required(),
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
+    const checkStudentId = await User.findOne({
+      where: {
+        id: student_id,
+      },
+    });
+    if (!checkStudentId) {
+      return res.status(500).send({
+        status: 500,
+        message: "Student Id not found",
+      });
+    }
+    const checkStudentClassroom = await Classroom.findOne({
+      where: {
+        id: classroom_id,
+      },
+    });
+    if (!checkStudentClassroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom Id not found",
+      });
+    }
+
+    const joinClassroom = await Student_Classroom.destroy({
+      where: {
+        student_id,
+        classroom_id,
+      },
+    });
+
+    return res.status(201).send({
+      status: 201,
+      message: "You left the classroom",
+      data: joinClassroom,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
 exports.getClassroom = async (req: any, res: any) => {
   try {
     const { id } = req.params;
@@ -138,108 +199,55 @@ exports.getClassroom = async (req: any, res: any) => {
   }
 };
 
-// exports.Login = async (req: any, res: any) => {
-//   try {
-//     const { email, password } = req.body;
+exports.getClassByUserId = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
 
-//     const schema = joi.object({
-//       email: joi.string().email().min(10).required(),
-//       password: joi.string().min(8).required(),
-//     });
+    console.log(id);
+    const user = await User.findOne({
+      where: {
+        id: id,
+      },
+    });
 
-//     const { error } = schema.validate(res.body);
-//     if (error) {
-//       res.status(500).send({
-//         status: 500,
-//         message: error.details[0].message,
-//       });
-//     }
+    if (!user) {
+      return res.status(500).send({
+        status: 500,
+        message: "User id not valid",
+      });
+    }
 
-//     const user = await User.findOne({
-//       where: {
-//         email,
-//       },
-//     });
+    const getClassById = await Student_Classroom.findAll({
+      where: {
+        student_id: id,
+      },
+      includes: [
+        {
+          model: Classroom,
+          attributes: ["id", "name", "teacher_id"],
+        },
+        {
+          model: User,
+          attributes: ["id", "name", "email"],
+        },
+      ],
+    });
 
-//     if (!user) {
-//       return res.status(500).send({
-//         status: 500,
-//         message: "Email or password is incorrect",
-//       });
-//     }
+    if (!getClassById) {
+      return res.status(200).send({
+        status: 200,
+        message: "you are not join any class yet",
+      });
+    }
 
-//     const validatePassword = await bcrypt.compare(password, user.password);
-//     if (!validatePassword) {
-//       return res.status(500).send({
-//         status: 500,
-//         message: "Email or password is incorrect",
-//       });
-//     }
-
-//     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-
-//     res.status(200).send({
-//       status: 200,
-//       message: "Login successfully",
-//       data: {
-//         id: user.id,
-//         token,
-//         name: user.name,
-//         email: user.email,
-//         phone: user.phone,
-//         role: user.role,
-//         profile: user.profile,
-//         no_induk: user.no_induk,
-//       },
-//     });
-//   } catch (err: any) {
-//     res.status(500).send({
-//       status: 500,
-//       message: err.message,
-//     });
-//   }
-// };
-
-// exports.readAllUsers = async ({ req, res }: any) => {
-//   try {
-//     const users = await User.findAll({
-//       attributes: { exclude: ["password"] },
-//     });
-
-//     res.status(200).send({
-//       status: 200,
-//       message: "Get all users successfully",
-//       data: users,
-//     });
-//   } catch (error: any) {
-//     res.status(500).send({
-//       status: 500,
-//       message: error.message,
-//     });
-//   }
-// };
-
-// exports.readUser = async ({ req, res }: any) => {
-//   try {
-//     const { id } = req.params;
-
-//     const user = await User.findOne({
-//       where: {
-//         id: id,
-//       },
-//       attributes: {
-//         exclude: ["password"],
-//       },
-//     });
-//     res.status(200).send({
-//       status: 200,
-//       message: "Get user successfully",
-//       data: user,
-//     });
-//   } catch (err: any) {
-//     res.status(500).send({
-//       status: 500,
-//       message: err.message,
-//     });
-//   }
-// };
+    return res.status(200).send({
+      status: 200,
+      message: "Succesfully get the Class",
+      class: getClassById,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+};

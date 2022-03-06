@@ -11,19 +11,20 @@ module.exports = {
       },
       name: Sequelize.STRING,
       description: Sequelize.STRING,
-      members_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "users",
-          key: "id",
-          as: "members_id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
+      // members_id: {
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: "users",
+      //     key: "id",
+      //     as: "members_id",
+      //   },
+      //   onUpdate: "CASCADE",
+      //   onDelete: "CASCADE",
+      // },
 
       teacher_id: Sequelize.INTEGER,
       classcode: Sequelize.STRING,
+      banner: Sequelize.STRING,
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
