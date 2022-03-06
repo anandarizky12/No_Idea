@@ -1,15 +1,13 @@
 export {};
 const joi = require("@hapi/joi");
-const db = require("../models");
-const User = db.user;
+const { User } = require("../models");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.Register = async (req: any, res: any) => {
   try {
     const { name, email, password, role, no_induk } = req.body;
-
-    console.log(name, email, password, role, no_induk);
 
     const schema = joi.object({
       name: joi.string().min(3).required(),

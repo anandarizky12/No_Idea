@@ -7,6 +7,6 @@ const router = require("express").Router();
 router.post("/register", Register);
 router.post("/login", Login);
 
-router.get("/createclassroom", authTeacher, createClassroom);
+router.post("/createclassroom", authTeacher, createClassroom);
 router.get("/getallusers", authenticate, readAllUsers);
 module.exports = router;

@@ -21,10 +21,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 const db: any = {};
 
-// to read the file and get the models dinamicly
-//rather than do this thing like this to get the models:
-// db.user = require("./user.model.ts")(sequelize, Sequelize);
-//better to do this :
 fs.readdirSync(__dirname)
   .filter((file: any) => {
     return (
@@ -36,6 +32,7 @@ fs.readdirSync(__dirname)
       sequelize,
       Sequelize.DataTypes
     );
+
     db[model.name] = model;
   });
 

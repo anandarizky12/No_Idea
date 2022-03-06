@@ -1,28 +1,35 @@
 export {};
 const db = require("./index");
-const User = db.user;
-const Task = db.task;
+const { Model } = require("sequelize");
 
 module.exports = (sequelize: any, Sequelize: any) => {
-  const Comments = sequelize.define("comments", {
-    user_id: Sequelize.INTEGER,
-    comment: Sequelize.STRING,
-    task_id: Sequelize.INTEGER,
-  });
+  class Comments extends Model {
+    static associate(models: any) {
+      Comments.belongsTo(models.User, {
+        as: "user",
+        foreignKey: {
+          name: "user_id",
+        },
+      });
 
-  Comments.belongsTo(User, {
-    as: "user",
-    foreignKey: {
-      name: "user_id",
+      Comments.belongsTo(models.Task, {
+        as: "task",
+        foreignKey: {
+          name: "task_id",
+        },
+      });
+    }
+  }
+  Comments.init(
+    {
+      user_id: Sequelize.INTEGER,
+      comment: Sequelize.STRING,
+      task_id: Sequelize.INTEGER,
     },
-  });
-
-  Comments.belongsTo(Task, {
-    as: "task",
-    foreignKey: {
-      name: "task_id",
-    },
-  });
-
+    {
+      sequelize,
+      modelName: "Comments",
+    }
+  );
   return Comments;
 };

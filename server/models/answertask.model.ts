@@ -1,29 +1,29 @@
 export {};
-const db = require("./index");
-const User = db.user;
-const Task = db.task;
+const { Model } = require("sequelize");
 
 module.exports = (sequelize: any, Sequelize: any) => {
-  const Answer_task = sequelize.define("answer_task", {
-    students_id: Sequelize.INTEGER,
-    answer: Sequelize.STRING,
-    score_id: Sequelize.INTEGER,
-    task_id: Sequelize.INTEGER,
-  });
-
-  Answer_task.belongsTo(User, {
-    as: "user",
-    foreignKey: {
-      name: "students_id",
+  class Answer_task extends Model {
+    static associate(models: any) {
+      Answer_task.hasMany(models.Score, {
+        foreignKey: {
+          name: "score_id",
+          allowNull: false,
+        },
+      });
+    }
+  }
+  Answer_task.init(
+    {
+      // students_id: Sequelize.INTEGER,
+      answer: Sequelize.STRING,
+      // score_id: Sequelize.INTEGER,
+      // task_id: Sequelize.INTEGER,
     },
-  });
-
-  Answer_task.belongsTo(Task, {
-    as: "task",
-    foreignKey: {
-      name: "task_id",
-    },
-  });
+    {
+      sequelize,
+      modelName: "Answer_task",
+    }
+  );
 
   return Answer_task;
 };

@@ -1,14 +1,49 @@
 export {};
 const joi = require("@hapi/joi");
-const db = require("../models");
-const User = db.user;
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const { User, Classroom } = require("../models");
 
 exports.createClassroom = async (req: any, res: any) => {
   try {
-    //  cosnt { }
-  } catch (err) {}
+    const { classcode, name, teacher_id } = req.body;
+    const schema = joi.object({
+      name: joi.string().min(3).required(),
+      // teacher_id: joi.integer().min(1).required(),
+      classcode: joi.string().min(8).required(),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
+    const checkTeacherId = await User.findOne({
+      where: {
+        id: teacher_id,
+      },
+    });
+    if (!checkTeacherId) {
+      return res.status(500).send({
+        status: 500,
+        message: "Teacher Id not found",
+      });
+    }
+    const classroom = await Classroom.create({
+      classcode,
+      name,
+      teacher_id,
+    });
+    return res.status(201).send({
+      status: 201,
+      message: "Classroom created",
+      data: classroom,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
 };
 
 // exports.Login = async (req: any, res: any) => {
