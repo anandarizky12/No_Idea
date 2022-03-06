@@ -96,6 +96,19 @@ exports.joinClassroom = async (req: any, res: any) => {
         message: "Classroom Id not found",
       });
     }
+    const checkIfStudentIsInClassroom = await Student_Classroom.findOne({
+      where: {
+        student_id,
+        classroom_id,
+      },
+    });
+    if (checkIfStudentIsInClassroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Student is already in this classroom",
+      });
+    }
+
     const joinClassroom = await Student_Classroom.create({
       student_id,
       classroom_id,
@@ -221,10 +234,10 @@ exports.getClassByUserId = async (req: any, res: any) => {
       where: {
         student_id: id,
       },
-      includes: [
+      include: [
         {
           model: Classroom,
-          attributes: ["id", "name", "teacher_id"],
+          attributes: ["id", "name"],
         },
         {
           model: User,
