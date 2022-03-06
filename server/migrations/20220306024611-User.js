@@ -16,7 +16,7 @@ module.exports = {
       role: Sequelize.STRING,
       profile: Sequelize.STRING,
       no_induk: Sequelize.STRING,
-      classroom_id: Sequelize.INTEGER,
+
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),

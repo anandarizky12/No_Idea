@@ -5,9 +5,9 @@ const { Model } = require("sequelize");
 module.exports = (sequelize: any, Sequelize: any) => {
   class User extends Model {
     static associate(models: any) {
-      User.hasMany(models.Classroom, {
+      User.belongsToMany(models.Student_Classroom, {
         foreignKey: {
-          name: "classroom_id",
+          name: "student_id",
         },
       });
     }
@@ -22,7 +22,6 @@ module.exports = (sequelize: any, Sequelize: any) => {
       role: Sequelize.STRING,
       profile: Sequelize.STRING,
       no_induk: Sequelize.STRING,
-      classroom_id: Sequelize.INTEGER,
     },
     {
       sequelize,
