@@ -5,7 +5,19 @@ module.exports = {
     return queryInterface.bulkInsert("student_classrooms", [
       {
         student_id: 3,
-        classroom_id: 3,
+        classroom_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        student_id: 2,
+        classroom_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        student_id: 1,
+        classroom_id: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

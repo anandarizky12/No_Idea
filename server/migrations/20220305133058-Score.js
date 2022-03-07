@@ -2,21 +2,20 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("answer_tasks", {
+    await queryInterface.createTable("scores", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-
-      answer: Sequelize.STRING,
-      task_id: {
+      score: Sequelize.INTEGER,
+      answer_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "tasks",
+          model: "answer_tasks",
           key: "id",
-          as: "task_id",
+          as: "answer_id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
@@ -33,6 +32,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable("answer_tasks");
+    queryInterface.dropTable("scores");
   },
 };

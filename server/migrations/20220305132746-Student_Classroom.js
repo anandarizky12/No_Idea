@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("answer_tasks", {
+    await queryInterface.createTable("student_classrooms", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,17 +10,27 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
 
-      answer: Sequelize.STRING,
-      task_id: {
+      student_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "tasks",
+          model: "users",
           key: "id",
-          as: "task_id",
+          as: "student_id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      classroom_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "classrooms",
+          key: "id",
+          as: "classroom_id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
@@ -33,6 +43,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable("answer_tasks");
+    queryInterface.dropTable("student_classrooms");
   },
 };

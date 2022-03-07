@@ -4,9 +4,15 @@ const { Model } = require("sequelize");
 module.exports = (sequelize: any, Sequelize: any) => {
   class Answer_task extends Model {
     static associate(models: any) {
-      Answer_task.hasMany(models.Score, {
+      Answer_task.hasOne(models.Score, {
         foreignKey: {
-          name: "score_id",
+          name: "answer_id",
+          allowNull: false,
+        },
+      });
+      Answer_task.belongsTo(models.Task, {
+        foreignKey: {
+          name: "task_id",
           allowNull: false,
         },
       });

@@ -11,13 +11,22 @@ module.exports = (sequelize: any, Sequelize: any) => {
         },
         as: "users",
       });
+      Classroom.hasMany(models.Task, {
+        foreignKey: {
+          name: "classroom_id",
+        },
+      });
+      Classroom.belongsTo(models.User, {
+        foreignKey: {
+          name: "teacher_id",
+        },
+      });
     }
   }
 
   Classroom.init(
     {
       name: Sequelize.STRING,
-      teacher_id: Sequelize.INTEGER,
       description: Sequelize.STRING,
       banner: Sequelize.STRING,
       classcode: Sequelize.STRING,

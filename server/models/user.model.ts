@@ -12,6 +12,11 @@ module.exports = (sequelize: any, Sequelize: any) => {
         },
         as: "classrooms",
       });
+      User.hasOne(models.Classroom, {
+        foreignKey: {
+          name: "teacher_id",
+        },
+      });
     }
   }
 

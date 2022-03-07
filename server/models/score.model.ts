@@ -7,7 +7,7 @@ module.exports = (sequelize: any, Sequelize: any) => {
     static associate(models: any) {
       Score.belongsTo(models.Answer_task, {
         foreignKey: {
-          name: "score_id",
+          name: "answer_id",
           allowNull: false,
         },
       });

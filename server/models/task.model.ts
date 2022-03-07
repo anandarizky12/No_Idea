@@ -7,7 +7,7 @@ module.exports = (sequelize: any, Sequelize: any) => {
     static associate(models: any) {
       Task.hasMany(models.Answer_task, {
         foreignKey: {
-          name: "answer_task_id",
+          name: "task_id",
         },
       });
 
@@ -23,6 +23,8 @@ module.exports = (sequelize: any, Sequelize: any) => {
       title: Sequelize.STRING,
       answer_key: Sequelize.STRING,
       deadline: Sequelize.DATE,
+      description: Sequelize.STRING,
+      other: Sequelize.STRING,
       // classroom_id: Sequelize.INTEGER,
     },
     {

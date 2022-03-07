@@ -1,6 +1,6 @@
 export {};
 const joi = require("@hapi/joi");
-const { User, Classroom, Student_Classroom } = require("../models");
+const { User, Classroom, Student_Classroom, Task } = require("../models");
 
 exports.createClassroom = async (req: any, res: any) => {
   try {
@@ -127,6 +127,82 @@ exports.joinClassroom = async (req: any, res: any) => {
   }
 };
 
+exports.getStudentsInClassroom = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+
+    const findClassroom = await Classroom.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!findClassroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom not found",
+      });
+    }
+
+    const students = await Student_Classroom.findAll({
+      where: {
+        classroom_id: id,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "name", "email", "profile", "no_induk"],
+        },
+      ],
+    });
+
+    return res.status(200).send({
+      status: 200,
+      message: "Students in classroom",
+      data: students,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
+exports.getTaskInClassroom = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+    const classroom = await Classroom.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!classroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom not found",
+      });
+    }
+
+    const task = await Task.findAll({
+      where: {
+        classroom_id: id,
+      },
+    });
+
+    return res.status(200).send({
+      status: 200,
+      message: "Task in classroom",
+      data: task,
+    });
+  } catch (err: any) {
+    return res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
 exports.leaveClassroom = async (req: any, res: any) => {
   try {
     const { student_id, classroom_id } = req.body;
