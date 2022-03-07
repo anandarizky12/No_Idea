@@ -5,8 +5,15 @@ const {
   getClassByUserId,
   getStudentsInClassroom,
   getTaskInClassroom,
+  deleteClassroom,
 } = require("../controller/classroom");
-const { authenticate, authTeacher } = require("../middleware/authorization");
+const {
+  authenticate,
+  authTeacher,
+  isMemberOfClass,
+  isTeacherOfClass,
+} = require("../middleware/authorization");
+const { createTask, deleteTask, editTask } = require("../controller/task");
 
 const router = require("express").Router();
 
@@ -14,10 +21,20 @@ router.post("/register", Register);
 router.post("/login", Login);
 
 router.post("/createclassroom", authTeacher, createClassroom);
-router.post("/joinclassroom", authenticate, joinClassroom);
-router.get("/getalltaskinclass/:id", authenticate, getTaskInClassroom);
 
+router.post("/joinclassroom", authenticate, joinClassroom);
+
+router.post("/createtask", authTeacher, createTask);
+router.delete("/deletetask/:id", authTeacher, deleteTask);
+router.put("/edittask/:id", authTeacher, editTask);
+//require class id
+router.get("/getalltaskinclass/:id", isMemberOfClass, getTaskInClassroom);
+router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);
+
+//require student id
 router.get("/getclassroombystudentid/:id", authenticate, getClassByUserId);
+
+//require class id
 router.get("/getstudentsinclass/:id", authenticate, getStudentsInClassroom);
 
 router.get("/getallusers", authenticate, readAllUsers);

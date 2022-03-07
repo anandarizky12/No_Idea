@@ -1,15 +1,34 @@
 export {};
 const joi = require("@hapi/joi");
 const { User, Classroom, Student_Classroom, Task } = require("../models");
+const makeClassCode = require("../utils/GenerateClassCode");
 
 exports.createClassroom = async (req: any, res: any) => {
   try {
-    const { classcode, name, teacher_id } = req.body;
+    const { name, teacher_id, description } = req.body;
+
+    //make sure the classcode is unique and not already exist
+
+    let classcode = makeClassCode(6);
+    async function CheckClassCode(classcode: String) {
+      const classroom = await Classroom.findOne({
+        where: { classcode: classcode },
+      });
+
+      if (classroom) {
+        classcode = makeClassCode(6);
+        CheckClassCode(classcode);
+      }
+    }
+
+    CheckClassCode(classcode);
+
+    ///////////////////////////////////////////////////////////////////
 
     const schema = joi.object({
       name: joi.string().min(3).required(),
       teacher_id: joi.number(),
-      classcode: joi.string().min(8).required(),
+      description: joi.string().min(3).required(),
     });
     const { error } = schema.validate(req.body);
     if (error) {
@@ -29,8 +48,11 @@ exports.createClassroom = async (req: any, res: any) => {
         message: "Teacher Id not found",
       });
     }
+
     const classroom = await Classroom.create({
       classcode,
+
+      description,
       name,
       teacher_id,
     });
@@ -49,11 +71,11 @@ exports.createClassroom = async (req: any, res: any) => {
 
 exports.joinClassroom = async (req: any, res: any) => {
   try {
-    const { student_id, classroom_id, classcode } = req.body;
+    const { student_id, classcode } = req.body;
 
     const schema = joi.object({
       student_id: joi.number().required(),
-      classroom_id: joi.number().required(),
+
       classcode: [joi.string().min(5).required(), joi.number().required()],
     });
     const { error } = schema.validate(req.body);
@@ -85,33 +107,23 @@ exports.joinClassroom = async (req: any, res: any) => {
         message: "Student Id not found",
       });
     }
-    const checkStudentClassroom = await Classroom.findOne({
-      where: {
-        id: classroom_id,
-      },
-    });
-    if (!checkStudentClassroom) {
-      return res.status(500).send({
-        status: 500,
-        message: "Classroom Id not found",
-      });
-    }
+
     const checkIfStudentIsInClassroom = await Student_Classroom.findOne({
       where: {
         student_id,
-        classroom_id,
+        classroom_id: classroom.id,
       },
     });
     if (checkIfStudentIsInClassroom) {
       return res.status(500).send({
         status: 500,
-        message: "Student is already in this classroom",
+        message: "Sorry, You are already in this classroom",
       });
     }
 
     const joinClassroom = await Student_Classroom.create({
       student_id,
-      classroom_id,
+      classroom_id: classroom.id,
     });
 
     return res.status(201).send({
@@ -336,6 +348,42 @@ exports.getClassByUserId = async (req: any, res: any) => {
     });
   } catch (err: any) {
     res.status(500).send({
+      message: err.message,
+    });
+  }
+};
+
+exports.deleteClassroom = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+
+    const classroom = await Classroom.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!classroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom not found",
+      });
+    }
+
+    const deleteClassroom = await Classroom.destroy({
+      where: {
+        id,
+      },
+    });
+
+    return res.status(200).send({
+      status: 200,
+      message: "Classroom deleted",
+      data: deleteClassroom,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
       message: err.message,
     });
   }

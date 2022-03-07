@@ -7,13 +7,13 @@ const jwt = require("jsonwebtoken");
 
 exports.Register = async (req: any, res: any) => {
   try {
-    const { name, email, password, role, no_induk } = req.body;
+    const { name, phone, email, password, role, no_induk } = req.body;
 
     const schema = joi.object({
       name: joi.string().min(3).required(),
       email: joi.string().email().min(10).required(),
       password: joi.string().min(8).required(),
-      // phone: joi.string().min(12).required(),
+      phone: joi.string().min(12).required(),
       role: joi.string().min(4).required(),
       // profile: joi.string(),
       no_induk: joi.string().min(8).required(),
@@ -48,7 +48,7 @@ exports.Register = async (req: any, res: any) => {
       name,
       email,
       password: hash,
-      // phone,
+      phone,
       role,
       // profile,
       no_induk,
