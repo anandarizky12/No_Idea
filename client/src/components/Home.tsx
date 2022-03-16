@@ -10,13 +10,21 @@ function Home() {
     Dispatch(logout());
   };
   return (
-    <div className="p-6">
+    <div className="p-6 h-full">
       {/* {user.name}
       {user.role} */}
       <div className="font-header  font-semibold text-gray-500">
         Daftar Kelas Anda
       </div>
-      <Class_card />
+      <div className="flex w-full h-full flex-wrap">
+        <Class_card />
+        <Class_card />
+        <Class_card />
+        <Class_card />
+        <Class_card />
+        <Class_card />
+      </div>
+
       {/* <button onClick={Logout}>Logout</button> */}
     </div>
   );

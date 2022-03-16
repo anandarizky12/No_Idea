@@ -1,12 +1,26 @@
 import React from "react";
-
+import { Tooltip } from "antd";
+import { UserOutlined, FundOutlined } from "@ant-design/icons";
+import PopupMenu from "./PopupMenu";
 function Class_card() {
   return (
-    <div className="my-5 rounded-xl w-72 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
-      <div className="border-b   border-gray-300 bg-gradient-to-r from-cyan-500 to-blue-500 w-full h-24 p-5 text-white font-medium text-xl">
-        ClassName
+    <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
+      <div className="border-b flex justify-between  border-gray-300 bg-hero bg-cover bg-center w-full h-24 p-5 ">
+        <h1 className="text-white font-normal text-xl">Nama Kelas</h1>
+        <div className="text-white font-bold">
+          <PopupMenu />
+        </div>
       </div>
-      <div className="border-t   border-gray-300 w-full h-12"></div>
+      <div className="border-t   border-gray-300 w-full h-12">
+        <div className="flex justify-end items-center h-full p-3">
+          <Tooltip placement="bottom" title="Nilai Siswa">
+            <FundOutlined className="text-xl mr-4 hover:cursor-pointer" />
+          </Tooltip>
+          <Tooltip placement="bottom" title="Anggota Kelas">
+            <UserOutlined className="text-xl  hover:cursor-pointer" />
+          </Tooltip>
+        </div>
+      </div>
     </div>
   );
 }
