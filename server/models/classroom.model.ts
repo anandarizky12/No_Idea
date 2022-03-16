@@ -21,6 +21,11 @@ module.exports = (sequelize: any, Sequelize: any) => {
           name: "teacher_id",
         },
       });
+      Classroom.hasMany(models.Score, {
+        foreignKey: {
+          name: "classroom_id",
+        },
+      });
     }
   }
 

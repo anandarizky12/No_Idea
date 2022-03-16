@@ -11,6 +11,12 @@ module.exports = (sequelize: any, Sequelize: any) => {
           allowNull: false,
         },
       });
+      Score.belongsTo(models.Classroom, {
+        foreignKey: {
+          name: "classroom_id",
+          allowNull: false,
+        },
+      });
     }
   }
 

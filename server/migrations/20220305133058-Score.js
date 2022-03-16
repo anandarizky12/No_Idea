@@ -20,6 +20,17 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      classroom_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "classrooms",
+          key: "id",
+          as: "classroom_id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),

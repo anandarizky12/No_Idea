@@ -19,6 +19,7 @@ function Register() {
     email: "",
     password: "",
     role: "",
+    phone: "",
     no_induk: "",
   });
 
@@ -78,6 +79,20 @@ function Register() {
           >
             <Input
               name="no_induk"
+              type="number"
+              onChange={(e) => handleChange(e, state, setState)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="No Telp"
+            name="phone"
+            rules={[
+              { required: true, message: "Please input your Phone Number!" },
+            ]}
+          >
+            <Input
+              name="phone"
               type="number"
               onChange={(e) => handleChange(e, state, setState)}
             />
