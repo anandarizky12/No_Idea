@@ -7,8 +7,12 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Home from "./components/Home";
 import Top from "./components/Navigation/Top";
 import My404 from "./components/404/My404";
+import Classroom from "./components/Classroom/Classroom";
+import { useLocation } from "react-router-dom";
+import AllTask from "./components/Task/AllTask";
 
 function App() {
+  const location = useLocation();
   return (
     <div className="App">
       {location.pathname != "/login" && location.pathname != "/register" && (
@@ -22,6 +26,18 @@ function App() {
         <Route
           path="/"
           element={<ProtectedRoute redirectTo="/login" Component={<Home />} />}
+        />
+        <Route
+          path="/classroom/:id"
+          element={
+            <ProtectedRoute redirectTo="/login" Component={<Classroom />} />
+          }
+        />
+        <Route
+          path="/classroom/:id/tasks"
+          element={
+            <ProtectedRoute redirectTo="/login" Component={<AllTask />} />
+          }
         />
       </Routes>
     </div>

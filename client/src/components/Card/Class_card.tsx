@@ -2,11 +2,21 @@ import React from "react";
 import { Tooltip } from "antd";
 import { UserOutlined, FundOutlined } from "@ant-design/icons";
 import PopupMenu from "./PopupMenu";
+import { useNavigate } from "react-router-dom";
+
 function Class_card() {
+  const navigate = useNavigate();
   return (
     <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
       <div className="border-b flex justify-between  border-gray-300 bg-hero bg-cover bg-center w-full h-24 p-5 ">
-        <h1 className="text-white font-normal text-xl">Nama Kelas</h1>
+        <h1
+          onClick={() => {
+            navigate("classroom/1");
+          }}
+          className="text-white font-normal text-xl  hover:cursor-pointer hover:underline"
+        >
+          Nama Kelas
+        </h1>
         <div className="text-white font-bold">
           <PopupMenu />
         </div>
