@@ -11,6 +11,7 @@ if (typeof localStorage !== "undefined") {
       name: getCookie("name"),
       role: getCookie("role"),
       email: getCookie("email"),
+      id: getCookie("id"),
     };
   } else {
     initialState = {
@@ -42,6 +43,7 @@ const user = (state = initialState, action: any) => {
       setCookie("email", payload.email);
       setCookie("name", payload.name);
       setCookie("role", payload.role);
+      setCookie("id", payload.id);
       return {
         ...state,
         name: action.payload.name,
@@ -65,6 +67,7 @@ const user = (state = initialState, action: any) => {
       removeCookie("email");
       removeCookie("name");
       removeCookie("role");
+      removeCookie("id");
       return {
         is_auth: false,
         name: null,

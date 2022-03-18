@@ -6,6 +6,7 @@ const {
   getStudentsInClassroom,
   getTaskInClassroom,
   deleteClassroom,
+  getClassroomByTeacherId,
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -29,6 +30,11 @@ router.delete("/deletetask/:id", authTeacher, deleteTask);
 router.put("/edittask/:id", authTeacher, editTask);
 //require class id
 router.get("/getalltaskinclass/:id", isMemberOfClass, getTaskInClassroom);
+router.get(
+  "/getclassroombyteacherid/:id",
+  authTeacher,
+  getClassroomByTeacherId
+);
 router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);
 
 //require student id

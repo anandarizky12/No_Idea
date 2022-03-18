@@ -11,13 +11,14 @@ export const login =
       await axios
         .post("http://localhost:5000/api/login", { email, password })
         .then((res) => {
-          const { name, email, role, token } = res.data.data;
+          const { name, email, role, token, id } = res.data.data;
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             payload: {
               name,
               role,
               email,
+              id,
             },
           });
 
