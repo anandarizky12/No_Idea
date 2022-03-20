@@ -5,7 +5,6 @@ import { Dispatch } from "redux";
 
 export const getClassroomByTeacherId = (id: string) => {
   return async (dispatch: Dispatch) => {
-    console.log("id", id);
     const token = getCookie("token");
 
     const config = {
@@ -29,7 +28,51 @@ export const getClassroomByTeacherId = (id: string) => {
           console.log(err);
         });
     } catch (err) {
+      dispatch({
+        type: actionTypes.GET_ALL_CLASSROOM_TEACHER_FAILED,
+        payload: err,
+      });
       console.log(err);
+    }
+  };
+};
+
+export const createClassroom = (data: any) => {
+  const { name, description, teacher_id, banner } = data;
+  console.log(data);
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      await axios
+        .post(
+          "http://localhost:5000/api/createclassroom",
+          { name, description, teacher_id, banner },
+          config
+        )
+        .then((res) => {
+          dispatch({
+            type: actionTypes.CREATE_CLASSROOM,
+            payload: res.data,
+          });
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+        });
+    } catch (err: any) {
+      dispatch({
+        type: actionTypes.CREATE_CLASSROOM_FAILED,
+        payload: err,
+      });
+      console.log(err.response.data.message);
     }
   };
 };

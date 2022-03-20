@@ -16,3 +16,20 @@ export const getClassroomByTeacherIdReducers = (state = {}, action: any) => {
       return state;
   }
 };
+
+export const createClassroomReducers = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.CREATE_CLASSROOM:
+      return {
+        ...state,
+        classroom: action.payload,
+      };
+    case actionTypes.CREATE_CLASSROOM_FAILED:
+      return {
+        ...state,
+        classroom: action.payload,
+      };
+    default:
+      return state;
+  }
+};

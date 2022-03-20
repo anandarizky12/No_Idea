@@ -4,7 +4,7 @@ import { UserOutlined, FundOutlined } from "@ant-design/icons";
 import PopupMenu from "./PopupMenu";
 import { useNavigate } from "react-router-dom";
 
-function Class_card() {
+function Class_card({ classroom }: any) {
   const navigate = useNavigate();
   return (
     <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
@@ -15,7 +15,7 @@ function Class_card() {
           }}
           className="text-white font-normal text-xl  hover:cursor-pointer hover:underline"
         >
-          Nama Kelas
+          {classroom.name}
         </h1>
         <div className="text-white font-bold">
           <PopupMenu />

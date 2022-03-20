@@ -5,8 +5,8 @@ const makeClassCode = require("../utils/GenerateClassCode");
 
 exports.createClassroom = async (req: any, res: any) => {
   try {
-    const { name, teacher_id, description } = req.body;
-
+    const { name, teacher_id, description, banner } = req.body;
+    console.log(name, teacher_id, description, banner);
     //make sure the classcode is unique and not already exist
 
     let classcode = makeClassCode(6);
@@ -29,6 +29,7 @@ exports.createClassroom = async (req: any, res: any) => {
       name: joi.string().min(3).required(),
       teacher_id: joi.number(),
       description: joi.string().min(3).required(),
+      banner: joi.string().min(3).required(),
     });
     const { error } = schema.validate(req.body);
     if (error) {
@@ -55,6 +56,7 @@ exports.createClassroom = async (req: any, res: any) => {
       description,
       name,
       teacher_id,
+      banner,
     });
     return res.status(201).send({
       status: 201,

@@ -11,12 +11,33 @@ import {
   Space,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-
+import { useDispatch, useSelector } from "react-redux";
+import { handleChange } from "../../utils/utils";
+import { createClassroom } from "../../actions/classroom";
+import { getCookie } from "../../utils/utils";
 const { Option } = Select;
 function Create({ setOpenRight, openRight }: any) {
+  const dispatch = useDispatch();
+  const createclassroom = useSelector(
+    (state: any) => state.createClassroomReducers
+  );
   const onClose = () => {
     setOpenRight(false);
   };
+  const id = getCookie("id");
+  const [state, setState] = React.useState({
+    name: "",
+    description: "",
+    banner: "",
+    teacher_id: id,
+  });
+
+  const handleSubmit = () => {
+    console.log(state);
+
+    dispatch(createClassroom(state));
+  };
+
   return (
     <Drawer
       title="Create a new classroom"
@@ -27,7 +48,7 @@ function Create({ setOpenRight, openRight }: any) {
       extra={
         <Space>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onClose} type="primary">
+          <Button onClick={handleSubmit} type="primary">
             Submit
           </Button>
         </Space>
@@ -41,66 +62,33 @@ function Create({ setOpenRight, openRight }: any) {
               label="Name"
               rules={[{ required: true, message: "Please enter user name" }]}
             >
-              <Input placeholder="Please enter user name" />
+              <Input
+                placeholder="Please enter user name"
+                name="name"
+                onChange={(e) => handleChange(e, state, setState)}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              name="url"
-              label="Url"
-              rules={[{ required: true, message: "Please enter url" }]}
+              name="banner"
+              label="Image Banner"
+              rules={[
+                { required: true, message: "Please enter image banner url" },
+              ]}
             >
               <Input
                 style={{ width: "100%" }}
+                name="banner"
                 addonBefore="http://"
                 addonAfter=".com"
+                onChange={(e) => handleChange(e, state, setState)}
                 placeholder="Please enter url"
               />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="owner"
-              label="Owner"
-              rules={[{ required: true, message: "Please select an owner" }]}
-            >
-              <Select placeholder="Please select an owner">
-                <Option value="xiao">Xiaoxiao Fu</Option>
-                <Option value="mao">Maomao Zhou</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="type"
-              label="Type"
-              rules={[{ required: true, message: "Please choose the type" }]}
-            >
-              <Select placeholder="Please choose the type">
-                <Option value="private">Private</Option>
-                <Option value="public">Public</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="approver"
-              label="Approver"
-              rules={[
-                { required: true, message: "Please choose the approver" },
-              ]}
-            >
-              <Select placeholder="Please choose the approver">
-                <Option value="jack">Jack Ma</Option>
-                <Option value="tom">Tom Liu</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
+
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item
@@ -115,6 +103,8 @@ function Create({ setOpenRight, openRight }: any) {
             >
               <Input.TextArea
                 rows={4}
+                name="description"
+                onChange={(e) => handleChange(e, state, setState)}
                 placeholder="please enter url description"
               />
             </Form.Item>
