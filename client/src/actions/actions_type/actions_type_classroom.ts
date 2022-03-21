@@ -5,6 +5,9 @@ export const GET_ALL_CLASSROOM_TEACHER_FAILED: string =
 export const CREATE_CLASSROOM: string = "CREATE_CLASSROOM";
 export const CREATE_CLASSROOM_FAILED: string = "CREATE_CLASSROOM_FAILED";
 
+export const GET_CLASSROOM: string = "GET_CLASSSROOM";
+export const GET_CLASSROOM_FAILED: string = "GET_CLASSSROOM_FAILED";
+
 // export const REGISTER_USER: string = "REGISTER_USER";
 // export const REGISTER_SUCCESS: string = "REGISTER_SUCCESS";
 // export const REGISTER_FAILED: string = "REGISTER_FAILED";

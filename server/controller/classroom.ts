@@ -6,7 +6,7 @@ const makeClassCode = require("../utils/GenerateClassCode");
 exports.createClassroom = async (req: any, res: any) => {
   try {
     const { name, teacher_id, description, banner } = req.body;
-    console.log(name, teacher_id, description, banner);
+
     //make sure the classcode is unique and not already exist
 
     let classcode = makeClassCode(6);
@@ -282,6 +282,12 @@ exports.getClassroom = async (req: any, res: any) => {
       where: {
         id,
       },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "name", "email", "profile", "no_induk"],
+        },
+      ],
     });
     if (!classroom) {
       return res.status(500).send({

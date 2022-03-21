@@ -4,14 +4,14 @@ import { UserOutlined, FundOutlined } from "@ant-design/icons";
 import PopupMenu from "./PopupMenu";
 import { useNavigate } from "react-router-dom";
 
-function Class_card({ classroom }: any) {
+function Class_card({ classroom, id }: any) {
   const navigate = useNavigate();
   return (
     <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
       <div className="border-b flex justify-between  border-gray-300 bg-hero bg-cover bg-center w-full h-24 p-5 ">
         <h1
           onClick={() => {
-            navigate("classroom/1");
+            navigate(`classroom/${id}`);
           }}
           className="text-white font-normal text-xl  hover:cursor-pointer hover:underline"
         >

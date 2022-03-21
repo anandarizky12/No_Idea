@@ -5,6 +5,7 @@ import { logout } from "../actions/user";
 import Class_card from "./Card/Class_card";
 import { Spin, Space } from "antd";
 import Classroom from "./Classroom/Classroom";
+import DynamicError from "./404/DynamicError";
 
 function Home() {
   const Dispatch = useDispatch();
@@ -23,15 +24,20 @@ function Home() {
 
   console.log(classes, user);
 
+  if (!classes.isLoading && classes.isError && classes.error)
+    return (
+      <DynamicError
+        status={classes.error.status}
+        message={classes.error.data.error.message}
+      />
+    );
   return (
     <div className="p-6 h-full">
-      {/* {user.name}
-      {user.role} */}
       <div className="font-header  font-semibold text-gray-500">
         Daftar Kelas Anda
       </div>
       <div className="flex w-full h-screen flex-wrap">
-        {!classroom ? (
+        {!classes.isLoading && !classes.isError && classroom !== null ? (
           <div className="flex justify-center items-center w-full h-full">
             <Space size="middle">
               <Spin size="large" />
@@ -39,7 +45,13 @@ function Home() {
           </div>
         ) : (
           classroom.class.map((classroom: any) => {
-            return <Class_card key={classroom.id} classroom={classroom} />;
+            return (
+              <Class_card
+                key={classroom.id}
+                id={classroom.id}
+                classroom={classroom}
+              />
+            );
           })
         )}
         {classroom && classroom.class.length === 0 && (

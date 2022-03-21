@@ -7,12 +7,14 @@ const {
   getTaskInClassroom,
   deleteClassroom,
   getClassroomByTeacherId,
+  getClassroom,
 } = require("../controller/classroom");
 const {
   authenticate,
   authTeacher,
   isMemberOfClass,
   isTeacherOfClass,
+  isTeacherOrMemberOfClass,
 } = require("../middleware/authorization");
 const { createTask, deleteTask, editTask } = require("../controller/task");
 
@@ -30,6 +32,7 @@ router.delete("/deletetask/:id", authTeacher, deleteTask);
 router.put("/edittask/:id", authTeacher, editTask);
 //require class id
 router.get("/getalltaskinclass/:id", isMemberOfClass, getTaskInClassroom);
+router.get("/getclassroom/:id", isTeacherOrMemberOfClass, getClassroom);
 router.get(
   "/getclassroombyteacherid/:id",
   authTeacher,
