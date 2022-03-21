@@ -8,6 +8,7 @@ const {
   deleteClassroom,
   getClassroomByTeacherId,
   getClassroom,
+  editClassroom,
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -38,6 +39,7 @@ router.get(
   authTeacher,
   getClassroomByTeacherId
 );
+router.patch("/editclassroom/:id", isTeacherOfClass, editClassroom);
 router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);
 
 //require student id

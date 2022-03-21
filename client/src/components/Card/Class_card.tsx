@@ -18,7 +18,7 @@ function Class_card({ classroom, id }: any) {
           {classroom.name}
         </h1>
         <div className="text-white font-bold">
-          <PopupMenu />
+          <PopupMenu classroom={classroom} id={id} />
         </div>
       </div>
       <div className="border-t   border-gray-300 w-full h-12">

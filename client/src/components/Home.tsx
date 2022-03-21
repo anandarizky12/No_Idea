@@ -4,7 +4,6 @@ import { getClassroomByTeacherId } from "../actions/classroom";
 import { logout } from "../actions/user";
 import Class_card from "./Card/Class_card";
 import { Spin, Space } from "antd";
-import Classroom from "./Classroom/Classroom";
 import DynamicError from "./404/DynamicError";
 
 function Home() {
@@ -21,8 +20,6 @@ function Home() {
   React.useEffect(() => {
     Dispatch(getClassroomByTeacherId(user.id));
   }, []);
-
-  console.log(classes, user);
 
   if (!classes.isLoading && classes.isError && classes.error)
     return (

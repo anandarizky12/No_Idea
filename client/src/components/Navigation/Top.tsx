@@ -23,11 +23,6 @@ function Top(): JSX.Element {
           />
           <div className="font-header text-xl font-bold text-gray-500">
             Weclass&nbsp;
-            {/* <span className="mr-1 text-yellow-500">S</span>
-            <span className="mr-1 text-red-400">t</span>
-            <span className="mr-1 text-green-500">a</span>
-            <span className="mr-1 text-blue-500">r</span>
-            <span className="mr-1 text-purple-500">k</span> */}
           </div>
         </div>
         {location.pathname.includes("classroom") ? (

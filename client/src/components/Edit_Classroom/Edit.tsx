@@ -1,35 +1,37 @@
 import React from "react";
-import { Drawer, Form, Button, Col, Row, Input, Space } from "antd";
-
+import { Drawer, Form, Button, Col, Row, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { handleChange } from "../../utils/utils";
-import { createClassroom } from "../../actions/classroom";
-import { getCookie } from "../../utils/utils";
+import { editClassroom, getClassroom } from "../../actions/classroom";
 
-function Create({ setOpenRight, openRight }: any) {
+import { Space } from "antd";
+function Edit({ setOpenEdit, open, id, classroom }: any) {
   const dispatch = useDispatch();
 
   const onClose = () => {
-    setOpenRight(false);
+    setOpenEdit(false);
   };
-  const id = getCookie("id");
+  React.useEffect(() => {
+    dispatch(getClassroom(id));
+  }, [id]);
+
   const [state, setState] = React.useState({
-    name: "",
-    description: "",
-    banner: "",
-    teacher_id: id,
+    name: classroom.name,
+    description: classroom.description,
+    banner: classroom.banner,
+    id: id,
   });
 
   const handleSubmit = () => {
-    dispatch(createClassroom(state));
+    dispatch(editClassroom(state));
   };
 
   return (
     <Drawer
-      title="Create a new classroom"
+      title="Edit classroom"
       width={720}
       onClose={onClose}
-      visible={openRight}
+      visible={open}
       bodyStyle={{ paddingBottom: 80 }}
       extra={
         <Space>
@@ -51,6 +53,7 @@ function Create({ setOpenRight, openRight }: any) {
               <Input
                 placeholder="Please enter user name"
                 name="name"
+                defaultValue={state.name}
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>
@@ -66,6 +69,7 @@ function Create({ setOpenRight, openRight }: any) {
               <Input
                 style={{ width: "100%" }}
                 name="banner"
+                defaultValue={state.banner}
                 addonBefore="http://"
                 addonAfter=".com"
                 onChange={(e) => handleChange(e, state, setState)}
@@ -89,6 +93,7 @@ function Create({ setOpenRight, openRight }: any) {
             >
               <Input.TextArea
                 rows={4}
+                defaultValue={state.description}
                 name="description"
                 onChange={(e) => handleChange(e, state, setState)}
                 placeholder="please enter url description"
@@ -101,4 +106,4 @@ function Create({ setOpenRight, openRight }: any) {
   );
 }
 
-export default Create;
+export default Edit;

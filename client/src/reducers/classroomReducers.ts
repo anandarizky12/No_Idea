@@ -63,3 +63,50 @@ export const getClassroom = (
       return state;
   }
 };
+
+export const deleteClassroom = (
+  state = { isLoading: true, isError: false },
+  action: any
+) => {
+  switch (action.type) {
+    case actionTypes.DELETE_CLASSROOM:
+      return {
+        ...state,
+        classroom: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.DELETE_CLASSROOM_FAILED:
+      return {
+        ...state,
+        classroom: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+export const editClassroom = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.EDIT_CLASSROOM:
+      return {
+        ...state,
+        classroom: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.EDIT_CLASSROOM_FAILED:
+      return {
+        ...state,
+        classroom: null,
+        error: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    default:
+      return state;
+  }
+};

@@ -71,13 +71,68 @@ exports.createClassroom = async (req: any, res: any) => {
   }
 };
 
+exports.editClassroom = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+    const { name, description, banner } = req.body;
+
+    const schema = joi.object({
+      name: joi.string().min(3).required(),
+      description: joi.string().min(3).required(),
+      banner: joi.string().min(3).required(),
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
+
+    const classroom = await Classroom.findOne({
+      where: {
+        id: id,
+      },
+    });
+    if (!classroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom not found",
+      });
+    }
+
+    const updateClassroom = await Classroom.update(
+      {
+        name,
+        description,
+        banner,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    return res.status(200).send({
+      status: 200,
+      message: "Classroom updated",
+      data: updateClassroom,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
 exports.joinClassroom = async (req: any, res: any) => {
   try {
     const { student_id, classcode } = req.body;
 
     const schema = joi.object({
       student_id: joi.number().required(),
-
       classcode: [joi.string().min(5).required(), joi.number().required()],
     });
     const { error } = schema.validate(req.body);

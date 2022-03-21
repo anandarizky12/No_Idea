@@ -5,6 +5,8 @@ import {
   getClassroomByTeacherIdReducers,
   createClassroomReducers,
   getClassroom,
+  deleteClassroom,
+  editClassroom,
 } from "../reducers/classroomReducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
   getClassroomByTeacherIdReducers,
   createClassroomReducers,
   getClassroom,
+  deleteClassroom,
+  editClassroom,
 });
 
 const middleware = applyMiddleware(thunk);
