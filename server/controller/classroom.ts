@@ -260,6 +260,14 @@ exports.getTaskInClassroom = async (req: any, res: any) => {
       },
     });
 
+    if (!task) {
+      return res.status(200).send({
+        status: 200,
+        message: "No task in this classroom",
+        data: task,
+      });
+    }
+
     return res.status(200).send({
       status: 200,
       message: "Task in classroom",

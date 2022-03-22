@@ -32,7 +32,11 @@ router.post("/createtask", authTeacher, createTask);
 router.delete("/deletetask/:id", authTeacher, deleteTask);
 router.put("/edittask/:id", authTeacher, editTask);
 //require class id
-router.get("/getalltaskinclass/:id", isMemberOfClass, getTaskInClassroom);
+router.get(
+  "/getalltaskinclass/:id",
+  isTeacherOrMemberOfClass,
+  getTaskInClassroom
+);
 router.get("/getclassroom/:id", isTeacherOrMemberOfClass, getClassroom);
 router.get(
   "/getclassroombyteacherid/:id",

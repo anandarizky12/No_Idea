@@ -35,10 +35,10 @@ export const getClassroomByTeacherId = (id: any) => {
             isError: true,
           });
         });
-    } catch (err) {
+    } catch (err: any) {
       dispatch({
         type: actionTypes.GET_ALL_CLASSROOM_TEACHER_FAILED,
-        payload: err,
+        payload: err.response,
         isLoading: false,
         isError: true,
       });

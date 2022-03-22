@@ -29,25 +29,41 @@ function Top(): JSX.Element {
           <div className="flex w-80 h-full items-end justify-between">
             <div
               onClick={() => navigate(`/classroom/${id}`)}
-              className=" font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500 border-b-4 rounded-sm h-4/6 w-14 flex justify-center  border-gray-500 "
+              className={`${
+                location.pathname == `/classroom/${id}`
+                  ? "border-b-4  border-gray-500"
+                  : ""
+              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Kelas
             </div>
             <div
               onClick={() => navigate(`/classroom/${id}/tasks`)}
-              className=" font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center"
+              className={`${
+                location.pathname == `/classroom/${id}/tasks`
+                  ? "border-b-4  border-gray-500"
+                  : ""
+              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Tugas
             </div>
             <div
               onClick={() => navigate(`/classroom/${id}/students`)}
-              className=" font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center"
+              className={`${
+                location.pathname == `/classroom/${id}/students`
+                  ? "border-b-4  border-gray-500"
+                  : ""
+              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Anggota{" "}
             </div>
             <div
               onClick={() => navigate(`/classroom/${id}/scores`)}
-              className=" font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center"
+              className={`${
+                location.pathname == `/classroom/${id}/scores`
+                  ? "border-b-4  border-gray-500"
+                  : ""
+              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Nilai
             </div>
