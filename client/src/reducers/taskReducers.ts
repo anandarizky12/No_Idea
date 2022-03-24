@@ -43,3 +43,47 @@ export const createTask = (state = {}, action: any) => {
       return state;
   }
 };
+
+export const editTask = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.EDIT_TASK:
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.EDIT_TASK_FAILED:
+      return {
+        ...state,
+        task: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+export const deleteTask = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.DELETE_TASK:
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.DELETE_TASK_FAILED:
+      return {
+        ...state,
+        task: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};

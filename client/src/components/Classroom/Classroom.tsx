@@ -7,6 +7,8 @@ import { getClassroom } from "../../actions/classroom";
 import { Space, Spin } from "antd";
 import DynamicError from "../404/DynamicError";
 import Avatar from "antd/lib/avatar/avatar";
+import moment from "moment";
+
 function Classroom() {
   const { id } = useParams();
   const classes = useSelector((state: any) => state.getClassroom);
@@ -49,7 +51,7 @@ function Classroom() {
             </div>
 
             <h3 className="p-4 text-xs text-white font-light">
-              Dibuat pada {classroom.data.createdAt}
+              Dibuat pada {moment(classroom.data.createdAt).calendar()}
             </h3>
           </div>
           <div className="flex my-5 w-3/4 ">

@@ -10,8 +10,11 @@ import My404 from "./components/404/My404";
 import Classroom from "./components/Classroom/Classroom";
 import { useLocation } from "react-router-dom";
 import AllTask from "./components/Task/AllTask";
+import moment from "moment";
+import "moment/locale/id";
 
 function App() {
+  moment.locale("id");
   const location = useLocation();
   return (
     <div className="App">

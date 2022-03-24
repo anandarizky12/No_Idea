@@ -8,7 +8,12 @@ import {
   deleteClassroom,
   editClassroom,
 } from "../reducers/classroomReducers";
-import { getTaskInClassroom, createTask } from "../reducers/taskReducers";
+import {
+  getTaskInClassroom,
+  createTask,
+  deleteTask,
+  editTask,
+} from "../reducers/taskReducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
@@ -20,6 +25,8 @@ const rootReducer = combineReducers({
   editClassroom,
   getTaskInClassroom,
   createTask,
+  deleteTask,
+  editTask,
 });
 
 const middleware = applyMiddleware(thunk);

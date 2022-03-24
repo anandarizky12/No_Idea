@@ -2,25 +2,26 @@ import React from "react";
 import { Drawer, Form, Button, Col, Row, Input, Space, DatePicker } from "antd";
 import { useDispatch } from "react-redux";
 import { handleChange } from "../../utils/utils";
-import { createTask } from "../../actions/task";
+import moment from "moment";
 import { getCookie } from "../../utils/utils";
 import { useParams } from "react-router-dom";
+import { editTask } from "../../actions/task";
 
-function CreateTask({ setOpen, open }: any) {
+function EditTask({ setOpen, open, task }: any) {
   const dispatch = useDispatch();
   const { id } = useParams();
   const onClose = () => {
     setOpen(false);
   };
-  const id_user = getCookie("id");
+
   const [state, setState] = React.useState({
-    title: "",
-    description: "",
-    other: "",
-    user_id: id_user,
-    deadline: "",
-    classroom_id: id,
-    answer_key: "",
+    title: task.title,
+    description: task.description,
+    other: task.other,
+    // user_id: id_user,
+    deadline: task.deadline,
+    // classroom_id: id,
+    answer_key: task.answer_key,
   });
   function onChangeDate(date: any, dateString: any): void {
     setState({
@@ -29,12 +30,11 @@ function CreateTask({ setOpen, open }: any) {
     });
   }
   const handleSubmit = () => {
-    dispatch(createTask(state));
+    dispatch(editTask(state, task.id));
   };
-  console.log(state);
   return (
     <Drawer
-      title="Create a new Task"
+      title="Edit Task"
       width={720}
       onClose={onClose}
       visible={open}
@@ -59,6 +59,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Enter Task Name"
                 name="title"
+                defaultValue={task.title}
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>
@@ -69,7 +70,11 @@ function CreateTask({ setOpen, open }: any) {
               label="Pick Deadline"
               rules={[{ required: true, message: "Please select Deadline" }]}
             >
-              <DatePicker name="deadline" onChange={onChangeDate} />
+              <DatePicker
+                defaultValue={task.deadline && moment(task.deadline)}
+                name="deadline"
+                onChange={onChangeDate}
+              />
             </Form.Item>
           </Col>
           <Col span={24}>
@@ -81,6 +86,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Enter Description"
                 name="description"
+                defaultValue={task.description}
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>
@@ -90,6 +96,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Other"
                 name="other"
+                defaultValue={task.other}
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>
@@ -110,6 +117,7 @@ function CreateTask({ setOpen, open }: any) {
             >
               <Input.TextArea
                 rows={4}
+                defaultValue={task.answer_key}
                 name="answer_key"
                 onChange={(e) => handleChange(e, state, setState)}
                 placeholder="Please enter the answer key"
@@ -122,4 +130,4 @@ function CreateTask({ setOpen, open }: any) {
   );
 }
 
-export default CreateTask;
+export default EditTask;

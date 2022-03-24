@@ -6,7 +6,7 @@ import { getClassroom } from "../../actions/classroom";
 import { useParams } from "react-router-dom";
 import { getTaskInClassroom } from "../../actions/task";
 import TaskCard from "./TaskCard";
-import CreateTask from "../Create_Task/CreateTask";
+import CreateTask from "../CreateandEdit_Task/CreateTask";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 function AllTask() {
@@ -51,9 +51,13 @@ function AllTask() {
             <Spin size="large" />
           </div>
         )}
-        {task && task.data > 0 ? (
-          task.data.map((item: any) => {
-            return <TaskCard task={item} />;
+        {task && task.data.length > 0 ? (
+          task.data.map((task: any) => {
+            return (
+              <div className="flex items-center justify-center">
+                <TaskCard task={task} />;
+              </div>
+            );
           })
         ) : (
           <div className="w-full h-96 flex items-center justify-center">
