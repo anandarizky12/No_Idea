@@ -28,7 +28,7 @@ if (typeof localStorage !== "undefined") {
   };
 }
 
-const user = (state = initialState, action: any) => {
+export const user = (state = initialState, action: any) => {
   let payload: any = action.payload;
   let authObj: any;
 
@@ -92,4 +92,24 @@ const user = (state = initialState, action: any) => {
   }
 };
 
-export default user;
+export const getUser = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_USER:
+      return {
+        ...state,
+        detail_user: action.payload,
+        isError: false,
+        isLoading: false,
+        error: null,
+      };
+    case actionTypes.GET_USER_FAIL:
+      return {
+        ...state,
+        isError: true,
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

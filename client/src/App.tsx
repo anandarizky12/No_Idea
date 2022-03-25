@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import AllTask from "./components/Task/AllTask";
 import moment from "moment";
 import "moment/locale/id";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   moment.locale("id");
@@ -40,6 +41,12 @@ function App() {
           path="/classroom/:id/tasks"
           element={
             <ProtectedRoute redirectTo="/login" Component={<AllTask />} />
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute redirectTo="/login" Component={<Profile />} />
           }
         />
       </Routes>

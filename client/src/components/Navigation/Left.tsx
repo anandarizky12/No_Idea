@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCookie } from "../../utils/utils";
 import ClassroomList from "./ClassroomList";
 import { getClassroomByTeacherId } from "../../actions/classroom";
+
 function Left({ setOpen, open }: any): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,7 +51,11 @@ function Left({ setOpen, open }: any): JSX.Element {
         </div>
         {classroom &&
           classroom.class.map((item: any) => (
-            <ClassroomList key={item.id} classroom={item} />
+            <ClassroomList
+              navigate={handleNavigate}
+              key={item.id}
+              classroom={item}
+            />
           ))}
         <div className="border-b"></div>
         <div className="px-1 py-4 text- font-semibold text-gray-500 flex items-center">

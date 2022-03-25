@@ -24,10 +24,20 @@ function Class_card({ classroom, id }: any) {
       <div className="border-t   border-gray-300 w-full h-12">
         <div className="flex justify-end items-center h-full p-3">
           <Tooltip placement="bottom" title="Nilai Siswa">
-            <FundOutlined className="text-xl mr-4 hover:cursor-pointer" />
+            <FundOutlined
+              onClick={() => {
+                navigate(`/classroom/${id}/tasks`);
+              }}
+              className="text-xl mr-4 hover:cursor-pointer"
+            />
           </Tooltip>
           <Tooltip placement="bottom" title="Anggota Kelas">
-            <UserOutlined className="text-xl  hover:cursor-pointer" />
+            <UserOutlined
+              onClick={() => {
+                navigate(`/classroom/${id}/students`);
+              }}
+              className="text-xl  hover:cursor-pointer"
+            />
           </Tooltip>
         </div>
       </div>

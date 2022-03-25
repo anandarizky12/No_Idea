@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actions_type/actions_type_user";
-import { removeCookie } from "../utils/utils";
+import { getCookie, removeCookie } from "../utils/utils";
 import { Dispatch } from "redux";
 
 //make function to login and dispatch action
@@ -85,20 +85,21 @@ export const logout = (): void => {
 };
 
 export const getUser = () => async (dispatch: Dispatch) => {
+  const token = getCookie("token");
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
   try {
     await axios
-      .get("http://localhost:5000/api/user")
+      .get("http://localhost:5000/api/getuser", config)
       .then((res) => {
-        const { name, email, role, phone, no_induk } = res.data.data;
         dispatch({
           type: actionTypes.GET_USER,
-          payload: {
-            name,
-            email,
-            role,
-            phone,
-            no_induk,
-          },
+          payload: res.data.data,
         });
       })
       .catch((err) => {

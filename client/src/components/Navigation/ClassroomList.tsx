@@ -1,9 +1,14 @@
 import { Avatar } from "antd";
 
-function ClassroomList({ classroom }: any) {
+function ClassroomList({ classroom, navigate }: any) {
   const colorArray = ["blue", "green", "purple", "red", "orange"];
   return (
-    <div className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-center flex-row rounded-md">
+    <div
+      onClick={() => {
+        navigate(`classroom/${classroom.id}`);
+      }}
+      className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-center flex-row rounded-md hover:cursor-pointer"
+    >
       <Avatar
         style={{
           color: "white",

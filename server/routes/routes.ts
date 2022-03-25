@@ -59,6 +59,6 @@ router.get("/search/:id", authenticate, searchClassroom);
 router.get("/getstudentsinclass/:id", authenticate, getStudentsInClassroom);
 
 router.get("/getallusers", authenticate, readAllUsers);
-router.get("/getuser/:id", authenticate, readUser);
+router.get("/getuser", authenticate, readUser);
 
 module.exports = router;

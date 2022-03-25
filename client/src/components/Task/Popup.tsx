@@ -1,7 +1,6 @@
 import React from "react";
 import { Menu, Dropdown, Space } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
-import Copy from "copy-to-clipboard";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTask } from "../../actions/task";
 

@@ -5,6 +5,7 @@ import { Tooltip } from "antd";
 import Left from "./Left";
 import Create from "../Create_Classroom/Create";
 import { useLocation, useNavigate } from "react-router-dom";
+import PopupProfile from "../Profile/PopupProfile";
 
 function Top(): JSX.Element {
   const [open, setOpen] = React.useState(false);
@@ -77,7 +78,7 @@ function Top(): JSX.Element {
               className="text-xl text-gray-400 hover:cursor-pointer mr-7"
             />
           </Tooltip>
-          <Avatar size="large" src={"https://joeschmoe.io/api/v1/random"} />
+          <PopupProfile />
         </div>
       </nav>
       <Left setOpen={setOpen} open={open} />
