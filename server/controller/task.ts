@@ -12,15 +12,14 @@ exports.createTask = async (req: any, res: any) => {
       description,
       other,
     } = req.body;
-    console.log(req.body);
     const schema = joi.object({
       classroom_id: joi.number().required(),
       user_id: joi.number().required(),
       answer_key: joi.string().required(),
       title: joi.string().required(),
-      deadline: joi.string().required(),
-      description: joi.string().required(),
-      other: joi.string().required(),
+      deadline: joi.string().allow(null),
+      description: joi.string().allow(null),
+      other: joi.string().allow(null),
     });
     const { error } = schema.validate(req.body);
     if (error) {
@@ -101,9 +100,9 @@ exports.editTask = async (req: any, res: any) => {
     const schema = joi.object({
       answer_key: joi.string().required(),
       title: joi.string().required(),
-      deadline: joi.string().required(),
+      deadline: joi.string().allow(null),
       description: joi.string().required(),
-      other: joi.string().required(),
+      other: joi.string().allow(null),
     });
     const { error } = schema.validate(req.body);
     if (error) {

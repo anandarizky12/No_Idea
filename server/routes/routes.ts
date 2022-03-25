@@ -1,4 +1,9 @@
-const { Register, Login, readAllUsers } = require("../controller/user");
+const {
+  Register,
+  Login,
+  readAllUsers,
+  readUser,
+} = require("../controller/user");
 const {
   createClassroom,
   joinClassroom,
@@ -9,6 +14,7 @@ const {
   getClassroomByTeacherId,
   getClassroom,
   editClassroom,
+  searchClassroom,
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -48,9 +54,11 @@ router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);
 
 //require student id
 router.get("/getclassroombystudentid/:id", authenticate, getClassByUserId);
-
+router.get("/search/:id", authenticate, searchClassroom);
 //require class id
 router.get("/getstudentsinclass/:id", authenticate, getStudentsInClassroom);
 
 router.get("/getallusers", authenticate, readAllUsers);
+router.get("/getuser/:id", authenticate, readUser);
+
 module.exports = router;

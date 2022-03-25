@@ -16,3 +16,6 @@ export const UPDATE_USER_DATA: string = "UPDATE_USER_DATA";
 export const FETCH_USER: string = "FETCH_USER_DATA";
 export const USER_IS_UNAUTHORIZED: string = "USER_IS_UNAUTHORIZED";
 export const SET_TOKEN: string = "SET_TOKEN";
+
+export const GET_USER: string = "GET_USER";
+export const GET_USER_FAIL: string = "GET_USER_FAIL";

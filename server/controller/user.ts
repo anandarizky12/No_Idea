@@ -165,7 +165,7 @@ exports.readAllUsers = async ({ req, res }: any) => {
   }
 };
 
-exports.readUser = async ({ req, res }: any) => {
+exports.readUser = async (req: any, res: any) => {
   try {
     const { id } = req.params;
 
@@ -177,6 +177,14 @@ exports.readUser = async ({ req, res }: any) => {
         exclude: ["password"],
       },
     });
+
+    if (!user) {
+      return res.status(404).send({
+        status: 404,
+        message: "User not found",
+      });
+    }
+
     res.status(200).send({
       status: 200,
       message: "Get user successfully",

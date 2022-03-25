@@ -2,6 +2,7 @@ export {};
 const joi = require("@hapi/joi");
 const { User, Classroom, Student_Classroom, Task } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
+const Sequelize = require("sequelize");
 
 exports.createClassroom = async (req: any, res: any) => {
   try {
@@ -497,6 +498,85 @@ exports.deleteClassroom = async (req: any, res: any) => {
       status: 200,
       message: "Classroom deleted",
       data: deleteClassroom,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
+// exports.searchClassroom = async (req: any, res: any) => {
+//   try {
+//     const { id } = req.params;
+//     const { val } = req.query;
+//     console.log(val);
+
+//     const searchClassroom = await Classroom.findAll({
+//       where: {
+//         name: "%" + val + "%",
+//       },
+//       include: [
+//         {
+//           model: User,
+//           attributes: ["id", "name", "email"],
+//         },
+//       ],
+//     });
+
+//     if (!searchClassroom) {
+//       return res.status(200).send({
+//         status: 200,
+//         message: "Classroom not found",
+//       });
+//     }
+
+//     return res.status(200).send({
+//       status: 200,
+//       message: "Succesfully get the Class",
+//       class: searchClassroom,
+//     });
+//   } catch (err: any) {
+//     res.status(500).send({
+//       status: 500,
+//       message: err.message,
+//     });
+//   }
+// };
+
+exports.searchClassroom = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+    const { val } = req.query;
+    console.log(val);
+    const Op = Sequelize.Op;
+    const searchClassroom = await Classroom.findAll({
+      where: {
+        name: {
+          [Op.like]: "%" + val + "%",
+        },
+      },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "name", "email"],
+          // through: { where: { id: id } },
+        },
+      ],
+    });
+
+    if (!searchClassroom) {
+      return res.status(200).send({
+        status: 200,
+        message: "Classroom not found",
+      });
+    }
+
+    return res.status(200).send({
+      status: 200,
+      message: "Succesfully get the Class",
+      class: searchClassroom,
     });
   } catch (err: any) {
     res.status(500).send({

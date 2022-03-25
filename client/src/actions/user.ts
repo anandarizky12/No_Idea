@@ -83,3 +83,42 @@ export const logout = (): void => {
   removeCookie("is_auth");
   window.location.href = "/login";
 };
+
+export const getUser = () => async (dispatch: Dispatch) => {
+  try {
+    await axios
+      .get("http://localhost:5000/api/user")
+      .then((res) => {
+        const { name, email, role, phone, no_induk } = res.data.data;
+        dispatch({
+          type: actionTypes.GET_USER,
+          payload: {
+            name,
+            email,
+            role,
+            phone,
+            no_induk,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        dispatch({
+          type: actionTypes.GET_USER_FAIL,
+          payload: {
+            message: err.response.data.message,
+          },
+        });
+        // setAlert({ message: err.response.data.message, typeAlert: 4 });
+      });
+  } catch (err: any) {
+    // setAlert({ message: err.message, typeAlert: 4 });
+    console.log(err);
+    dispatch({
+      type: actionTypes.GET_USER_FAIL,
+      payload: {
+        message: err.response.data.message,
+      },
+    });
+  }
+};
