@@ -13,6 +13,7 @@ import AllTask from "./components/Task/AllTask";
 import moment from "moment";
 import "moment/locale/id";
 import Profile from "./components/Profile/Profile";
+import StudentsInClassroom from "./components/Students/StudentsInClassroom";
 
 function App() {
   moment.locale("id");
@@ -41,6 +42,15 @@ function App() {
           path="/classroom/:id/tasks"
           element={
             <ProtectedRoute redirectTo="/login" Component={<AllTask />} />
+          }
+        />
+        <Route
+          path="/classroom/:id/students"
+          element={
+            <ProtectedRoute
+              redirectTo="/login"
+              Component={<StudentsInClassroom />}
+            />
           }
         />
         <Route

@@ -56,7 +56,11 @@ router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);
 router.get("/getclassroombystudentid/:id", authenticate, getClassByUserId);
 router.get("/search/:id", authenticate, searchClassroom);
 //require class id
-router.get("/getstudentsinclass/:id", authenticate, getStudentsInClassroom);
+router.get(
+  "/getstudentsinclass/:id",
+  isTeacherOrMemberOfClass,
+  getStudentsInClassroom
+);
 
 router.get("/getallusers", authenticate, readAllUsers);
 router.get("/getuser", authenticate, readUser);
