@@ -14,12 +14,13 @@ import moment from "moment";
 import "moment/locale/id";
 import Profile from "./components/Profile/Profile";
 import StudentsInClassroom from "./components/Students/StudentsInClassroom";
+import Report from "./components/report/Report";
 
 function App() {
   moment.locale("id");
   const location = useLocation();
   return (
-    <div className="App">
+    <div className="App h-screen ">
       {location.pathname != "/login" && location.pathname != "/register" && (
         <Top />
       )}
@@ -57,6 +58,12 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute redirectTo="/login" Component={<Profile />} />
+          }
+        />
+        <Route
+          path="/report"
+          element={
+            <ProtectedRoute redirectTo="/login" Component={<Report />} />
           }
         />
       </Routes>

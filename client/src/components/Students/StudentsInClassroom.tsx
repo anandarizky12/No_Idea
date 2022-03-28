@@ -18,7 +18,7 @@ function StudentsInClassroom() {
     dispatch(getStudentsinClassroom(id));
     dispatch(getUser());
   }, []);
-  console.log(data, user);
+
   return (
     <div className="flex flex-col items-center justify-center p-12">
       <div className="w-7/12 ">
@@ -26,7 +26,9 @@ function StudentsInClassroom() {
           <div className="border-b border-gray-600 px-5 flex justify-between">
             <h1 className="text-3xl font-normal">Anggota Kelas</h1>
             <div className="flex items-center justify-center ">
-              <h4>10 Siswa</h4>
+              <h4>
+                {students ? students.data.length : <Spin size="small" />} Siswa
+              </h4>
               <UserAddOutlined className="ml-2 text-2xl" />
             </div>
           </div>
@@ -52,7 +54,9 @@ function StudentsInClassroom() {
             <StudentsCard student={student} />
           ))
         ) : (
-          <Spin size="large" />
+          <div className="mt-12">
+            <Spin className="w-full text-center" size="large" />
+          </div>
         )}
         {students && students.data && students.data.length < 1 ? (
           <div className="text-center mt-5">
