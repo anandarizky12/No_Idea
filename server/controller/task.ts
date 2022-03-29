@@ -138,3 +138,33 @@ exports.editTask = async (req: any, res: any) => {
     });
   }
 };
+
+exports.getTask = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+    const classroom_id = req.query.class;
+    const task = await Task.findOne({
+      where: {
+        id: id,
+        classroom_id: classroom_id,
+      },
+      attributes: { exclude: ["answer_key"] },
+    });
+    if (!task) {
+      return res.status(500).send({
+        status: 500,
+        message: "Task not found",
+      });
+    }
+    return res.status(200).send({
+      status: 200,
+      message: "Task found",
+      data: task,
+    });
+  } catch (err: any) {
+    return res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};

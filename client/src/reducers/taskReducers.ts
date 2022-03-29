@@ -87,3 +87,25 @@ export const deleteTask = (state = {}, action: any) => {
       return state;
   }
 };
+
+export const getTask = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_TASK:
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_TASK_FAILED:
+      return {
+        ...state,
+        task: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};

@@ -29,6 +29,7 @@ function AllTask() {
       {user.role === "guru" ? (
         <Teacher open={open} setOpen={setOpen} classroom={classroom} />
       ) : null}
+
       <div className="w-4/5 mt-5">
         {!task && (
           <div className="flex h-96 items-center justify-center">
@@ -36,10 +37,10 @@ function AllTask() {
           </div>
         )}
         {task && task.data.length > 0 ? (
-          task.data.map((task: any) => {
+          task.data.map((task: any, number: Number) => {
             return (
               <div className="flex items-center justify-center">
-                <TaskCard task={task} />;
+                <TaskCard key={number} task={task} user={user} />;
               </div>
             );
           })

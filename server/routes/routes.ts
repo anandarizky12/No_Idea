@@ -23,7 +23,12 @@ const {
   isTeacherOfClass,
   isTeacherOrMemberOfClass,
 } = require("../middleware/authorization");
-const { createTask, deleteTask, editTask } = require("../controller/task");
+const {
+  createTask,
+  deleteTask,
+  editTask,
+  getTask,
+} = require("../controller/task");
 
 const router = require("express").Router();
 
@@ -64,5 +69,7 @@ router.get(
 
 router.get("/getallusers", authenticate, readAllUsers);
 router.get("/getuser", authenticate, readUser);
+//task
+router.get("/gettask/:id", authenticate, getTask);
 
 module.exports = router;

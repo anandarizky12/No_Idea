@@ -9,3 +9,6 @@ export const EDIT_TASK_FAILED: string = "EDIT_TASK_FAILED";
 
 export const DELETE_TASK: string = "DELETE_TASK";
 export const DELETE_TASK_FAILED: string = "DELETE_TASK_FAILED";
+
+export const GET_TASK: string = "GET_TASK";
+export const GET_TASK_FAILED: string = "GET_TASK_FAILED";

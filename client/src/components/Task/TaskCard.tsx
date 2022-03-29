@@ -2,7 +2,8 @@ import React from "react";
 import { BookOutlined, MoreOutlined } from "@ant-design/icons";
 import moment from "moment";
 import PopupMenu from "./Popup";
-function TaskCard({ task }: any) {
+
+function TaskCard({ task, user }: any) {
   return (
     <div className="flex flex-col  w-5/6 border rounded-md shadow-md border-b border-gray-300 mb-5">
       <div className=" h-12 w-full flex items-center p-8 justify-between">
@@ -15,7 +16,7 @@ function TaskCard({ task }: any) {
             Dibuat pada {moment(task.createdAt).format("MMM Do YY")}
           </h1>
           {/* <MoreOutlined className="text-xl text-gray-500 hover:cursor-pointer" /> */}
-          <PopupMenu task={task} />
+          <PopupMenu user={user} task={task} />
         </div>
       </div>
       <div className="border-t">

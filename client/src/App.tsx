@@ -15,6 +15,7 @@ import "moment/locale/id";
 import Profile from "./components/Profile/Profile";
 import StudentsInClassroom from "./components/Students/StudentsInClassroom";
 import Report from "./components/report/Report";
+import AnswerTask from "./components/Task/AnswerTask";
 
 function App() {
   moment.locale("id");
@@ -64,6 +65,12 @@ function App() {
           path="/report"
           element={
             <ProtectedRoute redirectTo="/login" Component={<Report />} />
+          }
+        />
+        <Route
+          path="classroom/:class_id/answertask/:id"
+          element={
+            <ProtectedRoute redirectTo="/login" Component={<AnswerTask />} />
           }
         />
       </Routes>

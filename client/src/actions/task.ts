@@ -99,8 +99,6 @@ export const editTask = (data: any, id: string) => {
       },
     };
 
-    console.log(data);
-
     try {
       await axios
         .put(`http://localhost:5000/api/edittask/${id}`, data, config)
@@ -173,6 +171,52 @@ export const deleteTask = (id: string) => {
     } catch (err: any) {
       dispatch({
         type: actionTypes.DELETE_TASK_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
+};
+
+export const getTask = (id: any, class_id: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        classroom_id: class_id,
+        any: class_id,
+      },
+    };
+
+    try {
+      await axios
+        .get(
+          `http://localhost:5000/api/gettask/${id}?class=${class_id}`,
+          config
+        )
+        .then((res) => {
+          dispatch({
+            type: actionTypes.GET_TASK,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        })
+        .catch((err) => {
+          console.log(err.response);
+          dispatch({
+            type: actionTypes.GET_TASK_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+        });
+    } catch (err: any) {
+      dispatch({
+        type: actionTypes.GET_TASK_FAILED,
         payload: err.response,
         isLoading: false,
         isError: true,
