@@ -132,3 +132,25 @@ export const getStudentsInClassroom = (state = {}, action: any) => {
       return state;
   }
 };
+
+export const getStudentClassroom = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_STUDENT_CLASSROOM:
+      return {
+        ...state,
+        student: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_STUDENT_CLASSROOM_FAILED:
+      return {
+        ...state,
+        student: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};

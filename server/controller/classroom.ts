@@ -374,7 +374,7 @@ exports.getClassroom = async (req: any, res: any) => {
 
 exports.getClassByUserId = async (req: any, res: any) => {
   try {
-    const { id } = req.params;
+    const { id } = req.user;
 
     const user = await User.findOne({
       where: {

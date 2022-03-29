@@ -7,14 +7,15 @@ import { useParams } from "react-router-dom";
 import { getTaskInClassroom } from "../../actions/task";
 import TaskCard from "./TaskCard";
 import CreateTask from "../CreateandEdit_Task/CreateTask";
+import Teacher from "./Teacher";
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 function AllTask() {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const { classroom } = useSelector((state: any) => state.getClassroom);
   const taskData = useSelector((state: any) => state.getTaskInClassroom);
+  const user = useSelector((state: any) => state.user);
   const { task } = taskData;
 
   React.useEffect(() => {
@@ -25,26 +26,9 @@ function AllTask() {
   return (
     <div className="flex flex-col items-center ">
       <div className=""></div>
-      <div className="flex flex-row items-center justify-between border-b-2 p-5 border-gray-200 w-4/6">
-        <Button
-          icon={<PlusOutlined className="text-xl" />}
-          size="large"
-          type="primary"
-          className="hover:cursor-pointer "
-          onClick={() => setOpen(!open)}
-        >
-          Buat Tugas
-        </Button>
-
-        {classroom ? (
-          <h1 className="text-gray-500 text-base font-normal">
-            {classroom.data.name}
-          </h1>
-        ) : (
-          <Spin indicator={antIcon} />
-        )}
-      </div>
-
+      {user.role === "guru" ? (
+        <Teacher open={open} setOpen={setOpen} classroom={classroom} />
+      ) : null}
       <div className="w-4/5 mt-5">
         {!task && (
           <div className="flex h-96 items-center justify-center">

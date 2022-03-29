@@ -6,7 +6,7 @@ function ReportCard({ report }: any) {
 
   return (
     <div
-      onClick={() => navigate(`/report/${report.path}`)}
+      // onClick={() => navigate(`/report/${report.path}`)}
       className="w-72 border shadow-md p-5 rounded-md m-1 hover:cursor-pointer hover:shadow-xl"
     >
       <Avatar size={72} />

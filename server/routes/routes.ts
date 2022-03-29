@@ -53,7 +53,7 @@ router.patch("/editclassroom/:id", isTeacherOfClass, editClassroom);
 router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);
 
 //require student id
-router.get("/getclassroombystudentid/:id", authenticate, getClassByUserId);
+router.get("/getstudentclassroom", authenticate, getClassByUserId);
 router.get("/search/:id", authenticate, searchClassroom);
 //require class id
 router.get(

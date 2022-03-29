@@ -8,6 +8,7 @@ import {
   deleteClassroom,
   editClassroom,
   getStudentsInClassroom,
+  getStudentClassroom,
 } from "../reducers/classroomReducers";
 import {
   getTaskInClassroom,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   editTask,
   getUser,
   getStudentsInClassroom,
+  getStudentClassroom,
 });
 
 const middleware = applyMiddleware(thunk);

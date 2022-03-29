@@ -1,11 +1,11 @@
 import React from "react";
-import { Avatar } from "antd";
 import { PlusOutlined, MenuOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import Left from "./Left";
 import Create from "../Create_Classroom/Create";
 import { useLocation, useNavigate } from "react-router-dom";
 import PopupProfile from "../Profile/PopupProfile";
+import { useSelector } from "react-redux";
 
 function Top(): JSX.Element {
   const [open, setOpen] = React.useState(false);
@@ -13,6 +13,7 @@ function Top(): JSX.Element {
   const location = useLocation();
   const navigate = useNavigate();
   const id = location.pathname.split("/")[2];
+  const user = useSelector((state: any) => state.user);
 
   return (
     <>
@@ -27,7 +28,11 @@ function Top(): JSX.Element {
           </div>
         </div>
         {location.pathname.includes("classroom") ? (
-          <div className="flex w-80 h-full items-end justify-between">
+          <div
+            className={`flex ${
+              user.role === "guru" ? "w-80" : "w-60"
+            } h-full items-end justify-between`}
+          >
             <div
               onClick={() => navigate(`/classroom/${id}`)}
               className={`${
@@ -58,16 +63,18 @@ function Top(): JSX.Element {
             >
               Anggota{" "}
             </div>
-            <div
-              onClick={() => navigate(`/classroom/${id}/scores`)}
-              className={`${
-                location.pathname == `/classroom/${id}/scores`
-                  ? "border-b-4  border-gray-500"
-                  : ""
-              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
-            >
-              Nilai
-            </div>
+            {user.role === "guru" ? (
+              <div
+                onClick={() => navigate(`/classroom/${id}/scores`)}
+                className={`${
+                  location.pathname == `/classroom/${id}/scores`
+                    ? "border-b-4  border-gray-500"
+                    : ""
+                } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              >
+                Nilai
+              </div>
+            ) : null}
           </div>
         ) : null}
 
