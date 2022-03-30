@@ -64,7 +64,7 @@ function Classroom() {
           {user.role === "guru" ? (
             <Teacher classroom={classroom} />
           ) : (
-            <Student />
+            <Student classroom={classroom} />
           )}
         </>
       )}

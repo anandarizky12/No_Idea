@@ -1,6 +1,5 @@
 import React from "react";
 import StudentsCard from "./StudentsCard";
-import { UserAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
