@@ -6,6 +6,7 @@ import Create from "../Create_Classroom/Create";
 import { useLocation, useNavigate } from "react-router-dom";
 import PopupProfile from "../Profile/PopupProfile";
 import { useSelector } from "react-redux";
+import { JoinClass } from "../JoinClass/JoinClass";
 
 function Top(): JSX.Element {
   const [open, setOpen] = React.useState(false);
@@ -46,7 +47,8 @@ function Top(): JSX.Element {
             <div
               onClick={() => navigate(`/classroom/${id}/tasks`)}
               className={`${
-                location.pathname == `/classroom/${id}/tasks`
+                location.pathname == `/classroom/${id}/tasks` ||
+                location.pathname.includes(`answertask`)
                   ? "border-b-4  border-gray-500"
                   : ""
               } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
@@ -79,12 +81,17 @@ function Top(): JSX.Element {
         ) : null}
 
         <div id="icons">
-          <Tooltip placement="bottom" title="Buat Kelas">
-            <PlusOutlined
-              onClick={() => setOpenRight(true)}
-              className="text-xl text-gray-400 hover:cursor-pointer mr-7"
-            />
-          </Tooltip>
+          {user.role === "siswa" ? (
+            <JoinClass />
+          ) : (
+            <Tooltip placement="bottom" title="Buat Kelas">
+              <PlusOutlined
+                onClick={() => setOpenRight(true)}
+                className="text-xl text-gray-400 hover:cursor-pointer mr-7"
+              />
+            </Tooltip>
+          )}
+
           <PopupProfile />
         </div>
       </nav>

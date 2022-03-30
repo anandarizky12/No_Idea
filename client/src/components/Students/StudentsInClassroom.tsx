@@ -3,7 +3,7 @@ import StudentsCard from "./StudentsCard";
 import { UserAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getStudentsinClassroom } from "../../actions/classroom";
+import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
 import { Avatar, Spin } from "antd";
 import { getUser } from "../../actions/user";
 
@@ -12,13 +12,17 @@ function StudentsInClassroom() {
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.getStudentsInClassroom);
   const { students } = data;
-  const user = useSelector((state: any) => state.getUser);
+  // const user = useSelector((state: any) => state.getUser);
+  const classes = useSelector((state: any) => state.getClassroom);
+  const { classroom } = classes;
 
   React.useEffect(() => {
     dispatch(getStudentsinClassroom(id));
     dispatch(getUser());
+    dispatch(getClassroom(id));
   }, []);
 
+  console.log(classes);
   return (
     <div className="flex flex-col items-center justify-center p-12">
       <div className="w-7/12 ">
@@ -29,7 +33,6 @@ function StudentsInClassroom() {
               <h4>
                 {students ? students.data.length : <Spin size="small" />} Siswa
               </h4>
-              <UserAddOutlined className="ml-2 text-2xl" />
             </div>
           </div>
         </div>
@@ -43,10 +46,10 @@ function StudentsInClassroom() {
               />
               <div className="ml-5 font-medium">
                 {" "}
-                {user.detail_user ? user.detail_user.name : <Spin />}
+                {classroom ? classroom.data.User.name : <Spin />}
               </div>
             </div>
-            <div className="">Teacher </div>
+            <div className="">Guru</div>
           </div>
         </div>
         {students && students.data ? (

@@ -28,7 +28,7 @@ function AnswerTask() {
     );
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full  m-5">
+    <div className="flex flex-col items-center justify-center w-full  m-5 shadow-md">
       <div className=" border rounded-md shadow-md  w-4/6 flex items-center p-8 justify-between">
         {task.task && task.task.data ? (
           <div className="flex flex-col w-full">

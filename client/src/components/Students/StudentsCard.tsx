@@ -9,7 +9,7 @@ function StudentsCard({ student }: any) {
           <Avatar size={"large"} src={"https://joeschmoe.io/api/v1/random"} />
           <div className="ml-5 font-medium">{student.User.name}</div>
         </div>
-        <div className="">Students</div>
+        <div className="">Siswa</div>
       </div>
     </div>
   );

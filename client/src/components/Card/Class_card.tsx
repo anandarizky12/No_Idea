@@ -38,7 +38,7 @@ function Class_card({ classroom, id, user }: any) {
           <Tooltip placement="bottom" title="Anggota Kelas">
             <UserOutlined
               onClick={() => {
-                navigate(`/classroom/${id}/students`);
+                navigate(`/classroom/${classroom.id}/students`);
               }}
               className="text-xl  hover:cursor-pointer"
             />
