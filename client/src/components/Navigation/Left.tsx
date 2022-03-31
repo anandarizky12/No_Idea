@@ -56,15 +56,18 @@ function Left({ setOpen, open }: any): JSX.Element {
           <HomeOutlined className="text-2xl mr-6" />
           Home Page
         </div>
-        <div
-          onClick={() => handleNavigate("/report")}
-          className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
+
+        {user.role === "guru" ? (
+          <div
+            onClick={() => handleNavigate("/report")}
+            className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
            hover:text-blue-300 
           hover:cursor-pointer"
-        >
-          <FileTextOutlined className="text-2xl mr-6" />
-          Report Page
-        </div>
+          >
+            <FileTextOutlined className="text-2xl mr-6" />
+            Report Page
+          </div>
+        ) : null}
         <div className="border-b"></div>
         <div className="px-1 py-4 text- font-semibold text-gray-500 flex items-center">
           Classroom
@@ -92,7 +95,6 @@ function Left({ setOpen, open }: any): JSX.Element {
               ))}
           </>
         )}
-
         <div className="border-b"></div>
       </Drawer>
     </div>
