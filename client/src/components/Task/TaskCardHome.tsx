@@ -9,7 +9,9 @@ function TaskCardHome({ task }: any) {
         <ReconciliationOutlined className="text-gray-300 text-3xl mr-3" />
         <div>{task.title}</div>
       </div>
-      <h2>{task.createdAt}</h2>
+      <h2 className="text-xs text-gray-500">
+        {moment(task.createdAt).format("LLLL")}
+      </h2>
     </div>
   );
 }

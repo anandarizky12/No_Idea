@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCookie } from "../../utils/utils";
 import ClassroomList from "./ClassroomList";
-import { getClassroomByTeacherId } from "../../actions/classroom";
+import {
+  getClassroomByTeacherId,
+  getStudentClassroom,
+} from "../../actions/classroom";
 
 function Left({ setOpen, open }: any): JSX.Element {
   const navigate = useNavigate();
@@ -14,6 +17,9 @@ function Left({ setOpen, open }: any): JSX.Element {
   const classes = useSelector(
     (state: any) => state.getClassroomByTeacherIdReducers
   );
+  const classesStudent = useSelector((state: any) => state.getStudentClassroom);
+  const { student } = classesStudent;
+  const user = useSelector((state: any) => state.user);
   const { classroom } = classes;
 
   function handleNavigate(path: string) {
@@ -22,9 +28,14 @@ function Left({ setOpen, open }: any): JSX.Element {
   }
 
   React.useEffect(() => {
-    dispatch(getClassroomByTeacherId(id));
+    if (user.role === "guru") {
+      dispatch(getClassroomByTeacherId(id));
+    } else {
+      dispatch(getStudentClassroom)();
+    }
   }, []);
 
+  console.log(classesStudent);
   return (
     <div>
       <Drawer
@@ -58,14 +69,30 @@ function Left({ setOpen, open }: any): JSX.Element {
         <div className="px-1 py-4 text- font-semibold text-gray-500 flex items-center">
           Classroom
         </div>
-        {classroom &&
-          classroom.class.map((item: any) => (
-            <ClassroomList
-              navigate={handleNavigate}
-              key={item.id}
-              classroom={item}
-            />
-          ))}
+        {user.role === "guru" ? (
+          <>
+            {classroom &&
+              classroom.class.map((item: any) => (
+                <ClassroomList
+                  navigate={handleNavigate}
+                  key={item.id}
+                  classroom={item}
+                />
+              ))}
+          </>
+        ) : (
+          <>
+            {student &&
+              student.class.map((item: any) => (
+                <ClassroomList
+                  navigate={handleNavigate}
+                  key={item.id}
+                  classroom={item.Classroom}
+                />
+              ))}
+          </>
+        )}
+
         <div className="border-b"></div>
       </Drawer>
     </div>

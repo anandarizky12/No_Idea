@@ -18,7 +18,7 @@ function AnswerTask() {
   React.useEffect(() => {
     Dispatch(getTask(id, class_id));
   }, []);
-  console.log(task);
+
   if (task.error && task.error.data) {
     return (
       <DynamicError
@@ -28,8 +28,8 @@ function AnswerTask() {
     );
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full  m-5 shadow-md">
-      <div className=" border rounded-md shadow-md  w-4/6 flex items-center p-8 justify-between">
+    <div className="flex flex-col items-center justify-center w-full">
+      <div className="border border-gray-300 rounded-md shadow-md  w-4/6 flex items-center p-8 justify-between m-8">
         {task.task && task.task.data ? (
           <div className="flex flex-col w-full">
             <div className="flex flex-col justify-center w-full ">
