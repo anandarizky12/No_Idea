@@ -3,6 +3,7 @@ const joi = require("@hapi/joi");
 const { User, Classroom, Student_Classroom, Task } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
 const Sequelize = require("sequelize");
+const { cloudinary } = require("../utils/Cloudinary");
 
 exports.createClassroom = async (req: any, res: any) => {
   try {
@@ -132,7 +133,7 @@ exports.joinClassroom = async (req: any, res: any) => {
   const { id } = req.user;
 
   const { code } = req.body;
-  console.log(code);
+
   try {
     const classroom = await Classroom.findOne({
       where: {

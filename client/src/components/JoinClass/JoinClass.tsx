@@ -1,4 +1,4 @@
-import { Modal, Button, Spin } from "antd";
+import { Modal, Spin } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip, Input } from "antd";
@@ -14,11 +14,9 @@ export const JoinClass = () => {
   const [loading, setLoading] = React.useState(false);
   const handleOk = () => {
     dispatch(joinClassroom(code, setAlert, setLoading));
-
     setVisible(false);
   };
 
-  console.log(code, JoinClass);
   return (
     <>
       <Tooltip placement="bottom" title="Gabung Kelas">

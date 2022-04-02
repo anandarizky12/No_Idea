@@ -1,7 +1,9 @@
-import { Avatar, Spin } from "antd";
+import { Avatar, Button, Spin } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../actions/user";
+import { SettingOutlined } from "@ant-design/icons";
+import { EditProfile } from "./EditProfile";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -14,7 +16,7 @@ function Profile() {
   console.log(user);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center ">
       {user && user.detail_user ? (
         <div className="w-2/4 h-64 border flex items-center justify-center shadow-md rounded-md p-3 font-semibold relative mt-7">
           <div className="p-4 flex flex-col items-center">
@@ -29,6 +31,9 @@ function Profile() {
               <h3 className="text-lg font-light">{user.detail_user.role}</h3>
               <h3 className="text-lg font-light">{user.detail_user.phone}</h3>
             </div>
+          </div>
+          <div className="absolute top-5 right-5">
+            <EditProfile />
           </div>
         </div>
       ) : (

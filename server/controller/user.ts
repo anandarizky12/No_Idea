@@ -1,7 +1,7 @@
 export {};
 const joi = require("@hapi/joi");
 const { User } = require("../models");
-
+const { cloudinary } = require("../utils/Cloudinary");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -189,6 +189,78 @@ exports.readUser = async (req: any, res: any) => {
       status: 200,
       message: "Get user successfully",
       data: user,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
+exports.editProfile = async (req: any, res: any) => {
+  try {
+    const { id } = req.user;
+    const { name, email, phone, role, no_induk, profile } = req.body;
+
+    const schema = joi.object({
+      name: joi.string().min(3).required(),
+      email: joi.string().email().min(10).required(),
+      phone: joi.string().min(12).required(),
+      role: joi.string().min(4).required(),
+      no_induk: joi.string().min(8).required(),
+    });
+
+    const { error } = schema.validate(req.body);
+
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
+
+    const user = await User.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).send({
+        status: 404,
+        message: "User not found",
+      });
+    }
+
+    const updateUser = await User.update(
+      {
+        name,
+        email,
+        phone,
+        role,
+        profile,
+        no_induk,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+
+    res.status(200).send({
+      status: 200,
+      message: "Update user successfully",
+      data: {
+        id: user.id,
+        name,
+        email,
+        phone,
+        profile,
+        role,
+        no_induk,
+      },
     });
   } catch (err: any) {
     res.status(500).send({

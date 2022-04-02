@@ -3,6 +3,7 @@ const {
   Login,
   readAllUsers,
   readUser,
+  editProfile,
 } = require("../controller/user");
 const {
   createClassroom,
@@ -34,7 +35,7 @@ const router = require("express").Router();
 
 router.post("/register", Register);
 router.post("/login", Login);
-
+router.patch("/edit", authenticate, editProfile);
 router.post("/createclassroom", authTeacher, createClassroom);
 
 router.post("/joinclassroom", authenticate, joinClassroom);
