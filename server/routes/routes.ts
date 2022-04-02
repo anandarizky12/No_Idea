@@ -37,7 +37,7 @@ router.post("/login", Login);
 
 router.post("/createclassroom", authTeacher, createClassroom);
 
-router.post("/joinclassroom/:code", authenticate, joinClassroom);
+router.post("/joinclassroom", authenticate, joinClassroom);
 
 router.post("/createtask", authTeacher, createTask);
 router.delete("/deletetask/:id", authTeacher, deleteTask);

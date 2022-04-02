@@ -297,19 +297,21 @@ export const getStudentClassroom = () => {
   };
 };
 
-export const joinClassroom = (code: string) => {
+export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     };
+    console.log(code);
+    setLoading(true);
 
     try {
       await axios
-        .post(`http://localhost:5000/api/joinclassroom/${code}`, config)
+        .post(`http://localhost:5000/api/joinclassroom`, { code: code }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.JOIN_CLASSROOM,
@@ -317,17 +319,19 @@ export const joinClassroom = (code: string) => {
             isLoading: false,
             isError: false,
           });
-          alert("Kelas berhasil diikuti");
+          setAlert({ message: res.data.message, typeAlert: 1 });
+          setLoading(false);
           window.location.reload();
         })
         .catch((err) => {
-          console.log(err.response);
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
           dispatch({
             type: actionTypes.JOIN_CLASSROOM_FAILED,
             payload: err.response,
             isLoading: false,
             isError: true,
           });
+          setLoading(false);
         });
     } catch (err: any) {
       dispatch({
@@ -336,7 +340,52 @@ export const joinClassroom = (code: string) => {
         isLoading: false,
         isError: true,
       });
+      setLoading(false);
+      setAlert({ message: err.response.data.message, typeAlert: 4 });
       console.log(err.response);
     }
   };
 };
+// export const joinClassroom = (code: any) => {
+//   return async (dispatch: Dispatch) => {
+//     const token = getCookie("token");
+//     const config = {
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+
+//     try {
+//       await axios
+//         .post(`http://localhost:5000/api/joinclassroom/${code}`, config)
+//         .then((res) => {
+//           dispatch({
+//             type: actionTypes.JOIN_CLASSROOM,
+//             payload: res.data,
+//             isLoading: false,
+//             isError: false,
+//           });
+//           alert("Kelas berhasil diikuti");
+//           window.location.reload();
+//         })
+//         .catch((err) => {
+//           console.log(err.response);
+//           dispatch({
+//             type: actionTypes.JOIN_CLASSROOM_FAILED,
+//             payload: err.response,
+//             isLoading: false,
+//             isError: true,
+//           });
+//         });
+//     } catch (err: any) {
+//       dispatch({
+//         type: actionTypes.JOIN_CLASSROOM_FAILED,
+//         payload: err,
+//         isLoading: false,
+//         isError: true,
+//       });
+//       console.log(err.response);
+//     }
+//   };
+// };

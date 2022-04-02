@@ -131,7 +131,8 @@ exports.editClassroom = async (req: any, res: any) => {
 exports.joinClassroom = async (req: any, res: any) => {
   const { id } = req.user;
 
-  const { code } = req.params;
+  const { code } = req.body;
+  console.log(code);
   try {
     const classroom = await Classroom.findOne({
       where: {
@@ -158,7 +159,7 @@ exports.joinClassroom = async (req: any, res: any) => {
 
     const checkIfStudentIsInClassroom = await Student_Classroom.findOne({
       where: {
-        id,
+        student_id: id,
         classroom_id: classroom.id,
       },
     });

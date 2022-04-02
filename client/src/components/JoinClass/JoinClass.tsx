@@ -4,17 +4,21 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { joinClassroom } from "../../actions/classroom";
+import { AlertComponents } from "../alert/Alert";
 export const JoinClass = () => {
   const dispatch = useDispatch();
-  const JoinClass = useSelector((state: any) => state.JoinClassroom);
+  const JoinClass = useSelector((state: any) => state.joinClassroom);
   const [visible, setVisible] = React.useState(false);
   const [code, setCode] = React.useState("");
+  const [alert, setAlert] = React.useState({ message: "", typeAlert: "" });
+  const [loading, setLoading] = React.useState(false);
+  const handleOk = () => {
+    dispatch(joinClassroom(code, setAlert, setLoading));
 
-  React.useEffect(() => {
-    dispatch(joinClassroom(code));
-  }, []);
+    setVisible(false);
+  };
 
-  console.log(JoinClass);
+  console.log(code, JoinClass);
   return (
     <>
       <Tooltip placement="bottom" title="Gabung Kelas">
@@ -28,21 +32,28 @@ export const JoinClass = () => {
         title="Gabung Kelas"
         centered
         visible={visible}
-        onOk={() => setVisible(false)}
+        onOk={handleOk}
         onCancel={() => setVisible(false)}
       >
-        <p className="text-gray-500 text-base">
-          Minta Kode Kelas Kepada Guru Untuk Gabung Ke dalam Kelas
-        </p>
-        <Input
-          onChange={(e) => setCode(e.target.name)}
-          placeholder="Masukan kode kelas di sini"
-          size="large"
-        />
-        <div className="w-full text-center">
-          <Spin size="large" />
-        </div>
+        {!loading ? (
+          <>
+            <p className="text-gray-500 text-base">
+              Minta Kode Kelas Kepada Guru Untuk Gabung Ke dalam Kelas
+            </p>
+            <Input
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Masukan kode kelas di sini"
+              size="large"
+            />
+          </>
+        ) : (
+          <div className="w-full text-center">
+            <Spin size="large" />
+          </div>
+        )}
       </Modal>
+
+      {alert.message !== null ? <AlertComponents alert={alert} /> : null}
     </>
   );
 };

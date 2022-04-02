@@ -160,14 +160,14 @@ export const joinClassroom = (state = {}, action: any) => {
     case actionTypes.JOIN_CLASSROOM:
       return {
         ...state,
-        student: action.payload,
+        classroom: action.payload,
         isLoading: false,
         isError: false,
       };
     case actionTypes.JOIN_CLASSROOM_FAILED:
       return {
         ...state,
-        student: null,
+        classroom: null,
         error: action.payload,
         isLoading: false,
         isError: true,

@@ -8,7 +8,7 @@ interface IProps {
 }
 export const AlertComponents = ({ alert }: IProps) => {
   return (
-    <div style={{ position: "absolute", top: 5, right: 5 }}>
+    <div style={{ position: "absolute", top: 5, right: 5, zIndex: 100 }}>
       {alert.typeAlert == 1 && (
         <Alert
           description={alert.message}
