@@ -129,23 +129,13 @@ exports.editClassroom = async (req: any, res: any) => {
 };
 
 exports.joinClassroom = async (req: any, res: any) => {
-  try {
-    const { student_id, classcode } = req.body;
+  const { id } = req.user;
 
-    const schema = joi.object({
-      student_id: joi.number().required(),
-      classcode: [joi.string().min(5).required(), joi.number().required()],
-    });
-    const { error } = schema.validate(req.body);
-    if (error) {
-      return res.status(500).send({
-        status: 500,
-        message: error.details[0].message,
-      });
-    }
+  const { code } = req.params;
+  try {
     const classroom = await Classroom.findOne({
       where: {
-        classcode,
+        classcode: code,
       },
     });
     if (!classroom) {
@@ -156,7 +146,7 @@ exports.joinClassroom = async (req: any, res: any) => {
     }
     const checkStudentId = await User.findOne({
       where: {
-        id: student_id,
+        id: id,
       },
     });
     if (!checkStudentId) {
@@ -168,7 +158,7 @@ exports.joinClassroom = async (req: any, res: any) => {
 
     const checkIfStudentIsInClassroom = await Student_Classroom.findOne({
       where: {
-        student_id,
+        id,
         classroom_id: classroom.id,
       },
     });
@@ -180,7 +170,7 @@ exports.joinClassroom = async (req: any, res: any) => {
     }
 
     const joinClassroom = await Student_Classroom.create({
-      student_id,
+      student_id: id,
       classroom_id: classroom.id,
     });
 

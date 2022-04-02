@@ -22,6 +22,8 @@ export const GET_STUDENT_CLASSROOM: string = "GET_STUDENT_CLASSROOM";
 export const GET_STUDENT_CLASSROOM_FAILED: string =
   "GET_STUDENT_CLASSROOM_FAILED";
 
+export const JOIN_CLASSROOM: string = "JOIN_CLASSROOM";
+export const JOIN_CLASSROOM_FAILED: string = "JOIN_CLASSROOM_FAILED";
 // export const REGISTER_USER: string = "REGISTER_USER";
 // export const REGISTER_SUCCESS: string = "REGISTER_SUCCESS";
 // export const REGISTER_FAILED: string = "REGISTER_FAILED";

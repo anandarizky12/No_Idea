@@ -296,3 +296,47 @@ export const getStudentClassroom = () => {
     }
   };
 };
+
+export const joinClassroom = (code: string) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      await axios
+        .post(`http://localhost:5000/api/joinclassroom/${code}`, config)
+        .then((res) => {
+          dispatch({
+            type: actionTypes.JOIN_CLASSROOM,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+          alert("Kelas berhasil diikuti");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err.response);
+          dispatch({
+            type: actionTypes.JOIN_CLASSROOM_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+        });
+    } catch (err: any) {
+      dispatch({
+        type: actionTypes.JOIN_CLASSROOM_FAILED,
+        payload: err,
+        isLoading: false,
+        isError: true,
+      });
+      console.log(err.response);
+    }
+  };
+};

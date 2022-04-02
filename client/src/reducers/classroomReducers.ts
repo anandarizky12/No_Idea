@@ -154,3 +154,25 @@ export const getStudentClassroom = (state = {}, action: any) => {
       return state;
   }
 };
+
+export const joinClassroom = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.JOIN_CLASSROOM:
+      return {
+        ...state,
+        student: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.JOIN_CLASSROOM_FAILED:
+      return {
+        ...state,
+        student: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
