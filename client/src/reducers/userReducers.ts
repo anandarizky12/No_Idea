@@ -113,3 +113,25 @@ export const getUser = (state = {}, action: any) => {
       return state;
   }
 };
+
+export const editProfile = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.EDIT_PROFILE:
+      return {
+        ...state,
+        detail_user: action.payload,
+        isError: false,
+        isLoading: false,
+        error: null,
+      };
+    case actionTypes.EDIT_PROFILE_FAILED:
+      return {
+        ...state,
+        isError: true,
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

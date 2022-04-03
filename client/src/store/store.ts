@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { user, getUser } from "../reducers/userReducers";
+import { user, getUser, editProfile } from "../reducers/userReducers";
 import {
   getClassroomByTeacherIdReducers,
   createClassroomReducers,
@@ -36,6 +36,7 @@ const rootReducer = combineReducers({
   getStudentClassroom,
   getTask,
   joinClassroom,
+  editProfile,
 });
 
 const middleware = applyMiddleware(thunk);

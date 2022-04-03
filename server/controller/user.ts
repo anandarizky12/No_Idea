@@ -201,13 +201,23 @@ exports.readUser = async (req: any, res: any) => {
 exports.editProfile = async (req: any, res: any) => {
   try {
     const { id } = req.user;
-    const { name, email, phone, role, no_induk, profile } = req.body;
-
+    const { name, email, phone, no_induk, profile } = req.body;
+    console.log(profile);
+    if (profile) {
+      const uploadResponse = await cloudinary.uploader.upload(profile, {
+        upload_preset: "ml_default",
+      });
+      if (uploadResponse) {
+        return res.status(400).send({
+          status: 400,
+          message: "Profile updated successfully",
+        });
+      }
+    }
     const schema = joi.object({
       name: joi.string().min(3).required(),
       email: joi.string().email().min(10).required(),
       phone: joi.string().min(12).required(),
-      role: joi.string().min(4).required(),
       no_induk: joi.string().min(8).required(),
     });
 
@@ -218,6 +228,9 @@ exports.editProfile = async (req: any, res: any) => {
         status: 500,
         message: error.details[0].message,
       });
+    }
+
+    if (profile) {
     }
 
     const user = await User.findOne({
@@ -238,7 +251,7 @@ exports.editProfile = async (req: any, res: any) => {
         name,
         email,
         phone,
-        role,
+
         profile,
         no_induk,
       },
@@ -258,7 +271,7 @@ exports.editProfile = async (req: any, res: any) => {
         email,
         phone,
         profile,
-        role,
+
         no_induk,
       },
     });

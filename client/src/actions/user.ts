@@ -123,3 +123,52 @@ export const getUser = () => async (dispatch: Dispatch) => {
     });
   }
 };
+
+export const editProfile = (data: any, setAlert: any, setLoading: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      setLoading(true);
+      await axios
+        .patch("http://localhost:5000/api/editprofile", data, config)
+        .then((res) => {
+          setLoading(false);
+          setAlert({
+            message: "Succesfully Edit Profile",
+            typeAlert: 1,
+          });
+          dispatch({
+            type: actionTypes.EDIT_PROFILE,
+            payload: res.data.data,
+          });
+        })
+        .catch((err) => {
+          setLoading(false);
+          dispatch({
+            type: actionTypes.EDIT_PROFILE_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
+        });
+    } catch (err: any) {
+      setLoading(false);
+      dispatch({
+        type: actionTypes.EDIT_PROFILE_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+
+      setAlert({ message: err.message, typeAlert: 4 });
+    }
+  };
+};

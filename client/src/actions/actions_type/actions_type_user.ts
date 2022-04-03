@@ -19,3 +19,6 @@ export const SET_TOKEN: string = "SET_TOKEN";
 
 export const GET_USER: string = "GET_USER";
 export const GET_USER_FAIL: string = "GET_USER_FAIL";
+
+export const EDIT_PROFILE: string = "EDIT_PROFILE";
+export const EDIT_PROFILE_FAILED: string = "EDIT_PROFILE_FAILED";

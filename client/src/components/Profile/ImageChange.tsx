@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Image } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 
 function ImageChange() {
   const [image, setImage] = React.useState("");
