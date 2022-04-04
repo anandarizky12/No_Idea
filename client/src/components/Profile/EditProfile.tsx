@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AlertComponents } from "../alert/Alert";
 import ImageChange from "./ImageChange";
 import { editProfile } from "../../actions/user";
+import { handleChange } from "../../utils/utils";
 
 export const EditProfile = () => {
   const [visible, setVisible] = React.useState(false);
   const [alert, setAlert] = React.useState({ message: "", typeAlert: "" });
+  const [loading, setLoading] = React.useState(false);
   const user = useSelector((state: any) => state.user);
   const [state, setState] = React.useState<any>({
     name: user.name,
@@ -29,9 +31,7 @@ export const EditProfile = () => {
         return (reader.onloadend = () => {
           // setState({ ...state, profile: reader.result });
           state.profile = reader.result;
-          dispatch(editProfile(state, setAlert));
-
-          setVisible(false);
+          dispatch(editProfile(state, setAlert, setLoading));
         });
 
         reader.onerror = () => {
@@ -40,12 +40,14 @@ export const EditProfile = () => {
         };
       }
 
-      dispatch(editProfile(state, setAlert));
+      dispatch(editProfile(state, setAlert, setLoading));
     } catch (err: any) {
       console.log(err);
       setVisible(false);
     }
   };
+
+  console.log(state);
 
   return (
     <>
@@ -68,22 +70,35 @@ export const EditProfile = () => {
         onCancel={() => setVisible(false)}
       >
         <div className="flex flex-col items-center justify-center">
-          <ImageChange state={state} setSelectedImg={setState} />
-          <Input defaultValue={user.name} placeholder="Nama" />
-          <Input
-            defaultValue={user.email}
-            style={{ marginTop: 10 }}
-            placeholder="Email"
-          />
+          {loading ? (
+            <Spin />
+          ) : (
+            <>
+              <ImageChange state={state} setSelectedImg={setState} />
+              <Input
+                onChange={(e) => handleChange(e, state, setState)}
+                defaultValue={user.name}
+                placeholder="Nama"
+                name="name"
+              />
+              <Input
+                onChange={(e) => handleChange(e, state, setState)}
+                defaultValue={user.email}
+                style={{ marginTop: 10 }}
+                placeholder="Email"
+                name="email"
+              />
+            </>
+          )}
+
           {/* <Input
             defaultValue={user.phone}
             style={{ marginTop: 10 }}
             placeholder="Nomor Telepon"
           /> */}
+          {alert.message !== null ? <AlertComponents alert={alert} /> : null}
         </div>
       </Modal>
-
-      {alert.message !== null ? <AlertComponents alert={alert} /> : null}
     </>
   );
 };

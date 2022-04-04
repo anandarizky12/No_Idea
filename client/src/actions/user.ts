@@ -128,7 +128,7 @@ export const getUser = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const editProfile = (data: any, setAlert: any) => {
+export const editProfile = (data: any, setAlert: any, setLoading: any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
     const config = {
@@ -139,11 +139,11 @@ export const editProfile = (data: any, setAlert: any) => {
     };
 
     try {
-      // setLoading(true);
+      setLoading(true);
       await axios
         .patch("http://localhost:5000/api/editprofile", data, config)
         .then((res) => {
-          // setLoading(false);
+          setLoading(false);
 
           dispatch({
             type: actionTypes.EDIT_PROFILE,
@@ -155,7 +155,7 @@ export const editProfile = (data: any, setAlert: any) => {
           });
         })
         .catch((err) => {
-          // setLoading(false);
+          setLoading(false);
           console.log(err.response);
           dispatch({
             type: actionTypes.EDIT_PROFILE_FAILED,
@@ -167,7 +167,7 @@ export const editProfile = (data: any, setAlert: any) => {
           setAlert({ message: err.response.data.message, typeAlert: 4 });
         });
     } catch (err: any) {
-      // setLoading(false);
+      setLoading(false);
       console.log(err.response);
       dispatch({
         type: actionTypes.EDIT_PROFILE_FAILED,
