@@ -12,6 +12,7 @@ if (typeof localStorage !== "undefined") {
       role: getCookie("role"),
       email: getCookie("email"),
       id: getCookie("id"),
+      profile: getCookie("profile"),
     };
   } else {
     initialState = {
@@ -40,6 +41,7 @@ export const user = (state = initialState, action: any) => {
       };
     case actionTypes.LOGIN_SUCCESS:
       setCookie("is_auth", true);
+      setCookie("profile", payload.profile);
       setCookie("email", payload.email);
       setCookie("name", payload.name);
       setCookie("role", payload.role);
@@ -68,6 +70,7 @@ export const user = (state = initialState, action: any) => {
       removeCookie("name");
       removeCookie("role");
       removeCookie("id");
+      removeCookie("profile");
       return {
         is_auth: false,
         name: null,
@@ -117,6 +120,12 @@ export const getUser = (state = {}, action: any) => {
 export const editProfile = (state = {}, action: any) => {
   switch (action.type) {
     case actionTypes.EDIT_PROFILE:
+      setCookie("is_auth", true);
+      setCookie("profile", action.payload.profile);
+      setCookie("email", action.payload.email);
+      setCookie("name", action.payload.name);
+      setCookie("role", action.payload.role);
+      setCookie("id", action.payload.id);
       return {
         ...state,
         detail_user: action.payload,

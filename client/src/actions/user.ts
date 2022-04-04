@@ -11,7 +11,7 @@ export const login =
       await axios
         .post("http://localhost:5000/api/login", { email, password })
         .then((res) => {
-          const { name, email, role, token, id } = res.data.data;
+          const { name, email, role, token, id, profile } = res.data.data;
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             payload: {
@@ -19,6 +19,7 @@ export const login =
               role,
               email,
               id,
+              profile,
             },
           });
 
@@ -81,6 +82,9 @@ export const logout = (): void => {
   removeCookie("email");
   removeCookie("token");
   removeCookie("is_auth");
+  removeCookie("role");
+  removeCookie("id");
+  removeCookie("profile");
   window.location.href = "/login";
 };
 
@@ -124,7 +128,7 @@ export const getUser = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const editProfile = (data: any, setAlert: any, setLoading: any) => {
+export const editProfile = (data: any, setAlert: any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
     const config = {
@@ -133,23 +137,26 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
         Authorization: `Bearer ${token}`,
       },
     };
+
     try {
-      setLoading(true);
+      // setLoading(true);
       await axios
         .patch("http://localhost:5000/api/editprofile", data, config)
         .then((res) => {
-          setLoading(false);
-          setAlert({
-            message: "Succesfully Edit Profile",
-            typeAlert: 1,
-          });
+          // setLoading(false);
+
           dispatch({
             type: actionTypes.EDIT_PROFILE,
             payload: res.data.data,
           });
+          setAlert({
+            message: "Succesfully Edit Profile",
+            typeAlert: 1,
+          });
         })
         .catch((err) => {
-          setLoading(false);
+          // setLoading(false);
+          console.log(err.response);
           dispatch({
             type: actionTypes.EDIT_PROFILE_FAILED,
             payload: err.response,
@@ -160,7 +167,8 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
           setAlert({ message: err.response.data.message, typeAlert: 4 });
         });
     } catch (err: any) {
-      setLoading(false);
+      // setLoading(false);
+      console.log(err.response);
       dispatch({
         type: actionTypes.EDIT_PROFILE_FAILED,
         payload: err.response,
@@ -168,7 +176,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
         isError: true,
       });
 
-      setAlert({ message: err.message, typeAlert: 4 });
+      setAlert({ message: err.response.data.message, typeAlert: 4 });
     }
   };
 };

@@ -2,8 +2,10 @@ import React, { useRef } from "react";
 import { Image } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
-function ImageChange() {
+function ImageChange({ setSelectedImg, state }: any) {
   const [image, setImage] = React.useState("");
+  const dispatch = useDispatch();
+  const profile = useSelector((state: any) => state.editProfile);
   const [preview, setPreview] = React.useState("");
   interface RefObject {
     click: () => void;
@@ -25,10 +27,9 @@ function ImageChange() {
   const chooseImage = (e: any): void => {
     const file = e.target.files[0];
     setImage(file);
+    setSelectedImg({ ...state, profile: file });
     previewFile(file);
   };
-
-  console.log(preview);
 
   return (
     <div>

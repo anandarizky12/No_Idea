@@ -201,38 +201,8 @@ exports.readUser = async (req: any, res: any) => {
 exports.editProfile = async (req: any, res: any) => {
   try {
     const { id } = req.user;
-    const { name, email, phone, no_induk, profile } = req.body;
-    console.log(profile);
-    if (profile) {
-      const uploadResponse = await cloudinary.uploader.upload(profile, {
-        upload_preset: "ml_default",
-      });
-      if (uploadResponse) {
-        return res.status(400).send({
-          status: 400,
-          message: "Profile updated successfully",
-        });
-      }
-    }
-    const schema = joi.object({
-      name: joi.string().min(3).required(),
-      email: joi.string().email().min(10).required(),
-      phone: joi.string().min(12).required(),
-      no_induk: joi.string().min(8).required(),
-    });
-
-    const { error } = schema.validate(req.body);
-
-    if (error) {
-      return res.status(500).send({
-        status: 500,
-        message: error.details[0].message,
-      });
-    }
-
-    if (profile) {
-    }
-
+    const { name, email } = req.body;
+    console.log(req.body);
     const user = await User.findOne({
       where: {
         id: id,
@@ -246,14 +216,66 @@ exports.editProfile = async (req: any, res: any) => {
       });
     }
 
+    // if (profile) {
+    //   const uploadResponse = await cloudinary.uploader.upload(profile, {
+    //     upload_preset: "ml_default",
+    //   });
+
+    //   if (uploadResponse) {
+    //     const updateProfile = await User.update(
+    //       {
+    //         profile: uploadResponse.url,
+    //       },
+    //       {
+    //         where: {
+    //           id: id,
+    //         },
+    //       }
+    //     );
+    //     if (!updateProfile) {
+    //       return res.status(500).send({
+    //         status: 500,
+    //         message: "Update profile failed",
+    //       });
+    //     }
+
+    //     res.status(200).send({
+    //       status: 200,
+    //       message: "Profile updated successfully",
+    //       data: {
+    //         id: user.id,
+    //         name,
+    //         email,
+    //         // phone,
+    //         profile,
+
+    //         // no_induk,
+    //       },
+    //     });
+    //   }
+    // }
+    const schema = joi.object({
+      name: joi.string().min(3).required(),
+      email: joi.string().email().min(10).required(),
+      // phone: joi.string().min(12).required(),
+      // no_induk: joi.string().min(8).required(),
+    });
+
+    const { error } = schema.validate(req.body);
+
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
+
     const updateUser = await User.update(
       {
         name,
         email,
-        phone,
-
-        profile,
-        no_induk,
+        // phone,
+        // no_induk,
       },
       {
         where: {
@@ -261,6 +283,12 @@ exports.editProfile = async (req: any, res: any) => {
         },
       }
     );
+    if (!updateUser) {
+      return res.status(500).send({
+        status: 500,
+        message: "Update failed",
+      });
+    }
 
     res.status(200).send({
       status: 200,
@@ -269,10 +297,10 @@ exports.editProfile = async (req: any, res: any) => {
         id: user.id,
         name,
         email,
-        phone,
-        profile,
+        // phone,
+        profile: user.profile,
 
-        no_induk,
+        // no_induk,
       },
     });
   } catch (err: any) {
