@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 function ImageChange({ setSelectedImg, state }: any) {
   const [image, setImage] = React.useState("");
   const dispatch = useDispatch();
-  const profile = useSelector((state: any) => state.editProfile);
   const [preview, setPreview] = React.useState("");
   interface RefObject {
     click: () => void;
@@ -39,7 +38,9 @@ function ImageChange({ setSelectedImg, state }: any) {
         onClick={openFile}
         src={`${
           !preview
-            ? "https://res.cloudinary.com/drgorgm6v/image/upload/v1648910579/user_brvzvx.png"
+            ? state.profile
+              ? state.profile
+              : "https://res.cloudinary.com/drgorgm6v/image/upload/v1648910579/user_brvzvx.png"
             : preview
         }`}
         className="mb-5 hover:cursor-pointer hover:shadow-xl"

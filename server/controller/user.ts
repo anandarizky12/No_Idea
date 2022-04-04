@@ -247,7 +247,7 @@ exports.editProfile = async (req: any, res: any) => {
             name,
             email,
             // phone,
-            profile,
+            profile: uploadResponse.url,
 
             // no_induk,
           },

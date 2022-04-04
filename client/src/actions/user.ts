@@ -149,6 +149,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
             type: actionTypes.EDIT_PROFILE,
             payload: res.data.data,
           });
+
           setAlert({
             message: "Succesfully Edit Profile",
             typeAlert: 1,

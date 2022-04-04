@@ -28,15 +28,13 @@ export const EditProfile = () => {
         const reader = new FileReader();
         reader.readAsDataURL(state.profile);
 
-        return (reader.onloadend = () => {
+        reader.onloadend = () => {
           // setState({ ...state, profile: reader.result });
           state.profile = reader.result;
-          dispatch(editProfile(state, setAlert, setLoading));
-        });
-
-        reader.onerror = () => {
-          console.error("AHHHHHHHH!!");
-          setVisible(false);
+          return dispatch(editProfile(state, setAlert, setLoading));
+        };
+        reader.onerror = (error) => {
+          console.log("Error: ", error);
         };
       }
 
@@ -74,7 +72,7 @@ export const EditProfile = () => {
             <Spin />
           ) : (
             <>
-              <ImageChange state={state} setSelectedImg={setState} />
+              <ImageChange state={user} setSelectedImg={setState} />
               <Input
                 onChange={(e) => handleChange(e, state, setState)}
                 defaultValue={user.name}
