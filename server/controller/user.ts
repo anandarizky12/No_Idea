@@ -202,7 +202,7 @@ exports.editProfile = async (req: any, res: any) => {
   try {
     const { id } = req.user;
     const { name, email, profile } = req.body;
-    console.log(req.body);
+
     const user = await User.findOne({
       where: {
         id: id,
@@ -247,6 +247,7 @@ exports.editProfile = async (req: any, res: any) => {
             name,
             email,
             // phone,
+            role: user.role,
             profile: uploadResponse.url,
 
             // no_induk,
@@ -297,6 +298,7 @@ exports.editProfile = async (req: any, res: any) => {
         id: user.id,
         name,
         email,
+        role: user.role,
         // phone,
         profile: user.profile,
 

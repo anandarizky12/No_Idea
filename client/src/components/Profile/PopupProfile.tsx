@@ -6,10 +6,11 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 import { logout } from "../../actions/user";
+import AvatarCustom from "../Avatar/AvatarCustom";
 
-function PopupProfile() {
+function PopupProfile({ user }: any) {
   const { confirm } = Modal;
   const navigate = useNavigate();
 
@@ -40,11 +41,9 @@ function PopupProfile() {
     <Space wrap>
       <div className="">
         <Dropdown overlay={menu} placement="bottomRight">
-          <Avatar
-            className="text-xl hover:cursor-pointer"
-            size="large"
-            src={"https://joeschmoe.io/api/v1/random"}
-          />
+          <div>
+            <AvatarCustom src={user.profile} size={"large"} />
+          </div>
         </Dropdown>
       </div>
     </Space>

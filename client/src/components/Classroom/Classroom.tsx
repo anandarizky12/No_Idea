@@ -1,15 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
 import { useSelector, useDispatch } from "react-redux";
 import { getClassroom } from "../../actions/classroom";
 import { Space, Spin } from "antd";
 import DynamicError from "../404/DynamicError";
-import Avatar from "antd/lib/avatar/avatar";
 import moment from "moment";
 import Teacher from "./Teacher";
 
 import Student from "./Student";
+import AvatarCustom from "../Avatar/AvatarCustom";
 
 function Classroom() {
   const { id } = useParams();
@@ -29,8 +28,6 @@ function Classroom() {
         message={classes.error.data.message}
       />
     );
-
-  // console.log(classroom);
   return (
     <div className="mt-7 w-full flex justify-center items-center flex-col">
       {classes.isLoading && !classes.isError && !classroom ? (
@@ -47,9 +44,9 @@ function Classroom() {
             <div className="p-4 absolute bottom-0">
               <h1 className="text-3xl text-white">{classroom.data.name}</h1>
               <div className="flex items-center">
-                <Avatar
-                  size="small"
-                  src={"https://joeschmoe.io/api/v1/random"}
+                <AvatarCustom
+                  size={"small"}
+                  src={classroom.data.User.profile}
                 />
                 <h4 className="ml-2 text-white text-xs font-light">
                   {classroom.data.User.name}

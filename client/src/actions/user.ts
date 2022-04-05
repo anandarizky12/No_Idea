@@ -154,6 +154,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
             message: "Succesfully Edit Profile",
             typeAlert: 1,
           });
+          window.location.reload();
         })
         .catch((err) => {
           setLoading(false);

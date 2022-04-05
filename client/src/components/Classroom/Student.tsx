@@ -13,7 +13,6 @@ function Student({ classroom }: any) {
     dispatch(getTaskInClassroom(classroom.data.id));
   }, []);
 
-  console.log(taskData);
   return (
     <div className="flex my-5 w-3/4 ">
       {/* left team */}
@@ -22,7 +21,10 @@ function Student({ classroom }: any) {
       </div>
       {/* right team */}
       <div className="w-full ">
-        {task && task.data.map((task: any) => <TaskCardHome task={task} />)}
+        {task &&
+          task.data.map((task: any, i: number) => (
+            <TaskCardHome key={i} task={task} />
+          ))}
       </div>
     </div>
   );

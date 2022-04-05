@@ -30,6 +30,8 @@ function ImageChange({ setSelectedImg, state }: any) {
     previewFile(file);
   };
 
+  console.log(state);
+
   return (
     <div>
       <Image

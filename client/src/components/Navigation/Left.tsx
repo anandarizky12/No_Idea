@@ -30,12 +30,12 @@ function Left({ setOpen, open }: any): JSX.Element {
   React.useEffect(() => {
     if (user.role === "guru") {
       dispatch(getClassroomByTeacherId(id));
-    } else {
-      dispatch(getStudentClassroom)();
+    }
+    if (user.role === "siswa") {
+      dispatch(getStudentClassroom());
     }
   }, []);
 
-  console.log(classesStudent);
   return (
     <div>
       <Drawer

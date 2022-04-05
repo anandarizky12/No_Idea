@@ -276,7 +276,7 @@ export const getStudentClassroom = () => {
             isError: false,
           });
         })
-        .catch((err) => {
+        .catch((err: any) => {
           console.log(err.response);
           dispatch({
             type: actionTypes.GET_STUDENT_CLASSROOM_FAILED,

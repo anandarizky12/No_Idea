@@ -77,6 +77,7 @@ export const user = (state = initialState, action: any) => {
         email: null,
         token: null,
         role: null,
+        profile: null,
       };
 
     case actionTypes.LOGOUT_FAILED:

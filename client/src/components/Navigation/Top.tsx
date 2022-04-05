@@ -92,7 +92,7 @@ function Top(): JSX.Element {
             </Tooltip>
           )}
 
-          <PopupProfile />
+          <PopupProfile user={user} />
         </div>
       </nav>
       <Left setOpen={setOpen} open={open} />

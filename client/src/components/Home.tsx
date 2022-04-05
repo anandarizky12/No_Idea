@@ -4,7 +4,7 @@ import {
   getClassroomByTeacherId,
   getStudentClassroom,
 } from "../actions/classroom";
-import { logout } from "../actions/user";
+
 import Class_card from "./Card/Class_card";
 import { Spin, Space } from "antd";
 import DynamicError from "./404/DynamicError";
@@ -20,9 +20,6 @@ function Home() {
   const classesStudent = useSelector((state: any) => state.getStudentClassroom);
   const { student } = classesStudent;
   const { classroom } = classes;
-  const Logout = () => {
-    Dispatch(logout());
-  };
 
   React.useEffect(() => {
     if (user.role === "guru") {
@@ -32,8 +29,6 @@ function Home() {
       Dispatch(getStudentClassroom());
     }
   }, []);
-
-  console.log(classesStudent);
 
   return (
     <div className="p-6 h-full">

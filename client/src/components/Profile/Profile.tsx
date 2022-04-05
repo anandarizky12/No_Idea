@@ -1,8 +1,8 @@
-import { Avatar, Button, Spin } from "antd";
+import { Spin } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../actions/user";
-import { SettingOutlined } from "@ant-design/icons";
+import AvatarCustom from "../Avatar/AvatarCustom";
 import { EditProfile } from "./EditProfile";
 
 function Profile() {
@@ -19,13 +19,9 @@ function Profile() {
         <div className="w-2/4 h-64 border flex items-center justify-center shadow-md rounded-md p-3 font-semibold relative mt-7">
           <div className="p-4 flex flex-col items-center">
             <div className="flex items-center mt-2">
-              <Avatar
+              <AvatarCustom
                 size={{ xs: 24, sm: 32, md: 40, lg: 80, xl: 120, xxl: 180 }}
-                src={
-                  user.detail_user.profile
-                    ? user.detail_user.profile
-                    : "https://res.cloudinary.com/drgorgm6v/image/upload/v1648910579/user_brvzvx.png"
-                }
+                src={user.detail_user.profile}
               />
             </div>
             <div className="flex flex-col items-center mt-4">

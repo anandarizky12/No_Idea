@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getStudentsinClassroom } from "../../actions/classroom";
 import { Spin } from "antd";
+import AvatarCustom from "../Avatar/AvatarCustom";
 
 function Card_Member() {
   const { id } = useParams();
@@ -14,16 +15,17 @@ function Card_Member() {
     dispatch(getStudentsinClassroom(id));
   }, []);
 
-  console.log(students);
-
   return (
     <div className="border p-4 border-gray-300 w-48  rounded-md  flex flex-col justify-between">
       <h1 className="text-gray-500">Anggota Kelas</h1>
 
       {students && students.data.length > 1 ? (
-        students.data.slice(0, 5).map((student: any) => (
-          <div className="flex items-center border-b border-gray-300 p-2">
-            <Avatar size={"small"} src={"https://joeschmoe.io/api/v1/random"} />
+        students.data.slice(0, 5).map((student: any, i: number) => (
+          <div
+            key={i}
+            className="flex items-center border-b border-gray-300 p-2"
+          >
+            <AvatarCustom size={"small"} src={student.User.profile} />
             <div className="ml-2 font-xs text-gray-500">
               {student.User.name.split(" ")[0]}
             </div>

@@ -9,6 +9,7 @@ function StudentLayout({
   DynamicError,
   user,
 }: any) {
+  console.log(classes);
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
@@ -18,7 +19,6 @@ function StudentLayout({
     );
   return (
     <div>
-      {" "}
       <div>
         <div className="flex w-full h-screen flex-wrap">
           {classroom ? (

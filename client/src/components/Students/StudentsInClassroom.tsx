@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
 import { Avatar, Spin } from "antd";
 import { getUser } from "../../actions/user";
+import AvatarCustom from "../Avatar/AvatarCustom";
 
 function StudentsInClassroom() {
   const { id } = useParams();
@@ -39,12 +40,8 @@ function StudentsInClassroom() {
         <div className="border w-full mt-5 rounded-md shadow-md h-16">
           <div className="flex items-center h-full px-5 justify-between">
             <div className="flex items-center">
-              <Avatar
-                size={"large"}
-                src={"https://joeschmoe.io/api/v1/random"}
-              />
+              <AvatarCustom src={classroom.data.User.profile} size={"large"} />
               <div className="ml-5 font-medium">
-                {" "}
                 {classroom ? classroom.data.User.name : <Spin />}
               </div>
             </div>

@@ -17,7 +17,7 @@ export const EditProfile = () => {
   const [state, setState] = React.useState<any>({
     name: user.name,
     email: user.email,
-    profile: "",
+    profile: null,
   });
 
   const dispatch = useDispatch();

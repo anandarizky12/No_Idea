@@ -3,7 +3,6 @@ import { Tooltip } from "antd";
 import { UserOutlined, FundOutlined } from "@ant-design/icons";
 import PopupMenu from "./PopupMenu";
 import { useNavigate } from "react-router-dom";
-import { user } from "../../reducers/userReducers";
 
 function Class_card({ classroom, id, user }: any) {
   const navigate = useNavigate();
