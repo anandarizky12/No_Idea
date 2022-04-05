@@ -3,7 +3,7 @@ import StudentsCard from "./StudentsCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
-import { Avatar, Spin } from "antd";
+import { Spin } from "antd";
 import { getUser } from "../../actions/user";
 import AvatarCustom from "../Avatar/AvatarCustom";
 
@@ -12,7 +12,6 @@ function StudentsInClassroom() {
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.getStudentsInClassroom);
   const { students } = data;
-  // const user = useSelector((state: any) => state.getUser);
   const classes = useSelector((state: any) => state.getClassroom);
   const { classroom } = classes;
 
@@ -22,7 +21,6 @@ function StudentsInClassroom() {
     dispatch(getClassroom(id));
   }, []);
 
-  console.log(classes);
   return (
     <div className="flex flex-col items-center justify-center p-12">
       <div className="w-7/12 ">
@@ -36,18 +34,22 @@ function StudentsInClassroom() {
             </div>
           </div>
         </div>
-
-        <div className="border w-full mt-5 rounded-md shadow-md h-16">
-          <div className="flex items-center h-full px-5 justify-between">
-            <div className="flex items-center">
-              <AvatarCustom src={classroom.data.User.profile} size={"large"} />
-              <div className="ml-5 font-medium">
-                {classroom ? classroom.data.User.name : <Spin />}
+        {classroom ? (
+          <div className="border w-full mt-5 rounded-md shadow-md h-16">
+            <div className="flex items-center h-full px-5 justify-between">
+              <div className="flex items-center">
+                <AvatarCustom
+                  src={classroom.data.User.profile}
+                  size={"large"}
+                />
+                <div className="ml-5 font-medium">
+                  {classroom.data.User.name}
+                </div>
               </div>
+              <div className="">Guru</div>
             </div>
-            <div className="">Guru</div>
           </div>
-        </div>
+        ) : null}
         {students && students.data ? (
           students.data.map((student: any) => (
             <StudentsCard student={student} />
