@@ -12,7 +12,7 @@ function Teacher({ classroom }: any) {
       </div>
       {/* right team */}
       <div className="w-full">
-        <CreateTaskButton />
+        <CreateTaskButton teacher={classroom.data.User} />
       </div>
     </div>
   );

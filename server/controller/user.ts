@@ -239,7 +239,7 @@ exports.editProfile = async (req: any, res: any) => {
           });
         }
 
-        res.status(200).send({
+        return res.status(200).send({
           status: 200,
           message: "Profile updated successfully",
           data: {

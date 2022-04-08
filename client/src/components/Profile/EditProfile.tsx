@@ -31,11 +31,12 @@ export const EditProfile = () => {
         reader.onloadend = () => {
           // setState({ ...state, profile: reader.result });
           state.profile = reader.result;
-          return dispatch(editProfile(state, setAlert, setLoading));
+          dispatch(editProfile(state, setAlert, setLoading));
         };
         reader.onerror = (error) => {
           console.log("Error: ", error);
         };
+        return;
       }
 
       dispatch(editProfile(state, setAlert, setLoading));
@@ -69,7 +70,12 @@ export const EditProfile = () => {
       >
         <div className="flex flex-col items-center justify-center">
           {loading ? (
-            <Spin />
+            <div className="flex flex-col justify-center items-center w-full">
+              <Spin />
+              <p className="text-gray-500 mt-2">
+                Please Wait Uploading Image...
+              </p>
+            </div>
           ) : (
             <>
               <ImageChange state={user} setSelectedImg={setState} />

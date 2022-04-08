@@ -1,4 +1,3 @@
-import { Avatar } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -13,13 +12,13 @@ function Card_Member() {
   const { students } = data;
   React.useEffect(() => {
     dispatch(getStudentsinClassroom(id));
-  }, []);
+  }, [id]);
 
   return (
     <div className="border p-4 border-gray-300 w-48  rounded-md  flex flex-col justify-between">
       <h1 className="text-gray-500">Anggota Kelas</h1>
 
-      {students && students.data.length > 1 ? (
+      {students && students.data.length >= 1 ? (
         students.data.slice(0, 5).map((student: any, i: number) => (
           <div
             key={i}

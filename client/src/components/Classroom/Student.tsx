@@ -3,7 +3,8 @@ import Card_Member from "./Card_Member";
 import { useDispatch, useSelector } from "react-redux";
 import { getTaskInClassroom } from "../../actions/task";
 import TaskCardHome from "../Task/TaskCardHome";
-
+import { useParams } from "react-router-dom";
+import { Spin } from "antd";
 function Student({ classroom }: any) {
   const dispatch = useDispatch();
   const taskData = useSelector((state: any) => state.getTaskInClassroom);
@@ -11,7 +12,7 @@ function Student({ classroom }: any) {
 
   React.useEffect(() => {
     dispatch(getTaskInClassroom(classroom.data.id));
-  }, []);
+  }, [classroom.data.id]);
 
   return (
     <div className="flex my-5 w-3/4 ">
@@ -21,10 +22,13 @@ function Student({ classroom }: any) {
       </div>
       {/* right team */}
       <div className="w-full ">
-        {task &&
+        {task ? (
           task.data.map((task: any, i: number) => (
             <TaskCardHome key={i} task={task} />
-          ))}
+          ))
+        ) : (
+          <Spin />
+        )}
       </div>
     </div>
   );
