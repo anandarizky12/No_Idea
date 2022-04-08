@@ -1,12 +1,14 @@
 import { Avatar } from "antd";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-function ReportCard({ report }: any) {
-  const navigate = useNavigate();
 
+function ReportCard({ setReport, report, setVisible }: any) {
+  const handleClick = () => {
+    setReport(report.title);
+    setVisible(true);
+  };
   return (
     <div
-      // onClick={() => navigate(`/report/${report.path}`)}
+      onClick={handleClick}
       className="w-72 border shadow-md p-5 rounded-md m-1 hover:cursor-pointer hover:shadow-xl"
     >
       <Avatar size={72} />

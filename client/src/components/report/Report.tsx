@@ -1,5 +1,9 @@
 import React from "react";
 import ReportCard from "./ReportCard";
+import { ReportModal } from "./Reportmodal";
+import { useSelector, useDispatch } from "react-redux";
+import { getClassroomByTeacherId } from "../../actions/classroom";
+import { getCookie } from "../../utils/utils";
 
 const reportjson = [
   {
@@ -62,13 +66,36 @@ const reportjson = [
 ];
 
 function Report() {
+  const [visible, setVisible] = React.useState(false);
+  const [report, setReport] = React.useState(null);
+  const id = getCookie("id");
+  const dispatch = useDispatch();
+  const classrooms = useSelector(
+    (state: any) => state.getClassroomByTeacherIdReducers
+  );
+
+  React.useEffect(() => {
+    dispatch(getClassroomByTeacherId(id));
+  }, []);
+  console.log(classrooms);
   return (
     <div className="w-full h-5/6 flex items-center justify-center mt-5 mb-5">
       <div className="w-8/12 h-full flex flex-wrap ">
         {reportjson.map((report, i) => (
-          <ReportCard key={i} report={report} />
+          <ReportCard
+            setReport={setReport}
+            setVisible={setVisible}
+            key={i}
+            report={report}
+          />
         ))}
       </div>
+      <ReportModal
+        classrooms={classrooms}
+        report={report}
+        visible={visible}
+        setVisible={setVisible}
+      />
     </div>
   );
 }
