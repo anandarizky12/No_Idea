@@ -202,9 +202,6 @@ exports.getAllScore = async (req: any, res: any) => {
             },
           ],
         },
-        {
-          model: Classroom,
-        },
       ],
     });
     if (!score) {

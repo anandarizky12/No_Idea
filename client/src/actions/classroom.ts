@@ -76,12 +76,14 @@ export const createClassroom = (data: any) => {
         })
         .catch((err) => {
           console.log(err.response.data.message);
+          alert(err.response.data.message);
         });
     } catch (err: any) {
       dispatch({
         type: actionTypes.CREATE_CLASSROOM_FAILED,
         payload: err,
       });
+
       console.log(err.response.data.message);
     }
   };
