@@ -4,6 +4,7 @@ const {
   User,
   Student_Classroom,
   Answer_task,
+  Score,
 } = require("../models");
 const joi = require("@hapi/joi");
 
@@ -181,47 +182,41 @@ exports.getAllScore = async (req: any, res: any) => {
 
     const { id } = req.params;
 
-    const task = await Task.findAll({
+    const score = await Score.findAll({
       where: {
         classroom_id: id,
-        // teacher_id: id,
       },
       attributes: { exclude: ["answer_key"] },
-    });
-
-    if (!task) {
-      return res.status(500).send({
-        status: 500,
-        message: "Task not found",
-      });
-    }
-    const answer_task = await Answer_task.findAll({
-      where: {
-        task_id: 1,
-      },
       include: [
-        {
-          model: User,
-          attributes: { exclude: ["password"] },
-        },
         {
           model: Task,
           attributes: { exclude: ["answer_key"] },
         },
+        {
+          model: Answer_task,
+
+          include: [
+            {
+              model: User,
+              attributes: { exclude: ["password"] },
+            },
+          ],
+        },
+        {
+          model: Classroom,
+        },
       ],
     });
-
-    if (!answer_task) {
+    if (!score) {
       return res.status(500).send({
         status: 500,
-        message: "Task not found",
+        message: "No Score Yet",
       });
     }
-
-    res.status(200).send({
+    return res.status(200).send({
       status: 200,
-      message: "Task found",
-      data: answer_task,
+      message: "Score found",
+      data: score,
     });
   } catch (err: any) {
     return res.status(500).send({

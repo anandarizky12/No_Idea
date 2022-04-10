@@ -17,6 +17,12 @@ module.exports = (sequelize: any, Sequelize: any) => {
           allowNull: false,
         },
       });
+      Score.belongsTo(models.Task, {
+        foreignKey: {
+          name: "task_id",
+          allowNull: false,
+        },
+      });
     }
   }
 

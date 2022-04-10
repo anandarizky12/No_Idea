@@ -30,6 +30,16 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      task_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "tasks",
+          key: "id",
+          as: "task_id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
 
       createdAt: {
         type: Sequelize.DATE,
