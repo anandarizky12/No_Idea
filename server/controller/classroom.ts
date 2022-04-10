@@ -541,7 +541,7 @@ exports.searchClassroom = async (req: any, res: any) => {
   try {
     const { id } = req.params;
     const { val } = req.query;
-    console.log(val);
+
     const Op = Sequelize.Op;
     const searchClassroom = await Classroom.findAll({
       where: {

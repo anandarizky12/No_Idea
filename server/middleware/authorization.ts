@@ -113,7 +113,7 @@ exports.isTeacherOfClass = async (req: any, res: any, next: any) => {
         status: 400,
         message: "Sorry, You are not a teacher of this class",
       });
-
+    req.user = decoded;
     next();
   } catch (err) {
     console.log(err);

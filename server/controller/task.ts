@@ -1,4 +1,10 @@
-const { Classroom, Task, User, Student_Classroom } = require("../models");
+const {
+  Classroom,
+  Task,
+  User,
+  Student_Classroom,
+  Answer_task,
+} = require("../models");
 const joi = require("@hapi/joi");
 
 exports.createTask = async (req: any, res: any) => {
@@ -160,6 +166,59 @@ exports.getTask = async (req: any, res: any) => {
       status: 200,
       message: "Task found",
       data: task,
+    });
+  } catch (err: any) {
+    return res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
+exports.getAllScore = async (req: any, res: any) => {
+  try {
+    // const { id } = req.user;
+
+    const { id } = req.params;
+
+    const task = await Task.findAll({
+      where: {
+        classroom_id: id,
+        // teacher_id: id,
+      },
+      attributes: { exclude: ["answer_key"] },
+    });
+
+    if (!task) {
+      return res.status(500).send({
+        status: 500,
+        message: "Task not found",
+      });
+    }
+    const answer_task = await Answer_task.findAll({
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ["password"] },
+        },
+        {
+          model: Task,
+          attributes: { exclude: ["answer_key"] },
+        },
+      ],
+    });
+
+    if (!answer_task) {
+      return res.status(500).send({
+        status: 500,
+        message: "Task not found",
+      });
+    }
+
+    res.status(200).send({
+      status: 200,
+      message: "Task found",
+      data: answer_task,
     });
   } catch (err: any) {
     return res.status(500).send({
