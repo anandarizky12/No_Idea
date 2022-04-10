@@ -196,6 +196,9 @@ exports.getAllScore = async (req: any, res: any) => {
       });
     }
     const answer_task = await Answer_task.findAll({
+      where: {
+        task_id: 1,
+      },
       include: [
         {
           model: User,

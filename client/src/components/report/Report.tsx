@@ -77,7 +77,7 @@ function Report() {
   React.useEffect(() => {
     dispatch(getClassroomByTeacherId(id));
   }, []);
-  console.log(classrooms);
+
   return (
     <div className="w-full h-5/6 flex items-center justify-center mt-5 mb-5">
       <div className="w-8/12 h-full flex flex-wrap ">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Spin } from "antd";
+import { Modal, Spin } from "antd";
 
 export const ReportModal = ({
   classrooms,
@@ -20,7 +20,7 @@ export const ReportModal = ({
         width={500}
       >
         <h1 className="text-gray-600">Pilih Kelas</h1>
-        {classroom && classroom.class.lenght <= 0 && (
+        {classroom && classroom.class.length <= 0 && (
           <div className="text-center">
             <h1>Tidak ada Kelas</h1>
           </div>

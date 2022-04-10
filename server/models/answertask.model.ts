@@ -18,7 +18,7 @@ module.exports = (sequelize: any, Sequelize: any) => {
       });
       Answer_task.belongsTo(models.User, {
         foreignKey: {
-          name: "students_id",
+          name: "student_id",
           allowNull: false,
         },
       });
