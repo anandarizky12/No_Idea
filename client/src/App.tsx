@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.less";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
@@ -8,7 +8,6 @@ import Home from "./components/Home";
 import Top from "./components/Navigation/Top";
 import My404 from "./components/404/My404";
 import Classroom from "./components/Classroom/Classroom";
-import { useLocation } from "react-router-dom";
 import AllTask from "./components/Task/AllTask";
 import moment from "moment";
 import "moment/locale/id";
@@ -16,6 +15,7 @@ import Profile from "./components/Profile/Profile";
 import StudentsInClassroom from "./components/Students/StudentsInClassroom";
 import Report from "./components/report/Report";
 import AnswerTask from "./components/Task/AnswerTask";
+import Scores from "./components/Scores/Scores";
 
 function App() {
   moment.locale("id");
@@ -71,6 +71,12 @@ function App() {
           path="classroom/:class_id/answertask/:id"
           element={
             <ProtectedRoute redirectTo="/login" Component={<AnswerTask />} />
+          }
+        />
+        <Route
+          path="/classroom/:id/scores"
+          element={
+            <ProtectedRoute redirectTo="/login" Component={<Scores />} />
           }
         />
       </Routes>
