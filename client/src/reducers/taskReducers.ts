@@ -109,3 +109,25 @@ export const getTask = (state = {}, action: any) => {
       return state;
   }
 };
+
+export const getAllScores = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_SCORES:
+      return {
+        ...state,
+        scores: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_ALL_SCORES_FAILED:
+      return {
+        ...state,
+        scores: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};

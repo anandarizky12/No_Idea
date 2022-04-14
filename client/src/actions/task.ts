@@ -186,8 +186,8 @@ export const getTask = (id: any, class_id: any) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-        classroom_id: class_id,
-        any: class_id,
+        // classroom_id: class_id,
+        // any: class_id,
       },
     };
 
@@ -217,6 +217,46 @@ export const getTask = (id: any, class_id: any) => {
     } catch (err: any) {
       dispatch({
         type: actionTypes.GET_TASK_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
+};
+
+export const getAllScores = (class_id: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      await axios
+        .get(`http://localhost:5000/api/getallscore/${class_id}`, config)
+        .then((res) => {
+          dispatch({
+            type: actionTypes.GET_ALL_SCORES,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        })
+        .catch((err: any) => {
+          console.log(err.response);
+          dispatch({
+            type: actionTypes.GET_ALL_SCORES_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+        });
+    } catch (err: any) {
+      dispatch({
+        type: actionTypes.GET_ALL_SCORES_FAILED,
         payload: err.response,
         isLoading: false,
         isError: true,

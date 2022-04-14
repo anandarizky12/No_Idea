@@ -12,3 +12,6 @@ export const DELETE_TASK_FAILED: string = "DELETE_TASK_FAILED";
 
 export const GET_TASK: string = "GET_TASK";
 export const GET_TASK_FAILED: string = "GET_TASK_FAILED";
+
+export const GET_ALL_SCORES: string = "GET_ALL_SCORES";
+export const GET_ALL_SCORES_FAILED: string = "GET_ALL_SCORES_FAILED";

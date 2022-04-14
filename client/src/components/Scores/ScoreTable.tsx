@@ -1,19 +1,15 @@
 import { Table, Tag, Space } from "antd";
-
+import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 const columns = [
   {
-    title: "Name",
+    title: "",
     dataIndex: "name",
     key: "name",
     render: (text: string) => <a>{text}</a>,
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "Address",
+    title: "",
     dataIndex: "address",
     key: "address",
   },
@@ -74,5 +70,10 @@ const data = [
 ];
 
 export default function ScoreTable() {
-  return <Table columns={columns} dataSource={data} />;
+  const dispatch = useDispatch();
+  const scores = useSelector((state: any) => state.getAllScores);
+
+  return (
+    <Table style={{ width: "100%" }} columns={columns} dataSource={data} />
+  );
 }
