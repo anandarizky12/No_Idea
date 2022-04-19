@@ -27,19 +27,19 @@ exports.createClassroom = async (req: any, res: any) => {
 
     ///////////////////////////////////////////////////////////////////
 
-    const schema = joi.object({
-      name: joi.string().min(3).required(),
-      teacher_id: joi.number(),
-      description: joi.string().min(3).required(),
-      banner: joi.string().min(3).required(),
-    });
-    const { error } = schema.validate(req.body);
-    if (error) {
-      return res.status(500).send({
-        status: 500,
-        message: error.details[0].message,
-      });
-    }
+    // const schema = joi.object({
+    //   name: joi.string().min(3).required(),
+    //   teacher_id: joi.number(),
+    //   description: joi.string().min(3).required(),
+    //   banner: joi.string().min(3).required(),
+    // });
+    // const { error } = schema.validate(req.body);
+    // if (error) {
+    //   return res.status(500).send({
+    //     status: 500,
+    //     message: error.details[0].message,
+    //   });
+    // }
     const checkTeacherId = await User.findOne({
       where: {
         id: teacher_id,

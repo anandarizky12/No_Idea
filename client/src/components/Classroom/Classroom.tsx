@@ -39,7 +39,10 @@ function Classroom() {
       ) : (
         <>
           <div
-            className={` w-3/4 h-64 bg-gray-300 rounded-md p-3 font-semibold relative bg-hero`}
+            style={{
+              backgroundImage: `url(https://source.unsplash.com/1200x400?school), linear-gradient(90deg,rgba(0, 0, 10, 0.5),rgba(255, 255, 255, 0.007))`,
+            }}
+            className={` w-3/4 h-64 bg-gray-300 rounded-md p-3 font-semibold relative `}
           >
             <div className="p-4 absolute bottom-0">
               <h1 className="text-3xl text-white">{classroom.data.name}</h1>
