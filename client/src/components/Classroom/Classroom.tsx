@@ -28,6 +28,7 @@ function Classroom() {
         message={classes.error.data.message}
       />
     );
+
   return (
     <div className="mt-7 w-full flex justify-center items-center flex-col">
       {classes.isLoading && !classes.isError && !classroom ? (
@@ -40,7 +41,14 @@ function Classroom() {
         <>
           <div
             style={{
-              backgroundImage: `url(https://source.unsplash.com/1200x400?school), linear-gradient(90deg,rgba(0, 0, 10, 0.5),rgba(255, 255, 255, 0.007))`,
+              backgroundImage: `linear-gradient(90deg,rgba(10, 10, 10, 15),rgba(255, 255, 255, 0.007)), 
+              url(${
+                classroom.data.banner
+                  ? classroom.data.banner
+                  : "https://source.unsplash.com/1200x400?school"
+              })`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
             }}
             className={` w-3/4 h-64 bg-gray-300 rounded-md p-3 font-semibold relative `}
           >

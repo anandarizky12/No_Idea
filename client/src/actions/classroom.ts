@@ -49,7 +49,7 @@ export const getClassroomByTeacherId = (id: any) => {
 
 export const createClassroom = (data: any) => {
   const { name, description, teacher_id, banner } = data;
-  console.log(data);
+
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
 
@@ -72,6 +72,7 @@ export const createClassroom = (data: any) => {
             type: actionTypes.CREATE_CLASSROOM,
             payload: res.data,
           });
+          alert("Create classroom success");
           window.location.reload();
         })
         .catch((err) => {

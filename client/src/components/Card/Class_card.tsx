@@ -8,7 +8,17 @@ function Class_card({ classroom, id, user }: any) {
   const navigate = useNavigate();
   return (
     <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
-      <div className="border-b flex justify-between  border-gray-300 bg-hero bg-cover bg-center w-full h-24 p-5 ">
+      <div
+        style={{
+          backgroundImage: `linear-gradient(90deg,rgba(0, 0, 10, 0.5),rgba(255, 255, 255, 0.007)), 
+              url(${
+                classroom.banner
+                  ? classroom.banner
+                  : "https://source.unsplash.com/1200x400?school"
+              })`,
+        }}
+        className="border-b flex justify-between  border-gray-300 bg-hero bg-cover bg-center w-full h-24 p-5 "
+      >
         <h1
           onClick={() => {
             navigate(`classroom/${classroom.id}`);
