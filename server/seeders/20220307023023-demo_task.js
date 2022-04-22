@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("tasks", [
+    return queryInterface.bulkInsert("Tasks", [
       {
         title:
           "Jelaskan Tentang Penyebab Perang antara Rusia dan Ukraina Secara Singkat ? ",
@@ -32,11 +32,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    return queryInterface.bulkDelete("Tasks", null, {});
   },
 };

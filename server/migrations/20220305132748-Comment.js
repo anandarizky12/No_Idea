@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     try {
-      await queryInterface.createTable("comments", {
+      await queryInterface.createTable("Comments", {
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -22,7 +22,7 @@ module.exports = {
         task_id: {
           type: Sequelize.INTEGER,
           references: {
-            model: "tasks",
+            model: "Tasks",
             key: "id",
             as: "task_id",
           },
@@ -42,6 +42,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable("comments");
+    queryInterface.dropTable("Comments");
   },
 };

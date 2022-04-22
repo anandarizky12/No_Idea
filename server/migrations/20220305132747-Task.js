@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("tasks", {
+    await queryInterface.createTable("Tasks", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,7 +17,7 @@ module.exports = {
       classroom_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "classrooms",
+          model: "Classrooms",
           key: "id",
           as: "classroom_id",
         },
@@ -37,6 +37,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable("tasks");
+    queryInterface.dropTable("Tasks");
   },
 };

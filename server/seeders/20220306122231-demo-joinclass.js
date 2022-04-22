@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("student_classrooms", [
+    return queryInterface.bulkInsert("Student_Classrooms", [
       {
         student_id: 3,
         classroom_id: 1,
@@ -25,6 +25,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("student_classrooms", null, {});
+    return queryInterface.bulkDelete("Student_Classrooms", null, {});
   },
 };
