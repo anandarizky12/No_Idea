@@ -30,7 +30,7 @@ function AllTask() {
         <Teacher open={open} setOpen={setOpen} classroom={classroom} />
       ) : null}
 
-      <div className="w-4/5 mt-5">
+      <div className="w-4/5  mt-5  flex items-center justify-center">
         {!task && (
           <div className="flex h-96 items-center justify-center">
             <Spin size="large" />
@@ -39,7 +39,7 @@ function AllTask() {
         {task && task.data.length > 0 ? (
           task.data.map((task: any, number: Number) => {
             return (
-              <div className="flex items-center justify-center">
+              <div className="flex w-5/6 items-center justify-center">
                 <TaskCard key={number} task={task} user={user} />;
               </div>
             );

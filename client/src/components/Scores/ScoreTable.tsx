@@ -13,8 +13,7 @@ export default function ScoreTable() {
     dispatch(getAllScores(id));
   }, []);
 
-  console.log(id);
-  if (!scores) {
+  if (!scores ) {
     return <div>Loading . . .</div>;
   }
   return (

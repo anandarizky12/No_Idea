@@ -1,11 +1,11 @@
 import React from "react";
-import { BookOutlined, MoreOutlined } from "@ant-design/icons";
+import { BookOutlined } from "@ant-design/icons";
 import moment from "moment";
 import PopupMenu from "./Popup";
 
 function TaskCard({ task, user }: any) {
   return (
-    <div className="flex flex-col  w-5/6 border rounded-md shadow-md border-b border-gray-300 mb-5">
+    <div className="flex flex-col w-full border rounded-md shadow-md border-b border-gray-300 mb-5">
       <div className=" h-12 w-full flex items-center p-8 justify-between">
         <div className="flex items-center">
           <BookOutlined className="text-xl mr-2 text-gray-500" />

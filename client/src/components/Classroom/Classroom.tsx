@@ -9,18 +9,24 @@ import Teacher from "./Teacher";
 import { SettingOutlined } from "@ant-design/icons";
 import Student from "./Student";
 import AvatarCustom from "../Avatar/AvatarCustom";
+import { getTaskInClassroom } from "../../actions/task";
+import TaskCard from "../Task/TaskCard";
 
 function Classroom() {
   const { id } = useParams();
   const classes = useSelector((state: any) => state.getClassroom);
   const user = useSelector((state: any) => state.user);
+  const taskData = useSelector((state: any) => state.getTaskInClassroom);
+  const { task } = taskData;
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getClassroom(id));
+    dispatch(getTaskInClassroom(id));
   }, [id]);
 
   const { classroom } = classes;
 
+  console.log(classroom);
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
@@ -76,6 +82,21 @@ function Classroom() {
             <Teacher classroom={classroom} />
           ) : (
             <Student classroom={classroom} />
+          )}
+          {task && task.data.length > 0 ? (
+            task.data.map((task: any, number: Number) => {
+              return (
+                <div className="flex w-3/4 ">
+                  <TaskCard key={number} task={task} user={user} />;
+                </div>
+              );
+            })
+          ) : (
+            <div className="w-full h-96 flex items-center justify-center">
+              <h1 className="text-gray-500 font-normal text-base">
+                Kelas ini belum memiliki tugas
+              </h1>
+            </div>
           )}
         </>
       )}
