@@ -1,9 +1,9 @@
 import { Avatar } from "antd";
 import React from "react";
 
-function ReportCard({ setReport, report, setVisible }: any) {
+function ReportCard({ setReport, report, setVisible, type }: any) {
   const handleClick = () => {
-    setReport(report.title);
+    setReport(report);
     setVisible(true);
   };
   return (

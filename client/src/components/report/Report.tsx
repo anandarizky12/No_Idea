@@ -87,15 +87,18 @@ function Report() {
             setVisible={setVisible}
             key={i}
             report={report}
+            type={report.path}
           />
         ))}
       </div>
-      <ReportModal
-        classrooms={classrooms}
-        report={report}
-        visible={visible}
-        setVisible={setVisible}
-      />
+      {report && (
+        <ReportModal
+          classrooms={classrooms}
+          report={report}
+          visible={visible}
+          setVisible={setVisible}
+        />
+      )}
     </div>
   );
 }

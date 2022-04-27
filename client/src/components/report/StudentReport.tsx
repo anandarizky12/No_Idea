@@ -1,12 +1,12 @@
 import React from "react";
 
-const StudentReport = ({ data, componentRef }: any) => {
+const StudentReport = ({ type, data, componentRef }: any) => {
+  console.log(data, type);
   return (
     <div ref={componentRef}>
       <h1>Bangsat</h1>
-      <h1>{data.name}</h1>
-      <h1>{data.classcode}</h1>
-      <h1>{data.idx}</h1>
+      <h1>{type}</h1>
+      <h1>{data[0].name}</h1>
     </div>
   );
 };

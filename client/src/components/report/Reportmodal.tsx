@@ -13,24 +13,21 @@ export const ReportModal = ({
   const componentRef = createRef<HTMLInputElement>();
 
   const [id, setId] = React.useState(null);
-
   //to get choosen classroom by id
 
-  const getFilteredClassroom =
+  const getFilteredClassroom: [] =
     classroom && classroom.class.filter((item: any) => item.id === id);
 
   const onChange = (e: any) => {
     setId(e.target.value);
   };
 
-  const data = {
-    name: "Kisama ranking ",
-  };
+  console.log(getFilteredClassroom, report);
 
   return (
     <>
       <Modal
-        title={report}
+        title={report.title}
         centered
         visible={visible}
         onOk={() => setVisible(false)}
@@ -59,13 +56,14 @@ export const ReportModal = ({
             <Spin />
           )}
         </Radio.Group>
-        <ButtonPrint componentRef={componentRef} />
+        <ButtonPrint id={id} componentRef={componentRef} />
       </Modal>
 
-      {getFilteredClassroom ? (
+      {getFilteredClassroom && getFilteredClassroom.length > 0 ? (
         <div className="hidden">
           <StudentReport
-            data={getFilteredClassroom[0]}
+            type={report.path}
+            data={getFilteredClassroom}
             componentRef={componentRef}
           />
         </div>

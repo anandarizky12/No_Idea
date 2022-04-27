@@ -1,16 +1,16 @@
 // import { ButtonPrint } from "@ant-design/icons";
 import ReactToPrint from "react-to-print";
-
-function ButtonPrint({ componentRef }: any) {
+import { Button } from "antd";
+function ButtonPrint({ id, componentRef }: any) {
   console.log(componentRef);
   return (
     <ReactToPrint
       documentTitle="Cetak Laporan"
       trigger={() => (
-        <button className="bg-green-500 p-2 md:w-45 text-xs text-gray-100 font-light rounded-sm flex items-center justify-center">
+        <Button className="ml-80" disabled={!id} type={"primary"}>
           {/* <ButtonPrint className="lg:mr-2" />{" "} */}
           <span className=" lg:inline-block">Cetak Data</span>
-        </button>
+        </Button>
       )}
       content={() => componentRef.current}
     />
