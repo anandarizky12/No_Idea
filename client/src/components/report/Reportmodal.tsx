@@ -1,5 +1,7 @@
-import React from "react";
-import { Modal, Spin } from "antd";
+import React, { createRef } from "react";
+import { Button, Modal, Spin, Radio } from "antd";
+import StudentReport from "./StudentReport";
+import ButtonPrint from "./ButtonPrint";
 
 export const ReportModal = ({
   classrooms,
@@ -8,6 +10,22 @@ export const ReportModal = ({
   setVisible,
 }: any) => {
   const { classroom } = classrooms;
+  const componentRef = createRef<HTMLInputElement>();
+
+  const [id, setId] = React.useState(null);
+
+  //to get choosen classroom by id
+
+  const getFilteredClassroom =
+    classroom && classroom.class.filter((item: any) => item.id === id);
+
+  const onChange = (e: any) => {
+    setId(e.target.value);
+  };
+
+  const data = {
+    name: "Kisama ranking ",
+  };
 
   return (
     <>
@@ -25,18 +43,33 @@ export const ReportModal = ({
             <h1>Tidak ada Kelas</h1>
           </div>
         )}
-        {classroom && classroom.class.length >= 1 ? (
-          classroom.class.map((x: any, i: number) => (
-            <div className="hover:cursor-pointer " key={i}>
-              <h1 className="text-gray-400 font-light hover:text-blue-500 mt-5">
-                {x.name}
-              </h1>
-            </div>
-          ))
-        ) : (
-          <Spin />
-        )}
+        <Radio.Group size={"small"} onChange={onChange}>
+          {classroom && classroom.class.length >= 1 ? (
+            classroom.class.map((x: any, i: number) => (
+              <div
+                className="hover:cursor-pointer py-2 text-xs text-gray-200"
+                key={i}
+              >
+                <Radio className="text-gray-500 text-xs" value={x.id}>
+                  {x.name}
+                </Radio>
+              </div>
+            ))
+          ) : (
+            <Spin />
+          )}
+        </Radio.Group>
+        <ButtonPrint componentRef={componentRef} />
       </Modal>
+
+      {getFilteredClassroom ? (
+        <div className="hidden">
+          <StudentReport
+            data={getFilteredClassroom[0]}
+            componentRef={componentRef}
+          />
+        </div>
+      ) : null}
     </>
   );
 };
