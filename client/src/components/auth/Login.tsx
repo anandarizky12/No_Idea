@@ -39,14 +39,13 @@ function Login() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        justifyContent: "center",
+        padding: "80px",
       }}
-      className=""
+      className="bg-login"
     >
       <Card
-        title="Please Login Down Below"
         bordered={true}
-        style={{ width: 400 }}
+        style={{ width: 600, background: "none", border: "none" }}
       >
         <Form
           name="basic"
@@ -57,41 +56,59 @@ function Login() {
           onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
         >
+          <h1 className="text-xl font-semibold text-gray-400">
+            Welcome To The App
+          </h1>
+          <h1 className="text-4xl font-bold">
+            Please Login Down Below<span>.</span>
+          </h1>
           <Form.Item
-            label="Email"
             name="Email"
             rules={[{ required: true, message: "Please input your Email!" }]}
           >
             <Input
               name="email"
+              placeholder="Email"
+              style={{
+                borderRadius: "30px",
+                padding: "10px",
+                paddingLeft: "20px",
+              }}
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
 
           <Form.Item
-            label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password
               name="password"
+              placeholder="Password"
               onChange={(e) => handleChange(e, state, setState)}
+              style={{
+                borderRadius: "30px",
+                padding: "10px",
+                paddingLeft: "20px",
+              }}
             />
           </Form.Item>
 
           <Form.Item
             name="remember"
             valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}
+            // wrapperCol={{ offset: 8, span: 16 }}
           >
             <Typography>
               Already Have an Account?{" "}
-              <a onClick={() => navigate("/register")}>Click Here</a>
+              <a className="font-bold" onClick={() => navigate("/register")}>
+                Click Here
+              </a>
             </Typography>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item>
+            <Button shape="round" size="large" type="primary" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
