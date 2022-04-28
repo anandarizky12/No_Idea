@@ -51,7 +51,9 @@ export const JoinClass = () => {
         )}
       </Modal>
 
-      {alert.message !== null ? <AlertComponents alert={alert} /> : null}
+      {alert.message !== null ? (
+        <AlertComponents alert={alert} setAlert={setAlert} />
+      ) : null}
     </>
   );
 };

@@ -152,7 +152,9 @@ function Register() {
           </Form.Item>
         </Form>
       </Card>
-      {alert.message !== null ? <AlertComponents alert={alert} /> : null}
+      {alert.message !== null ? (
+        <AlertComponents setAlert={setAlert} alert={alert} />
+      ) : null}
     </div>
   );
 }

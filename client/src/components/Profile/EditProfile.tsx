@@ -46,8 +46,6 @@ export const EditProfile = () => {
     }
   };
 
-  console.log(state);
-
   return (
     <>
       <Tooltip placement="bottom" title="Gabung Kelas">
@@ -100,7 +98,9 @@ export const EditProfile = () => {
             style={{ marginTop: 10 }}
             placeholder="Nomor Telepon"
           /> */}
-          {alert.message !== null ? <AlertComponents alert={alert} /> : null}
+          {alert.message !== null ? (
+            <AlertComponents setAlert={setAlert} alert={alert} />
+          ) : null}
         </div>
       </Modal>
     </>

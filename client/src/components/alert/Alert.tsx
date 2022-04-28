@@ -5,8 +5,17 @@ interface IProps {
     message: string;
     typeAlert: string | number;
   };
+
+  setAlert: any;
 }
-export const AlertComponents = ({ alert }: IProps) => {
+export const AlertComponents = ({ alert, setAlert }: IProps) => {
+  console.log(alert);
+  const onClose = (): void => {
+    setAlert({
+      message: "",
+      typeAlert: 0,
+    });
+  };
   return (
     <div style={{ position: "absolute", top: 5, right: 5, zIndex: 100 }}>
       {alert.typeAlert == 1 && (
@@ -15,6 +24,8 @@ export const AlertComponents = ({ alert }: IProps) => {
           message="Success"
           type="success"
           showIcon
+          closable
+          onClose={onClose}
         />
       )}
       {alert.typeAlert == 2 && (
@@ -23,6 +34,8 @@ export const AlertComponents = ({ alert }: IProps) => {
           message="Info"
           type="info"
           showIcon
+          closable
+          onClose={onClose}
         />
       )}
       {alert.typeAlert == 3 && (
@@ -32,6 +45,7 @@ export const AlertComponents = ({ alert }: IProps) => {
           type="warning"
           showIcon
           closable
+          onClose={onClose}
         />
       )}
       {alert.typeAlert == 4 && (
@@ -40,6 +54,8 @@ export const AlertComponents = ({ alert }: IProps) => {
           message="Error"
           type="error"
           showIcon
+          closable
+          onClose={onClose}
         />
       )}
     </div>

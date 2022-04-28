@@ -11,7 +11,7 @@ import { getCookie } from "../../utils/utils";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [alert, setAlert] = useState({ message: "", typeAlert: "" });
+  const [alert, setAlert] = useState({ message: "", typeAlert: 0 });
   const isLog = getCookie("token");
   const [state, setState] = useState({
     email: "",
@@ -98,7 +98,9 @@ function Login() {
         </Form>
       </Card>
 
-      {alert.message !== null ? <AlertComponents alert={alert} /> : null}
+      {alert.message !== null ? (
+        <AlertComponents alert={alert} setAlert={setAlert} />
+      ) : null}
     </div>
   );
 }
