@@ -41,7 +41,6 @@ function Login() {
         alignItems: "center",
         padding: "80px",
       }}
-      className="bg-login"
     >
       <Card
         bordered={true}
