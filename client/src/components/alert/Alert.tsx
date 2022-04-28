@@ -16,8 +16,9 @@ export const AlertComponents = ({ alert, setAlert }: IProps) => {
       typeAlert: 0,
     });
   };
+
   return (
-    <div style={{ position: "absolute", top: 5, right: 5, zIndex: 100 }}>
+    <div style={{ position: "fixed", top: 5, right: 5, zIndex: 100 }}>
       {alert.typeAlert == 1 && (
         <Alert
           description={alert.message}
