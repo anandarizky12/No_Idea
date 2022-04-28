@@ -7,7 +7,12 @@ function ButtonPrint({ id, componentRef }: any) {
     <ReactToPrint
       documentTitle="Cetak Laporan"
       trigger={() => (
-        <Button className="ml-80" disabled={!id} type={"primary"}>
+        <Button
+          size={"small"}
+          className="my-2 ml-6"
+          disabled={!id}
+          type={"primary"}
+        >
           {/* <ButtonPrint className="lg:mr-2" />{" "} */}
           <span className=" lg:inline-block">Cetak Data</span>
         </Button>

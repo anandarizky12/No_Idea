@@ -55,8 +55,8 @@ export const ReportModal = ({
           ) : (
             <Spin />
           )}
+          <ButtonPrint id={id} componentRef={componentRef} />
         </Radio.Group>
-        <ButtonPrint id={id} componentRef={componentRef} />
       </Modal>
 
       {getFilteredClassroom && getFilteredClassroom.length > 0 ? (
