@@ -9,7 +9,6 @@ function StudentLayout({
   DynamicError,
   user,
 }: any) {
-  console.log(classes);
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError

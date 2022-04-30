@@ -50,6 +50,8 @@ export const user = (state = initialState, action: any) => {
         ...state,
         name: action.payload.name,
         role: action.payload.role,
+        id : action.payload.id,
+        profile : action.payload.profile,
         email: action.payload.email,
       };
 
@@ -76,6 +78,7 @@ export const user = (state = initialState, action: any) => {
         name: null,
         email: null,
         token: null,
+        id : null,
         role: null,
         profile: null,
       };

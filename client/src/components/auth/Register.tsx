@@ -44,15 +44,10 @@ function Register() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        justifyContent: "center",
+        padding: "80px",
       }}
-      className=""
     >
-      <Card
-        title="Please Register Down Below"
-        bordered={true}
-        style={{ width: 400 }}
-      >
+      <Card style={{ width: 600 }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -62,30 +57,42 @@ function Register() {
           onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
         >
+          <h1 className="text-4xl font-bold">
+            Please Register Down Below<span>.</span>
+          </h1>
           <Form.Item
-            label="Name"
             name="name"
             rules={[{ required: true, message: "Please input your Name!" }]}
           >
             <Input
               name="name"
+              placeholder="Name"
+              style={{
+                borderRadius: "30px",
+                padding: "10px",
+                paddingLeft: "20px",
+              }}
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
           <Form.Item
-            label="Nomor Induk"
             name="no_induk"
             rules={[{ required: true, message: "Please input your No!" }]}
           >
             <Input
               name="no_induk"
+              placeholder="No Induk"
+              style={{
+                borderRadius: "30px",
+                padding: "10px",
+                paddingLeft: "20px",
+              }}
               type="number"
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
 
           <Form.Item
-            label="No Telp"
             name="phone"
             rules={[
               { required: true, message: "Please input your Phone Number!" },
@@ -93,44 +100,65 @@ function Register() {
           >
             <Input
               name="phone"
+              placeholder="Phone Number"
+              style={{
+                borderRadius: "30px",
+                padding: "10px",
+                paddingLeft: "20px",
+              }}
               type="number"
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
 
           <Form.Item
-            label="Email"
             name="Email"
             rules={[{ required: true, message: "Please input your Email!" }]}
           >
             <Input
               name="email"
+              placeholder="Email"
+              style={{
+                borderRadius: "30px",
+                padding: "10px",
+                paddingLeft: "20px",
+              }}
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
 
           <Form.Item
-            label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password
               name="password"
+              placeholder="Password"
+              style={{
+                borderRadius: "30px",
+                padding: "10px",
+                paddingLeft: "20px",
+              }}
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
           <Form.Item
-            label="Role"
             name="role"
             rules={[{ required: true, message: "Please choose your Role!" }]}
           >
             <Radio.Group
               name="role"
+              style={{
+                width: "100%",
+              }}
               onChange={(e) => handleChange(e, state, setState)}
-              defaultValue="a"
             >
-              <Radio.Button value="guru">Guru</Radio.Button>
-              <Radio.Button value="siswa">Siswa</Radio.Button>
+              <Radio.Button className="text-gray-500 w-3/6" value="guru">
+                Guru
+              </Radio.Button>
+              <Radio.Button className="w-3/6" value="siswa">
+                Siswa
+              </Radio.Button>
             </Radio.Group>
           </Form.Item>
 

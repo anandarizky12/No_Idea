@@ -4,14 +4,15 @@ import { getCookie, removeCookie } from "../utils/utils";
 import { Dispatch } from "redux";
 
 //make function to login and dispatch action
-export const login =
-  (email: string, password: string, setAlert: any) =>
+export const login = (email: string, password: string, setAlert: any) =>
   async (dispatch: Dispatch) => {
     try {
       await axios
         .post("http://localhost:5000/api/login", { email, password })
         .then((res) => {
+
           const { name, email, role, token, id, profile } = res.data.data;
+
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             payload: {
@@ -29,19 +30,23 @@ export const login =
               name,
             },
           });
+
           dispatch({
             type: actionTypes.SET_TOKEN,
             payload: token,
           });
+
           setAlert({ message: "Succesfully Login", typeAlert: 1 });
+
         })
         .catch((err) => {
           console.log(err);
           setAlert({ message: err.response.data.message, typeAlert: 4 });
         });
-    } catch (err: any) {
-      setAlert({ message: err.message, typeAlert: 4 });
+        
+    }catch (err: any) {
       console.log(err);
+      setAlert({ message: err.message, typeAlert: 4 });
     }
   };
 

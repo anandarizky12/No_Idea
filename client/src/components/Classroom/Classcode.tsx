@@ -2,6 +2,7 @@ import React from "react";
 import { CopyOutlined } from "@ant-design/icons";
 import copy from "copy-to-clipboard";
 import { AlertComponents } from "../alert/Alert";
+
 function Classcode({ code }: any) {
   const [Alert, setAlert] = React.useState({
     message: "",

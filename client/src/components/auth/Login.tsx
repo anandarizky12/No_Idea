@@ -39,7 +39,8 @@ function Login() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        padding: "80px",
+        padding: "100px",
+        justifyContent: "space-between",
       }}
     >
       <Card
@@ -89,6 +90,7 @@ function Login() {
                 borderRadius: "30px",
                 padding: "10px",
                 paddingLeft: "20px",
+                paddingRight: "20px",
               }}
             />
           </Form.Item>
@@ -113,6 +115,7 @@ function Login() {
           </Form.Item>
         </Form>
       </Card>
+      <img className="grayscale" src={"/icons8-class-dojo-480.png"}></img>
 
       {alert.message !== null ? (
         <AlertComponents alert={alert} setAlert={setAlert} />

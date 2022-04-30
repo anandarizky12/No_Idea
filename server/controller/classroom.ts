@@ -388,7 +388,7 @@ exports.getClassByUserId = async (req: any, res: any) => {
       include: [
         {
           model: Classroom,
-          attributes: ["id", "name"],
+          attributes: ["id", "name", "banner", "description", "teacher_id", "classcode", "banner"],
         },
         {
           model: User,
