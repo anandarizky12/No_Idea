@@ -162,11 +162,7 @@ function Register() {
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}
-          >
+          <Form.Item name="remember" valuePropName="checked">
             <Typography>
               Already Have an Account?{" "}
               <a onClick={() => navigate("/login")}>Click Here</a>
@@ -174,7 +170,7 @@ function Register() {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button shape="round" size="large" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
