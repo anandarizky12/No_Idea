@@ -40,7 +40,7 @@ function StudentLayout({
           )}
 
           {classroom && classroom.class.length === 0 && (
-            <div className="text-center text-gray-500 h-full w-full flex items-center justify-center">
+            <div className="text-center text-gray-500 h-5/6 w-full flex items-center justify-center">
               Belum ada kelas yang diikuti
             </div>
           )}

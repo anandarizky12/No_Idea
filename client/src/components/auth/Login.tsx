@@ -43,10 +43,7 @@ function Login() {
         justifyContent: "space-between",
       }}
     >
-      <Card
-        bordered={true}
-        style={{ width: 600, background: "none", border: "none" }}
-      >
+      <Card style={{ width: 600, background: "none", border: "none" }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -101,7 +98,7 @@ function Login() {
             // wrapperCol={{ offset: 8, span: 16 }}
           >
             <Typography>
-              Already Have an Account?{" "}
+              Dont Have Account?{" "}
               <a className="font-bold" onClick={() => navigate("/register")}>
                 Click Here
               </a>

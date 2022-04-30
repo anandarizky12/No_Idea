@@ -36,6 +36,7 @@ function Register() {
   const handleSubmit = (): void => {
     Dispatch(register(state, setAlert));
   };
+  console.log(state);
 
   return (
     <div
@@ -47,7 +48,7 @@ function Register() {
         padding: "80px",
       }}
     >
-      <Card style={{ width: 600 }}>
+      <Card style={{ width: "600px", background: "none", border: "none" }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -161,21 +162,25 @@ function Register() {
               </Radio.Button>
             </Radio.Group>
           </Form.Item>
+          <h1 className="text-gray-400"> * Pilih Role</h1>
 
           <Form.Item name="remember" valuePropName="checked">
             <Typography>
-              Already Have an Account?{" "}
-              <a onClick={() => navigate("/login")}>Click Here</a>
+              Already Have an Account ?{" "}
+              <a className="font-bold" onClick={() => navigate("/login")}>
+                Click Here
+              </a>
             </Typography>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button shape="round" size="large" htmlType="submit">
+          <Form.Item>
+            <Button type="primary" shape="round" size="large" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
         </Form>
       </Card>
+      <img className="grayscale" src={"/icons8-class-dojo-480.png"}></img>
       {alert.message !== null ? (
         <AlertComponents setAlert={setAlert} alert={alert} />
       ) : null}
