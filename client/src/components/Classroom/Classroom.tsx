@@ -10,7 +10,6 @@ import { SettingOutlined } from "@ant-design/icons";
 import Student from "./Student";
 import AvatarCustom from "../Avatar/AvatarCustom";
 import { getTaskInClassroom } from "../../actions/task";
-import TaskCard from "../Task/TaskCard";
 
 function Classroom() {
   const { id } = useParams();
