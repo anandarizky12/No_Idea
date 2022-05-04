@@ -31,3 +31,31 @@ export const handleChange = (e: any, state: any, setValue: any): void => {
     [name]: value,
   });
 };
+
+export const colorArray = [
+  "blue",
+  "green",
+  "purple",
+  "red",
+  "orange",
+  "pink",
+  "yellow",
+  "cyan",
+  "teal",
+  "indigo",
+  "violet",
+  "gray",
+  "green",
+  "blue",
+  "purple",
+  "red",
+  "orange",
+  "pink",
+  "yellow",
+  "cyan",
+  "teal",
+  "indigo",
+  "violet",
+  "gray",
+];
+

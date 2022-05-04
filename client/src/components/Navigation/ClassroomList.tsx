@@ -1,7 +1,7 @@
 import { Avatar } from "antd";
+import { colorArray } from "../../utils/utils";
 
 function ClassroomList({ classroom, navigate }: any) {
-  const colorArray = ["blue", "green", "purple", "red", "orange"];
   return (
     <div
       onClick={() => {
@@ -12,7 +12,8 @@ function ClassroomList({ classroom, navigate }: any) {
       <Avatar
         style={{
           color: "white",
-          backgroundColor: colorArray[Math.floor(Math.random() * 5)],
+          backgroundColor:
+            colorArray[Math.floor(Math.random() * colorArray.length - 1)],
         }}
       >
         {classroom.name.slice(0, 1)}

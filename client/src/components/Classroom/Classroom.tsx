@@ -19,6 +19,7 @@ function Classroom() {
   const taskData = useSelector((state: any) => state.getTaskInClassroom);
   const { task } = taskData;
   const dispatch = useDispatch();
+
   React.useEffect(() => {
     dispatch(getClassroom(id));
     dispatch(getTaskInClassroom(id));
@@ -26,7 +27,6 @@ function Classroom() {
 
   const { classroom } = classes;
 
-  console.log(classroom);
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
@@ -79,24 +79,9 @@ function Classroom() {
             </div>
           </div>
           {user.role === "guru" ? (
-            <Teacher classroom={classroom} />
+            <Teacher classroom={classroom} user={user} />
           ) : (
             <Student classroom={classroom} />
-          )}
-          {task && task.data.length > 0 ? (
-            task.data.map((task: any, number: Number) => {
-              return (
-                <div className="flex w-3/4 ">
-                  <TaskCard key={number} task={task} user={user} />;
-                </div>
-              );
-            })
-          ) : (
-            <div className="w-full h-96 flex items-center justify-center">
-              <h1 className="text-gray-500 font-normal text-base">
-                Kelas ini belum memiliki tugas
-              </h1>
-            </div>
           )}
         </>
       )}

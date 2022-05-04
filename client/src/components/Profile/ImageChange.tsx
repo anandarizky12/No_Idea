@@ -40,7 +40,7 @@ function ImageChange({ setSelectedImg, state }: any) {
         onClick={openFile}
         src={`${
           !preview
-            ? state.profile
+            ? state.profile && state.profile !== "null"
               ? state.profile
               : "https://res.cloudinary.com/drgorgm6v/image/upload/v1648910579/user_brvzvx.png"
             : preview

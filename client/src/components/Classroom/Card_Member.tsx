@@ -17,7 +17,6 @@ function Card_Member() {
   return (
     <div className="border p-4 border-gray-300 w-48  rounded-md  flex flex-col justify-between">
       <h1 className="text-gray-500">Anggota Kelas</h1>
-
       {students && students.data.length >= 1 ? (
         students.data.slice(0, 5).map((student: any, i: number) => (
           <div
@@ -25,7 +24,7 @@ function Card_Member() {
             className="flex items-center border-b border-gray-300 p-2"
           >
             <AvatarCustom size={"small"} src={student.User.profile} />
-            <div className="ml-2 font-xs text-gray-500">
+            <div className="ml-2 text-xs text-gray-500">
               {student.User.name.split(" ")[0]}
             </div>
           </div>

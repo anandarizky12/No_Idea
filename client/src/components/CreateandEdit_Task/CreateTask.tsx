@@ -31,7 +31,7 @@ function CreateTask({ setOpen, open }: any) {
   const handleSubmit = () => {
     dispatch(createTask(state));
   };
-  console.log(state);
+
   return (
     <Drawer
       title="Create a new Task"
