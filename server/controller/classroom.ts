@@ -331,9 +331,13 @@ exports.leaveClassroom = async (req: any, res: any) => {
     });
   }
 };
+
 exports.getClassroom = async (req: any, res: any) => {
-  try {
+  
+  try{
+
     const { id } = req.params;
+
     const classroom = await Classroom.findOne({
       where: {
         id,
@@ -369,9 +373,11 @@ exports.getClassByUserId = async (req: any, res: any) => {
     const { id } = req.user;
 
     const user = await User.findOne({
+  
       where: {
         id: id,
       },
+  
     });
 
     if (!user) {
@@ -417,7 +423,16 @@ exports.getClassByUserId = async (req: any, res: any) => {
 };
 
 exports.getClassroomByTeacherId = async (req: any, res: any) => {
+  
   try {
+    
+    let page = req.query.startIndex || 2;
+    let limit = req.query.limit || 2;
+  
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+
     const { id } = req.params;
     const teacher = await User.findOne({
       where: {
@@ -426,40 +441,54 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
     });
 
     if (!teacher) {
+  
       return res.status(500).send({
         status: 500,
         message: "User id not valid",
       });
+  
     }
 
     const getClassroomByTeacherId = await Classroom.findAll({
+  
       where: {
+  
         teacher_id: id,
+  
       },
       include: [
+  
         {
           model: User,
           attributes: ["id", "name", "email"],
         },
       ],
+      offset: startIndex,
+      limit: endIndex
     });
 
     if (!getClassroomByTeacherId) {
+  
       return res.status(200).send({
         status: 200,
         message: "you are not create any class yet",
       });
+  
     }
 
     return res.status(200).send({
+  
       status: 200,
       message: "Succesfully get the Class",
       class: getClassroomByTeacherId,
+  
     });
   } catch (err: any) {
+  
     res.status(500).send({
       message: err.message,
     });
+  
   }
 };
 

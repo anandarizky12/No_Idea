@@ -20,8 +20,8 @@ function Profile() {
       {user && user.detail_user ? (
         <div className="w-3/4  border flex items-center p-4 justify-center shadow-md rounded-md  font-semibold relative mt-7">
           <div className="p-4 flex flex-col items-center w-full">
-            <div className="bg-gray-300  w-full h-40 absolute top-0"></div>
-            <div className="z-10 mt-14 flex w-full">
+            <div className="bg-gray-300  w-full h-32 absolute top-0"></div>
+            <div className="z-10 mt-6 flex w-full">
               <div className="flex mt-10 items-center">
                 <AvatarCustom
                   size={{ xs: 24, sm: 32, md: 40, lg: 80, xl: 120, xxl: 180 }}
