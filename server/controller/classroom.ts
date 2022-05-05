@@ -426,8 +426,10 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
   
   try {
     
-    let page = req.query.startIndex || 2;
-    let limit = req.query.limit || 2;
+
+    //paginate
+    const page = req.query.startIndex || 2;
+    const limit = req.query.limit || 2;
   
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
