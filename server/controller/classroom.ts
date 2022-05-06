@@ -130,8 +130,8 @@ exports.editClassroom = async (req: any, res: any) => {
 };
 
 exports.joinClassroom = async (req: any, res: any) => {
+  
   const { id } = req.user;
-
   const { code } = req.body;
 
   try {
@@ -425,11 +425,10 @@ exports.getClassByUserId = async (req: any, res: any) => {
 exports.getClassroomByTeacherId = async (req: any, res: any) => {
   
   try {
-    
-
+  
     //paginate
-    const page = req.query.startIndex || 2;
-    const limit = req.query.limit || 2;
+    const page = req.query.startIndex || 1;
+    const limit = req.query.limit || 8;
   
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
