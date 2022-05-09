@@ -25,7 +25,7 @@ export const getTaskInClassroom = (id: any) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
+         
           dispatch({
             type: actionTypes.GET_ALL_TASK_IN_CLASS_FAILED,
             payload: err.response,

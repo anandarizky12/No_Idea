@@ -16,11 +16,13 @@ function AnswerTask() {
   const { id, class_id } = useParams();
   const user_id = getCookie("id");
   const [answer, setAnswer] = React.useState("");
+  const answerTaskResponse = useSelector((state: any) => state.AnswerTask);
 
   React.useEffect(() => {
     Dispatch(getTask(id, class_id));
   }, []);
 
+  console.log(answerTaskResponse);
   const sendAnswer = () => {
     if (answer === "") {
       alert("Please input your answer");
