@@ -264,3 +264,54 @@ export const getAllScores = (class_id: any) => {
     }
   };
 };
+
+interface Idata {
+  answer : string,
+  id : string | undefined,
+  user_id : string | undefined,
+  class_id : string | undefined,
+}
+
+export const AnswerTask = (data : Idata ) =>{
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { answer , id, class_id, user_id  } = data;
+    console.log(answer, data)
+    try{
+      await axios
+        .post(`http://localhost:8000/api/answer_tasks?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
+        .then((res)=>{
+          dispatch({
+            type: actionTypes.ANSWER_TASK,
+            payload: res,
+            isLoading: false,
+            isError: false,
+          });
+
+        })
+        .catch((err : any)=>{
+          dispatch({
+            type: actionTypes.ANSWER_TASK_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+        }
+        );
+    }catch(err : any){
+      dispatch({
+        type: actionTypes.ANSWER_TASK_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      }); 
+    }
+  }
+}
+  

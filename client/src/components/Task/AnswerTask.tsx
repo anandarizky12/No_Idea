@@ -1,11 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getTask } from "../../actions/task";
+import { getTask, AnswerTask as AnswerTaskAction } from "../../actions/task";
 import DynamicError from "../404/DynamicError";
 import { Button, Spin } from "antd";
 import moment from "moment";
 import { Input } from "antd";
+import { getCookie } from "../../utils/utils";
 
 const { TextArea } = Input;
 
@@ -13,11 +14,19 @@ function AnswerTask() {
   const Dispatch = useDispatch();
   const task = useSelector((state: any) => state.getTask);
   const { id, class_id } = useParams();
+  const user_id = getCookie("id");
   const [answer, setAnswer] = React.useState("");
 
   React.useEffect(() => {
     Dispatch(getTask(id, class_id));
   }, []);
+
+  const sendAnswer = () => {
+    if (answer === "") {
+      alert("Please input your answer");
+    }
+    Dispatch(AnswerTaskAction({ answer, id, class_id, user_id }));
+  };
 
   if (task.error && task.error.data) {
     return (
@@ -56,12 +65,12 @@ function AnswerTask() {
               />
             </div>
             <div className="flex justify-end">
-              {" "}
               <Button
                 disabled={answer.length < 1 ? true : false}
                 type="primary"
                 className="mt-5"
                 style={{ width: 90 }}
+                onClick={sendAnswer}
               >
                 Kirim
               </Button>
