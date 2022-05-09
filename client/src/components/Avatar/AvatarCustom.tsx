@@ -6,6 +6,9 @@ function AvatarCustom({ size, src }: any) {
     <Avatar
       className="text-xl hover:cursor-pointer"
       size={size}
+      style={{
+        border: "3px solid #e6e6e6",
+      }}
       src={
         src
           ? src

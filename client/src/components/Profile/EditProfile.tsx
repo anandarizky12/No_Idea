@@ -1,6 +1,6 @@
 import { Modal, Spin, Button } from "antd";
 import React, { useRef } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { SettingOutlined } from "@ant-design/icons";
 import { Tooltip, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -48,15 +48,17 @@ export const EditProfile = () => {
 
   return (
     <>
-      <Tooltip placement="bottom" title="Gabung Kelas">
+      <Tooltip placement="bottom" title="Edit Profile">
         <Button
           // icon={<SettingOutlined className="text-xl" />}
-          type="primary"
+          type="text"
           shape="round"
+          style={{
+            color: "#fff",
+          }}
+          icon={<SettingOutlined />}
           onClick={() => setVisible(true)}
-        >
-          Edit Profile
-        </Button>
+        ></Button>
       </Tooltip>
 
       <Modal
