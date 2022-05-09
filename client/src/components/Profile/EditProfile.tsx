@@ -67,6 +67,7 @@ export const EditProfile = () => {
         visible={visible}
         onOk={() => handleEdit()}
         onCancel={() => setVisible(false)}
+        width="400px"
       >
         <div className="flex flex-col items-center justify-center">
           {loading ? (
