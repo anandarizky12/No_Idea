@@ -206,13 +206,14 @@ export const getTask = (id: any, class_id: any) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
           dispatch({
             type: actionTypes.GET_TASK_FAILED,
             payload: err.response,
             isLoading: false,
             isError: true,
           });
+          console.log(err.response);
+          alert(err.response.data.message);
         });
     } catch (err: any) {
       dispatch({
@@ -221,6 +222,7 @@ export const getTask = (id: any, class_id: any) => {
         isLoading: false,
         isError: true,
       });
+      alert(err.response.data.message);
     }
   };
 };
@@ -282,7 +284,7 @@ export const AnswerTask = (data : Idata ) =>{
       },
     };
     const { answer , id, class_id, user_id  } = data;
-    console.log(answer, data)
+
     try{
       await axios
         .post(`http://localhost:8000/api/answer_tasks?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
@@ -293,9 +295,10 @@ export const AnswerTask = (data : Idata ) =>{
             isLoading: false,
             isError: false,
           });
-
+          window.location.reload();
         })
         .catch((err : any)=>{
+          alert(err.response.data.message); 
           dispatch({
             type: actionTypes.ANSWER_TASK_FAILED,
             payload: err.response,
@@ -305,6 +308,7 @@ export const AnswerTask = (data : Idata ) =>{
         }
         );
     }catch(err : any){
+      alert(err.response.data.message);
       dispatch({
         type: actionTypes.ANSWER_TASK_FAILED,
         payload: err.response,
