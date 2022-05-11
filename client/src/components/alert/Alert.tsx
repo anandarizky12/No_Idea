@@ -9,7 +9,6 @@ interface IProps {
   setAlert: any;
 }
 export const AlertComponents = ({ alert, setAlert }: IProps) => {
-  console.log(alert);
   const onClose = (): void => {
     setAlert({
       message: "",

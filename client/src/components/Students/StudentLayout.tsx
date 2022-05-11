@@ -16,6 +16,7 @@ function StudentLayout({
         message={classes.error.data.error.message}
       />
     );
+
   return (
     <div>
       <div>
@@ -24,8 +25,8 @@ function StudentLayout({
             classroom.class.map((classroom: any) => {
               return (
                 <Class_card
-                  key={classroom.id}
-                  id={classroom.id}
+                  key={classroom.Classroom.id}
+                  id={classroom.Classroom.id}
                   classroom={classroom.Classroom}
                   user={user}
                 />

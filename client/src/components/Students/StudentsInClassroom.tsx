@@ -51,8 +51,8 @@ function StudentsInClassroom() {
           </div>
         ) : null}
         {students && students.data ? (
-          students.data.map((student: any) => (
-            <StudentsCard student={student} />
+          students.data.map((student: any, index: any) => (
+            <StudentsCard key={index} student={student} />
           ))
         ) : (
           <div className="mt-12">

@@ -111,6 +111,7 @@ exports.editTask = async (req: any, res: any) => {
  
     const { id } = req.params;
     const { answer_key, title, deadline, description, other } = req.body;
+  
     const schema = joi.object({
       answer_key: joi.string().required(),
       title: joi.string().required(),

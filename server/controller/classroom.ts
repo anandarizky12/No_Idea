@@ -251,6 +251,7 @@ exports.getTaskInClassroom = async (req: any, res: any) => {
       where: {
         classroom_id: id,
       },
+      order: [ [ 'createdAt', 'DESC' ]]
     });
 
     if (!task) {

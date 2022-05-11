@@ -69,16 +69,18 @@ export const createTask = (data: any) => {
           window.location.reload();
         })
         .catch((err) => {
-          console.log(err.response);
+         
+          alert(err.response.data.message)
           dispatch({
             type: actionTypes.CREATE_TASK_FAILED,
             payload: err.response,
             isLoading: false,
             isError: true,
           });
-          window.location.reload();
+          // window.location.reload();
         });
     } catch (err: any) {
+      alert(err.response.data.message)
       dispatch({
         type: actionTypes.CREATE_TASK_FAILED,
         payload: err.response,
@@ -115,7 +117,7 @@ export const editTask = (data: any, id: string) => {
           }, 1000);
         })
         .catch((err) => {
-          console.log(err.response);
+          alert(err.response.data.message);
           dispatch({
             type: actionTypes.EDIT_TASK_FAILED,
             payload: err.response,
@@ -124,6 +126,7 @@ export const editTask = (data: any, id: string) => {
           });
         });
     } catch (err: any) {
+      alert(err.response.data.message)
       dispatch({
         type: actionTypes.EDIT_TASK_FAILED,
         payload: err.response,
@@ -298,6 +301,9 @@ export const AnswerTask = (data : Idata ) =>{
           window.location.reload();
         })
         .catch((err : any)=>{
+          if (!err.response){
+            alert("Sorry I thuink Server is busy now")
+          }
           alert(err.response.data.message); 
           dispatch({
             type: actionTypes.ANSWER_TASK_FAILED,

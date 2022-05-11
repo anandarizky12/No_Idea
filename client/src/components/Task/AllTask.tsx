@@ -39,8 +39,11 @@ function AllTask() {
         {task && task.data.length > 0 ? (
           task.data.map((task: any, number: Number) => {
             return (
-              <div className="flex  w-5/6 items-center justify-center">
-                <TaskCard key={number} task={task} user={user} />;
+              <div
+                key={task.id}
+                className="flex  w-5/6 items-center justify-center"
+              >
+                <TaskCard task={task} user={user} />;
               </div>
             );
           })

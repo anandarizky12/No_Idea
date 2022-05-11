@@ -23,15 +23,16 @@ function EditTask({ setOpen, open, task }: any) {
     // classroom_id: id,
     answer_key: task.answer_key,
   });
-  function onChangeDate(date: any, dateString: any): void {
+  function onChangeDate(date: any, dateString: String | null): void {
     setState({
       ...state,
-      deadline: dateString,
+      deadline: dateString === "" ? null : dateString,
     });
   }
   const handleSubmit = () => {
     dispatch(editTask(state, task.id));
   };
+
   return (
     <Drawer
       title="Edit Task"
@@ -65,11 +66,7 @@ function EditTask({ setOpen, open, task }: any) {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="deadline"
-              label="Pick Deadline"
-              rules={[{ required: true, message: "Please select Deadline" }]}
-            >
+            <Form.Item name="deadline" label="Pick Deadline">
               <DatePicker
                 defaultValue={task.deadline && moment(task.deadline)}
                 name="deadline"
