@@ -26,6 +26,8 @@ function Classroom() {
 
   const { classroom } = classes;
 
+  console.log("yayyayayy");
+
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
