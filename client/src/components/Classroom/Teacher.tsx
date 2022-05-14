@@ -16,11 +16,10 @@ function Teacher({ classroom, user }: any) {
   }, [id]);
 
   return (
-    <div className="w-full w-3/4 ">
-      <div className="flex my-5 w-full">
+    <div className="w-full md:w-3/4">
+      <div className="flex my-5 w-full flex-col md:flex-row">
         {/* left team */}
-        <div className="">
-          {" "}
+        <div>
           <Classcode code={classroom.data.classcode} />
         </div>
         {/* right team */}

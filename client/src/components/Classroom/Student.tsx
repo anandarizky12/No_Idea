@@ -15,9 +15,9 @@ function Student({ classroom }: any) {
   }, [classroom.data.id]);
 
   return (
-    <div className="flex my-5 w-3/4 ">
+    <div className="flex my-5 w-full md:w-3/4 ">
       {/* left team */}
-      <div className="">
+      <div>
         <Card_Member />
       </div>
       {/* right team */}

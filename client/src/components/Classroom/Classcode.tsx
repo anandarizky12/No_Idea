@@ -18,8 +18,8 @@ function Classcode({ code }: any) {
   };
 
   return (
-    <div className="border p-5 border-gray-300 w-48 h-24 rounded-md  flex justify-between">
-      <div className="">
+    <div className="border p-5 border-gray-300 rounded-md  flex justify-between  w-full  md:w-48 h-24 ">
+      <div>
         <h1 className="text-md text-gray-600">Class Code</h1>
         <p className="text-2xl font-semibold">{code}</p>
       </div>
