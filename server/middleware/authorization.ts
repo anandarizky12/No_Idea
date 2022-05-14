@@ -36,7 +36,7 @@ exports.authTeacher = async (req: any, res: any, next: any) => {
     !(token = header.split(" ")[1])
   )
     return res.status(401).send({
-      error: { message: "Access denied" },
+      error: { message: "Access denied" , status: 401},
     });
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -48,10 +48,10 @@ exports.authTeacher = async (req: any, res: any, next: any) => {
         .status(400)
         .send({ status: 400, message: "invalid operation" });
     next();
-  } catch (err) {
+  } catch (err : any) {
     console.log(err);
     res.status(400).send({
-      error: { message: "Invalid token" },
+      error: { message: err.message, status: 400 },
     });
   }
 };
@@ -81,10 +81,10 @@ exports.isMemberOfClass = async (req: any, res: any, next: any) => {
         .send({ status: 400, message: "You are not a member of this class" });
 
     next();
-  } catch (err) {
+  } catch (err : any) {
     console.log(err);
     res.status(400).send({
-      error: { message: "Invalid token" },
+      error: { message: err.message, status: 400 },
     });
   }
 };
@@ -115,10 +115,10 @@ exports.isTeacherOfClass = async (req: any, res: any, next: any) => {
       });
     req.user = decoded;
     next();
-  } catch (err) {
+  } catch (err : any) {
     console.log(err);
     res.status(400).send({
-      error: { message: "Invalid token" },
+      error: { message: err.message, status: 400 },
     });
   }
 };
@@ -158,10 +158,10 @@ exports.isTeacherOrMemberOfClass = async (req: any, res: any, next: any) => {
           .send({ status: 400, message: "You are not a member of this class" });
       next();
     }
-  } catch (err) {
+  } catch (err : any) {
     console.log(err);
     res.status(400).send({
-      error: { message: "Invalid token" },
+      error: { message: err.message, status: 400 },
     });
   }
 };

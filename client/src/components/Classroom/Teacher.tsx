@@ -4,6 +4,7 @@ import CreateTaskButton from "./CreateTaskButton";
 import { useSelector, useDispatch } from "react-redux";
 import { getTaskInClassroom } from "../../actions/task";
 import TaskCard from "../Task/TaskCard";
+import { Spin } from "antd";
 
 function Teacher({ classroom, user }: any) {
   const id = classroom.data.id;
@@ -29,21 +30,15 @@ function Teacher({ classroom, user }: any) {
         </div>
       </div>
       <div className="">
-        {task && task.data.length > 0 ? (
-          task.data.map((task: any, number: Number) => {
-            return (
-              <div className="flex ">
-                <TaskCard key={number} task={task} user={user} />;
-              </div>
-            );
-          })
-        ) : (
-          <div className="w-full h-96 flex items-center justify-center">
-            <h1 className="text-gray-500 font-normal text-base">
-              Kelas ini belum memiliki tugas
-            </h1>
-          </div>
-        )}
+        {task && task.data.length > 0
+          ? task.data.map((task: any, number: Number) => {
+              return (
+                <div className="flex ">
+                  <TaskCard key={number} task={task} user={user} />;
+                </div>
+              );
+            })
+          : null}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { getUser } from "../../actions/user";
 import AvatarCustom from "../Avatar/AvatarCustom";
 import { EditProfile } from "./EditProfile";
 import { KeyOutlined } from "@ant-design/icons";
+import DynamicError from "../404/DynamicError";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -14,7 +15,13 @@ function Profile() {
     dispatch(getUser());
   }, []);
 
-  console.log(user);
+  if (!user.isLoading && user.isError && user.error)
+    return (
+      <DynamicError
+        status={user.error.res.status}
+        message={user.error.res.message}
+      />
+    );
 
   return (
     <div className="flex items-center justify-center">
@@ -64,7 +71,12 @@ function Profile() {
           </div>
         </div>
       ) : (
-        <Spin size="large" />
+        <div
+          style={{ minHeight: "90vh" }}
+          className="flex items-center justify-center"
+        >
+          <Spin size="large" />
+        </div>
       )}
     </div>
   );

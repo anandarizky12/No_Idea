@@ -1,4 +1,5 @@
 "use strict";
+import bycrypt from 'bcrypt';
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,7 +8,7 @@ module.exports = {
         name: "Usram Bin Ahmed",
         phone: "0123456789",
         email: "usram@gmail.com",
-        password: "12345678",
+        password: bycrypt("12345678"),
         role: "guru",
         profile: null,
         no_induk: "123456789",
@@ -18,7 +19,7 @@ module.exports = {
         name: "Ali Mahmud",
         phone: "0123456789",
         email: "Ali@gmail.com",
-        password: "12345678",
+        password: bycrypt("12345678"),
         role: "siswa",
         profile: null,
         no_induk: "124323423",
@@ -29,7 +30,7 @@ module.exports = {
         name: "Mahmud Bin Ali",
         phone: "0123456789",
         email: "mahmud@gmail.com",
-        password: "12345678",
+        password: bycrypt("12345678"),
         role: "siswa",
         profile: null,
         no_induk: "12345678",

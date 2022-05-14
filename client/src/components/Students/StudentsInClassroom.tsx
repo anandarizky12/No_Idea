@@ -60,8 +60,13 @@ function StudentsInClassroom() {
           </div>
         )}
         {students && students.data && students.data.length < 1 ? (
-          <div className="text-center mt-5">
-            <h1 className="text-3xl font-normal">Belum ada siswa</h1>
+          <div
+            style={{ minHeight: "50vh" }}
+            className=" flex items-center justify-center mt-5"
+          >
+            <h1 className="text-xl font-normal text-gray-500">
+              Belum ada siswa
+            </h1>
           </div>
         ) : null}
       </div>
