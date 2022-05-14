@@ -80,7 +80,7 @@ function Top(): JSX.Element {
           </div>
         ) : null}
 
-        <div id="icons">
+        <div className="flex items-center" id="icons">
           {user.role === "siswa" ? (
             <JoinClass />
           ) : (

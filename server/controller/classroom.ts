@@ -130,8 +130,8 @@ exports.editClassroom = async (req: any, res: any) => {
 };
 
 exports.joinClassroom = async (req: any, res: any) => {
+  
   const { id } = req.user;
-
   const { code } = req.body;
 
   try {
@@ -251,6 +251,7 @@ exports.getTaskInClassroom = async (req: any, res: any) => {
       where: {
         classroom_id: id,
       },
+      order: [ [ 'createdAt', 'DESC' ]]
     });
 
     if (!task) {
@@ -425,9 +426,10 @@ exports.getClassByUserId = async (req: any, res: any) => {
 exports.getClassroomByTeacherId = async (req: any, res: any) => {
   
   try {
-    
-    let page = req.query.startIndex || 2;
-    let limit = req.query.limit || 2;
+  
+    //paginate
+    const page = req.query.startIndex || 1;
+    const limit = req.query.limit || 8;
   
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;

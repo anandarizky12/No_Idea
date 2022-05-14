@@ -9,19 +9,16 @@ import Teacher from "./Teacher";
 import { SettingOutlined } from "@ant-design/icons";
 import Student from "./Student";
 import AvatarCustom from "../Avatar/AvatarCustom";
-import { getTaskInClassroom } from "../../actions/task";
 
 function Classroom() {
   const { id } = useParams();
   const classes = useSelector((state: any) => state.getClassroom);
   const user = useSelector((state: any) => state.user);
-  const taskData = useSelector((state: any) => state.getTaskInClassroom);
-  const { task } = taskData;
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getClassroom(id));
-    dispatch(getTaskInClassroom(id));
   }, [id]);
 
   const { classroom } = classes;
@@ -29,15 +26,18 @@ function Classroom() {
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
-        status={classes.error.data.status}
-        message={classes.error.data.message}
+        status={classes.error.data.error.status}
+        message={classes.error.data.error.message}
       />
     );
 
   return (
     <div className="mt-7 w-full flex justify-center items-center flex-col">
       {classes.isLoading && !classes.isError && !classroom ? (
-        <div className="text-center text-gray-500 h-screen w-full flex items-center justify-center">
+        <div
+          style={{ minHeight: "90vh" }}
+          className="text-center text-gray-500 w-full flex items-center justify-center"
+        >
           <Space size="middle">
             <Spin size="large" />
           </Space>

@@ -11,6 +11,14 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "IPS 2",
+        description: "Kelas IPS 2",
+        teacher_id: 1,
+        classcode: "D4Fr31Dc",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

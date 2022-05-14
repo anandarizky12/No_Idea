@@ -15,3 +15,7 @@ export const GET_TASK_FAILED: string = "GET_TASK_FAILED";
 
 export const GET_ALL_SCORES: string = "GET_ALL_SCORES";
 export const GET_ALL_SCORES_FAILED: string = "GET_ALL_SCORES_FAILED";
+
+
+export const ANSWER_TASK : string = "ANSWER_TASK";
+export const ANSWER_TASK_FAILED : string = "ANSWER_TASK_FAILED";

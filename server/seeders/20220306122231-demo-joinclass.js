@@ -14,13 +14,7 @@ module.exports = {
         classroom_id: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
-      },
-      {
-        student_id: 1,
-        classroom_id: 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+      }
     ]);
   },
 

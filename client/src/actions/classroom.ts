@@ -159,10 +159,10 @@ export const getClassroom = (id: any) => {
             isError: true,
           });
         });
-    } catch (err) {
+    } catch (err : any) {
       dispatch({
         type: actionTypes.GET_CLASSROOM_FAILED,
-        payload: err,
+        payload: err.response,
         isLoading: false,
         isError: true,
       });

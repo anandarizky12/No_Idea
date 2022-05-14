@@ -6,6 +6,7 @@ const {
   Answer_task,
   Score,
 } = require("../models");
+
 const joi = require("@hapi/joi");
 
 exports.createTask = async (req: any, res: any) => {
@@ -19,6 +20,7 @@ exports.createTask = async (req: any, res: any) => {
       description,
       other,
     } = req.body;
+
     const schema = joi.object({
       classroom_id: joi.number().required(),
       user_id: joi.number().required(),
@@ -28,7 +30,9 @@ exports.createTask = async (req: any, res: any) => {
       description: joi.string().allow(null),
       other: joi.string().allow(null),
     });
+
     const { error } = schema.validate(req.body);
+
     if (error) {
       return res.status(500).send({
         status: 500,
@@ -88,6 +92,7 @@ exports.deleteTask = async (req: any, res: any) => {
       });
     }
     await task.destroy();
+
     return res.status(200).send({
       status: 200,
       message: "Task deleted",
@@ -101,9 +106,12 @@ exports.deleteTask = async (req: any, res: any) => {
 };
 
 exports.editTask = async (req: any, res: any) => {
+ 
   try {
+ 
     const { id } = req.params;
     const { answer_key, title, deadline, description, other } = req.body;
+  
     const schema = joi.object({
       answer_key: joi.string().required(),
       title: joi.string().required(),
@@ -147,6 +155,7 @@ exports.editTask = async (req: any, res: any) => {
 };
 
 exports.getTask = async (req: any, res: any) => {
+ 
   try {
     const { id } = req.params;
     const classroom_id = req.query.class;

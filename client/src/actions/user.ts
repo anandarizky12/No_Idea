@@ -109,6 +109,8 @@ export const getUser = () => async (dispatch: Dispatch) => {
         dispatch({
           type: actionTypes.GET_USER,
           payload: res.data.data,
+          isLoading: false,
+          isError: false,
         });
       })
       .catch((err) => {
@@ -116,7 +118,10 @@ export const getUser = () => async (dispatch: Dispatch) => {
         dispatch({
           type: actionTypes.GET_USER_FAIL,
           payload: {
-            message: err.response.data.message,
+            res: err.response.data,
+            isLoading: false,
+            isError: true,
+          
           },
         });
         // setAlert({ message: err.response.data.message, typeAlert: 4 });
@@ -127,7 +132,9 @@ export const getUser = () => async (dispatch: Dispatch) => {
     dispatch({
       type: actionTypes.GET_USER_FAIL,
       payload: {
-        message: err.response.data.message,
+        res: err.response.data,
+        isLoading: false,
+        isError: true,
       },
     });
   }

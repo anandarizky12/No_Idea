@@ -18,6 +18,7 @@ import {
   editTask,
   getTask,
   getAllScores,
+  AnswerTask
 } from "../reducers/taskReducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   joinClassroom,
   editProfile,
   getAllScores,
+  AnswerTask
 });
 
 const middleware = applyMiddleware(thunk);

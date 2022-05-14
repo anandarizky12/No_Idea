@@ -80,6 +80,7 @@ exports.Register = async (req: any, res: any) => {
     res.status(500).send({
       status: 500,
       message: err.message,
+      
     });
   }
 };

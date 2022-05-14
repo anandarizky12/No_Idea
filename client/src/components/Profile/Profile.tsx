@@ -1,9 +1,11 @@
-import { Spin } from "antd";
 import React from "react";
+import { Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../actions/user";
 import AvatarCustom from "../Avatar/AvatarCustom";
 import { EditProfile } from "./EditProfile";
+import { KeyOutlined } from "@ant-design/icons";
+import DynamicError from "../404/DynamicError";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -13,21 +15,47 @@ function Profile() {
     dispatch(getUser());
   }, []);
 
-  console.log(user);
+  if (!user.isLoading && user.isError && user.error)
+    return (
+      <DynamicError
+        status={user.error.res.status}
+        message={user.error.res.message}
+      />
+    );
 
   return (
     <div className="flex items-center justify-center">
       {user && user.detail_user ? (
-        <div className="w-3/4  border flex items-center p-4 justify-center shadow-md rounded-md  font-semibold relative mt-7">
-          <div className="p-4 flex flex-col items-center w-full">
-            <div className="bg-gray-300  w-full h-32 absolute top-0"></div>
-            <div className="z-10 mt-6 flex w-full">
-              <div className="flex mt-10 items-center">
+        <div className="bg-profile w-80 border flex items-center p-4 justify-center shadow-md rounded-md  font-semibold relative mt-7">
+          <div className="p-4  flex flex-col  justify-center items-center w-full">
+            {/* <div className="bg-gray-300  w-full h-64"></div> */}
+            <div className=" mt-6 flex w-full  justify-center">
+              <div className="flex flex-col mt-10 justify-center items-center">
                 <AvatarCustom
-                  size={{ xs: 24, sm: 32, md: 40, lg: 80, xl: 120, xxl: 180 }}
+                  size={{
+                    xs: 40,
+                    sm: 80,
+                    md: 120,
+                    lg: 120,
+                    xl: 120,
+                    xxl: 180,
+                  }}
                   src={user.detail_user.profile}
                 />
-                <h1 className="text-2xl ml-3  ">{user.detail_user.name}</h1>
+                <div className="mt-5 text-center ">
+                  <h1 className="text-2xl text-white m-0">
+                    {user.detail_user.name}
+                  </h1>
+                  <h2 className="text-gray-400 font-light text-xs">
+                    {user.detail_user.email}
+                  </h2>
+                </div>
+                <div className="bg-gray-200 mt-5 flex items-center justify-center rounded-full w-16">
+                  <KeyOutlined className="mr-1" />
+                  <h1 className="font-semibold p-0 m-0">
+                    {user.detail_user.role}
+                  </h1>
+                </div>
               </div>
               {/* <div className="flex flex-col items-center mt-4">
                 <h2 className="text-xs text-gray-500">
@@ -43,7 +71,12 @@ function Profile() {
           </div>
         </div>
       ) : (
-        <Spin size="large" />
+        <div
+          style={{ minHeight: "90vh" }}
+          className="flex items-center justify-center"
+        >
+          <Spin size="large" />
+        </div>
       )}
     </div>
   );

@@ -2,7 +2,6 @@ import React from "react";
 import AvatarCustom from "../Avatar/AvatarCustom";
 
 function StudentsCard({ student }: any) {
-  console.log(student);
   return (
     <div className="border w-full mt-5 rounded-md shadow-md h-16">
       <div className="flex items-center h-full px-5 justify-between">

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { handleChange } from "../../utils/utils";
 import { createClassroom } from "../../actions/classroom";
 import { getCookie } from "../../utils/utils";
+import useWindowDimension from "../hook/useWindowDimension";
 
 function Create({ setOpenRight, openRight }: any) {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function Create({ setOpenRight, openRight }: any) {
   return (
     <Drawer
       title="Create a new classroom"
-      width={720}
+      width={useWindowDimension() > 400 ? 720 : "100%"}
       onClose={onClose}
       visible={openRight}
       bodyStyle={{ paddingBottom: 80 }}
@@ -60,7 +61,10 @@ function Create({ setOpenRight, openRight }: any) {
               name="banner"
               label="Image Banner"
               rules={[
-                { required: true, message: "Please enter image banner url" },
+                {
+                  required: true,
+                  message: "Please enter image banner url",
+                },
               ]}
             >
               <Input
