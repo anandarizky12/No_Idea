@@ -15,13 +15,13 @@ function Student({ classroom }: any) {
   }, [classroom.data.id]);
 
   return (
-    <div className="flex my-5 w-full md:w-3/4 ">
+    <div className="flex my-5 w-full flex-col md:flex-row md:w-3/4 ">
       {/* left team */}
-      <div>
+      <div className="hidden md:block">
         <Card_Member />
       </div>
       {/* right team */}
-      <div className="w-full ">
+      <div className="w-full">
         {task ? (
           task.data.map((task: any, i: number) => (
             <TaskCardHome key={i} task={task} />

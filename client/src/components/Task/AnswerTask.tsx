@@ -22,7 +22,6 @@ function AnswerTask() {
     Dispatch(getTask(id, class_id));
   }, []);
 
-  console.log(answerTaskResponse);
   const sendAnswer = () => {
     if (answer === "") {
       alert("Please input your answer");
@@ -40,7 +39,7 @@ function AnswerTask() {
   }
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <div className="border border-gray-300 rounded-md shadow-md  w-4/6 flex items-center p-8 justify-between m-8">
+      <div className="border border-gray-300 rounded-md shadow-md  w-5/6 md:w-4/6 flex items-center p-8 justify-between m-8">
         {task.task && task.task.data ? (
           <div className="flex flex-col w-full">
             <div className="flex flex-col justify-center w-full ">
@@ -58,7 +57,7 @@ function AnswerTask() {
               </h3>
             </div>
             <div className="w-full mt-5">
-              <h1>Jawaban Anda</h1>
+              <h1 className="text-gray-400">Jawaban Anda</h1>
 
               <TextArea
                 onChange={(e) => setAnswer(e.target.value)}
