@@ -11,7 +11,7 @@ module.exports = {
         password: bycrypt("12345678"),
         role: "guru",
         profile: null,
-        no_induk: "123456789",
+        no_induk: bycrypt("123456789"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
