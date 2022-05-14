@@ -4,7 +4,6 @@ import CreateTaskButton from "./CreateTaskButton";
 import { useSelector, useDispatch } from "react-redux";
 import { getTaskInClassroom } from "../../actions/task";
 import TaskCard from "../Task/TaskCard";
-import { Spin } from "antd";
 
 function Teacher({ classroom, user }: any) {
   const id = classroom.data.id;
