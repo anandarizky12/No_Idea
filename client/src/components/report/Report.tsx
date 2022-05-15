@@ -28,7 +28,7 @@ function Report() {
             setVisible={setVisible}
             key={i}
             report={report}
-            type={report.path}
+            type={report.type}
           />
         ))}
       </div>

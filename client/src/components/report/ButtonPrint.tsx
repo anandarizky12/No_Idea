@@ -1,8 +1,10 @@
 // import { ButtonPrint } from "@ant-design/icons";
 import ReactToPrint from "react-to-print";
+import { useState } from "react";
 import { Button } from "antd";
 function ButtonPrint({ id, componentRef }: any) {
-  console.log(componentRef);
+  const [loading, setLoading] = useState(false);
+
   return (
     <ReactToPrint
       documentTitle="Cetak Laporan"

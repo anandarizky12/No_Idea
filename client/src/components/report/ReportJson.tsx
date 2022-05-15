@@ -14,7 +14,7 @@ export const reportjson = [
     title2: "Teacher Bidata Report Data",
     description: "Ini adalah Laporan Biodata Guru",
     photo: "",
-    path: "bioteacher",
+    type: "teacher_report",
     icon: <UserOutlined />,
   },
   {
@@ -22,7 +22,7 @@ export const reportjson = [
     title2: "Score Report Data",
     description: "Ini adalah Laporan Data Nilai",
     photo: "",
-    path: "score",
+    type: "scores_report",
     icon: <BarChartOutlined />,
   },
   {
@@ -30,7 +30,7 @@ export const reportjson = [
     title2: "Students Report Data",
     description: "Ini adalah Laporan Data Siswa",
     photo: "",
-    path: "students",
+    type: "students_report",
     icon: <TeamOutlined />,
   },
   {
@@ -38,7 +38,7 @@ export const reportjson = [
     title2: "Class Report Data",
     description: "Ini adalah Laporan Data Kelas",
     photo: "",
-    path: "classes",
+    type: "classes_report",
     icon: <BankOutlined />,
   },
   {
@@ -46,7 +46,7 @@ export const reportjson = [
     title2: "Class Report Data",
     description: "Ini adalah Laporan Data Nilai siswa lulus (di atas kkm)",
     photo: "",
-    path: "studetspass",
+    type: "scores_report_pass",
     icon: <CheckCircleOutlined />,
   },
   {
@@ -55,7 +55,7 @@ export const reportjson = [
     description:
       "Ini adalah Laporan Data Nilai Tidak siswa lulus (di bawah kkm)",
     photo: "",
-    path: "studetsfail",
+    type: "scores_report_fail",
     icon: <CloseCircleOutlined />,
   },
   {
@@ -63,7 +63,7 @@ export const reportjson = [
     title2: "Students Biodata Report",
     description: "Ini adalah Laporan Biodata Siswa",
     photo: "",
-    path: "biostudent",
+    type: "student_bio_report",
     icon: <UserOutlined />,
   },
   {
@@ -71,7 +71,7 @@ export const reportjson = [
     title2: "Task Report Data",
     description: "Ini adalah Laporan Data Tugas (di bawah kkm)",
     photo: "",
-    path: "tasks",
+    type: "tasks_report",
     icon: <ReadOutlined />,
   },
 ];

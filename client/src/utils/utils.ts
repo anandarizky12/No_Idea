@@ -32,6 +32,7 @@ export const handleChange = (e: any, state: any, setValue: any): void => {
   });
 };
 
+
 export const colorArray = [
   "blue",
   "green",

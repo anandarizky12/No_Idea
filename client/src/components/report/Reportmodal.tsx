@@ -1,7 +1,10 @@
-import React, { createRef } from "react";
+import React, { createRef, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Spin, Radio } from "antd";
 import StudentReport from "./StudentReport";
 import ButtonPrint from "./ButtonPrint";
+import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
+import { getAllScores, getTaskInClassroom } from "../../actions/task";
 
 export const ReportModal = ({
   classrooms,
@@ -12,6 +15,7 @@ export const ReportModal = ({
   const { classroom } = classrooms;
   const componentRef = createRef<HTMLInputElement>();
 
+  const [printLoading, setPrintLoading] = useState(false);
   const [id, setId] = React.useState(null);
   //to get choosen classroom by id
 
@@ -21,8 +25,47 @@ export const ReportModal = ({
   const onChange = (e: any) => {
     setId(e.target.value);
   };
+  const handleCancel = () => {
+    setVisible(false);
+    setId(null);
+  };
 
-  console.log(getFilteredClassroom, report);
+  const { scores } = useSelector((state: any) => state.getAllScores);
+  const classes = useSelector((state: any) => state.getClassroom);
+  const taskData = useSelector((state: any) => state.getTaskInClassroom);
+  const data = useSelector((state: any) => state.getStudentsInClassroom);
+  const { students } = data;
+  const dispatch = useDispatch();
+
+  const HandleReportDispatch = (id: string, type: string) => {
+    // const dispatch = useDispatch();
+
+    switch (type) {
+      case "classes_report":
+        dispatch(getClassroom(id));
+        return classes;
+      case "student_bio_report":
+        dispatch(getStudentsinClassroom(id));
+        return students;
+      case "scores_report_pass":
+        dispatch(getAllScores(id));
+        return scores;
+      case "scores_report_fail":
+        dispatch(getAllScores(id));
+        return scores;
+      case "tasks_report":
+        dispatch(getTaskInClassroom(id));
+        return taskData;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      console.log(HandleReportDispatch(id, report.type));
+    }
+  }, [report.type]);
 
   return (
     <>
@@ -31,7 +74,7 @@ export const ReportModal = ({
         centered
         visible={visible}
         onOk={() => setVisible(false)}
-        onCancel={() => setVisible(false)}
+        onCancel={() => handleCancel()}
         width={500}
       >
         <h1 className="text-gray-600">Pilih Kelas</h1>
@@ -55,19 +98,24 @@ export const ReportModal = ({
           ) : (
             <Spin />
           )}
-          <ButtonPrint id={id} componentRef={componentRef} />
+          <ButtonPrint
+            loading={printLoading}
+            setPrintLoading={setPrintLoading}
+            id={id}
+            componentRef={componentRef}
+          />
         </Radio.Group>
       </Modal>
 
       {getFilteredClassroom && getFilteredClassroom.length > 0 ? (
-        <div className="hidden">
-          <StudentReport
-            type={report.path}
-            data={getFilteredClassroom}
-            componentRef={componentRef}
-          />
-        </div>
-      ) : null}
+        // <div className="hidden">
+        <StudentReport
+          type={report.path}
+          data={getFilteredClassroom}
+          componentRef={componentRef}
+        />
+      ) : // </div>
+      null}
     </>
   );
 };

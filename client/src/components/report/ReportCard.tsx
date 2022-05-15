@@ -8,7 +8,7 @@ function ReportCard({ setReport, report, setVisible, type }: any) {
     setVisible(true);
   };
 
-  console.log(report.icon);
+  // console.log(report.icon);
 
   return (
     <div
