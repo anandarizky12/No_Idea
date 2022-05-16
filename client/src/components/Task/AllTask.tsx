@@ -25,12 +25,11 @@ function AllTask() {
 
   return (
     <div className="flex flex-col items-center ">
-      <div className=""></div>
       {user.role === "guru" ? (
         <Teacher open={open} setOpen={setOpen} classroom={classroom} />
       ) : null}
 
-      <div className="w-4/5  mt-5  flex flex-col items-center justify-center">
+      <div className="w-full md:5/6  mt-5 md:mt-8 flex flex-col items-center justify-center">
         {!task && (
           <div className="flex h-96 items-center justify-center">
             <Spin size="large" />
@@ -41,7 +40,7 @@ function AllTask() {
             return (
               <div
                 key={task.id}
-                className="flex  w-5/6 items-center justify-center"
+                className="flex p-4 md:p-0 md:w-4/6 items-center justify-center"
               >
                 <TaskCard task={task} user={user} />;
               </div>

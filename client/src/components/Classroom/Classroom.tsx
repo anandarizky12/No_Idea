@@ -32,7 +32,7 @@ function Classroom() {
     );
 
   return (
-    <div className="mt-7 w-full flex justify-center items-center flex-col">
+    <div className="mt-7 w-full flex justify-center items-center flex-col px-5 md:p-0">
       {classes.isLoading && !classes.isError && !classroom ? (
         <div
           style={{ minHeight: "90vh" }}
@@ -55,7 +55,7 @@ function Classroom() {
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
             }}
-            className={` w-3/4 h-64 bg-gray-300 rounded-md p-3 font-semibold relative `}
+            className={` w-full h-64 bg-gray-300 rounded-md p-3 font-semibold relative md:w-3/4`}
           >
             <div className="p-4 absolute bottom-0">
               <h1 className="text-3xl text-white">{classroom.data.name}</h1>

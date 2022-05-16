@@ -8,6 +8,7 @@ import { AlertComponents } from "../alert/Alert";
 import { getCookie } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { Radio } from "antd";
+import useWindowDimension from "../hook/useWindowDimension";
 
 function Register() {
   const Dispatch = useDispatch();
@@ -36,7 +37,6 @@ function Register() {
   const handleSubmit = (): void => {
     Dispatch(register(state, setAlert));
   };
-  console.log(state);
 
   return (
     <div
@@ -45,7 +45,7 @@ function Register() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        padding: "80px",
+        padding: `${useWindowDimension() > 400 ? "80px" : "10px"}`,
       }}
     >
       <Card style={{ width: "600px", background: "none", border: "none" }}>
@@ -58,7 +58,7 @@ function Register() {
           onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
         >
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-3xl md:text-4xl font-bold">
             Please Register Down Below<span>.</span>
           </h1>
           <Form.Item
@@ -180,7 +180,10 @@ function Register() {
           </Form.Item>
         </Form>
       </Card>
-      <img className="grayscale" src={"/icons8-class-dojo-480.png"}></img>
+      <img
+        className="grayscale hidden lg:block"
+        src={"/icons8-class-dojo-480.png"}
+      ></img>
       {alert.message !== null ? (
         <AlertComponents setAlert={setAlert} alert={alert} />
       ) : null}

@@ -4,7 +4,7 @@ import moment from "moment";
 
 function TaskCardHome({ task }: any) {
   return (
-    <div className="flex justify-between border p-5 ml-4 mb-4 border-gray-300">
+    <div className="flex justify-between border p-5 ml-0 md:ml-4 mb-4 border-gray-300">
       <div className="flex items-center">
         <ReconciliationOutlined className="text-gray-300 text-3xl mr-3" />
         <div>{task.title}</div>

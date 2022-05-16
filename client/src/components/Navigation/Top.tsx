@@ -30,9 +30,9 @@ function Top(): JSX.Element {
         </div>
         {location.pathname.includes("classroom") ? (
           <div
-            className={`flex ${
+            className={`hidden ${
               user.role === "guru" ? "w-80" : "w-60"
-            } h-full items-end justify-between`}
+            } h-full items-end justify-between md:flex`}
           >
             <div
               onClick={() => navigate(`/classroom/${id}`)}

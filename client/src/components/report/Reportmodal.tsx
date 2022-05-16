@@ -5,6 +5,7 @@ import StudentReport from "./StudentReport";
 import ButtonPrint from "./ButtonPrint";
 import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
 import { getAllScores, getTaskInClassroom } from "../../actions/task";
+import { ReportExcel } from "./ReportCsv";
 
 export const ReportModal = ({
   classrooms,
@@ -17,6 +18,7 @@ export const ReportModal = ({
 
   const [printLoading, setPrintLoading] = useState(false);
   const [id, setId] = React.useState(null);
+  const [dataSet, setDataSet] = React.useState([]);
   //to get choosen classroom by id
 
   const getFilteredClassroom: [] =
@@ -27,20 +29,31 @@ export const ReportModal = ({
   };
   const handleCancel = () => {
     setVisible(false);
-    setId(null);
   };
 
-  const { scores } = useSelector((state: any) => state.getAllScores);
+  const scores = useSelector((state: any) => state.getAllScores);
   const classes = useSelector((state: any) => state.getClassroom);
   const taskData = useSelector((state: any) => state.getTaskInClassroom);
-  const data = useSelector((state: any) => state.getStudentsInClassroom);
-  const { students } = data;
+  const students = useSelector((state: any) => state.getStudentsInClassroom);
+
   const dispatch = useDispatch();
 
-  const HandleReportDispatch = (id: string, type: string) => {
+  const HandleReportDispatch = async (id: string, type: string) => {
     // const dispatch = useDispatch();
 
     switch (type) {
+      case "tasks_report":
+        dispatch(getTaskInClassroom(id));
+        let tasks = new Promise((resolve) => {
+          if (taskData.task) {
+            resolve(taskData.task.data);
+          }
+        });
+        let data: any = await tasks;
+        if (data) {
+          setDataSet(data);
+        }
+        break;
       case "classes_report":
         dispatch(getClassroom(id));
         return classes;
@@ -53,19 +66,16 @@ export const ReportModal = ({
       case "scores_report_fail":
         dispatch(getAllScores(id));
         return scores;
-      case "tasks_report":
-        dispatch(getTaskInClassroom(id));
-        return taskData;
       default:
         break;
     }
   };
 
   useEffect(() => {
-    if (id) {
-      console.log(HandleReportDispatch(id, report.type));
-    }
-  }, [report.type]);
+    if (id) HandleReportDispatch(id, report.type);
+  }, [visible, id]);
+  console.log(dataSet);
+  console.log(report.type, id);
 
   return (
     <>
@@ -98,24 +108,17 @@ export const ReportModal = ({
           ) : (
             <Spin />
           )}
-          <ButtonPrint
+          {/* <ButtonPrint
             loading={printLoading}
             setPrintLoading={setPrintLoading}
             id={id}
             componentRef={componentRef}
-          />
+          /> */}
         </Radio.Group>
+        <div className="w-full">
+          <ReportExcel dataSet={dataSet} />
+        </div>
       </Modal>
-
-      {getFilteredClassroom && getFilteredClassroom.length > 0 ? (
-        // <div className="hidden">
-        <StudentReport
-          type={report.path}
-          data={getFilteredClassroom}
-          componentRef={componentRef}
-        />
-      ) : // </div>
-      null}
     </>
   );
 };

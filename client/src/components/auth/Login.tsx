@@ -7,6 +7,7 @@ import { login } from "../../actions/user";
 import { useDispatch } from "react-redux";
 import { AlertComponents } from "../alert/Alert";
 import { getCookie } from "../../utils/utils";
+import useWindowDimension from "../hook/useWindowDimension";
 
 function Login() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ function Login() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        padding: "100px",
+        padding: `${useWindowDimension() > 400 ? "100px" : "10px"}`,
         justifyContent: "space-between",
       }}
     >
@@ -56,7 +57,7 @@ function Login() {
           <h1 className="text-xl font-semibold text-gray-400">
             Welcome To The App
           </h1>
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-3xl md:text-4xl font-bold">
             Please Login Down Below<span>.</span>
           </h1>
           <Form.Item
@@ -112,7 +113,10 @@ function Login() {
           </Form.Item>
         </Form>
       </Card>
-      <img className="grayscale" src={"/icons8-class-dojo-480.png"}></img>
+      <img
+        className="grayscale lg:block hidden"
+        src={"/icons8-class-dojo-480.png"}
+      ></img>
 
       {alert.message !== null ? (
         <AlertComponents alert={alert} setAlert={setAlert} />
