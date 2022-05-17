@@ -74,8 +74,8 @@ export const ReportModal = ({
   useEffect(() => {
     if (id) HandleReportDispatch(id, report.type);
   }, [visible, id]);
-  console.log(dataSet);
-  console.log(report.type, id);
+  // console.log(dataSet);
+  // console.log(report.type, id);
 
   return (
     <>
