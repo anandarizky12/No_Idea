@@ -5,6 +5,7 @@ import { handleChange } from "../../utils/utils";
 import { createTask } from "../../actions/task";
 import { getCookie } from "../../utils/utils";
 import { useParams } from "react-router-dom";
+import Questions from "./Questions";
 
 function CreateTask({ setOpen, open }: any) {
   const dispatch = useDispatch();
@@ -13,14 +14,20 @@ function CreateTask({ setOpen, open }: any) {
     setOpen(false);
   };
   const id_user = getCookie("id");
+  const [question, setQuestion] = React.useState([
+    {
+      no: 1,
+      question_0: null,
+      answer_key_0: null,
+    },
+  ]);
   const [state, setState] = React.useState({
-    title: "",
-    description: "",
+    title: null,
+    description: null,
     other: null,
     user_id: id_user,
     deadline: null,
     classroom_id: id,
-    answer_key: "",
   });
   function onChangeDate(date: any, dateString: any): void {
     setState({
@@ -29,7 +36,29 @@ function CreateTask({ setOpen, open }: any) {
     });
   }
   const handleSubmit = () => {
-    dispatch(createTask(state));
+    dispatch(createTask(state, question));
+  };
+
+  const addQuestion = () => {
+    if (question.length >= 10) {
+      alert("Jumlah Soal Maksimal 10");
+      return;
+    }
+    const newQuestion: any = [...question];
+    newQuestion.push({
+      no: newQuestion.length + 1,
+    });
+    setQuestion(newQuestion);
+  };
+
+  const deleteQuestion = () => {
+    if (question.length <= 1) {
+      alert("Jumlah Soal Minimal 1");
+      return;
+    }
+    const newQuestion: any = [...question];
+    newQuestion.pop();
+    setQuestion(newQuestion);
   };
 
   return (
@@ -53,7 +82,7 @@ function CreateTask({ setOpen, open }: any) {
           <Col span={12}>
             <Form.Item
               name="title"
-              label="Name"
+              label="Nama Tugas"
               rules={[{ required: true, message: "Please enter Task Name" }]}
             >
               <Input
@@ -88,7 +117,7 @@ function CreateTask({ setOpen, open }: any) {
           <Col span={24}>
             <Form.Item name="other" label="Other">
               <Input
-                placeholder="Other"
+                placeholder="Lainnya"
                 name="other"
                 onChange={(e) => handleChange(e, state, setState)}
               />
@@ -96,26 +125,30 @@ function CreateTask({ setOpen, open }: any) {
           </Col>
         </Row>
 
+        {question.map((data, index) => {
+          return (
+            <Questions
+              key={index}
+              index={index}
+              data={data}
+              question={question}
+            />
+          );
+        })}
         <Row gutter={16}>
-          <Col span={24}>
-            <Form.Item
-              name="answer_key"
-              label="Kunci Jawaban"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter the answer key",
-                },
-              ]}
+          <Col span={12}>
+            <Button onClick={addQuestion} type="primary">
+              Tambah Soal
+            </Button>
+            <Button
+              disabled={question.length <= 1 ? true : false}
+              onClick={deleteQuestion}
+              style={{ marginLeft: "20px" }}
             >
-              <Input.TextArea
-                rows={4}
-                name="answer_key"
-                onChange={(e) => handleChange(e, state, setState)}
-                placeholder="Please enter the answer key"
-              />
-            </Form.Item>
+              Hapus Soal
+            </Button>
           </Col>
+          {/* <Questions question={question} /> */}
         </Row>
       </Form>
     </Drawer>
