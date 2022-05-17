@@ -18,13 +18,15 @@ function Edit({ setOpenEdit, open, id, classroom }: any) {
   const [state, setState] = React.useState({
     name: classroom.name,
     description: classroom.description,
-    banner: classroom.banner,
+    banner: classroom.banner ? classroom.banner : null,
     id: id,
   });
 
   const handleSubmit = () => {
     dispatch(editClassroom(state));
   };
+
+  console.log(state);
 
   return (
     <Drawer

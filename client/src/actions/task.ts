@@ -34,7 +34,7 @@ export const getTaskInClassroom = (id: any) => {
           });
         });
     } catch (err: any) {
-      console.log(err);
+      
       dispatch({
         type: actionTypes.GET_ALL_TASK_IN_CLASS_FAILED,
         payload: err.response,

@@ -27,7 +27,7 @@ export const getClassroomByTeacherId = (id: any) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
+          
           dispatch({
             type: actionTypes.GET_ALL_CLASSROOM_TEACHER_FAILED,
             payload: err.response,
@@ -42,7 +42,7 @@ export const getClassroomByTeacherId = (id: any) => {
         isLoading: false,
         isError: true,
       });
-      console.log(err);
+   
     }
   };
 };
@@ -75,17 +75,20 @@ export const createClassroom = (data: any) => {
           alert("Create classroom success");
           window.location.reload();
         })
-        .catch((err) => {
-          console.log(err.response.data.message);
+        .catch((err : any) => {
+         
           alert(err.response.data.message);
+          dispatch({
+            type: actionTypes.CREATE_CLASSROOM_FAILED,
+            payload  : err
+          })
         });
     } catch (err: any) {
+      alert(err.response.data.message);
       dispatch({
         type: actionTypes.CREATE_CLASSROOM_FAILED,
         payload: err,
       });
-
-      console.log(err.response.data.message);
     }
   };
 };
@@ -114,17 +117,24 @@ export const editClassroom = (data: any) => {
             type: actionTypes.EDIT_CLASSROOM,
             payload: res.data,
           });
+          alert("Edit classroom success");
           window.location.reload();
         })
-        .catch((err) => {
-          console.log(err.response.data.message);
+        .catch((err : any) => {
+         
+          alert(err.response.data.message);
+          dispatch({
+            type : actionTypes.EDIT_CLASSROOM_FAILED,
+            payload : err
+          })
         });
     } catch (err: any) {
+      alert(err.response.data.message);
       dispatch({
         type: actionTypes.EDIT_CLASSROOM_FAILED,
         payload: err,
       });
-      console.log(err.response.data.message);
+     
     }
   };
 };
@@ -151,7 +161,7 @@ export const getClassroom = (id: any) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
+          
           dispatch({
             type: actionTypes.GET_CLASSROOM_FAILED,
             payload: err.response,
@@ -166,7 +176,7 @@ export const getClassroom = (id: any) => {
         isLoading: false,
         isError: true,
       });
-      console.log(err);
+    
     }
   };
 };
@@ -192,11 +202,10 @@ export const deleteClassroom = (id: any) => {
             isError: false,
           });
           alert("Kelas berhasil dihapus");
-
           window.location.reload();
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch((err : any) => {
+          alert(err.response.data.message);
           dispatch({
             type: actionTypes.DELETE_CLASSROOM_FAILED,
             payload: err.response,
@@ -204,14 +213,15 @@ export const deleteClassroom = (id: any) => {
             isError: true,
           });
         });
-    } catch (err) {
+    } catch (err : any) {
+      alert(err.response.data.message);
       dispatch({
         type: actionTypes.DELETE_CLASSROOM_FAILED,
         payload: err,
         isLoading: false,
         isError: true,
       });
-      console.log(err);
+   
     }
   };
 };
@@ -345,7 +355,7 @@ export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
       });
       setLoading(false);
       setAlert({ message: err.response.data.message, typeAlert: 4 });
-      console.log(err.response);
+     
     }
   };
 };
