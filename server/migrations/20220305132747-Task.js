@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       title: Sequelize.STRING,
-      answer_key: Sequelize.STRING,
+      // answer_key: Sequelize.STRING,
       deadline: Sequelize.DATE,
       description: Sequelize.STRING,
       other: Sequelize.STRING,

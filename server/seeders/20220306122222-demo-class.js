@@ -4,7 +4,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert("Classrooms", [
       {
-        name: "Demo Class",
+        name: "IPA #",
         description: "Demo Class",
         teacher_id: 1,
         classcode: "123456789",
