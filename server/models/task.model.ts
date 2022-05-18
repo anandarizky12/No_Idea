@@ -5,7 +5,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize: any, Sequelize: any) => {
   class Task extends Model {
     static associate(models: any) {
-      Task.hasMany(models.Answer_task, {
+      Task.hasMany(models.Question, {
         foreignKey: {
           name: "task_id",
         },
@@ -21,7 +21,6 @@ module.exports = (sequelize: any, Sequelize: any) => {
   Task.init(
     {
       title: Sequelize.STRING,
-      answer_key: Sequelize.STRING,
       deadline: Sequelize.DATE,
       description: Sequelize.STRING,
       other: Sequelize.STRING,

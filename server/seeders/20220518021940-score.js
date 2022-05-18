@@ -2,14 +2,20 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("Answer_tasks", [
+    return queryInterface.bulkInsert("Scores", [
       {
         score : 50,
+        answer_id : 1,
+        task_id : 1,
+        classroom_id : 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         score : 50,
+        answer_id : 2,
+        task_id : 1,
+        classroom_id : 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

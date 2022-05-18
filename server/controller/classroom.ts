@@ -1,6 +1,6 @@
 export {};
 const joi = require("@hapi/joi");
-const { User, Classroom, Student_Classroom, Task } = require("../models");
+const { User, Classroom, Student_Classroom, Task, Question } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
 const Sequelize = require("sequelize");
 const { cloudinary } = require("../utils/Cloudinary");
@@ -251,6 +251,7 @@ exports.getTaskInClassroom = async (req: any, res: any) => {
       where: {
         classroom_id: id,
       },
+      
       order: [ [ 'createdAt', 'DESC' ]]
     });
 
@@ -274,6 +275,74 @@ exports.getTaskInClassroom = async (req: any, res: any) => {
     });
   }
 };
+
+exports.getTaskAndQuestionInClassroom = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+    const user_id = req.user.id;
+
+
+    const classroom = await Classroom.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    const checkUserRole = await User.findOne({
+      where: {
+        id: user_id,
+      },
+    });
+    
+
+
+    if (!classroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom not found",
+      });
+    }
+
+
+
+    const task = await Task.findAll({
+      where: {
+        classroom_id: id,
+      },
+      include : [{
+        model : Question,
+        where : {
+          task_id : id
+        },
+        attributes: {  exclude : [checkUserRole.role === 'siswa' ?  'answer_key' : null]},
+       
+      }
+      ],
+      
+      order: [ [ 'createdAt', 'DESC' ]]
+    });
+
+    if (!task) {
+      return res.status(200).send({
+        status: 200,
+        message: "No task in this classroom",
+        data: task,
+      });
+    }
+
+    return res.status(200).send({
+      status: 200,
+      message: "Task in classroom",
+      data: task,
+    });
+  } catch (err: any) {
+    return res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
 exports.leaveClassroom = async (req: any, res: any) => {
   try {
     const { student_id, classroom_id } = req.body;

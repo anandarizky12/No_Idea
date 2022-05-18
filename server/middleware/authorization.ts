@@ -142,9 +142,12 @@ exports.isTeacherOrMemberOfClass = async (req: any, res: any, next: any) => {
       },
     });
 
+
+    req.user = decoded;
     if (isTeacher) {
       next();
     } else {
+      
       const isInClass = await Student_Classroom.findOne({
         where: {
           student_id: decoded.id,

@@ -16,6 +16,7 @@ const {
   getClassroom,
   editClassroom,
   searchClassroom,
+  getTaskAndQuestionInClassroom 
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -50,6 +51,12 @@ router.get(
   isTeacherOrMemberOfClass,
   getTaskInClassroom
 );
+
+router.get(
+  "/getalltaskandquestioninclass/:id",
+  isTeacherOrMemberOfClass,
+  getTaskAndQuestionInClassroom 
+)
 router.get("/getclassroom/:id", isTeacherOrMemberOfClass, getClassroom);
 router.get(
   "/getclassroombyteacherid/:id",

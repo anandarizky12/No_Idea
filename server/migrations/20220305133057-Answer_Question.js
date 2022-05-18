@@ -11,16 +11,6 @@ module.exports = {
       },
 
       answer: Sequelize.STRING,
-      // task_id: {
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: "Tasks",
-      //     key: "id",
-      //     as: "task_id",
-      //   },
-      //   onUpdate: "CASCADE",
-      //   onDelete: "CASCADE",
-      // },
       student_id: {
         type: Sequelize.INTEGER,
         references: {
@@ -31,12 +21,12 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      score_id : {
+      question_id : {
         type: Sequelize.INTEGER,
         references: {
-          model: "Scores",
+          model: "Questions",
           key: "id",
-          as: "score_id",
+          as: "question_id",
         },
         unique : true,
         onUpdate: "CASCADE",

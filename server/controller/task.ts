@@ -195,24 +195,18 @@ exports.getAllScore = async (req: any, res: any) => {
       where: {
         classroom_id: id,
       },
-      attributes: { exclude: ["answer_key"] },
-      include: [
-        {
-          model: Task,
-          attributes: { exclude: ["answer_key"] },
-        },
-        {
-          model: Answer_task,
-
-          include: [
-            {
-              model: User,
-              attributes: { exclude: ["password"] },
-            },
-          ],
-        },
-      ],
+      include : [{
+        model : Task
+      },
+      {
+        model : Answer_task,
+    
+      }
+    ]
+    
     });
+
+
     if (!score) {
       return res.status(500).send({
         status: 500,

@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 exports.Register = async (req: any, res: any) => {
   try {
-    const { name, phone, email, password, role, no_induk } = req.body;
+    const { name, phone, email, password, role, jk } = req.body;
 
     const schema = joi.object({
       name: joi.string().min(3).required(),
@@ -16,7 +16,7 @@ exports.Register = async (req: any, res: any) => {
       phone: joi.string().min(12).required(),
       role: joi.string().min(4).required(),
       // profile: joi.string(),
-      no_induk: joi.string().min(8).required(),
+      jk: joi.string().min(8).required(),
     });
 
     const { error } = schema.validate(req.body);
@@ -51,7 +51,7 @@ exports.Register = async (req: any, res: any) => {
       phone,
       role,
       // profile,
-      no_induk,
+      jk,
     });
 
     const token = jwt.sign(
@@ -73,7 +73,7 @@ exports.Register = async (req: any, res: any) => {
         email,
         role,
         // profile,
-        no_induk,
+        jk,
       },
     });
   } catch (err: any) {
@@ -136,7 +136,7 @@ exports.Login = async (req: any, res: any) => {
         phone: user.phone,
         role: user.role,
         profile: user.profile,
-        no_induk: user.no_induk,
+        jk: user.jk,
       },
     });
   } catch (err: any) {
@@ -251,7 +251,7 @@ exports.editProfile = async (req: any, res: any) => {
             role: user.role,
             profile: uploadResponse.url,
 
-            // no_induk,
+            // jk,
           },
         });
       }
@@ -260,7 +260,7 @@ exports.editProfile = async (req: any, res: any) => {
     //   name: joi.string().min(3).required(),
     //   email: joi.string().email().min(10).required(),
     //   // phone: joi.string().min(12).required(),
-    //   // no_induk: joi.string().min(8).required(),
+    //   // jk: joi.string().min(8).required(),
     // });
 
     // const { error } = schema.validate(req.body);
@@ -277,7 +277,7 @@ exports.editProfile = async (req: any, res: any) => {
         name,
         email,
         // phone,
-        // no_induk,
+        // jk,
       },
       {
         where: {
@@ -303,7 +303,7 @@ exports.editProfile = async (req: any, res: any) => {
         // phone,
         profile: user.profile,
 
-        // no_induk,
+        // jk,
       },
     });
   } catch (err: any) {

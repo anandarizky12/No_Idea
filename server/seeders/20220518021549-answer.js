@@ -6,18 +6,16 @@ module.exports = {
       {
         answer :
           "oksigen", 
-        score_id : 1,
-        student_id : 2,
         student_id: 1,
+        question_id : 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
       answer :
-        "karbondioksida" ,
-      score_id : 2,
-      student_id : 2,
+        "karbondioksida",
       student_id: 1,
+      question_id : 2,
       createdAt: new Date(),
       updatedAt: new Date(),
       },
@@ -25,6 +23,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("Questions", null, {});
+    return queryInterface.bulkDelete("Answer_tasks", null, {});
   }
 };

@@ -33,7 +33,7 @@ module.exports = (sequelize: any, Sequelize: any) => {
       password: Sequelize.STRING,
       role: Sequelize.STRING,
       profile: Sequelize.STRING,
-      no_induk: Sequelize.STRING,
+      jk: Sequelize.STRING,
     },
     {
       sequelize,

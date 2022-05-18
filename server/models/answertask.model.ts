@@ -4,21 +4,27 @@ const { Model } = require("sequelize");
 module.exports = (sequelize: any, Sequelize: any) => {
   class Answer_task extends Model {
     static associate(models: any) {
-      Answer_task.hasOne(models.Score, {
+      // Answer_task.hasOne(models.Score, {
+      //   foreignKey: {
+      //     name: "answer_id",
+      //     allowNull: false,
+      //   },
+      // });
+      Answer_task.hasOne(models.Score,{
         foreignKey: {
           name: "answer_id",
           allowNull: false,
         },
-      });
-      Answer_task.belongsTo(models.Task, {
-        foreignKey: {
-          name: "task_id",
-          allowNull: false,
-        },
-      });
+      })
       Answer_task.belongsTo(models.User, {
         foreignKey: {
           name: "student_id",
+          allowNull: false,
+        },
+      });
+      Answer_task.belongsTo(models.Question, {
+        foreignKey: {
+          name: "question_id",
           allowNull: false,
         },
       });

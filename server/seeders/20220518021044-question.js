@@ -7,9 +7,8 @@ module.exports = {
         question :
           "O2 merupakan lambang untuk ? ",
         task_id : 1, 
-        answer_id : 1,
       
-        classroom_id: 1,
+        answer_key : "oksigen",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -17,9 +16,8 @@ module.exports = {
       question :
         "h20 merupakan lambang untuk ? ",
       task_id : 1, 
-      answer_id : 2,
     
-      classroom_id: 1,
+        answer_key : "karbondioksida",
       createdAt: new Date(),
       updatedAt: new Date(),
       },
