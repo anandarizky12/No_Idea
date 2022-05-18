@@ -31,6 +31,7 @@ const {
   editTask,
   getTask,
   getAllScore,
+  getTaskAndQuestion
 } = require("../controller/task");
 
 const router = require("express").Router();
@@ -79,6 +80,6 @@ router.get(
 router.get("/getallusers", authenticate, readAllUsers);
 router.get("/getuser", authenticate, readUser);
 //task
-router.get("/gettask/:id", authenticate, getTask);
+router.get("/gettask/:id", authenticate, getTaskAndQuestion);
 router.get("/getallscore/:id", isTeacherOfClass, getAllScore);
 module.exports = router;

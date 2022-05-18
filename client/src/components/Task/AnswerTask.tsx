@@ -37,6 +37,7 @@ function AnswerTask() {
       />
     );
   }
+  console.log(task);
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <div className="border border-gray-300 rounded-md shadow-md  w-5/6 md:w-4/6 flex items-center p-8 justify-between m-8">

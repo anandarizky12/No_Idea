@@ -328,3 +328,51 @@ export const AnswerTask = (data : Idata ) =>{
   }
 }
   
+
+export const getTaskAndQuestion = (id: any, class_id: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        // classroom_id: class_id,
+        // any: class_id,
+      },
+    };
+
+    try {
+      await axios
+        .get(
+          `http://localhost:5000/api/gettask/${id}?class=${class_id}`,
+          config
+        )
+        .then((res) => {
+          dispatch({
+            type: actionTypes.GET_TASK,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        })
+        .catch((err) => {
+          dispatch({
+            type: actionTypes.GET_TASK_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+          console.log(err.response);
+          alert(err.response.data.message);
+        });
+    } catch (err: any) {
+      dispatch({
+        type: actionTypes.GET_TASK_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+      alert(err.response.data.message);
+    }
+  };
+};

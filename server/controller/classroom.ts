@@ -213,7 +213,7 @@ exports.getStudentsInClassroom = async (req: any, res: any) => {
       include: [
         {
           model: User,
-          attributes: ["id", "name", "email", "profile", "no_induk"],
+          attributes: ["id", "name", "email", "profile", "jk"],
         },
       ],
     });
@@ -415,7 +415,7 @@ exports.getClassroom = async (req: any, res: any) => {
       include: [
         {
           model: User,
-          attributes: ["id", "name", "email", "profile", "no_induk"],
+          attributes: ["id", "name", "email", "profile", "jk"],
         },
       ],
     });
