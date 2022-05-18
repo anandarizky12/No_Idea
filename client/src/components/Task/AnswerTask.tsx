@@ -7,6 +7,7 @@ import { Button, Spin } from "antd";
 import moment from "moment";
 import { Input } from "antd";
 import { getCookie } from "../../utils/utils";
+import AnswerStepByStep from "./AnswerStepByStep";
 
 const { TextArea } = Input;
 
@@ -40,7 +41,7 @@ function AnswerTask() {
   console.log(task);
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <div className="border border-gray-300 rounded-md shadow-md  w-5/6 md:w-4/6 flex items-center p-8 justify-between m-8">
+      {/* <div className="border border-gray-300 rounded-md shadow-md  w-5/6 md:w-4/6 flex items-center p-8 justify-between m-8">
         {task.task && task.task.data ? (
           <div className="flex flex-col w-full">
             <div className="flex flex-col justify-center w-full ">
@@ -78,6 +79,15 @@ function AnswerTask() {
               </Button>
             </div>
           </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center w-full  m-5">
+            <Spin />
+          </div>
+        )}
+      </div> */}
+      <div className="w-5/6 p-8 m-8">
+        {task.task && task.task.data ? (
+          <AnswerStepByStep steps={task.task.data.Questions} />
         ) : (
           <div className="flex flex-col items-center justify-center w-full  m-5">
             <Spin />

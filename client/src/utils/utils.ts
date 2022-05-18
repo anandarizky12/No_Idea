@@ -37,6 +37,18 @@ export const handleChangeQuestion = (e: any, state: any, index : number): void =
   newArr[index][name] = value;
 };
 
+export const handleChangeAnswer = (e: any, state: any, index : number, setAnswer : any): void => {
+  const { name, value } = e.target as HTMLInputElement;
+
+  setAnswer({
+    ...state,
+    [index]: {
+      ...state[index],
+      [name]: value,
+    },
+  })
+};
+
 
 
 export const colorArray = [
