@@ -37,7 +37,7 @@ export const handleChangeQuestion = (e: any, state: any, index : number): void =
   newArr[index][name] = value;
 };
 
-export const handleChangeAnswer = (e: any, state: any, index : number, setAnswer : any): void => {
+export const handleChangeAnswer = (e: any, state: any, index : number, setAnswer : any, steps : any): void => {
   const { name, value } = e.target as HTMLInputElement;
 
   setAnswer({
@@ -45,6 +45,7 @@ export const handleChangeAnswer = (e: any, state: any, index : number, setAnswer
     [index]: {
       ...state[index],
       [name]: value,
+      question_id : steps[index].id,
     },
   })
 };

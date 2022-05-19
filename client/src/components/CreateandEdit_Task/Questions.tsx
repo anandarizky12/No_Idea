@@ -3,9 +3,6 @@ import { Row, Form, Col, Input } from "antd";
 import { handleChangeQuestion } from "../../utils/utils";
 
 function Questions(question: any, index: number, data: any) {
-  console.log(
-    question.question[question.index][`${"question_" + question.index}`]
-  );
   return (
     <Row gutter={16}>
       <Col span={24}>

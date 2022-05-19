@@ -1,5 +1,6 @@
-import { Steps, Button, message } from "antd";
-import React from "react";
+import { Steps, Button, message, Input } from "antd";
+import React, { useEffect } from "react";
+import { ImportsNotUsedAsValues } from "typescript";
 import { handleChangeAnswer } from "../../utils/utils";
 
 const { Step } = Steps;
@@ -14,9 +15,7 @@ const AnswerStepByStep = ({ steps }: any) => {
   const prev = () => {
     setCurrent(current - 1);
   };
-
-  console.log(answer);
-
+  console.log(steps);
   return (
     <>
       <Steps current={current} onChange={(current) => setCurrent(current)}>
@@ -26,13 +25,18 @@ const AnswerStepByStep = ({ steps }: any) => {
       </Steps>
       <div style={style.stepsContent}>
         {
-          //   <>
-          //   steps[current].content
-          //   </>
-          <input
+          <Input.TextArea
             name={`answer${current}`}
-            // value={answer.length > 0 ? answer[current][`answer${current}`] : ""}
-            onChange={(e) => handleChangeAnswer(e, answer, current, setAnswer)}
+            defaultValue={
+              answer[current] ? answer[current][`answer${current}`] : ""
+            }
+            value={answer[current] ? answer[current][`answer${current}`] : ""}
+            onChange={(e) =>
+              handleChangeAnswer(e, answer, current, setAnswer, steps)
+            }
+            style={{ width: "100%" }}
+            rows={4}
+            placeholder="Enter Answer"
           />
         }
       </div>
