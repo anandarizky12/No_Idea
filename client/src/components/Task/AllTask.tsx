@@ -25,6 +25,16 @@ function AllTask() {
 
   return (
     <div className="flex flex-col items-center ">
+      <div className="w-4/6 mt-7">
+        <div className="border-b border-gray-400 px-0 md:px-0 flex justify-between">
+          <h1 className="text-xl md:text-3xl font-normal text-gray-500">
+            Daftar Tugas Kelas
+          </h1>
+          <div className="flex items-center justify-center text-gray-500 font-bold">
+            Total {task ? task.data.length : <Spin size="small" />} Tugas
+          </div>
+        </div>
+      </div>
       {user.role === "guru" ? (
         <Teacher open={open} setOpen={setOpen} classroom={classroom} />
       ) : null}

@@ -25,12 +25,12 @@ function StudentsInClassroom() {
     <div className="flex flex-col items-center justify-center p-8 md:px-12">
       <div className="w-full md:w-7/12 ">
         <div>
-          <div className="border-b border-gray-600 px-0 md:px-5 flex justify-between">
+          <div className="border-b border-gray-400 px-0 md:px-5 flex justify-between">
             <h1 className="text-xl md:text-3xl font-normal text-gray-500">
               Anggota Kelas
             </h1>
             <div className="flex items-center justify-center ">
-              <h4>
+              <h4 className="font-bold text-gray-500">
                 {students ? students.data.length : <Spin size="small" />} Siswa
               </h4>
             </div>

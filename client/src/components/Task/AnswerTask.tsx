@@ -87,7 +87,10 @@ function AnswerTask() {
       </div> */}
       <div className="w-5/6 p-8 m-8">
         {task.task && task.task.data ? (
-          <AnswerStepByStep steps={task.task.data.Questions} />
+          <AnswerStepByStep
+            task={task.task.data}
+            steps={task.task.data.Questions}
+          />
         ) : (
           <div className="flex flex-col items-center justify-center w-full  m-5">
             <Spin />
