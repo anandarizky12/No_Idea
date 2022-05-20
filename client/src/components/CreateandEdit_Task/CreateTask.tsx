@@ -36,7 +36,7 @@ function CreateTask({ setOpen, open }: any) {
     });
   }
   const handleSubmit = () => {
-    dispatch(createTask(state, question));
+    dispatch(createTask(state, question, id));
   };
 
   const addQuestion = () => {
@@ -60,6 +60,8 @@ function CreateTask({ setOpen, open }: any) {
     newQuestion.pop();
     setQuestion(newQuestion);
   };
+
+  console.log(question, state);
 
   return (
     <Drawer

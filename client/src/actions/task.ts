@@ -45,7 +45,7 @@ export const getTaskInClassroom = (id: any) => {
   };
 };
 
-export const createTask = (data: any, question : any) => {
+export const createTask = (data: any, question : any, id : any,) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
     const config = {
@@ -55,12 +55,12 @@ export const createTask = (data: any, question : any) => {
       },
     };
 
-    const { title, description, other, user_id, deadline, classroom_id} = data 
-    console.log(question)
+    const { title, description, other, user_id, deadline} = data 
+
 
     try {
       await axios
-        .post("http://localhost:5000/api/createtask", {title, description, other, user_id, deadline, classroom_id, question }, config)
+        .post(`http://localhost:5000/api/createtask/${id}`, {title, description, other, user_id, deadline, question }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.CREATE_TASK,
