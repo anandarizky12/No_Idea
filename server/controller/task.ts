@@ -132,7 +132,6 @@ exports.editTask = async (req: any, res: any) => {
     const { title, deadline, description, other } = req.body;
   
     const schema = joi.object({
-      answer_key: joi.string().required(),
       title: joi.string().required(),
       deadline: joi.string().allow(null),
       description: joi.string().required(),
@@ -178,7 +177,7 @@ exports.editQuestion = async (req: any, res: any) => {
   try {
     const { id } = req.params;
     const { question, answer_key } = req.body;
-    
+    console.log(req.body)
     const schema = joi.object({
       question: joi.string().required(),
       answer_key: joi.string().required(),
@@ -294,7 +293,7 @@ exports.getTaskAndQuestion = async (req: any, res: any) => {
     const { id } = req.params;
     const classroom_id = req.query.class;
 
-    const task = await Task.findOne({
+    const task = await Task.findAll({
       where: {
         id: id,
         classroom_id: classroom_id,

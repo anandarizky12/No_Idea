@@ -66,6 +66,28 @@ export const editTask = (state = {}, action: any) => {
   }
 };
 
+export const editQuestion = (state = {}, action : any ) =>{
+  switch(action.type){
+    case actionTypes.EDIT_QUESTION:
+      return{
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.EDIT_QUESTION_FAILED:
+      return{
+        ...state,
+        task: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+}
+
 export const deleteTask = (state = {}, action: any) => {
   switch (action.type) {
     case actionTypes.DELETE_TASK:

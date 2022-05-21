@@ -140,6 +140,51 @@ export const editTask = (data: any, id: string) => {
   };
 };
 
+export const editQuestion = (data: any, id: string) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+      try{
+        await axios
+        .put(`http://localhost:5000/api/editquestion/${id}`, data, config)
+        .then((res) => {
+          dispatch({
+            type: actionTypes.EDIT_QUESTION,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+          alert("Edit question success");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+          dispatch({
+            type: actionTypes.EDIT_QUESTION_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+        });
+      }catch(err : any ){
+        alert(err.response.data.message)
+        dispatch({
+          type: actionTypes.EDIT_QUESTION_FAILED,
+          payload: err.response,
+          isLoading: false,
+          isError: true,
+        });
+      }
+  };
+};
+
 export const deleteTask = (id: string) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");

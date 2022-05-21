@@ -6,6 +6,7 @@ import moment from "moment";
 import { getCookie } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import { editTask } from "../../actions/task";
+import { QuestionEdit } from "./QuestionEdit";
 
 function EditTask({ setOpen, open, task }: any) {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function EditTask({ setOpen, open, task }: any) {
         <Space>
           <Button onClick={onClose}>Cancel</Button>
           <Button onClick={handleSubmit} type="primary">
-            Submit
+            Edit Tugas
           </Button>
         </Space>
       }
@@ -100,7 +101,36 @@ function EditTask({ setOpen, open, task }: any) {
           </Col>
         </Row>
 
-        <Row gutter={16}>
+        {task.Questions.length > 0 &&
+          task.Questions.map((data: any, index: number) => {
+            return (
+              <QuestionEdit
+                key={index}
+                question={data}
+                index={index}
+                dispatch={dispatch}
+              />
+            );
+          })}
+        {/* <Row gutter={16}>
+          <Col span={12}>
+            <Button
+              onClick={() => addQuestion(question, setQuestion)}
+              type="primary"
+            >
+              Tambah Soal
+            </Button>
+            <Button
+              disabled={question.length <= 1 ? true : false}
+              onClick={() => deleteQuestion(question, setQuestion)}
+              style={{ marginLeft: "20px" }}
+            >
+              Hapus Soal
+            </Button>
+          </Col>
+          <Questions question={question} />
+        </Row> */}
+        {/* <Row gutter={16}>
           <Col span={24}>
             <Form.Item
               name="answer_key"
@@ -121,7 +151,7 @@ function EditTask({ setOpen, open, task }: any) {
               />
             </Form.Item>
           </Col>
-        </Row>
+        </Row> */}
       </Form>
     </Drawer>
   );

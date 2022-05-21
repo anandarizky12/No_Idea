@@ -231,50 +231,61 @@ exports.getStudentsInClassroom = async (req: any, res: any) => {
   }
 };
 
-exports.getTaskInClassroom = async (req: any, res: any) => {
-  try {
-    const { id } = req.params;
-    const classroom = await Classroom.findOne({
-      where: {
-        id: id,
-      },
-    });
+// exports.getTaskInClassroom = async (req: any, res: any) => {
+//   try {
+//     const { id } = req.params;
+//     const classroom = await Classroom.findOne({
+//       where: {
+//         id: id,
+//       },
+//     });
 
-    if (!classroom) {
-      return res.status(500).send({
-        status: 500,
-        message: "Classroom not found",
-      });
-    }
+//     if (!classroom) {
+//       return res.status(500).send({
+//         status: 500,
+//         message: "Classroom not found",
+//       });
+//     }
 
-    const task = await Task.findAll({
-      where: {
-        classroom_id: id,
-      },
+//     const task = await Task.findAll({
+//       where: {
+//         id: id,
+//         classroom_id: id,
+//       },
+//       include : [{
+//         model : Question,
+//         // where : {
+//         //   task_id : id
+//         // },
       
-      order: [ [ 'createdAt', 'DESC' ]]
-    });
+//         attributes: { exclude: ["answer_key"] },
+       
+//       }
+//       ],
+      
+//       order: [ [ 'createdAt', 'DESC' ]]
+//     });
 
-    if (!task) {
-      return res.status(200).send({
-        status: 200,
-        message: "No task in this classroom",
-        data: task,
-      });
-    }
+//     if (!task) {
+//       return res.status(200).send({
+//         status: 200,
+//         message: "No task in this classroom",
+//         data: task,
+//       });
+//     }
 
-    return res.status(200).send({
-      status: 200,
-      message: "Task in classroom",
-      data: task,
-    });
-  } catch (err: any) {
-    return res.status(500).send({
-      status: 500,
-      message: err.message,
-    });
-  }
-};
+//     return res.status(200).send({
+//       status: 200,
+//       message: "Task in classroom",
+//       data: task,
+//     });
+//   } catch (err: any) {
+//     return res.status(500).send({
+//       status: 500,
+//       message: err.message,
+//     });
+//   }
+// };
 
 exports.getTaskAndQuestionInClassroom = async (req: any, res: any) => {
   try {
@@ -302,20 +313,13 @@ exports.getTaskAndQuestionInClassroom = async (req: any, res: any) => {
         message: "Classroom not found",
       });
     }
-
-
-
     const task = await Task.findAll({
       where: {
         classroom_id: id,
       },
       include : [{
         model : Question,
-        where : {
-          task_id : id
-        },
-        attributes: {  exclude : [checkUserRole.role === 'siswa' ?  'answer_key' : null]},
-       
+        attributes: {  exclude : [checkUserRole.role === 'siswa' ?  'answer_key' : null]}, 
       }
       ],
       

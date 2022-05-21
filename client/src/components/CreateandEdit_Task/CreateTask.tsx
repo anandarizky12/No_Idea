@@ -1,7 +1,7 @@
 import React from "react";
 import { Drawer, Form, Button, Col, Row, Input, Space, DatePicker } from "antd";
 import { useDispatch } from "react-redux";
-import { handleChange } from "../../utils/utils";
+import { handleChange, addQuestion, deleteQuestion } from "../../utils/utils";
 import { createTask } from "../../actions/task";
 import { getCookie } from "../../utils/utils";
 import { useParams } from "react-router-dom";
@@ -10,9 +10,11 @@ import Questions from "./Questions";
 function CreateTask({ setOpen, open }: any) {
   const dispatch = useDispatch();
   const { id } = useParams();
+
   const onClose = () => {
     setOpen(false);
   };
+
   const id_user = getCookie("id");
   const [question, setQuestion] = React.useState([
     {
@@ -21,6 +23,7 @@ function CreateTask({ setOpen, open }: any) {
       answer_key_0: null,
     },
   ]);
+
   const [state, setState] = React.useState({
     title: null,
     description: null,
@@ -29,6 +32,7 @@ function CreateTask({ setOpen, open }: any) {
     deadline: null,
     classroom_id: id,
   });
+
   function onChangeDate(date: any, dateString: any): void {
     setState({
       ...state,
@@ -38,30 +42,6 @@ function CreateTask({ setOpen, open }: any) {
   const handleSubmit = () => {
     dispatch(createTask(state, question, id));
   };
-
-  const addQuestion = () => {
-    if (question.length >= 10) {
-      alert("Jumlah Soal Maksimal 10");
-      return;
-    }
-    const newQuestion: any = [...question];
-    newQuestion.push({
-      no: newQuestion.length + 1,
-    });
-    setQuestion(newQuestion);
-  };
-
-  const deleteQuestion = () => {
-    if (question.length <= 1) {
-      alert("Jumlah Soal Minimal 1");
-      return;
-    }
-    const newQuestion: any = [...question];
-    newQuestion.pop();
-    setQuestion(newQuestion);
-  };
-
-  console.log(question, state);
 
   return (
     <Drawer
@@ -139,12 +119,15 @@ function CreateTask({ setOpen, open }: any) {
         })}
         <Row gutter={16}>
           <Col span={12}>
-            <Button onClick={addQuestion} type="primary">
+            <Button
+              onClick={() => addQuestion(question, setQuestion)}
+              type="primary"
+            >
               Tambah Soal
             </Button>
             <Button
               disabled={question.length <= 1 ? true : false}
-              onClick={deleteQuestion}
+              onClick={() => deleteQuestion(question, setQuestion)}
               style={{ marginLeft: "20px" }}
             >
               Hapus Soal

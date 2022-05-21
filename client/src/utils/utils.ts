@@ -51,6 +51,29 @@ export const handleChangeAnswer = (e: any, state: any, index : number, setAnswer
 };
 
 
+export const addQuestion = (question : any, setQuestion : any) => {
+  if (question.length >= 10) {
+    alert("Jumlah Soal Maksimal 10");
+    return;
+  }
+  const newQuestion: any = [...question];
+  newQuestion.push({
+    no: newQuestion.length + 1,
+  });
+  setQuestion(newQuestion);
+};
+
+export const deleteQuestion = (question : any, setQuestion : any) => {
+  if (question.length <= 1) {
+    alert("Jumlah Soal Minimal 1");
+    return;
+  }
+  const newQuestion: any = [...question];
+  newQuestion.pop();
+  setQuestion(newQuestion);
+};
+
+
 
 export const colorArray = [
   "blue",
@@ -78,4 +101,5 @@ export const colorArray = [
   "violet",
   "gray",
 ];
+
 

@@ -100,7 +100,7 @@ exports.isTeacherOfClass = async (req: any, res: any, next: any) => {
     });
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    
     const isTeacher = await Classroom.findOne({
       where: {
         teacher_id: decoded.id,
