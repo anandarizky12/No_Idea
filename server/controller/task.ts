@@ -64,8 +64,9 @@ exports.createTask = async (req: any, res: any) => {
       other,
     });
 
-       //create new arr of question to bulk insert then
+       //create new arr of question to rename the key_value, to bulk insert to the database
        let newuQuestion = []
+
        for (let x in question) {
          newuQuestion.push({
            question: question[x][`question_${x}`],
@@ -75,8 +76,6 @@ exports.createTask = async (req: any, res: any) => {
        }
 
     const question_id = await Question.bulkCreate(newuQuestion);
-
-
 
     return res.status(200).send({
       status: 200,
@@ -92,11 +91,15 @@ exports.createTask = async (req: any, res: any) => {
   }
 };
 
-//considering coz security reason
 exports.deleteTask = async (req: any, res: any) => {
   try {
+    //task id 
     const { id } = req.params;
-
+    /*
+      1. dapatkan semua question yang id nya = task.id (yang akan dihapus)
+      2. setelah dapat maka delete dengan bulkDelete 
+      3. setelah delete berhasil return response kepada client
+    */
     const task = await Task.findOne({
       where: {
         id: id,
@@ -109,11 +112,17 @@ exports.deleteTask = async (req: any, res: any) => {
         message: "Task not found",
       });
     }
+    
     await task.destroy();
+    await Question.destroy({
+      where: {
+        task_id: id,
+      },
+    });
 
     return res.status(200).send({
       status: 200,
-      message: "Task deleted",
+      message: "Task succesfully deleted",
     });
   } catch (err: any) {
     return res.status(500).send({
@@ -177,7 +186,7 @@ exports.editQuestion = async (req: any, res: any) => {
   try {
     const { id } = req.params;
     const { question, answer_key } = req.body;
-    console.log(req.body)
+   
     const schema = joi.object({
       question: joi.string().required(),
       answer_key: joi.string().required(),

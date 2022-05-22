@@ -9,7 +9,7 @@ exports.createClassroom = async (req: any, res: any) => {
   try {
     const { name, teacher_id, description, banner } = req.body;
 
-    //make sure the classcode is unique and not already exist
+    //make sure the classcode is unique and make sure it not exist 
 
     let classcode = makeClassCode(6);
     async function CheckClassCode(classcode: String) {
@@ -54,7 +54,6 @@ exports.createClassroom = async (req: any, res: any) => {
 
     const classroom = await Classroom.create({
       classcode,
-
       description,
       name,
       teacher_id,

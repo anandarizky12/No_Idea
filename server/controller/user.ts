@@ -221,7 +221,7 @@ exports.editProfile = async (req: any, res: any) => {
       const uploadResponse = await cloudinary.uploader.upload(profile, {
         upload_preset: "ml_default",
       });
-
+ 
       if (uploadResponse) {
         const updateProfile = await User.update(
           {
