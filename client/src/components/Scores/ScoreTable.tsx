@@ -46,8 +46,11 @@ export default function ScoreTable() {
     if (scores && scores.data) {
       setLoading(false);
       setRows(scores.data);
+    } else {
+      setLoading(false);
+      setRows([]);
     }
-  }, [scores]);
+  }, [scores, id]);
 
   if (!data.isLoading && data.error) {
     return (
@@ -57,6 +60,8 @@ export default function ScoreTable() {
       />
     );
   }
+
+  console.log(scores);
   return (
     <div className="w-full flex flex-col mt-12 items-center justify-center">
       <div className="w-4/6 border p-5 shadow-md">
