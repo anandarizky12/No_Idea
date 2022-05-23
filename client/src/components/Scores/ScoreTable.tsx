@@ -1,12 +1,14 @@
-import { Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { getAllScores } from "../../actions/task";
 import { useParams } from "react-router-dom";
 
 import DynamicError from "../404/DynamicError";
-import DataTable, { TableColumn } from "react-data-table-component";
-import { customStyles, conditionalRowStyles } from "./StylesTable";
+import DataTable from "react-data-table-component";
+import { customStyles, conditionalRowStyles, columns } from "./StylesTable";
+import { Input } from "antd";
+
+const { Search } = Input;
 
 export default function ScoreTable() {
   const { id } = useParams();
@@ -16,34 +18,29 @@ export default function ScoreTable() {
   const [loading, setLoading] = React.useState(true);
   const [rows, setRows] = React.useState([]);
 
+  const [filterText, setFilterText] = React.useState("");
+  const [resetPaginationToggle, setResetPaginationToggle] =
+    React.useState(false);
+
+  const filteredItems = rows.filter(
+    (item: any) =>
+      item.user && item.user.toLowerCase().includes(filterText.toLowerCase())
+  );
+
+  const subHeaderComponentMemo = React.useMemo(() => {
+    return (
+      <Search
+        placeholder="input search text"
+        allowClear
+        style={{ width: 304 }}
+        onChange={(e) => setFilterText(e.target.value)}
+      />
+    );
+  }, [filterText, resetPaginationToggle]);
+
   React.useEffect(() => {
     dispatch(getAllScores(id));
   }, []);
-
-  type DataRow = {
-    task_title: string;
-    score: string;
-    user: string;
-  };
-  const columns: TableColumn<DataRow>[] = [
-    {
-      name: "Nama Siswa",
-      selector: (row) => row.user,
-      sortable: true,
-    },
-    {
-      name: "Nama Tugas",
-      selector: (row) => row.task_title,
-    },
-    {
-      name: "Nilai",
-      selector: (row) => row.score,
-      sortable: true,
-      style: {
-        fontSize: "17px",
-      },
-    },
-  ];
 
   React.useEffect(() => {
     if (scores && scores.data) {
@@ -66,9 +63,11 @@ export default function ScoreTable() {
         <DataTable
           title="Daftar Nilai Siswa"
           columns={columns}
-          data={rows}
+          data={filteredItems}
           pagination
           progressPending={loading}
+          // subHeader
+          actions={subHeaderComponentMemo}
           defaultSortFieldId={1}
           customStyles={customStyles}
           conditionalRowStyles={conditionalRowStyles}
