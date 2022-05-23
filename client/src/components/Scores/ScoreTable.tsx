@@ -29,7 +29,7 @@ export default function ScoreTable() {
   }
   return (
     <div className="w-screen overflow-x-scroll">
-      {!data.isLoading && students && scores ? (
+      {/* {!data.isLoading && students && scores ? (
         <>
           {scores.data.length < 1 && (
             <div
@@ -88,7 +88,7 @@ export default function ScoreTable() {
         >
           <Spin size={"large"} />
         </div>
-      )}
+      )} */}
     </div>
   );
 }

@@ -95,11 +95,7 @@ exports.deleteTask = async (req: any, res: any) => {
   try {
     //task id 
     const { id } = req.params;
-    /*
-      1. dapatkan semua question yang id nya = task.id (yang akan dihapus)
-      2. setelah dapat maka delete dengan bulkDelete 
-      3. setelah delete berhasil return response kepada client
-    */
+   
     const task = await Task.findOne({
       where: {
         id: id,
@@ -259,6 +255,10 @@ exports.getAllScore = async (req: any, res: any) => {
   try {
     // const { id } = req.user;
 
+    /*
+    1. get semua task, question, score dan user 
+    2. 
+    */
     const { id } = req.params;
 
     const score = await Score.findAll({
@@ -270,12 +270,61 @@ exports.getAllScore = async (req: any, res: any) => {
       },
       {
         model : Answer_task,
+        include : [{
+          model : User
+        }]
       }
-    ]
-    
+    ],
+      order: [["createdAt", "DESC"]],
     });
 
+    let task :any = []
 
+    for (let x = 0; x < score.length; x++) {
+      task.push({
+          task_id : score[x].Task.id,
+          task_title : score[x].Task.title,
+          score : score[x].score,
+          answer_id : score[x].Answer_task.id,
+          user : score[x].Answer_task.User.name,
+          user_id : score[x].Answer_task.User.id,
+        })
+    }
+
+    let newVal : any = [
+      {
+        task_id : task[0].task_id,
+        task_title : task[0].task_title,
+        score : task[0].score,
+        answer_id : task[0].answer_id,
+        user : task[0].user,
+        user_id : task[0].user_id,
+      }
+    ]
+  
+    for (let x = 0; x < newVal.length; x++) {
+      for (let y = 0 ; y < task.length ; y++){
+        if (newVal[x].task_id == task[y].task_id && newVal[x].user_id == task[y].user_id && newVal[x].answer_id != task[y].answer_id){
+           newVal[x].score += task[y].score;
+        }
+
+        if(newVal.some((e: { task_id: number; user_id: number; }) => e.task_id === task[y].task_id && e.user_id === task[y].user_id )){
+          continue;
+        }else{
+          newVal.push({
+            task_id : task[y].task_id,
+            task_title : task[y].task_title,
+            score : task[y].score,
+            answer_id : task[y].answer_id,
+            user : task[y].user,
+            user_id : task[y].user_id,
+          })
+        }
+      }
+    }
+  
+
+    
     if (!score) {
       return res.status(500).send({
         status: 500,
@@ -285,9 +334,10 @@ exports.getAllScore = async (req: any, res: any) => {
     return res.status(200).send({
       status: 200,
       message: "Score found",
-      data: score,
+      data: newVal,
     });
   } catch (err: any) {
+    console.log(err)
     return res.status(500).send({
       status: 500,
       message: err.message,
@@ -405,18 +455,10 @@ exports.getDetailTask = async (req : any ,res : any) =>{
 
       return res.status(200).send({
         status : 400,
-        message : "scu",
+        message : "Success Get Task Details",
         data : task_with_answer
       })
-      /*
-
-      perlu class id, student id dan task id 
-      1. task (dapatkan dengan id kelasnya)
-
-      3. lalu ambil answer (jika ada dari id siswa) * jika role dia adalah guru skip step ini
-      4. jika tidak ada makaa ambil question saja karna artinya dia belum menjawab soal atau dia bukan siswa
-      5.  
-      */
+   
 
     }catch(err : any ){
       res.status(500).send({

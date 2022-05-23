@@ -11,6 +11,12 @@ module.exports = (sequelize: any, Sequelize: any) => {
         },
       });
 
+      Task.hasMany(models.Score, {
+        foreignKey: {
+          name: "task_id",
+        },
+      });
+
       Task.belongsTo(models.Classroom, {
         foreignKey: {
           name: "classroom_id",
