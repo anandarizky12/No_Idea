@@ -8,6 +8,7 @@ import moment from "moment";
 import { Input } from "antd";
 import { getCookie } from "../../utils/utils";
 import AnswerStepByStep from "./AnswerStepByStep";
+import ResultAnswer from "./ResultAnswer";
 
 const { TextArea } = Input;
 
@@ -35,6 +36,8 @@ function AnswerTask() {
         task.task.data.Questions[0].Answer_task
       ) {
         setAlreadyAnswered(true);
+      } else {
+        setAlreadyAnswered(false);
       }
     } else {
       setLoading(true);
@@ -105,7 +108,7 @@ function AnswerTask() {
         )}
       </div> */}
       {alreadyAnswered ? (
-        <h1>Sudah dek</h1>
+        <ResultAnswer data={data} />
       ) : (
         <div className="w-5/6 px-8 m-8">
           {!loading ? (
