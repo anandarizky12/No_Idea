@@ -18,10 +18,28 @@ function AnswerTask() {
   const user_id = getCookie("id");
   const [answer, setAnswer] = React.useState("");
   const answerTaskResponse = useSelector((state: any) => state.AnswerTask);
+  const [data, setData]: any = React.useState();
+  const [loading, setLoading] = React.useState(true);
+  const [alreadyAnswered, setAlreadyAnswered] = React.useState(false);
 
   React.useEffect(() => {
     Dispatch(getTask(id, class_id));
   }, []);
+
+  React.useEffect(() => {
+    if (task && task.task) {
+      setData(task.task.data);
+      setLoading(false);
+      if (
+        task.task.data.Questions.length > 0 &&
+        task.task.data.Questions[0].Answer_task
+      ) {
+        setAlreadyAnswered(true);
+      }
+    } else {
+      setLoading(true);
+    }
+  }, [task]);
 
   const sendAnswer = () => {
     if (answer === "") {
@@ -38,6 +56,7 @@ function AnswerTask() {
       />
     );
   }
+
   console.log(task);
   return (
     <div className="flex flex-col items-center justify-center w-full">
@@ -85,18 +104,19 @@ function AnswerTask() {
           </div>
         )}
       </div> */}
-      <div className="w-5/6 p-8 m-8">
-        {task.task && task.task.data ? (
-          <AnswerStepByStep
-            task={task.task.data}
-            steps={task.task.data.Questions}
-          />
-        ) : (
-          <div className="flex flex-col items-center justify-center w-full  m-5">
-            <Spin />
-          </div>
-        )}
-      </div>
+      {alreadyAnswered ? (
+        <h1>Sudah dek</h1>
+      ) : (
+        <div className="w-5/6 px-8 m-8">
+          {!loading ? (
+            <AnswerStepByStep task={data} steps={data.Questions} />
+          ) : (
+            <div className="flex flex-col items-center justify-center w-full  m-5">
+              <Spin />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

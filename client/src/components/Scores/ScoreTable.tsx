@@ -61,7 +61,6 @@ export default function ScoreTable() {
     );
   }
 
-  console.log(scores);
   return (
     <div className="w-full flex flex-col mt-12 items-center justify-center">
       <div className="w-4/6 border p-5 shadow-md">

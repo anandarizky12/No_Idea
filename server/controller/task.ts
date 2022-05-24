@@ -322,8 +322,6 @@ exports.getAllScore = async (req: any, res: any) => {
         }
       }
     }
-  
-
     
     if (!score) {
       return res.status(500).send({
@@ -352,7 +350,7 @@ exports.getTaskAndQuestion = async (req: any, res: any) => {
     const { id } = req.params;
     const classroom_id = req.query.class;
 
-    const task = await Task.findAll({
+    const task = await Task.findOne({
       where: {
         id: id,
         classroom_id: classroom_id,
@@ -391,9 +389,9 @@ exports.getTaskAndQuestion = async (req: any, res: any) => {
 exports.getDetailTask = async (req : any ,res : any) =>{
     try{
       //id tugas 
-      const { id } = req.params;
+      const { task_id } = req.params;
       // id kelas 
-      const { class_id } = req.query;
+      // const { class_id } = req.query;
       // id user
       const user_id = req.user.id;
 
@@ -406,7 +404,7 @@ exports.getDetailTask = async (req : any ,res : any) =>{
 
       const task = await Task.findOne({
         where : {
-          id : id
+          id : task_id
         },
         include :[{
           model :Question,
@@ -423,18 +421,32 @@ exports.getDetailTask = async (req : any ,res : any) =>{
       }
 
 
-      const task_with_answer = await Task.findOne({
+      const check_if_user_already_answer = await Question.findOne({
         where : {
-          id : id
+          task_id : task_id
         },
         include : [{
-          model : Question,
-          attributes: { exclude: ["answer_key"] },
-          include :[
-            {
-              model : Answer_task,
+          model : Answer_task,
+          where : {
+            student_id : user_id
+          }
+        }]
+      })
+
+
+      let task_with_answer
+      if(check_if_user_already_answer){
+        task_with_answer  = await Task.findOne({
+          where : {
+            id : task_id
+          },
+          include : [{
+            model : Question,
+            attributes: { exclude: ["answer_key"]},
+            include :[{
+              model : Answer_task ,
               where : {
-                student_id : user_id,
+                student_id : user_id
               },
               include : [
                 {
@@ -445,11 +457,23 @@ exports.getDetailTask = async (req : any ,res : any) =>{
                   model :Score
                 }
               ]
-            }
-        ]
+            }] 
+          }]
+        
+        })
+    }else{
+      task_with_answer =  await Task.findOne({
+        where : {
+          id : task_id
+        },
+        include : [{
+          model : Question,
+          attributes: { exclude: ["answer_key"]},
+          
         }]
       
       })
+    }
 
 
 

@@ -7,6 +7,7 @@ const { Step } = Steps;
 const AnswerStepByStep = ({ task, steps }: any) => {
   const [current, setCurrent] = React.useState(0);
   const [answer, setAnswer]: any = React.useState({});
+
   const next = () => {
     setCurrent(current + 1);
   };
@@ -14,7 +15,9 @@ const AnswerStepByStep = ({ task, steps }: any) => {
   const prev = () => {
     setCurrent(current - 1);
   };
-  console.log(task);
+
+  console.log(steps, "steps");
+
   return (
     <div className="border p-8 shadow-lg">
       <div>
@@ -72,7 +75,7 @@ const style: any = {
     paddingTop: "40px",
     textAlign: "center",
     backgroundColor: "#fafafa",
-    border: "1px dashed #e9e9e9",
+    border: "1px dashed #55555",
     borderRadius: "2px",
   },
   stepsAction: {

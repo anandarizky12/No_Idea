@@ -52,7 +52,7 @@ function AllTask() {
                 key={task.id}
                 className="flex p-4 md:p-0 md:w-4/6 items-center justify-center"
               >
-                <TaskCard task={task} user={user} />;
+                <TaskCard task={task} user={user} />
               </div>
             );
           })

@@ -230,53 +230,53 @@ export const deleteTask = (id: string) => {
   };
 };
 
-export const getTask = (id: any, class_id: any) => {
-  return async (dispatch: Dispatch) => {
-    const token = getCookie("token");
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        // classroom_id: class_id,
-        // any: class_id,
-      },
-    };
+// export const getTask = (id: any, class_id: any) => {
+//   return async (dispatch: Dispatch) => {
+//     const token = getCookie("token");
+//     const config = {
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//         // classroom_id: class_id,
+//         // any: class_id,
+//       },
+//     };
 
-    try {
-      await axios
-        .get(
-          `http://localhost:5000/api/gettask/${id}?class=${class_id}`,
-          config
-        )
-        .then((res) => {
-          dispatch({
-            type: actionTypes.GET_TASK,
-            payload: res.data,
-            isLoading: false,
-            isError: false,
-          });
-        })
-        .catch((err) => {
-          dispatch({
-            type: actionTypes.GET_TASK_FAILED,
-            payload: err.response,
-            isLoading: false,
-            isError: true,
-          });
-          console.log(err.response);
-          alert(err.response.data.message);
-        });
-    } catch (err: any) {
-      dispatch({
-        type: actionTypes.GET_TASK_FAILED,
-        payload: err.response,
-        isLoading: false,
-        isError: true,
-      });
-      alert(err.response.data.message);
-    }
-  };
-};
+//     try {
+//       await axios
+//         .get(
+//           `http://localhost:5000/api/gettask/${id}?class=${class_id}`,
+//           config
+//         )
+//         .then((res) => {
+//           dispatch({
+//             type: actionTypes.GET_TASK,
+//             payload: res.data,
+//             isLoading: false,
+//             isError: false,
+//           });
+//         })
+//         .catch((err) => {
+//           dispatch({
+//             type: actionTypes.GET_TASK_FAILED,
+//             payload: err.response,
+//             isLoading: false,
+//             isError: true,
+//           });
+         
+//           alert(err.response.data.message);
+//         });
+//     } catch (err: any) {
+//       dispatch({
+//         type: actionTypes.GET_TASK_FAILED,
+//         payload: err.response,
+//         isLoading: false,
+//         isError: true,
+//       });
+//       alert(err.response.data.message);
+//     }
+//   };
+// };
 
 export const getAllScores = (class_id: any) => {
   return async (dispatch: Dispatch) => {
@@ -374,7 +374,7 @@ export const AnswerTask = (data : Idata ) =>{
 }
   
 
-export const getTaskAndQuestion = (id: any, class_id: any) => {
+export const getTask= (task_id: any, id: any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
     const config = {
@@ -389,7 +389,7 @@ export const getTaskAndQuestion = (id: any, class_id: any) => {
     try {
       await axios
         .get(
-          `http://localhost:5000/api/gettask/${id}?class=${class_id}`,
+          `http://localhost:5000/api/getdetailtask/${task_id}/${id}`,
           config
         )
         .then((res) => {
