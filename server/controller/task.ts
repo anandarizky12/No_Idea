@@ -7,7 +7,7 @@ const {
   Score,
   Question
 } = require("../models");
-
+const GenerateTotalScore = require("../utils/GenerateTotalScore");
 const joi = require("@hapi/joi");
 
 exports.createTask = async (req: any, res: any) => {
@@ -278,55 +278,7 @@ exports.getAllScore = async (req: any, res: any) => {
       order: [["createdAt", "DESC"]],
     });
 
-    let task :any = []
-
-    
-    for (let x = 0; x < score.length; x++) {
-      if(task.length === 0 ){
-        task.push({
-          task_id : score[x].Task.id,
-          task_title : score[x].Task.title,
-          score : score[x].score,
-          answer_id : score[x].Answer_task.id,
-          user : score[x].Answer_task.User.name,
-          user_id : score[x].Answer_task.User.id,
-        })
-      }
-      
-     
-    }
-
-    let newVal : any = [
-      {
-        task_id : task[0].task_id,
-        task_title : task[0].task_title,
-        score : task[0].score,
-        answer_id : task[0].answer_id,
-        user : task[0].user,
-        user_id : task[0].user_id,
-      }
-    ]
-  
-    for (let x = 0; x < newVal.length; x++) {
-      for (let y = 0 ; y < task.length ; y++){
-        if (newVal[x].task_id == task[y].task_id && newVal[x].user_id == task[y].user_id && newVal[x].answer_id != task[y].answer_id){
-           newVal[x].score += task[y].score;
-        }
-
-        if(newVal.some((e: { task_id: number; user_id: number; }) => e.task_id === task[y].task_id && e.user_id === task[y].user_id )){
-          continue;
-        }else{
-          newVal.push({
-            task_id : task[y].task_id,
-            task_title : task[y].task_title,
-            score : task[y].score,
-            answer_id : task[y].answer_id,
-            user : task[y].user,
-            user_id : task[y].user_id,
-          })
-        }
-      }
-    }
+   
     
     if (!score) {
       return res.status(500).send({
@@ -337,7 +289,7 @@ exports.getAllScore = async (req: any, res: any) => {
     return res.status(200).send({
       status: 200,
       message: "Score found",
-      data: newVal,
+      data: GenerateTotalScore(score),
     });
   } catch (err: any) {
     console.log(err)

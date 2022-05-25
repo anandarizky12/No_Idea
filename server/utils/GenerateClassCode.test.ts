@@ -7,12 +7,3 @@ test('return classcode with defined length 6', () => {
     expect(code).toHaveLength(6)
   });
 
-test('return classcode with defined length 8', () => {
-    const code = makeClassCode(6)
-    expect(code).toHaveLength(6)
-});
-
-test('return classcode with defined length 10', () => {
-    const code = makeClassCode(6)
-    expect(code).toHaveLength(6)
-});
