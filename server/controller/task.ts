@@ -280,8 +280,10 @@ exports.getAllScore = async (req: any, res: any) => {
 
     let task :any = []
 
+    
     for (let x = 0; x < score.length; x++) {
-      task.push({
+      if(task.length === 0 ){
+        task.push({
           task_id : score[x].Task.id,
           task_title : score[x].Task.title,
           score : score[x].score,
@@ -289,6 +291,9 @@ exports.getAllScore = async (req: any, res: any) => {
           user : score[x].Answer_task.User.name,
           user_id : score[x].Answer_task.User.id,
         })
+      }
+      
+     
     }
 
     let newVal : any = [

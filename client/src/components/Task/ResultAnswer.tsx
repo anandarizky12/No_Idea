@@ -12,6 +12,7 @@ function ResultAnswer({ data }: Iprops) {
     (acc: number, cur: any) => acc + cur.Answer_task.Score.score,
     0
   );
+
   return (
     <div className="border p-8 shadow-lg w-4/6 mt-8">
       <div className="">
