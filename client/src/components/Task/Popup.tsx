@@ -12,6 +12,7 @@ function PopupMenu({ task, user }: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpenEdit] = React.useState(false);
+
   function handleDelete() {
     let userVal = window.confirm("Apakah kamu yakin tuk menghapus Tugas ini ?");
     if (userVal) dispatch(deleteTask(task.id));

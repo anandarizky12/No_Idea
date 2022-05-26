@@ -1,10 +1,26 @@
 import { Steps, Button, message } from "antd";
 import React from "react";
+import { AnswerTask } from "../../actions/task";
 import AnswerContent from "./AnswerContent";
 
 const { Step } = Steps;
 
-const AnswerStepByStep = ({ task, steps }: any) => {
+interface AnswerTaskProps {
+  task: any;
+  steps: any;
+  Dispatch: any;
+  id: string | undefined;
+  class_id: string | undefined;
+  user_id: string | undefined;
+}
+const AnswerStepByStep = ({
+  task,
+  steps,
+  Dispatch,
+  id,
+  class_id,
+  user_id,
+}: AnswerTaskProps) => {
   const [current, setCurrent] = React.useState(0);
   const [answer, setAnswer]: any = React.useState({});
 
@@ -16,7 +32,20 @@ const AnswerStepByStep = ({ task, steps }: any) => {
     setCurrent(current - 1);
   };
 
-  console.log(steps, "steps");
+  const sendAnswer = () => {
+    // const loading = message.loading("Action in progress..", 0);
+    for (let x in task.Questions) {
+      console.log(answer?.[x]?.[`answer${x}`]);
+      if (!answer?.[x]?.[`answer${x}`]) {
+        message.error("Please answer all questions");
+
+        return;
+      }
+    }
+
+    message.success("Answer has been sent");
+    Dispatch(AnswerTask({ answer, id, class_id, user_id }));
+  };
 
   return (
     <div className="border p-8 shadow-lg">
@@ -48,10 +77,7 @@ const AnswerStepByStep = ({ task, steps }: any) => {
             </Button>
           )}
           {current === steps.length - 1 && (
-            <Button
-              type="primary"
-              onClick={() => message.success("Processing complete!")}
-            >
+            <Button type="primary" onClick={sendAnswer}>
               Selesai
             </Button>
           )}

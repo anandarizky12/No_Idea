@@ -326,6 +326,7 @@ interface Idata {
 }
 
 export const AnswerTask = (data : Idata ) =>{
+
   return async (dispatch : Dispatch) =>{
     const token = getCookie("token");
     const config = {
@@ -335,8 +336,10 @@ export const AnswerTask = (data : Idata ) =>{
       },
     };
     const { answer , id, class_id, user_id  } = data;
+  
 
     try{
+      console.log(data)
       await axios
         .post(`http://localhost:8000/api/answer_tasks?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
         .then((res)=>{
@@ -352,6 +355,7 @@ export const AnswerTask = (data : Idata ) =>{
           if (!err.response){
             alert("Sorry I thuink Server is busy now")
           }
+          console.log(err.response)
           alert(err.response.data.message); 
           dispatch({
             type: actionTypes.ANSWER_TASK_FAILED,
