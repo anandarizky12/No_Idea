@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.less";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./components/auth/Login";
@@ -9,13 +8,13 @@ import Top from "./components/Navigation/Top";
 import My404 from "./components/404/My404";
 import Classroom from "./components/Classroom/Classroom";
 import AllTask from "./components/Task/AllTask";
-import moment from "moment";
-import "moment/locale/id";
 import Profile from "./components/Profile/Profile";
 import StudentsInClassroom from "./components/Students/StudentsInClassroom";
 import Report from "./components/report/Report";
 import AnswerTask from "./components/Task/AnswerTask";
 import Scores from "./components/Scores/Scores";
+import moment from "moment";
+import "moment/locale/id";
 
 function App() {
   moment.locale("id");

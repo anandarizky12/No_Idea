@@ -6,9 +6,7 @@ function ImageChange({ setSelectedImg, state }: any) {
   const [image, setImage] = React.useState("");
   const dispatch = useDispatch();
   const [preview, setPreview] = React.useState("");
-  interface RefObject {
-    click: () => void;
-  }
+
   const ref = useRef<any>(null);
 
   const openFile = () => {

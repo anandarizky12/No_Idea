@@ -13,7 +13,7 @@ function Top(): JSX.Element {
   const [openRight, setOpenRight] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const id = location.pathname.split("/")[2];
+  const id: string = location.pathname.split("/")[2];
   const user = useSelector((state: any) => state.user);
 
   return (

@@ -1,4 +1,3 @@
-import React from "react";
 import { Menu, Dropdown, Space, Avatar } from "antd";
 import {
   UserOutlined,
