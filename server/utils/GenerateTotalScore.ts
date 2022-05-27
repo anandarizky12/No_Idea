@@ -24,12 +24,12 @@ interface Iresults{
 const GenerateTotalScore = (score : any) : any => {
   
     let task : Iresults[] = [{
-        task_id : score[0].Task.id,
-        task_title : score[0].Task.title,
-        score : score[0].score,
-        answer_id : score[0].Answer_task.id,
-        user : score[0].Answer_task.User.name,
-        user_id : score[0].Answer_task.User.id,
+        task_id : score[0]?.Task.id,
+        task_title : score[0]?.Task.title,
+        score : score[0]?.score,
+        answer_id : score[0]?.Answer_task.id,
+        user : score[0]?.Answer_task.User.name,
+        user_id : score[0]?.Answer_task.User.id,
         }]
 
    

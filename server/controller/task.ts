@@ -253,14 +253,8 @@ exports.getTask = async (req: any, res: any) => {
 
 exports.getAllScore = async (req: any, res: any) => {
   try {
-    // const { id } = req.user;
 
-    /*
-    1. get semua task, question, score dan user 
-    2. 
-    */
     const { id } = req.params;
-
     const score = await Score.findAll({
       where: {
         classroom_id: id,
@@ -278,7 +272,12 @@ exports.getAllScore = async (req: any, res: any) => {
       order: [["createdAt", "DESC"]],
     });
 
-   
+    const task = await Task.findAll({
+      where: {
+        classroom_id: id,
+      },
+    });
+
     
     if (!score) {
       return res.status(500).send({

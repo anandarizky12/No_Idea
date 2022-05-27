@@ -109,8 +109,8 @@ exports.isTeacherOfClass = async (req: any, res: any, next: any) => {
     });
 
     if (!isTeacher)
-      return res.status(400).send({
-        status: 400,
+      return res.status(401).send({
+        status: 401,
         message: "Sorry, You are not a teacher of this class",
       });
     req.user = decoded;

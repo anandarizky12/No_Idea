@@ -5,7 +5,7 @@ import Register from "./components/auth/Register";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Home from "./components/Home";
 import Top from "./components/Navigation/Top";
-import My404 from "./components/404/My404";
+import My404 from "./components/404/Unauthorized";
 import Classroom from "./components/Classroom/Classroom";
 import AllTask from "./components/Task/AllTask";
 import Profile from "./components/Profile/Profile";
@@ -63,19 +63,31 @@ function App() {
         <Route
           path="/report"
           element={
-            <ProtectedRoute redirectTo="/login" Component={<Report />} />
+            <ProtectedRoute
+              allowRole={"guru"}
+              redirectTo="/login"
+              Component={<Report />}
+            />
           }
         />
         <Route
           path="classroom/:class_id/answertask/:id"
           element={
-            <ProtectedRoute redirectTo="/login" Component={<AnswerTask />} />
+            <ProtectedRoute
+              allowRole={"siswa"}
+              redirectTo="/login"
+              Component={<AnswerTask />}
+            />
           }
         />
         <Route
           path="/classroom/:id/scores"
           element={
-            <ProtectedRoute redirectTo="/login" Component={<Scores />} />
+            <ProtectedRoute
+              allowRole={"guru"}
+              redirectTo="/login"
+              Component={<Scores />}
+            />
           }
         />
       </Routes>
