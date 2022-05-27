@@ -75,7 +75,7 @@ export const deleteQuestion = (question : any, setQuestion : any) => {
 
 
 
-export const colorArray = [
+export const colorArray : Array<String> = [
   "blue",
   "green",
   "purple",

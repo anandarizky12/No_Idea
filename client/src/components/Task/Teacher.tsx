@@ -1,8 +1,6 @@
-import React from "react";
 import { Button, Spin } from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 function Teacher({ setOpen, open, classroom }: any) {
   return (
     <div className="flex flex-row items-center justify-between border-b-2 p-5 border-gray-200 w-4/6">
@@ -21,7 +19,7 @@ function Teacher({ setOpen, open, classroom }: any) {
           {classroom.data.name}
         </h1>
       ) : (
-        <Spin indicator={antIcon} />
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
       )}
     </div>
   );

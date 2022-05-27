@@ -3,7 +3,7 @@ const joi = require("@hapi/joi");
 const { User, Classroom, Student_Classroom, Task, Question } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
 const Sequelize = require("sequelize");
-const { cloudinary } = require("../utils/Cloudinary");
+
 
 exports.createClassroom = async (req: any, res: any) => {
   try {

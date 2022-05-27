@@ -1,15 +1,13 @@
-import React from "react";
 import { BookOutlined } from "@ant-design/icons";
 import moment from "moment";
 import PopupMenu from "./Popup";
-import { Avatar, Button } from "antd";
+import { Avatar } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 
 function TaskCard({ task, user }: any) {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  console.log(task);
   return (
     <div className="flex flex-col w-full border rounded-md shadow-md border-b border-gray-300 mb-5">
       <div className=" h-12 w-full flex items-center p-8 justify-between">

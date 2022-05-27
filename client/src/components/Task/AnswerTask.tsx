@@ -3,22 +3,16 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTask } from "../../actions/task";
 import DynamicError from "../404/DynamicError";
-import { Button, Spin } from "antd";
-import moment from "moment";
-import { Input } from "antd";
+import { Spin } from "antd";
 import { getCookie } from "../../utils/utils";
 import AnswerStepByStep from "./AnswerStepByStep";
 import ResultAnswer from "./ResultAnswer";
-
-const { TextArea } = Input;
 
 function AnswerTask() {
   const Dispatch = useDispatch();
   const task = useSelector((state: any) => state.getTask);
   const { id, class_id } = useParams();
   const user_id = getCookie("id");
-  const [answer, setAnswer] = React.useState("");
-  const answerTaskResponse = useSelector((state: any) => state.AnswerTask);
   const [data, setData]: any = React.useState();
   const [loading, setLoading] = React.useState(true);
   const [alreadyAnswered, setAlreadyAnswered] = React.useState(false);
@@ -53,7 +47,6 @@ function AnswerTask() {
     );
   }
 
-  console.log(task);
   return (
     <div className="flex flex-col items-center justify-center w-full">
       {alreadyAnswered ? (

@@ -11,6 +11,8 @@ export default function showConfirm(message: string, action: any) {
       onOk() {
         action();
       },
-      onCancel() {},
+      onCancel() {
+        return ;
+      },
     });
   }

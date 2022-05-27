@@ -1,4 +1,3 @@
-import React from "react";
 import { handleChangeAnswer } from "../../utils/utils";
 import { Input } from "antd";
 

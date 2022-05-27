@@ -1,4 +1,3 @@
-import React from "react";
 import { ReconciliationOutlined } from "@ant-design/icons";
 import moment from "moment";
 

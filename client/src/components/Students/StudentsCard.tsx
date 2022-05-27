@@ -1,4 +1,3 @@
-import React from "react";
 import AvatarCustom from "../Avatar/AvatarCustom";
 
 function StudentsCard({ student }: any) {

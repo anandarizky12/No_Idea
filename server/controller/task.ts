@@ -360,12 +360,20 @@ exports.getDetailTask = async (req : any ,res : any) =>{
 
       const task = await Task.findOne({
         where : {
-          id : task_id
+          id : task_id,
+
         },
         include :[{
           model :Question,
         }]
-      })
+      });
+
+      if(!task){
+        return res.status(500).send({
+          status : 500,
+          message : "Task not found"
+        })
+      }
 
       if(user.role === "guru"){
         return res.status(200).send({

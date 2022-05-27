@@ -1,4 +1,3 @@
-import React from "react";
 import { Progress } from "antd";
 
 interface Iprops {
@@ -27,12 +26,10 @@ function ResultAnswer({ data }: Iprops) {
             width={85}
             type="circle"
             strokeColor={{
-              //   "0%": "#F32424",
-              //   "50%": "#FF8D29",
               "100%": "#36AE7C",
             }}
             percent={totalScore}
-            format={(percent) => `${totalScore} `}
+            format={() => `${totalScore} `}
           />
         </div>
       </div>

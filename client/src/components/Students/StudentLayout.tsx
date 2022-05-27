@@ -1,5 +1,3 @@
-import React from "react";
-
 function StudentLayout({
   classes,
   classroom,
@@ -13,7 +11,7 @@ function StudentLayout({
     return (
       <DynamicError
         status={classes.error.status}
-        message={classes.error.data.error.message}
+        message={classes.error.data.message}
       />
     );
 
