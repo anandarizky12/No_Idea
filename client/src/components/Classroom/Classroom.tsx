@@ -26,8 +26,8 @@ function Classroom() {
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
-        status={classes.error.data.error.status}
-        message={classes.error.data.error.message}
+        status={classes?.error?.data?.error?.status}
+        message={classes?.error?.data?.error?.message}
       />
     );
 

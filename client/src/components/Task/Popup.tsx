@@ -36,8 +36,6 @@ function PopupMenu({ task, user }: any) {
   );
 
   return (
-    // <Menu style={{ width: 256 }}>
-    // <Space wrap>
     <div className="">
       <Dropdown
         overlay={user.role === "guru" ? teacherMenu : studentMenu}
@@ -47,10 +45,6 @@ function PopupMenu({ task, user }: any) {
       </Dropdown>
       <EditTask task={task} setOpen={setOpenEdit} open={open} />
     </div>
-
-    // </Space>
-
-    // </Menu>
   );
 }
 

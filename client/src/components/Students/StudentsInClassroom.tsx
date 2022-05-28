@@ -6,6 +6,7 @@ import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
 import { Spin } from "antd";
 import { getUser } from "../../actions/user";
 import AvatarCustom from "../Avatar/AvatarCustom";
+import DynamicError from "../404/DynamicError";
 
 function StudentsInClassroom() {
   const { id } = useParams();
@@ -21,6 +22,14 @@ function StudentsInClassroom() {
     dispatch(getClassroom(id));
   }, []);
 
+  if (!data.isLoading && data.isError && data.error)
+    return (
+      <DynamicError
+        status={data?.error?.status}
+        message={data?.error?.data?.message}
+      />
+    );
+
   return (
     <div className="flex flex-col items-center justify-center p-8 md:px-12">
       <div className="w-full md:w-7/12 ">
@@ -31,7 +40,7 @@ function StudentsInClassroom() {
             </h1>
             <div className="flex items-center justify-center ">
               <h4 className="font-bold text-gray-500">
-                {students ? students.data.length : <Spin size="small" />} Siswa
+                {students ? students.data.length + " Siswa" : null}
               </h4>
             </div>
           </div>

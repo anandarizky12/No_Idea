@@ -5,8 +5,6 @@ interface Iprops {
 }
 
 function ResultAnswer({ data }: Iprops) {
-  console.info(data);
-
   const totalScore = data.Questions.reduce(
     (acc: number, cur: any) => acc + cur.Answer_task.Score.score,
     0

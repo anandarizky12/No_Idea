@@ -7,7 +7,7 @@ import { getTaskInClassroom } from "../../actions/task";
 import TaskCard from "./TaskCard";
 import CreateTask from "../CreateandEdit_Task/CreateTask";
 import Teacher from "./Teacher";
-
+import DynamicError from "../404/DynamicError";
 function AllTask() {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
@@ -22,6 +22,14 @@ function AllTask() {
     dispatch(getTaskInClassroom(id));
   }, [id]);
 
+  console.log(taskData);
+  if (!taskData.isLoading && taskData.isError && taskData.error)
+    return (
+      <DynamicError
+        status={taskData?.error?.status}
+        message={taskData?.error?.data?.message}
+      />
+    );
   return (
     <div className="flex flex-col items-center ">
       <div className="w-4/6 mt-7">
@@ -30,7 +38,7 @@ function AllTask() {
             Daftar Tugas Kelas
           </h1>
           <div className="flex items-center justify-center text-gray-500 font-bold">
-            Total {task ? task.data.length : <Spin size="small" />} Tugas
+            {task ? "Total " + task.data.length + " Tugas" : null}
           </div>
         </div>
       </div>

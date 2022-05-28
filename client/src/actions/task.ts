@@ -25,7 +25,17 @@ export const getTaskInClassroom = (id: any) => {
           });
         })
         .catch((err) => {
-         
+          
+          if(!err.response){
+          
+           return  dispatch({
+              type: actionTypes.GET_ALL_TASK_IN_CLASS_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+          }
+
           dispatch({
             type: actionTypes.GET_ALL_TASK_IN_CLASS_FAILED,
             payload: err.response,
@@ -299,7 +309,14 @@ export const getAllScores = (class_id: any) => {
           });
         })
         .catch((err: any) => {
-          console.log(err.response);
+          if(!err.response){
+           return dispatch({
+              type: actionTypes.GET_ALL_SCORES_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            })
+          }
           dispatch({
             type: actionTypes.GET_ALL_SCORES_FAILED,
             payload: err.response,
@@ -339,7 +356,7 @@ export const AnswerTask = (data : Idata ) =>{
   
 
     try{
-      console.log(data)
+     
       await axios
         .post(`http://localhost:8000/api/answer_tasks?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
         .then((res)=>{
@@ -353,9 +370,10 @@ export const AnswerTask = (data : Idata ) =>{
         })
         .catch((err : any)=>{
           if (!err.response){
-            alert("Sorry I thuink Server is busy now")
+            return alert("Sorry Server is busy now")
+         
           }
-          console.log(err.response)
+        
           alert(err.response.data.message); 
           dispatch({
             type: actionTypes.ANSWER_TASK_FAILED,
@@ -405,6 +423,14 @@ export const getTask= (task_id: any, id: any) => {
           });
         })
         .catch((err) => {
+          if(!err.response){
+            return dispatch({
+              type: actionTypes.GET_TASK_FAILED,
+              payload: err,
+              isLoading : false,
+              isError : true
+            })
+        }
           dispatch({
             type: actionTypes.GET_TASK_FAILED,
             payload: err.response,

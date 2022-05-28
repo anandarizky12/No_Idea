@@ -18,8 +18,8 @@ function Scores() {
   if (scores.error) {
     return (
       <DynamicError
-        message={scores.error.data.message}
-        status={scores.error.data.status}
+        message={scores?.error?.data?.message}
+        status={scores?.error?.data?.status}
       />
     );
   }

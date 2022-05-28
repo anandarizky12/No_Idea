@@ -40,7 +40,10 @@ export const login = (email: string, password: string, setAlert: any) =>
 
         })
         .catch((err) => {
-          console.log(err);
+          if(!err.response){
+            setAlert({ message: "Server Error", typeAlert: 4 });
+            return;
+          }
           setAlert({ message: err.response.data.message, typeAlert: 4 });
         });
         
@@ -73,12 +76,15 @@ export const register = (state: any, setAlert: any) => async () => {
         }, 500);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        if(!err.response){
+          setAlert({ message: "Server Error", typeAlert: 4 });
+          return;
+        }
         setAlert({ message: err.response.data.message, typeAlert: 4 });
       });
   } catch (err: any) {
     setAlert({ message: err.message, typeAlert: 4 });
-    console.log(err);
+   
   }
 };
 
@@ -114,7 +120,14 @@ export const getUser = () => async (dispatch: Dispatch) => {
         });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        if(!err.response){
+          return dispatch({
+            type: actionTypes.GET_USER_FAIL,
+            payload: err,
+            isLoading: false,
+            isError: true,
+          });
+        }
         dispatch({
           type: actionTypes.GET_USER_FAIL,
           payload: {
@@ -124,11 +137,10 @@ export const getUser = () => async (dispatch: Dispatch) => {
           
           },
         });
-        // setAlert({ message: err.response.data.message, typeAlert: 4 });
+       
       });
   } catch (err: any) {
-    // setAlert({ message: err.message, typeAlert: 4 });
-    console.log(err);
+    
     dispatch({
       type: actionTypes.GET_USER_FAIL,
       payload: {
@@ -169,8 +181,17 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
           window.location.reload();
         })
         .catch((err) => {
+            if(!err.response){
+              setLoading(false)
+              return dispatch({
+                    type: actionTypes.EDIT_PROFILE_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
           setLoading(false);
-          console.log(err.response);
+  
           dispatch({
             type: actionTypes.EDIT_PROFILE_FAILED,
             payload: err.response,
@@ -182,7 +203,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
         });
     } catch (err: any) {
       setLoading(false);
-      console.log(err.response);
+    
       dispatch({
         type: actionTypes.EDIT_PROFILE_FAILED,
         payload: err.response,

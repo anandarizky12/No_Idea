@@ -27,7 +27,14 @@ export const getClassroomByTeacherId = (id: any) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
+          if(!err.response){
+           return dispatch({
+              type: actionTypes.GET_ALL_CLASSROOM_TEACHER_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            })
+          }
           dispatch({
             type: actionTypes.GET_ALL_CLASSROOM_TEACHER_FAILED,
             payload: err.response,
@@ -78,6 +85,10 @@ export const createClassroom = (data: any) => {
         .catch((err) => {
           console.log(err.response.data.message);
           alert(err.response.data.message);
+          dispatch({
+            type: actionTypes.CREATE_CLASSROOM_FAILED,
+            payload: err,
+          });
         });
     } catch (err: any) {
       dispatch({
@@ -117,6 +128,10 @@ export const editClassroom = (data: any) => {
           window.location.reload();
         })
         .catch((err) => {
+          dispatch({
+            type: actionTypes.EDIT_CLASSROOM_FAILED,
+            payload: err,
+          });
           console.log(err.response.data.message);
         });
     } catch (err: any) {
@@ -151,7 +166,14 @@ export const getClassroom = (id: any) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
+          if(!err.response){
+            return  dispatch({
+              type: actionTypes.GET_CLASSROOM_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+          }
           dispatch({
             type: actionTypes.GET_CLASSROOM_FAILED,
             payload: err.response,
@@ -166,7 +188,7 @@ export const getClassroom = (id: any) => {
         isLoading: false,
         isError: true,
       });
-      console.log(err);
+    
     }
   };
 };
@@ -238,7 +260,15 @@ export const getStudentsinClassroom = (id: any) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
+          if(!err.response){
+            return dispatch({
+              type: actionTypes.GET_STUDENTS_IN_CLASSROOM_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+          }
+        
           dispatch({
             type: actionTypes.GET_STUDENTS_IN_CLASSROOM_FAILED,
             payload: err.response,
@@ -280,7 +310,14 @@ export const getStudentClassroom = () => {
           });
         })
         .catch((err: any) => {
-          console.log(err.response);
+          if(!err.response){
+            return dispatch({
+              type: actionTypes.GET_STUDENT_CLASSROOM_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+          }
           dispatch({
             type: actionTypes.GET_STUDENT_CLASSROOM_FAILED,
             payload: err.response,
@@ -309,7 +346,7 @@ export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log(code);
+   
     setLoading(true);
 
     try {

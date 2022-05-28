@@ -18,8 +18,8 @@ function Profile() {
   if (!user.isLoading && user.isError && user.error)
     return (
       <DynamicError
-        status={user.error.res.status}
-        message={user.error.res.message}
+        status={user?.error?.res?.status}
+        message={user?.error?.res?.message}
       />
     );
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { Tooltip } from "antd";
 import { UserOutlined, FundOutlined } from "@ant-design/icons";
 import PopupMenu from "./PopupMenu";

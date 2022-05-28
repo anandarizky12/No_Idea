@@ -10,8 +10,8 @@ function TeacherLayout({
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
-        status={!classes.error.status && 500}
-        message={classes.error.data.message}
+        status={classes?.error?.status}
+        message={classes?.error?.data?.message}
       />
     );
 
