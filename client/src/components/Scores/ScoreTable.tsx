@@ -1,5 +1,4 @@
 import React from "react";
-
 import DataTable from "react-data-table-component";
 import { customStyles, conditionalRowStyles, columns } from "./StylesTable";
 import { Input } from "antd";

@@ -1,7 +1,12 @@
 import { Avatar } from "antd";
 import { colorArray } from "../../utils/utils";
+import { useMemo } from "react";
 
 function ClassroomList({ classroom, navigate }: any) {
+  const bgColor: string = useMemo(() => {
+    return colorArray[Math.floor(Math.random() * colorArray.length - 1)];
+  }, [classroom]);
+
   return (
     <div
       onClick={() => {
@@ -12,8 +17,7 @@ function ClassroomList({ classroom, navigate }: any) {
       <Avatar
         style={{
           color: "white",
-          backgroundColor:
-            colorArray[Math.floor(Math.random() * colorArray.length - 1)],
+          backgroundColor: bgColor,
         }}
       >
         {classroom.name.slice(0, 1)}
