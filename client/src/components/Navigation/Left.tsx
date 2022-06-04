@@ -47,55 +47,57 @@ function Left({ setOpen, open }: any): JSX.Element {
         key={"left"}
         width={300}
       >
-        <div
-          onClick={() => handleNavigate("/")}
-          className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
-           hover:text-blue-300 
-          hover:cursor-pointer"
-        >
-          <HomeOutlined className="text-2xl mr-6" />
-          Home Page
-        </div>
-
-        {user.role === "guru" ? (
-          <div
-            onClick={() => handleNavigate("/report")}
+        <ul>
+          <li
+            onClick={() => handleNavigate("/")}
             className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
            hover:text-blue-300 
           hover:cursor-pointer"
           >
-            <FileTextOutlined className="text-2xl mr-6" />
-            Report Page
-          </div>
-        ) : null}
-        <div className="border-b"></div>
-        <div className="px-1 py-4 text- font-semibold text-gray-500 flex items-center">
-          Classroom
-        </div>
-        {user.role === "guru" ? (
-          <>
-            {classroom &&
-              classroom.class.map((item: any) => (
-                <ClassroomList
-                  navigate={handleNavigate}
-                  key={item.id}
-                  classroom={item}
-                />
-              ))}
-          </>
-        ) : (
-          <>
-            {student &&
-              student.class.map((item: any) => (
-                <ClassroomList
-                  navigate={handleNavigate}
-                  key={item.id}
-                  classroom={item.Classroom}
-                />
-              ))}
-          </>
-        )}
-        <div className="border-b"></div>
+            <HomeOutlined className="text-2xl mr-6" />
+            Home Page
+          </li>
+
+          {user.role === "guru" ? (
+            <li
+              onClick={() => handleNavigate("/report")}
+              className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
+           hover:text-blue-300 
+          hover:cursor-pointer"
+            >
+              <FileTextOutlined className="text-2xl mr-6" />
+              Report Page
+            </li>
+          ) : null}
+          <div className="border-b"></div>
+          <li className="px-1 py-4 text- font-semibold text-gray-500 flex items-center">
+            Classroom
+          </li>
+          {user.role === "guru" ? (
+            <>
+              {classroom &&
+                classroom.class.map((item: any) => (
+                  <ClassroomList
+                    navigate={handleNavigate}
+                    key={item.id}
+                    classroom={item}
+                  />
+                ))}
+            </>
+          ) : (
+            <>
+              {student &&
+                student.class.map((item: any) => (
+                  <ClassroomList
+                    navigate={handleNavigate}
+                    key={item.id}
+                    classroom={item.Classroom}
+                  />
+                ))}
+            </>
+          )}
+          <div className="border-b"></div>
+        </ul>
       </Drawer>
     </div>
   );

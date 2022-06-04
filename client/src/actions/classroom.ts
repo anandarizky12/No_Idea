@@ -125,6 +125,7 @@ export const editClassroom = (data: any) => {
             type: actionTypes.EDIT_CLASSROOM,
             payload: res.data,
           });
+          alert("Edit classroom success");
           window.location.reload();
         })
         .catch((err) => {
@@ -132,14 +133,16 @@ export const editClassroom = (data: any) => {
             type: actionTypes.EDIT_CLASSROOM_FAILED,
             payload: err,
           });
-          console.log(err.response.data.message);
+          alert(err.response.data.message);
+         
         });
     } catch (err: any) {
       dispatch({
         type: actionTypes.EDIT_CLASSROOM_FAILED,
         payload: err,
       });
-      console.log(err.response.data.message);
+      alert(err.response.data.message);
+     
     }
   };
 };
@@ -218,22 +221,22 @@ export const deleteClassroom = (id: any) => {
           window.location.reload();
         })
         .catch((err) => {
-          console.log(err.response);
           dispatch({
             type: actionTypes.DELETE_CLASSROOM_FAILED,
             payload: err.response,
             isLoading: false,
             isError: true,
           });
+          alert(err.response.data.message);
         });
-    } catch (err) {
+    } catch (err : any) {
       dispatch({
         type: actionTypes.DELETE_CLASSROOM_FAILED,
         payload: err,
         isLoading: false,
         isError: true,
       });
-      console.log(err);
+      alert(err.response.data.message);
     }
   };
 };
@@ -382,7 +385,7 @@ export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
       });
       setLoading(false);
       setAlert({ message: err.response.data.message, typeAlert: 4 });
-      console.log(err.response);
+      
     }
   };
 };

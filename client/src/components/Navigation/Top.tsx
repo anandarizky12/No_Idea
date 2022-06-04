@@ -29,12 +29,12 @@ function Top(): JSX.Element {
           </div>
         </div>
         {location.pathname.includes("classroom") ? (
-          <div
+          <ul
             className={`hidden ${
               user.role === "guru" ? "w-80" : "w-60"
             } h-full items-end justify-between md:flex`}
           >
-            <div
+            <li
               onClick={() => navigate(`/classroom/${id}`)}
               className={`${
                 location.pathname == `/classroom/${id}`
@@ -43,8 +43,8 @@ function Top(): JSX.Element {
               } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Kelas
-            </div>
-            <div
+            </li>
+            <li
               onClick={() => navigate(`/classroom/${id}/tasks`)}
               className={`${
                 location.pathname == `/classroom/${id}/tasks` ||
@@ -54,8 +54,8 @@ function Top(): JSX.Element {
               } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Tugas
-            </div>
-            <div
+            </li>
+            <li
               onClick={() => navigate(`/classroom/${id}/students`)}
               className={`${
                 location.pathname == `/classroom/${id}/students`
@@ -64,9 +64,9 @@ function Top(): JSX.Element {
               } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Anggota{" "}
-            </div>
+            </li>
             {user.role === "guru" ? (
-              <div
+              <li
                 onClick={() => navigate(`/classroom/${id}/scores`)}
                 className={`${
                   location.pathname == `/classroom/${id}/scores`
@@ -75,9 +75,9 @@ function Top(): JSX.Element {
                 } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
               >
                 Nilai
-              </div>
+              </li>
             ) : null}
-          </div>
+          </ul>
         ) : null}
 
         <div className="flex items-center" id="icons">

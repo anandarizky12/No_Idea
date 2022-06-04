@@ -80,10 +80,10 @@ exports.editClassroom = async (req: any, res: any) => {
     const schema = joi.object({
       name: joi.string().min(3).required(),
       description: joi.string().min(3).required(),
-      banner: joi.string().min(3).required(),
+    
     });
 
-    const { error } = schema.validate(req.body);
+    const { error } = schema.validate({name, description});
     if (error) {
       return res.status(500).send({
         status: 500,

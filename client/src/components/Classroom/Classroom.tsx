@@ -54,6 +54,7 @@ function Classroom() {
               })`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
             className={` w-full h-64 bg-gray-300 rounded-md p-3 font-semibold relative md:w-3/4`}
           >
