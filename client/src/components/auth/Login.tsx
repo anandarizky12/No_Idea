@@ -54,7 +54,7 @@ function Login() {
           onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
         >
-          <h1 className="text-xl font-semibold text-gray-400">
+          <h1 className="text-xl font-semibold text-primary">
             Welcome To The App
           </h1>
           <h1 className="text-3xl md:text-4xl font-bold">

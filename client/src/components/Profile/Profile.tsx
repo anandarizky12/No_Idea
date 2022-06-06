@@ -24,11 +24,15 @@ function Profile() {
     );
 
   return (
-    <div className="flex items-center justify-center">
+    <div
+      style={{
+        height: "90vh",
+      }}
+      className="flex items-center justify-center"
+    >
       {user && user.detail_user ? (
-        <div className="bg-profile w-80 border flex items-center p-4 justify-center shadow-md rounded-md  font-semibold relative mt-7">
+        <div className="bg-profile w-80 border flex items-center p-4 justify-center shadow-md rounded-md  font-semibold relative">
           <div className="p-4  flex flex-col  justify-center items-center w-full">
-            {/* <div className="bg-gray-300  w-full h-64"></div> */}
             <div className=" mt-6 flex w-full  justify-center">
               <div className="flex flex-col mt-10 justify-center items-center">
                 <AvatarCustom
@@ -46,7 +50,7 @@ function Profile() {
                   <h1 className="text-2xl text-white m-0">
                     {user.detail_user.name}
                   </h1>
-                  <h2 className="text-gray-400 font-light text-xs">
+                  <h2 className="text-secondary font-light text-xs">
                     {user.detail_user.email}
                   </h2>
                 </div>

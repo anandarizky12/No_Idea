@@ -9,6 +9,7 @@ import { Spin, Space } from "antd";
 import DynamicError from "./404/DynamicError";
 import StudentLayout from "./Students/StudentLayout";
 import TeacherLayout from "./Teacher/TeacherLayout";
+import HomeBanner from "./Banner/HomeBanner";
 
 function Home() {
   const Dispatch = useDispatch();
@@ -31,7 +32,8 @@ function Home() {
 
   return (
     <div className="p-6 h-full">
-      <div className="font-header  font-semibold text-gray-500">
+      <HomeBanner />
+      <div className="font-header text-xl font-semibold text-primary mt-8 ml-1">
         Daftar Kelas Anda
       </div>
       {user.role === "siswa" ? (

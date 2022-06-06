@@ -3,14 +3,12 @@ import { Drawer, Form, Button, Col, Row, Input, Space, DatePicker } from "antd";
 import { useDispatch } from "react-redux";
 import { handleChange } from "../../utils/utils";
 import moment from "moment";
-import { getCookie } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import { editTask } from "../../actions/task";
 import { QuestionEdit } from "./QuestionEdit";
 
 function EditTask({ setOpen, open, task }: any) {
   const dispatch = useDispatch();
-  const { id } = useParams();
   const onClose = () => {
     setOpen(false);
   };

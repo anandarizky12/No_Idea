@@ -78,7 +78,7 @@ export const EditProfile = () => {
           {loading ? (
             <div className="flex flex-col justify-center items-center w-full">
               <Spin />
-              <p className="text-gray-500 mt-2">
+              <p className="text-primary mt-2">
                 Please Wait Uploading Image...
               </p>
             </div>

@@ -24,7 +24,7 @@ function Top(): JSX.Element {
             onClick={() => setOpen(!open)}
             className="text-lg hover:cursor-pointer mr-5"
           />
-          <div className="font-header text-xl font-bold text-gray-500">
+          <div className="font-header text-xl font-bold text-primary">
             Weclass&nbsp;
           </div>
         </div>
@@ -40,7 +40,7 @@ function Top(): JSX.Element {
                 location.pathname == `/classroom/${id}`
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Kelas
             </li>
@@ -51,7 +51,7 @@ function Top(): JSX.Element {
                 location.pathname.includes(`answertask`)
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Tugas
             </li>
@@ -61,7 +61,7 @@ function Top(): JSX.Element {
                 location.pathname == `/classroom/${id}/students`
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Anggota{" "}
             </li>
@@ -72,7 +72,7 @@ function Top(): JSX.Element {
                   location.pathname == `/classroom/${id}/scores`
                     ? "border-b-4  border-gray-500"
                     : ""
-                } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+                } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
               >
                 Nilai
               </li>

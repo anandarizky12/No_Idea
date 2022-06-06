@@ -1,4 +1,3 @@
-import React from "react";
 import { Row, Form, Col, Input } from "antd";
 import { handleChangeQuestion } from "../../utils/utils";
 

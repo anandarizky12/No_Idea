@@ -23,11 +23,11 @@ function Class_card({ classroom, id, user }: any) {
           onClick={() => {
             navigate(`classroom/${classroom.id}`);
           }}
-          className="text-white font-normal text-xl  hover:cursor-pointer hover:underline"
+          className="text-secondary font-normal text-xl  hover:cursor-pointer hover:underline"
         >
           {classroom.name}
         </h1>
-        <div className="text-white font-bold">
+        <div className="text-secondary font-bold">
           <PopupMenu classroom={classroom} id={id} />
         </div>
       </div>

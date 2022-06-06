@@ -1,9 +1,5 @@
-import { Menu, Dropdown, Space, Avatar } from "antd";
-import {
-  UserOutlined,
-  LogoutOutlined,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
+import { Menu, Dropdown, Space } from "antd";
+import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import showConfirm from "../../utils/Confirm";
 import { logout } from "../../actions/user";

@@ -154,7 +154,7 @@ function Register() {
               }}
               onChange={(e) => handleChange(e, state, setState)}
             >
-              <Radio.Button className="text-gray-500 w-3/6" value="guru">
+              <Radio.Button className="text-primary w-3/6" value="guru">
                 Guru
               </Radio.Button>
               <Radio.Button className="w-3/6" value="siswa">
@@ -162,7 +162,7 @@ function Register() {
               </Radio.Button>
             </Radio.Group>
           </Form.Item>
-          <h1 className="text-gray-400"> * Pilih Role</h1>
+          <h1 className="text-primary"> * Pilih Role</h1>
 
           <Form.Item name="remember" valuePropName="checked">
             <Typography>

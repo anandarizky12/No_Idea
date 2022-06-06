@@ -50,7 +50,7 @@ function Left({ setOpen, open }: any): JSX.Element {
         <ul>
           <li
             onClick={() => handleNavigate("/")}
-            className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
+            className="px-2 left-0 py-4 font-semibold text-primary flex items-centerflex-row rounded-md 
            hover:text-blue-300 
           hover:cursor-pointer"
           >
@@ -61,7 +61,7 @@ function Left({ setOpen, open }: any): JSX.Element {
           {user.role === "guru" ? (
             <li
               onClick={() => handleNavigate("/report")}
-              className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
+              className="px-2 left-0 py-4 font-semibold text-primary flex items-centerflex-row rounded-md 
            hover:text-blue-300 
           hover:cursor-pointer"
             >
@@ -70,7 +70,7 @@ function Left({ setOpen, open }: any): JSX.Element {
             </li>
           ) : null}
           <div className="border-b"></div>
-          <li className="px-1 py-4 text- font-semibold text-gray-500 flex items-center">
+          <li className="px-1 py-4 text- font-semibold text-primary flex items-center">
             Classroom
           </li>
           {user.role === "guru" ? (
