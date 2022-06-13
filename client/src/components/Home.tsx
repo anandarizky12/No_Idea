@@ -10,6 +10,7 @@ import DynamicError from "./404/DynamicError";
 import StudentLayout from "./Students/StudentLayout";
 import TeacherLayout from "./Teacher/TeacherLayout";
 import HomeBanner from "./Banner/HomeBanner";
+import Finished_Task from "./Task_home_list/Finished_Task";
 
 function Home() {
   const Dispatch = useDispatch();
@@ -31,32 +32,37 @@ function Home() {
   }, []);
 
   return (
-    <div className="p-6 h-full">
-      <HomeBanner />
-      <div className="font-header text-xl font-semibold text-primary mt-8 ml-1">
-        Daftar Kelas Anda
+    <div className="p-6 h-full flex ">
+      <div className="">
+        {/* <HomeBanner /> */}
+        <div className="font-header font-semibold text-primary ml-1">
+          Daftar Kelas Anda
+        </div>
+        {user.role === "siswa" ? (
+          <StudentLayout
+            classes={classesStudent}
+            classroom={student}
+            Spin={Spin}
+            Space={Space}
+            Class_card={Class_card}
+            DynamicError={DynamicError}
+            user={user}
+          />
+        ) : (
+          <TeacherLayout
+            classes={classes}
+            classroom={classroom}
+            Spin={Spin}
+            Space={Space}
+            Class_card={Class_card}
+            user={user}
+            DynamicError={DynamicError}
+          />
+        )}
       </div>
-      {user.role === "siswa" ? (
-        <StudentLayout
-          classes={classesStudent}
-          classroom={student}
-          Spin={Spin}
-          Space={Space}
-          Class_card={Class_card}
-          DynamicError={DynamicError}
-          user={user}
-        />
-      ) : (
-        <TeacherLayout
-          classes={classes}
-          classroom={classroom}
-          Spin={Spin}
-          Space={Space}
-          Class_card={Class_card}
-          user={user}
-          DynamicError={DynamicError}
-        />
-      )}
+      <div className="">
+        <Finished_Task />
+      </div>
     </div>
   );
 }

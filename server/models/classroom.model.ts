@@ -11,6 +11,12 @@ module.exports = (sequelize: any, Sequelize: any) => {
         },
         as: "users",
       });
+      Classroom.hasMany(models.Materi, {
+
+        foreignKey: {
+          name: "classroom_id",
+        },
+      });
       Classroom.hasMany(models.Task, {
         foreignKey: {
           name: "classroom_id",

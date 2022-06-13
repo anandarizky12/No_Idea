@@ -18,7 +18,7 @@ function Top(): JSX.Element {
 
   return (
     <>
-      <nav className="border-b h-16 border-gray-300 flex justify-between items-center px-6">
+      <nav className="border-b h-16  border-gray-300 flex justify-between items-center px-6">
         <div className="flex items-center justify-center">
           <MenuOutlined
             onClick={() => setOpen(!open)}

@@ -1,30 +1,32 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Tasks", {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.createTable("User_Answered_Tasks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: Sequelize.STRING,
-      // answer_key: Sequelize.STRING,
-      deadline: Sequelize.DATE,
-      description: Sequelize.STRING,
-      other: Sequelize.STRING,
-      classroom_id: {
+      student_id :{
         type: Sequelize.INTEGER,
         references: {
-          model: "Classrooms",
+          model: "Users",
           key: "id",
-          as: "classroom_id",
+          as: "student_id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      time : Sequelize.INTEGER,
+      task_id : {
+        type : Sequelize.INTEGER,
+        references : {
+          model : "Tasks",
+          key : 'id',
+          as : "task_id"
+        }
+      },
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
@@ -35,8 +37,7 @@ module.exports = {
       },
     });
   },
-
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable("Tasks");
+    queryInterface.dropTable("User_Answered_Tasks");
   },
 };
