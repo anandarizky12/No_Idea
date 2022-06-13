@@ -5,7 +5,8 @@ const {
   Student_Classroom,
   Answer_task,
   Score,
-  Question
+  Question,
+  User_Finished_Task
 } = require("../models");
 const GenerateTotalScore = require("../utils/GenerateTotalScore");
 const joi = require("@hapi/joi");
@@ -457,3 +458,15 @@ exports.getDetailTask = async (req : any ,res : any) =>{
 }
 
 
+exports.getUnfinishedTask = async(req : any, res : any ) =>{
+  try{
+    const { id } = req.params;
+    const user_id = req.user.id;
+
+   const getFinishedTask = await User_Finished_Task
+
+
+  }catch{
+    
+  }
+}
