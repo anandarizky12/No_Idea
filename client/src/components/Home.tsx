@@ -10,7 +10,6 @@ import DynamicError from "./404/DynamicError";
 import StudentLayout from "./Students/StudentLayout";
 import TeacherLayout from "./Teacher/TeacherLayout";
 import HomeBanner from "./Banner/HomeBanner";
-import Finished_Task from "./Task_home_list/Finished_Task";
 
 function Home() {
   const Dispatch = useDispatch();
@@ -33,7 +32,7 @@ function Home() {
 
   return (
     <div className="p-6 h-full flex ">
-      <div className="">
+      <div className="w-full">
         {/* <HomeBanner /> */}
         <div className="font-header font-semibold text-primary ml-1">
           Daftar Kelas Anda
@@ -59,9 +58,6 @@ function Home() {
             DynamicError={DynamicError}
           />
         )}
-      </div>
-      <div className="">
-        <Finished_Task />
       </div>
     </div>
   );

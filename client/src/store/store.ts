@@ -19,7 +19,9 @@ import {
   getTask,
   getAllScores,
   AnswerTask,
-  editQuestion
+  editQuestion,
+  getFinishedTask,
+  getUnfinishedTask
 } from "../reducers/taskReducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -42,7 +44,9 @@ const rootReducer = combineReducers({
   editProfile,
   getAllScores,
   AnswerTask,
-  editQuestion
+  editQuestion,
+  getFinishedTask,
+  getUnfinishedTask
 });
 
 const middleware = applyMiddleware(thunk);

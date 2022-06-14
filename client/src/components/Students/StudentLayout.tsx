@@ -1,3 +1,7 @@
+import HomeProfile from "../Profile/HomeProfile";
+import Finished_Task from "../Task_home_list/Finished_Task";
+import Unfinished_Task from "../Task_home_list/Unfinished_task";
+
 function StudentLayout({
   classes,
   classroom,
@@ -16,9 +20,9 @@ function StudentLayout({
     );
 
   return (
-    <div>
-      <div>
-        <div className="flex w-full h-screen flex-wrap">
+    <div className="w-full">
+      <div className="flex justify-between w-full ">
+        <div className="flex w-full flex-wrap">
           {classroom ? (
             classroom.class.map((classroom: any) => {
               return (
@@ -43,6 +47,11 @@ function StudentLayout({
               Belum ada kelas yang diikuti
             </div>
           )}
+        </div>
+        <div className="p-3 rounded-md">
+          {/* <Finished_Task /> */}
+          <HomeProfile />
+          <Unfinished_Task />
         </div>
       </div>
     </div>

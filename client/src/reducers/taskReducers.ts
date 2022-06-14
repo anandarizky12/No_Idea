@@ -177,3 +177,48 @@ export const AnswerTask = (state = {}, action: any) => {
       return state;
   }
 }
+
+export const getUnfinishedTask = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_UNFINISHED_TASK:
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_UNFINISHED_TASK_FAILED:
+      return {
+        ...state,
+        task: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+}
+
+
+export const getFinishedTask = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_FINISHED_TASK:
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_FINISHED_TASK_FAILED:
+      return {
+        ...state,
+        task: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+}

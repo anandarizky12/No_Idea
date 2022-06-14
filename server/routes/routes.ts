@@ -88,6 +88,6 @@ router.get("/gettask/:id", authenticate, getTaskAndQuestion);
 router.get("/getallscore/:id", isTeacherOfClass, getAllScore);
 router.get("/getdetailtask/:task_id/:id", isTeacherOrMemberOfClass , getDetailTask )
 router.put("/editquestion/:id", isTeacherOfClass, editQuestion)
-router.get("/finishedtask/:id", authenticate ,getFinishedTask)
-router.get('/unfinishedtask/:id', authenticate, getUnfinishedTask)
+router.get("/finishedtask", authenticate ,getFinishedTask)
+router.get('/unfinishedtask', authenticate, getUnfinishedTask)
 module.exports = router;

@@ -451,3 +451,86 @@ export const getTask= (task_id: any, id: any) => {
     }
   };
 };
+
+
+export const getUnfinishedTasks = () => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      await axios.get(`http://localhost:5000/api/unfinishedtask`, config)
+        .then((res) => {
+          dispatch({
+            type: actionTypes.GET_UNFINISHED_TASK,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        }).catch((err: any) => {
+         
+            return dispatch({
+              type: actionTypes.GET_UNFINISHED_TASK_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+       
+      })
+    }catch(err: any) {
+
+      dispatch({
+        type: actionTypes.GET_UNFINISHED_TASK_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  }
+}
+
+
+
+export const getFinishedTasks = () => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      await axios.get(`http://localhost:5000/api/finishedtask`, config)
+        .then((res) => {
+          dispatch({
+            type: actionTypes.GET_FINISHED_TASK,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        }).catch((err: any) => {
+         
+            return dispatch({
+              type: actionTypes.GET_FINISHED_TASK_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+       
+      })
+    }catch(err: any) {
+
+      dispatch({
+        type: actionTypes.GET_FINISHED_TASK_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  }
+};
