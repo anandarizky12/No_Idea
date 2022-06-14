@@ -1,3 +1,5 @@
+import { where } from "sequelize/types";
+
 const {
   Classroom,
   Task,
@@ -6,9 +8,10 @@ const {
   Answer_task,
   Score,
   Question,
-  User_Finished_Task
+  User_Answered_Task
 } = require("../models");
 const GenerateTotalScore = require("../utils/GenerateTotalScore");
+const GetUnfinishedTask = require("../utils/GetUnfinishedTask");
 const joi = require("@hapi/joi");
 
 exports.createTask = async (req: any, res: any) => {
@@ -458,15 +461,93 @@ exports.getDetailTask = async (req : any ,res : any) =>{
 }
 
 
-exports.getUnfinishedTask = async(req : any, res : any ) =>{
+exports.getFinishedTask = async (req : any, res : any ) =>{
   try{
     const { id } = req.params;
     const user_id = req.user.id;
 
-   const getFinishedTask = await User_Finished_Task
+   const getFinishedTask = await User_Answered_Task.findAll({
+    where : {
+      student_id : user_id
+    },
+    include : [{
+      model : Task,
+   
+   }]
+   })
 
+   if(!getFinishedTask){
+    return res.status(500).send({
+      message : "No Finished Task Found",
+      status : 500
+    })
+   }
 
-  }catch{
-    
+   return res.status(200).send({
+    message : "Finished Task Found",
+    status : 200,
+    data : getFinishedTask
+   });
+   
+  }catch(err : any){
+    console.log(err)
+    return res.status(500).send({
+      status : 500,
+      message : err.message
+    })
   }
 }
+
+exports.getUnfinishedTask = async(req : any , res : any)=>{
+  
+  try{
+  
+    const { id } = req.params;
+    const user_id = req.user.id;
+
+   const getFinishedTask = await User_Answered_Task.findAll({
+    where : {
+      student_id : user_id
+    },
+    include : [{
+      model : Task,
+     
+   }]
+   })
+
+   const getStudentTask = await Student_Classroom.findAll({
+    where : {
+        student_id : user_id
+    },
+      include : [
+        {
+          model : Classroom,
+          include : [
+            {
+              model : Task,
+            }
+          ]
+        }
+      ]
+   })
+
+  //  if(!getFinishedTask){
+  //   return res.status(500).send({
+  //     message : "No Finished Task Found",
+  //     status : 500
+  //   })
+  //  }
+
+   return res.status(200).send({
+    message : "Finished Task Found",
+    status : 200,
+    data : GetUnfinishedTask(getFinishedTask, getStudentTask)
+   });
+   
+  }catch(err : any){
+    return res.status(500).send({
+      status : 500,
+      message : err.message
+    })
+  }
+} 

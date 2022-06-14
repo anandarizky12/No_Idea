@@ -2,31 +2,31 @@ export {};
 const { Model } = require("sequelize");
 
 module.exports = (sequelize: any, Sequelize: any) => {
-  class User_Finished_Task extends Model {
+  class User_Answered_Task extends Model {
     static associate(models: any) {
-      User_Finished_Task.belongsTo(models.User,{
+      User_Answered_Task.belongsTo(models.User,{
         foreignKey: {
           name: "student_id",
         },
       });
 
-      User_Finished_Task.belongsTo(models.Task, {
+      User_Answered_Task.belongsTo(models.Task, {
         foreignKey: {
           name: "task_id",
         },
       });
     }
   }
-  User_Finished_Task.init(
+  User_Answered_Task.init(
     {
       student_id: Sequelize.INTEGER,
       task_id: Sequelize.INTEGER,
     },
     {
       sequelize,
-      modelName: "User_Finished_Task",
+      modelName: "User_Answered_Task",
     }
   );
 
-  return User_Finished_Task;
+  return User_Answered_Task;
 };

@@ -15,10 +15,10 @@ module.exports = (sequelize: any, Sequelize: any) => {
   }
   Materi.init(
     {
-        name : sequelize.STRING,
-        description : sequelize.STRING,
-        file : sequelize.STRING,
-        classroom_id : sequelize.INTEGER
+        name : Sequelize.STRING,
+        description : Sequelize.STRING,
+        file : Sequelize.STRING,
+        classroom_id : Sequelize.INTEGER
     },
     {
       sequelize,

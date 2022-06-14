@@ -33,7 +33,9 @@ const {
   getAllScore,
   getTaskAndQuestion,
   getDetailTask,
-  editQuestion
+  editQuestion,
+  getFinishedTask,
+  getUnfinishedTask
 } = require("../controller/task");
 
 const router = require("express").Router();
@@ -86,4 +88,6 @@ router.get("/gettask/:id", authenticate, getTaskAndQuestion);
 router.get("/getallscore/:id", isTeacherOfClass, getAllScore);
 router.get("/getdetailtask/:task_id/:id", isTeacherOrMemberOfClass , getDetailTask )
 router.put("/editquestion/:id", isTeacherOfClass, editQuestion)
+router.get("/finishedtask/:id", authenticate ,getFinishedTask)
+router.get('/unfinishedtask/:id', authenticate, getUnfinishedTask)
 module.exports = router;

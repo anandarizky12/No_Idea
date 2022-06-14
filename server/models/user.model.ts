@@ -22,6 +22,12 @@ module.exports = (sequelize: any, Sequelize: any) => {
           name: "student_id",
         },
       });
+
+      User.hasMany(models.User_Answered_Task, {
+        foreignKey: {
+          name: "student_id",
+        },
+      });
     }
   }
 
