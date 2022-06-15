@@ -551,3 +551,30 @@ exports.getUnfinishedTask = async(req : any , res : any)=>{
     })
   }
 } 
+
+
+exports.getAllTask = async ( req : any , res : any) =>{
+  try{
+    const task = await Task.findAll();
+    
+    if(!task){
+      return res.status(500).send({
+        status : 500,
+        message : "No Task Found"
+      })
+    }
+
+    return res.status(200).send({
+      status : 200,
+      message : "Task Found",
+      data : task
+    })
+  }catch(err : any) {
+    return res.status(500).send({
+      status : 500,
+      message : err.message
+    })
+  }
+}
+
+

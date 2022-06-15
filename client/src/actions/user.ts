@@ -215,3 +215,53 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
     }
   };
 };
+
+
+export const adminLogin = (email: string, password: string, setAlert: any) =>
+  async (dispatch: Dispatch) => {
+    try {
+      await axios
+        .post("http://localhost:5000/api/adminlogin", { email, password })
+        .then((res) => {
+
+          const { name, email, role, token, id, profile } = res.data.data;
+
+          dispatch({
+            type: actionTypes.ADMIN_LOGIN_SUCCESS,
+            payload: {
+              name,
+              role,
+              email,
+              id,
+              profile,
+            },
+          });
+
+          dispatch({
+            type: actionTypes.ADMIN_LOGIN_USER,
+            payload: {
+              name,
+            },
+          });
+
+          dispatch({
+            type: actionTypes.ADMIN_SET_TOKEN,
+            payload: token,
+          });
+
+          setAlert({ message: "Succesfully Login", typeAlert: 1 });
+
+        })
+        .catch((err) => {
+          if(!err.response){
+            setAlert({ message: "Server Error", typeAlert: 4 });
+            return;
+          }
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
+        });
+        
+    }catch (err: any) {
+      console.log(err);
+      setAlert({ message: err.message, typeAlert: 4 });
+    }
+  }

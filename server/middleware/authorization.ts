@@ -56,6 +56,35 @@ exports.authTeacher = async (req: any, res: any, next: any) => {
   }
 };
 
+exports.isAdmin = async (req: any, res: any, next: any) => {
+  let header, token;
+  if (
+    !(header = req.header("Authorization")) ||
+    !(token = header.split(" ")[1])
+  )
+    
+    
+    return res.status(401).send({
+      error: { message: "Access denied" , status: 401},
+    });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ where: { id: decoded.id } });
+
+    if (user.role !== "admin")
+      return res
+        .status(400)
+        .send({ status: 400, message: "invalid operation" });
+    next();
+  } catch (err : any) {
+    console.log(err);
+    res.status(400).send({
+      error: { message: err.message, status: 400 },
+    });
+  }
+};
+  
+
 exports.isMemberOfClass = async (req: any, res: any, next: any) => {
   let header, token;
   if (

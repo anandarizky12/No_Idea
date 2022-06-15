@@ -15,19 +15,30 @@ import AnswerTask from "./components/Task/AnswerTask";
 import Scores from "./components/Scores/Scores";
 import moment from "moment";
 import "moment/locale/id";
+import AdminRoute from "./Admin_Route/AdminRoute";
+import Admin_Login from "./components/admin/Admin_Login";
 
 function App() {
   moment.locale("id");
   const location = useLocation();
   return (
     <div className="App h-screen ">
-      {location.pathname != "/login" && location.pathname != "/register" && (
-        <Top />
-      )}
+      {location.pathname != "/login" &&
+        location.pathname != "/register" &&
+        location.pathname != "/admin" && <Top />}
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/login" element={<Admin_Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin/login" element={<Login />} />
         <Route path="*" element={<My404 />} />
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute redirectTo="/admin/login" Component={<Home />} />
+          }
+        />
 
         <Route
           path="/"

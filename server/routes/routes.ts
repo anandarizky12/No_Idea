@@ -4,6 +4,7 @@ const {
   readAllUsers,
   readUser,
   editProfile,
+  AdminLogin
 } = require("../controller/user");
 const {
   createClassroom,
@@ -16,7 +17,8 @@ const {
   getClassroom,
   editClassroom,
   searchClassroom,
-  getTaskAndQuestionInClassroom 
+  getTaskAndQuestionInClassroom ,
+  getAllClassroom
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -24,6 +26,7 @@ const {
   isMemberOfClass,
   isTeacherOfClass,
   isTeacherOrMemberOfClass,
+  isAdmin
 } = require("../middleware/authorization");
 const {
   createTask,
@@ -38,10 +41,17 @@ const {
   getUnfinishedTask
 } = require("../controller/task");
 
+
+const {
+  getAllTotal
+} = require("../controller/dashboard");
+
 const router = require("express").Router();
 
 router.post("/register", Register);
 router.post("/login", Login);
+router.post("/admin_login", AdminLogin);
+
 router.patch("/editprofile", authenticate, editProfile);
 router.post("/createclassroom", authTeacher, createClassroom);
 
@@ -63,6 +73,7 @@ router.get(
   getTaskAndQuestionInClassroom 
 )
 router.get("/getclassroom/:id", isTeacherOrMemberOfClass, getClassroom);
+router.get("/getallclassroom", isAdmin, getAllClassroom)
 router.get(
   "/getclassroombyteacherid/:id",
   authTeacher,
@@ -81,7 +92,7 @@ router.get(
   getStudentsInClassroom
 );
 
-router.get("/getallusers", authenticate, readAllUsers);
+router.get("/getallusers", isAdmin, readAllUsers);
 router.get("/getuser", authenticate, readUser);
 //task
 router.get("/gettask/:id", authenticate, getTaskAndQuestion);
@@ -90,4 +101,7 @@ router.get("/getdetailtask/:task_id/:id", isTeacherOrMemberOfClass , getDetailTa
 router.put("/editquestion/:id", isTeacherOfClass, editQuestion)
 router.get("/finishedtask", authenticate ,getFinishedTask)
 router.get('/unfinishedtask', authenticate, getUnfinishedTask)
+
+router.get('/getalltotal', isAdmin, getAllTotal);
+
 module.exports = router;

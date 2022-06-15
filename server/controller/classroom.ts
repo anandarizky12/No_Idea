@@ -680,3 +680,30 @@ exports.searchClassroom = async (req: any, res: any) => {
     });
   }
 };
+
+
+exports.getAllClassroom = async (req : any , res : any) =>{
+  try {
+    const classroom = await Classroom.findAll();
+    if (!classroom) {
+      return res.status(200).send({
+        status: 200,
+        message: "Classroom not found",
+        total : classroom.length
+      });
+    }
+
+    return res.status(200).send({
+      status: 200,
+      message: "Succesfully get the Class",
+      class: classroom,
+      total : classroom.length
+    });
+
+  }catch (err : any ){
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+}
