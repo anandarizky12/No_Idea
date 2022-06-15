@@ -221,7 +221,7 @@ export const adminLogin = (email: string, password: string, setAlert: any) =>
   async (dispatch: Dispatch) => {
     try {
       await axios
-        .post("http://localhost:5000/api/adminlogin", { email, password })
+        .post("http://localhost:5000/api/admin_login", { email, password })
         .then((res) => {
 
           const { name, email, role, token, id, profile } = res.data.data;
@@ -257,6 +257,7 @@ export const adminLogin = (email: string, password: string, setAlert: any) =>
             setAlert({ message: "Server Error", typeAlert: 4 });
             return;
           }
+          console.log(err.response.data)
           setAlert({ message: err.response.data.message, typeAlert: 4 });
         });
         
@@ -265,3 +266,57 @@ export const adminLogin = (email: string, password: string, setAlert: any) =>
       setAlert({ message: err.message, typeAlert: 4 });
     }
   }
+
+
+export const getAllUsers = () => async (dispatch: Dispatch) => {
+  const token = getCookie("admin_token");
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    await axios
+      .get("http://localhost:5000/api/getallusers", config)
+      .then((res) => {
+        dispatch({
+          type: actionTypes.GET_ALL_USERS,
+          payload: res.data.data,
+          isLoading: false,
+          isError: false,
+        });
+      })
+      .catch((err) => {
+        if(!err.response){
+          return dispatch({
+            type: actionTypes.GET_ALL_USERS_FAILED,
+            payload: err,
+            isLoading: false,
+            isError: true,
+          });
+        }
+        dispatch({
+          type: actionTypes.GET_ALL_USERS_FAILED,
+          payload: {
+            res: err.response.data,
+            isLoading: false,
+            isError: true,
+          
+          },
+        });
+       
+      });
+  } catch (err: any) {
+    
+    dispatch({
+      type: actionTypes.GET_ALL_USERS_FAILED,
+      payload: {
+        res: err.response.data,
+        isLoading: false,
+        isError: true,
+      },
+    });
+  }
+}

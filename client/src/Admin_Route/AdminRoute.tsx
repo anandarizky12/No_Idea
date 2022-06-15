@@ -5,21 +5,13 @@ import Unauthorized from "../components/404/Unauthorized";
 import Layout from "../components/admin/Layout";
 import { getCookie } from "../utils/utils";
 
-const AdminRoute = ({ redirectTo, component: Component, ...rest }: any) => {
+const AdminRoute = ({ redirectTo, Component }: any) => {
   const isAuth = getCookie("admin_token");
   const role = getCookie("role");
-  const allowRole = "Admin";
+  const allowRole = "admin";
 
-  return isAuth ? (
-    allowRole ? (
-      allowRole == role ? (
-        Component
-      ) : (
-        <Unauthorized />
-      )
-    ) : (
-      <Layout>Component</Layout>
-    )
+  return isAuth && allowRole == role ? (
+    <Layout>{Component}</Layout>
   ) : (
     <Navigate to={redirectTo} />
   );

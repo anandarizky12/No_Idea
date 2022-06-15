@@ -7,15 +7,14 @@ import Sidenav from "./Sidenav";
 function Layout({ children }: any) {
   const location = useLocation();
   const navigate = useNavigate();
-
   return (
     <>
-      <Sidenav />
+      {/* <Sidenav /> */}
       <div
         className={` ${
-          location.pathname !== "admin"
+          location.pathname !== "/admin"
             ? "static"
-            : "static min-h-screen md:ml-64 bg-white"
+            : "static min-h-screen bg-white"
         }`}
       >
         <Navbar />
@@ -23,9 +22,7 @@ function Layout({ children }: any) {
 
         <div
           className={` ${
-            location.pathname !== "admin"
-              ? "static"
-              : "px-6 md:px-5 h-full mx-auto p-5"
+            location.pathname !== "/admin" ? "static" : "h-full  mx-auto"
           }`}
         >
           {children}

@@ -220,3 +220,27 @@ export const admin_login = (state = initialState, action: any) => {
   }
 };
 
+
+
+
+export const getAllUsers = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_USERS:
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_ALL_USERS_FAILED:
+      return {
+        ...state,
+        task: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+}

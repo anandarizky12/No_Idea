@@ -19,7 +19,7 @@ export default function Admin_Login() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (token && role == "admin") navigate("/admin/addguest");
+    if (token && role == "admin") navigate("/admin");
   }, [token]);
 
   const handleInput = (e: any) => {
@@ -90,6 +90,7 @@ export default function Admin_Login() {
                       className="bg-gray-800 text-white font-light active:bg-gray-600 text-sm uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="submit"
                     >
+                      Login
                       {/* {loading ? <ButtonLoader /> : "Login"} */}
                     </button>
                   </div>

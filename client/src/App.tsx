@@ -17,6 +17,8 @@ import moment from "moment";
 import "moment/locale/id";
 import AdminRoute from "./Admin_Route/AdminRoute";
 import Admin_Login from "./components/admin/Admin_Login";
+import Admin_Dashboard from "./components/admin/Admin_Dashboard";
+import Add_Teacher from "./components/admin/AddTeacher/Add_Teacher";
 
 function App() {
   moment.locale("id");
@@ -25,7 +27,7 @@ function App() {
     <div className="App h-screen ">
       {location.pathname != "/login" &&
         location.pathname != "/register" &&
-        location.pathname != "/admin" && <Top />}
+        !location.pathname.includes("/admin") && <Top />}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/admin/login" element={<Admin_Login />} />
@@ -36,7 +38,17 @@ function App() {
         <Route
           path="/admin"
           element={
-            <AdminRoute redirectTo="/admin/login" Component={<Home />} />
+            <AdminRoute
+              redirectTo="/admin/login"
+              Component={<Admin_Dashboard />}
+            />
+          }
+        />
+
+        <Route
+          path="/admin/addteacher"
+          element={
+            <AdminRoute redirectTo="/admin/login" Component={<Add_Teacher />} />
           }
         />
 
