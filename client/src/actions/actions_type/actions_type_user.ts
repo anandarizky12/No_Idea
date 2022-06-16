@@ -32,6 +32,17 @@ export const GET_USER_FAIL: string = "GET_USER_FAIL";
 export const EDIT_PROFILE: string = "EDIT_PROFILE";
 export const EDIT_PROFILE_FAILED: string = "EDIT_PROFILE_FAILED";
 
+export const EDIT_USER: string = "EDIT_USER";
+export const EDIT_USER_FAILED: string = "EDIT_USER_FAILED";
 
 export const GET_ALL_USERS: string = "GET_ALL_USERS";
 export const GET_ALL_USERS_FAILED: string = "GET_ALL_USERS_FAILED";
+
+
+
+export const GET_USER_BY_ID: string = "GET_USER_BY_ID";
+export const GET_USER_BY_ID_FAILED: string = "GET_USER_BY_ID_FAILED";
+
+
+export const DELETE_USER: string = "DELETE_USER";
+export const DELETE_USER_FAILED: string = "DELETE_USER_FAILED";

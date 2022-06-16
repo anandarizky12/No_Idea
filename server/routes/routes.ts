@@ -4,7 +4,10 @@ const {
   readAllUsers,
   readUser,
   editProfile,
-  AdminLogin
+  AdminLogin,
+  EditUser,
+  getUserById,
+  DeleteUser
 } = require("../controller/user");
 const {
   createClassroom,
@@ -51,8 +54,11 @@ const router = require("express").Router();
 router.post("/register", Register);
 router.post("/login", Login);
 router.post("/admin_login", AdminLogin);
+router.delete('/deleteuser/:id', isAdmin, DeleteUser)
 
 router.patch("/editprofile", authenticate, editProfile);
+router.patch("/edituser/:id", isAdmin, EditUser);
+
 router.post("/createclassroom", authTeacher, createClassroom);
 
 router.post("/joinclassroom", authenticate, joinClassroom);
@@ -94,6 +100,7 @@ router.get(
 
 router.get("/getallusers", isAdmin, readAllUsers);
 router.get("/getuser", authenticate, readUser);
+router.get("/getuserbyid/:id", isAdmin, getUserById);
 //task
 router.get("/gettask/:id", authenticate, getTaskAndQuestion);
 router.get("/getallscore/:id", isTeacherOfClass, getAllScore);

@@ -1,18 +1,37 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import Export from "react-data-table-component";
-import { customStyles, columns } from "./Styles";
-import { Button, Input } from "antd";
+import { customStyles } from "./Styles";
+import { TableColumn } from "react-data-table-component";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 import { CSVLink, CSVDownload } from "react-csv";
+import { useDispatch } from "react-redux";
+import { deleteUser } from "../../../actions/user";
 
 const { Search } = Input;
 
-export default function User_Table({ users, id }: any) {
+export default function User_Table({
+  users,
+  id,
+  setIsModalVisible,
+  setId,
+}: any) {
   const [loading, setLoading] = React.useState(true);
+  const dispatch = useDispatch();
   const [rows, setRows] = React.useState([]);
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
+
+  const handleButtonClick = (id: string) => {
+    setIsModalVisible(true);
+    setId(id);
+  };
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteUser(id));
+  };
 
   const filteredItems = rows.filter(
     (item: any) =>
@@ -28,6 +47,71 @@ export default function User_Table({ users, id }: any) {
     () => <CSVLink data={filteredItems}>Download me</CSVLink>,
     []
   );
+
+  type DataRow = {
+    name: string;
+    email: string;
+    phone: string;
+    profile: string;
+    role: string;
+  };
+
+  const columns: TableColumn<DataRow>[] = [
+    {
+      name: "Nama Pengguna",
+      selector: (row: any) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Email",
+      selector: (row: any) => row.email,
+    },
+    {
+      name: "Nomor Telepon",
+      selector: (row: any) => row.phone,
+      sortable: true,
+      style: {
+        fontSize: "15px",
+      },
+    },
+    {
+      name: "Foto",
+      selector: (row: any) => row.profile,
+      sortable: true,
+      style: {
+        fontSize: "15px",
+      },
+    },
+    {
+      name: "Role",
+      selector: (row: any) => row.role,
+
+      sortable: true,
+      style: {
+        fontSize: "15px",
+      },
+    },
+    {
+      name: "Aksi",
+      cell: (row: any) => (
+        <>
+          <span
+            onClick={() => handleButtonClick(row.id)}
+            className="text-xl text-yellow-400 mr-4"
+          >
+            <EditOutlined />
+          </span>
+          {"     "}
+          <span
+            onClick={() => handleDelete(row.id)}
+            className="text-xl text-red-600 mr-4"
+          >
+            <DeleteOutlined />
+          </span>
+        </>
+      ),
+    },
+  ];
 
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
@@ -52,7 +136,7 @@ export default function User_Table({ users, id }: any) {
       setRows([]);
     }
   }, [users, id]);
-  console.log(filteredItems);
+
   return (
     <div className="w-full px-12 flex flex-col mt-12 items-center justify-center">
       <div className="w-full border p-5 shadow-md">

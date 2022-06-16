@@ -9,9 +9,13 @@ import { getDataDashboard } from "../../actions/dashboard";
 import { Spin } from "antd";
 import { getAllUsers } from "../../actions/user";
 import User_Table from "./Dashboard_Table/User_Table";
+import Edit_User from "./Modal/Edit_User";
 
 function Admin_Dashboard() {
   const dispatch = useDispatch();
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [id, setId] = React.useState("");
+
   const dashboard = useSelector((state: any) => state.getdashboardReducers);
   const getallusers = useSelector((state: any) => state.getAllUsers);
   React.useEffect(() => {
@@ -19,7 +23,6 @@ function Admin_Dashboard() {
     dispatch(getAllUsers());
   }, []);
 
-  console.log(getallusers);
   return (
     <div className="">
       <div className="w-full bg-pink-400  h-40 ">
@@ -87,14 +90,23 @@ function Admin_Dashboard() {
             </div>
           </div>
         ) : (
-          <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center bg-gray-100">
+          <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center bg-gray-100 z-10">
             <Spin size={"large"} />
           </div>
         )}
       </div>
       <div className="mt-32 w-full">
-        <User_Table users={getallusers} />
+        <User_Table
+          users={getallusers}
+          setIsModalVisible={setIsModalVisible}
+          setId={setId}
+        />
       </div>
+      <Edit_User
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        id={id}
+      />
     </div>
   );
 }

@@ -199,6 +199,41 @@ exports.readUser = async (req: any, res: any) => {
   }
 };
 
+
+
+exports.getUserById = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findOne({
+      where: {
+        id: id,
+      },
+      attributes: {
+        exclude: ["password"],
+      },
+    });
+
+    if (!user) {
+      return res.status(404).send({
+        status: 404,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).send({
+      status: 200,
+      message: "Get user successfully",
+      data: user,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
 exports.editProfile = async (req: any, res: any) => {
   try {
     const { id } = req.user;
@@ -370,6 +405,129 @@ exports.AdminLogin = async (req : any , res : any )=>{
       },
     });
 
+
+  }catch(err : any){
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+}
+
+
+exports.EditUser = async (req : any , res : any )=>{
+  try{
+    const {id} = req.params;
+    const {name, email, phone, jk, role} = req.body;
+
+    const schema = joi.object({
+      name : joi.string().min(3).required(),
+      email : joi.string().email().min(10).required(),
+      phone : joi.string().min(12).required(),
+      jk : joi.string().min(8).required(),
+      role : joi.string().min(3).required(),
+    })
+      
+      const { error } = schema.validate(res.body);
+      if (error) {
+        res.status(500).send({
+          status: 500,
+          message: error.details[0].message,
+        });
+
+      }
+      const user = await User.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if(!user){
+        return res.status(500).send({
+          status: 500,
+          message: "User not found",
+        });
+      }
+
+      const updateUser = await User.update(
+        {
+          name,
+          email,
+          phone,
+          jk,
+          role,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      if (!updateUser) {
+        return res.status(500).send({
+          status: 500,
+          message: "Update failed",
+        });
+      }
+
+      res.status(200).send({
+        status: 200,
+        message: "Update user successfully",
+        data: {
+          id: user.id,
+          name,
+          email,
+          phone,
+          jk,
+          role,
+          profile: user.profile,
+        },
+      });
+
+  }catch(err : any){
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+}
+
+
+
+exports.DeleteUser = async (req : any , res : any )=>{
+  try{
+    const {id} = req.params;
+
+    const user = await User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if(!user){
+      return res.status(500).send({
+        status: 500,
+        message: "User not found",
+      });
+    }
+
+    const deleteUser = await User.destroy({
+      where: {
+        id,
+      },
+    });
+
+    if (!deleteUser) {
+      return res.status(500).send({
+        status: 500,
+        message: "Delete failed",
+      });
+    }
+
+    res.status(200).send({
+      status: 200,
+      message: "Delete user successfully",
+    });
 
   }catch(err : any){
     res.status(500).send({

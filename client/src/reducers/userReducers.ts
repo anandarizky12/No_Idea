@@ -244,3 +244,50 @@ export const getAllUsers = (state = {}, action: any) => {
       return state;
   }
 }
+
+
+
+export const editUserReducers = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_USERS:
+      return {
+        ...state,
+        data: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_ALL_USERS_FAILED:
+      return {
+        ...state,
+        data: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+}
+
+
+export const getUserById = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_USER_BY_ID:
+      return {
+        ...state,
+        data: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_USER_BY_ID_FAILED:
+      return {
+        ...state,
+        data: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+}

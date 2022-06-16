@@ -320,3 +320,189 @@ export const getAllUsers = () => async (dispatch: Dispatch) => {
     });
   }
 }
+
+
+
+export const editUser = (data: any, id : any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      
+      await axios
+        .patch(`http://localhost:5000/api/edituser/${id}`, data, config)
+        .then((res) => {
+      
+          dispatch({
+            type: actionTypes.EDIT_USER,
+            payload: res.data.data,
+          });
+          alert("Succesfully Edit User");
+          window.location.reload();
+        })
+        .catch((err) => {
+            if(!err.response){
+             
+              return dispatch({
+                    type: actionTypes.EDIT_USER_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
+        
+  
+          dispatch({
+            type: actionTypes.EDIT_USER_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+          alert(err.response.data.message)
+       
+        });
+    } catch (err: any) {
+      
+      dispatch({
+        type: actionTypes.EDIT_USER_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+
+     alert(err.response.data.message)
+    }
+  };
+};
+
+
+
+
+
+export const getUserById = (id : string, setLoading :any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    setLoading(true);
+    try {
+    
+      await axios
+        .get(`http://localhost:5000/api/getuserbyid/${id}`, config)
+        .then((res) => {
+         
+          dispatch({
+            type: actionTypes.GET_USER_BY_ID,
+            payload: res.data.data,
+          });
+          setLoading(false)
+     
+        })
+        .catch((err) => {
+            setLoading(false)
+            if(!err.response){
+              return dispatch({
+                    type: actionTypes.GET_USER_BY_ID_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
+     
+          dispatch({
+            type: actionTypes.GET_USER_BY_ID_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+
+       
+        });
+    } catch (err: any) {  
+      setLoading(false)
+      dispatch({
+        type: actionTypes.GET_USER_BY_ID_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
+};
+
+
+
+
+
+
+export const deleteUser = (id : string) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    if(!window.confirm("Are you sure to delete this user?")){
+      return;
+    }
+    try {
+      
+      await axios
+        .delete(`http://localhost:5000/api/deleteuser/${id}`, config)
+        .then((res) => {
+      
+          dispatch({
+            type: actionTypes.DELETE_USER,
+            payload: res.data.data,
+          });
+          alert("Succesfully Delete User");
+          window.location.reload();
+        })
+        .catch((err) => {
+            if(!err.response){
+              alert("Server Error")
+              return dispatch({
+                    type: actionTypes.DELETE_USER_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
+        
+  
+          dispatch({
+            type: actionTypes.DELETE_USER_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+          console.log(err.response)
+          alert(err.response.data.message)
+       
+        });
+    } catch (err: any) {
+      console.log(err.response.data)
+      dispatch({
+        type: actionTypes.DELETE_USER_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+
+     alert(err.response.data.message)
+    }
+  }
+
+}
