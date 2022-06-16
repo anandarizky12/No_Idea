@@ -85,6 +85,7 @@ exports.Register = async (req: any, res: any) => {
   }
 };
 
+
 exports.Login = async (req: any, res: any) => {
   try {
     const { email, password } = req.body;
@@ -536,3 +537,85 @@ exports.DeleteUser = async (req : any , res : any )=>{
     });
   }
 }
+
+
+
+exports.AddUser = async (req: any, res: any) => {
+  try {
+    const { name, phone, email, password, role, jk } = req.body;
+   
+    const schema = joi.object({
+      name: joi.string().min(3).required(),
+      email: joi.string().email().min(10).required(),
+      password: joi.string().min(8).required(),
+      phone: joi.string().min(12).required(),
+      role: joi.string().min(4).required(),
+      // profile: joi.string(),
+      jk: joi.string().min(3).required(),
+    });
+
+    const { error } = schema.validate(req.body);
+
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
+
+    const checkEmail = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (checkEmail) {
+      return res.status(500).send({
+        status: 500,
+        message: "Email already exist",
+      });
+    }
+
+    const saltRounds = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, saltRounds);
+
+    const user = await User.create({
+      name,
+      email,
+      password: hash,
+      phone,
+      role,
+      // profile,
+      jk,
+    });
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRE,
+      }
+    );
+    res.status(200).send({
+      status: 200,
+      message: "User created successfully",
+      data: {
+        id: user.id,
+        token,
+        name,
+        email,
+        role,
+        // profile,
+        jk,
+      },
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+      
+    });
+  }
+};

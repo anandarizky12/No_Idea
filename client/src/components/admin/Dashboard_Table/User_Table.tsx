@@ -3,8 +3,12 @@ import DataTable from "react-data-table-component";
 import Export from "react-data-table-component";
 import { customStyles } from "./Styles";
 import { TableColumn } from "react-data-table-component";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+} from "@ant-design/icons";
+import { Avatar, Button, Input } from "antd";
 import { CSVLink, CSVDownload } from "react-csv";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../../actions/user";
@@ -44,7 +48,17 @@ export default function User_Table({
       (item.role && item.role.toLowerCase().includes(filterText.toLowerCase()))
   );
   const actionsMemo = React.useMemo(
-    () => <CSVLink data={filteredItems}>Download me</CSVLink>,
+    () => (
+      <CSVLink
+        style={{ display: "flex", alignItems: "center" }}
+        data={filteredItems}
+      >
+        {" "}
+        <Button color="secondary" icon={<DownloadOutlined />}>
+          Report
+        </Button>
+      </CSVLink>
+    ),
     []
   );
 
@@ -81,11 +95,26 @@ export default function User_Table({
       style: {
         fontSize: "15px",
       },
+      cell: (row: any) => {
+        return <Avatar src={row.profile} />;
+      },
     },
     {
       name: "Role",
       selector: (row: any) => row.role,
-
+      cell: (row: any) => (
+        <div>
+          <span
+            className={`${row.role == "admin" && "bg-blue-500"} ${
+              row.role == "siswa" && "bg-green-500"
+            } ${
+              row.role == "guru" && "bg-red-500"
+            } p-2  text-xs text-white rounded-md `}
+          >
+            {row.role}
+          </span>
+        </div>
+      ),
       sortable: true,
       style: {
         fontSize: "15px",
@@ -115,14 +144,14 @@ export default function User_Table({
 
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
-      <div className="">
+      <div className="flex items-center justify-center">
+        {actionsMemo}
         <Search
           placeholder="input search text"
           allowClear
-          style={{ width: 304 }}
+          style={{ width: 304, marginLeft: "10px" }}
           onChange={(e) => setFilterText(e.target.value)}
         />
-        {/* {actionsMemo} */}
       </div>
     );
   }, [filterText, resetPaginationToggle]);
@@ -138,7 +167,7 @@ export default function User_Table({
   }, [users, id]);
 
   return (
-    <div className="w-full px-12 flex flex-col mt-12 items-center justify-center">
+    <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">
       <div className="w-full border p-5 shadow-md">
         <DataTable
           title="Daftar Pengguna Sistem"

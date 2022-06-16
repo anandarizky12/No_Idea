@@ -6,14 +6,17 @@ import {
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataDashboard } from "../../actions/dashboard";
-import { Spin } from "antd";
+import { Button, Spin } from "antd";
 import { getAllUsers } from "../../actions/user";
 import User_Table from "./Dashboard_Table/User_Table";
 import Edit_User from "./Modal/Edit_User";
+import Add_User from "./Modal/Add_User";
 
 function Admin_Dashboard() {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [addUserModal, setAddUserModal] = React.useState(false);
+
   const [id, setId] = React.useState("");
 
   const dashboard = useSelector((state: any) => state.getdashboardReducers);
@@ -26,6 +29,19 @@ function Admin_Dashboard() {
   return (
     <div className="">
       <div className="w-full bg-pink-400  h-40 ">
+        <div className="flex justify-between flex-row items-center w-full p-10 px-12">
+          <p className="text-gray-200 font-light text-xl">Dashboard Admin</p>
+          <div className="flex hover:cursor-pointer">
+            <Button
+              onClick={() => {
+                setAddUserModal(true);
+              }}
+              icon={<TeamOutlined />}
+            >
+              Tambah User
+            </Button>
+          </div>
+        </div>
         {dashboard && dashboard.data ? (
           <div className="w-full flex px-8 absolute top-36">
             <div className="flex-auto p-4 shadow-md m-5 bg-white h-32 rounded-md overflow-hidden">
@@ -107,6 +123,7 @@ function Admin_Dashboard() {
         setIsModalVisible={setIsModalVisible}
         id={id}
       />
+      <Add_User addUserModal={addUserModal} setAddUserModal={setAddUserModal} />
     </div>
   );
 }

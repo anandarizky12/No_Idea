@@ -7,7 +7,8 @@ const {
   AdminLogin,
   EditUser,
   getUserById,
-  DeleteUser
+  DeleteUser,
+  AddUser
 } = require("../controller/user");
 const {
   createClassroom,
@@ -55,6 +56,7 @@ router.post("/register", Register);
 router.post("/login", Login);
 router.post("/admin_login", AdminLogin);
 router.delete('/deleteuser/:id', isAdmin, DeleteUser)
+router.post('/adduser', isAdmin, AddUser)
 
 router.patch("/editprofile", authenticate, editProfile);
 router.patch("/edituser/:id", isAdmin, EditUser);

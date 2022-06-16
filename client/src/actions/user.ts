@@ -53,6 +53,8 @@ export const login = (email: string, password: string, setAlert: any) =>
     }
   };
 
+
+
 export const register = (state: any, setAlert: any) => async () => {
   const { name, email, password, no_induk, role, phone } = state;
 
@@ -88,6 +90,47 @@ export const register = (state: any, setAlert: any) => async () => {
   }
 };
 
+ 
+export const addUser = (state: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  
+    const { name, email, password, role, phone , jk} = state;
+    console.log("hello")
+  try {
+    await axios
+      .post("http://localhost:5000/api/adduser", {
+        name,
+        email,
+        password,
+        phone,
+        role,
+        jk
+      }, config)
+      .then((res) => {
+        alert("Succesfully Added User");
+        window.location.reload();
+      })
+      .catch((err) => {
+        if(!err.response){
+         alert("Server Error");
+          return;
+        }
+        alert(err.response.data.message);
+      });
+  } catch (err: any) {
+   alert(err.message);
+   
+  }
+};
+}
+
 export const logout = (): void => {
   removeCookie("name");
   removeCookie("email");
@@ -98,6 +141,18 @@ export const logout = (): void => {
   removeCookie("profile");
   window.location.href = "/login";
 };
+
+export const logoutAdmin = (): void => {
+  removeCookie("name");
+  removeCookie("email");
+  removeCookie("admin_token");
+  removeCookie("is_auth");
+  removeCookie("role");
+  removeCookie("id");
+  removeCookie("profile");
+  window.location.href = "/admin/login";
+};
+
 
 export const getUser = () => async (dispatch: Dispatch) => {
   const token = getCookie("token");
