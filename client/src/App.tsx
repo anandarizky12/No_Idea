@@ -19,6 +19,7 @@ import AdminRoute from "./Admin_Route/AdminRoute";
 import Admin_Login from "./components/admin/Admin_Login";
 import Admin_Dashboard from "./components/admin/Admin_Dashboard";
 import Add_Teacher from "./components/admin/AddTeacher/Add_Teacher";
+import Admin_Profile from "./components/admin/Profile/Admin_Profile";
 
 function App() {
   moment.locale("id");
@@ -41,6 +42,16 @@ function App() {
             <AdminRoute
               redirectTo="/admin/login"
               Component={<Admin_Dashboard />}
+            />
+          }
+        />
+
+        <Route
+          path="/admin/profile"
+          element={
+            <AdminRoute
+              redirectTo="/admin/login"
+              Component={<Admin_Profile />}
             />
           }
         />

@@ -5,7 +5,9 @@ let initialState: any;
 
 if (typeof localStorage !== "undefined") {
   const authCookie = getCookie("token");
-  if (authCookie) {
+  const admin = getCookie("admin_token");
+ 
+  if (authCookie || admin) {
     initialState = {
       is_auth: getCookie("is_auth"),
       name: getCookie("name"),

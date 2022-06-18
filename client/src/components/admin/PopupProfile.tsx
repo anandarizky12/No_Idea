@@ -10,7 +10,10 @@ function PopupProfile({ user }: any) {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={() => navigate("/profile")} icon={<UserOutlined />}>
+      <Menu.Item
+        onClick={() => navigate("/admin/profile")}
+        icon={<UserOutlined />}
+      >
         Profile
       </Menu.Item>
       <Menu.Item
@@ -24,7 +27,7 @@ function PopupProfile({ user }: any) {
 
   return (
     <Space wrap>
-      <div className="">
+      <div>
         <Dropdown overlay={menu} placement="bottomRight">
           <div>
             <AvatarCustom src={user.profile} size={"large"} />
