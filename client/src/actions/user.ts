@@ -56,7 +56,7 @@ export const login = (email: string, password: string, setAlert: any) =>
 
 
 export const register = (state: any, setAlert: any) => async () => {
-  const { name, email, password, no_induk, role, phone } = state;
+  const { name, email, password, phone } = state;
 
   try {
     await axios
@@ -64,9 +64,8 @@ export const register = (state: any, setAlert: any) => async () => {
         name,
         email,
         password,
-        no_induk,
         phone,
-        role,
+       
       })
       .then((res) => {
         setAlert({

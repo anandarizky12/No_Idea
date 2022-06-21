@@ -9,7 +9,7 @@ module.exports = {
         banner : "linear-gradient(90deg,rgba(1, 1, 1, 0.8),rgba(255, 255, 255, 0.007))" 
       },
       colors: {
-        primary : "#252525",
+        primary : "#413F42",
         secondary : "#f5f5f5",
       },
       fontFamily: {

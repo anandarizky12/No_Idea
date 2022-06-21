@@ -1,6 +1,11 @@
 import React from "react";
 import { Drawer } from "antd";
-import { HomeOutlined, FileTextOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  FileTextOutlined,
+  ProfileOutlined,
+  AppstoreOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCookie } from "../../utils/utils";
@@ -39,39 +44,69 @@ function Left({ setOpen, open }: any): JSX.Element {
   return (
     <div>
       <Drawer
-        title="WeClass"
+        title="SMKN 1 Sukamara"
         placement={"left"}
         closable={false}
         onClose={() => setOpen(false)}
         visible={open}
         key={"left"}
-        width={300}
+        width={260}
+        extra={
+          <div>
+            <div className="logo">
+              <img src="/logo.png" width={40} alt="logo" />
+            </div>
+          </div>
+        }
+        headerStyle={{
+          background: "#fff",
+          fontWeight: "bold",
+        }}
+        footer={
+          <div className="text-center">
+            <h1 className="text-primary">
+              © {new Date().getFullYear()} SMKN 1 SUKAMARA
+            </h1>
+          </div>
+        }
+        bodyStyle={{
+          paddingLeft: 20,
+          paddingRight: 10,
+          paddingTop: 0,
+
+          // borderTop: 1 + "px solid #2525",
+        }}
       >
         <ul>
           <li
             onClick={() => handleNavigate("/")}
-            className="px-2 left-0 py-4 font-semibold text-primary flex items-centerflex-row rounded-md 
-           hover:text-blue-300 
-          hover:cursor-pointer"
+            className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
           >
-            <HomeOutlined className="text-2xl mr-6" />
+            <HomeOutlined className="text-xl mr-6" />
             Home Page
           </li>
-
-          {user.role === "guru" ? (
+          <li
+            onClick={() => handleNavigate("/profile")}
+            className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
+          >
+            <ProfileOutlined className="text-xl mr-6" />
+            Profile Page
+          </li>
+          {/* {user.role === "guru" ? (
             <li
               onClick={() => handleNavigate("/report")}
-              className="px-2 left-0 py-4 font-semibold text-primary flex items-centerflex-row rounded-md 
-           hover:text-blue-300 
-          hover:cursor-pointer"
+              className="px-2 left-0 py-4 font-normal text-primary flex items-centerflex-row rounded-md 
+           hover:text-blue-300 cursor-pointer"
             >
-              <FileTextOutlined className="text-2xl mr-6" />
+              <FileTextOutlined className="text-xl mr-6" />
               Report Page
             </li>
-          ) : null}
+          ) : null} */}
           <div className="border-b"></div>
-          <li className="px-1 py-4 text- font-semibold text-primary flex items-center">
-            Classroom
+          <li className=" py-4 text- font-semibold text-primary flex items-center">
+            Your Classrooms
           </li>
           {user.role === "guru" ? (
             <>
@@ -96,7 +131,7 @@ function Left({ setOpen, open }: any): JSX.Element {
                 ))}
             </>
           )}
-          <div className="border-b"></div>
+          <div className="border-b "></div>
         </ul>
       </Drawer>
     </div>

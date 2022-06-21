@@ -76,22 +76,6 @@ function Register() {
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
-          <Form.Item
-            name="no_induk"
-            rules={[{ required: true, message: "Please input your No!" }]}
-          >
-            <Input
-              name="no_induk"
-              placeholder="No Induk"
-              style={{
-                borderRadius: "30px",
-                padding: "10px",
-                paddingLeft: "20px",
-              }}
-              type="number"
-              onChange={(e) => handleChange(e, state, setState)}
-            />
-          </Form.Item>
 
           <Form.Item
             name="phone"
@@ -143,26 +127,6 @@ function Register() {
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
-          <Form.Item
-            name="role"
-            rules={[{ required: true, message: "Please choose your Role!" }]}
-          >
-            <Radio.Group
-              name="role"
-              style={{
-                width: "100%",
-              }}
-              onChange={(e) => handleChange(e, state, setState)}
-            >
-              <Radio.Button className="text-primary w-3/6" value="guru">
-                Guru
-              </Radio.Button>
-              <Radio.Button className="w-3/6" value="siswa">
-                Siswa
-              </Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-          <h1 className="text-primary"> * Pilih Role</h1>
 
           <Form.Item name="remember" valuePropName="checked">
             <Typography>
@@ -175,15 +139,15 @@ function Register() {
 
           <Form.Item>
             <Button type="primary" shape="round" size="large" htmlType="submit">
-              Submit
+              Save
             </Button>
           </Form.Item>
         </Form>
       </Card>
-      <img
+      {/* <img
         className="grayscale hidden lg:block"
         src={"/icons8-class-dojo-480.png"}
-      ></img>
+      ></img> */}
       {alert.message !== null ? (
         <AlertComponents setAlert={setAlert} alert={alert} />
       ) : null}

@@ -14,9 +14,6 @@ exports.Register = async (req: any, res: any) => {
       email: joi.string().email().min(10).required(),
       password: joi.string().min(8).required(),
       phone: joi.string().min(12).required(),
-      role: joi.string().min(4).required(),
-      // profile: joi.string(),
-      jk: joi.string().min(8).required(),
     });
 
     const { error } = schema.validate(req.body);
@@ -49,7 +46,7 @@ exports.Register = async (req: any, res: any) => {
       email,
       password: hash,
       phone,
-      role,
+      role : 'siswa',
       // profile,
       jk,
     });
@@ -238,7 +235,7 @@ exports.getUserById = async (req: any, res: any) => {
 exports.editProfile = async (req: any, res: any) => {
   try {
     const { id } = req.user;
-    const { name, email, profile } = req.body;
+    const { name, email, profile, address, religion, birth_date, place_of_birth, father, mother, father_job, mother_job  } = req.body;
 
     const user = await User.findOne({
       where: {
@@ -312,8 +309,7 @@ exports.editProfile = async (req: any, res: any) => {
       {
         name,
         email,
-        // phone,
-        // jk,
+        address, religion, birth_date, place_of_birth, father, mother, father_job, mother_job 
       },
       {
         where: {
@@ -427,6 +423,7 @@ exports.EditUser = async (req : any , res : any )=>{
       phone : joi.string().min(12).required(),
       jk : joi.string().min(8).required(),
       role : joi.string().min(3).required(),
+      
     })
       
       const { error } = schema.validate(res.body);
