@@ -22,7 +22,8 @@ const {
   editClassroom,
   searchClassroom,
   getTaskAndQuestionInClassroom ,
-  getAllClassroom
+  getAllClassroom,
+  addMateri
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -49,6 +50,7 @@ const {
 const {
   getAllTotal
 } = require("../controller/dashboard");
+
 
 const router = require("express").Router();
 
@@ -112,5 +114,6 @@ router.get("/finishedtask", authenticate ,getFinishedTask)
 router.get('/unfinishedtask', authenticate, getUnfinishedTask)
 
 router.get('/getalltotal', isAdmin, getAllTotal);
+router.post('/createmateri',isTeacherOfClass, addMateri)
 
 module.exports = router;

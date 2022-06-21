@@ -389,6 +389,9 @@ export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
     }
   };
 };
+
+
+
 // export const joinClassroom = (code: any) => {
 //   return async (dispatch: Dispatch) => {
 //     const token = getCookie("token");

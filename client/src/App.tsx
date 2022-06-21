@@ -20,6 +20,7 @@ import Admin_Login from "./components/admin/Admin_Login";
 import Admin_Dashboard from "./components/admin/Admin_Dashboard";
 import Add_Teacher from "./components/admin/AddTeacher/Add_Teacher";
 import Admin_Profile from "./components/admin/Profile/Admin_Profile";
+import Materi from "./components/Materi/Materi";
 
 function App() {
   moment.locale("id");
@@ -121,6 +122,17 @@ function App() {
               allowRole={"guru"}
               redirectTo="/login"
               Component={<Scores />}
+            />
+          }
+        />
+
+        <Route
+          path="/classroom/:id/materi"
+          element={
+            <ProtectedRoute
+              allowRole={"guru"}
+              redirectTo="/login"
+              Component={<Materi />}
             />
           }
         />

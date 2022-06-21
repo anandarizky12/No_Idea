@@ -31,7 +31,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="p-6 h-full flex ">
+    <div className="p-6 h-full flex">
       <div className="w-full">
         {/* <HomeBanner /> */}
         <div className="font-header font-semibold text-primary ml-1">

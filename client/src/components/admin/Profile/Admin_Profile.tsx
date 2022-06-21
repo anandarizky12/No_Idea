@@ -19,7 +19,7 @@ function Admin_Profile() {
   const user = useSelector((state: any) => state.admin_login);
   const [state, setState] = React.useState<IProps>({
     name: user.name,
-    email: user.name,
+    email: user.email,
     profile: null,
   });
   const handleEdit = () => {

@@ -32,7 +32,7 @@ function Teacher({ classroom, user }: any) {
           ? task.data.map((task: any, number: Number) => {
               return (
                 <div className="flex ">
-                  <TaskCard key={number} task={task} user={user} />;
+                  <TaskCard task={task} user={user} />;
                 </div>
               );
             })

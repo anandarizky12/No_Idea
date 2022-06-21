@@ -1,6 +1,6 @@
 export {};
 const joi = require("@hapi/joi");
-const { User, Classroom, Student_Classroom, Task, Question } = require("../models");
+const { User, Classroom, Student_Classroom, Task, Question, Materi } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
 const Sequelize = require("sequelize");
 
@@ -681,6 +681,48 @@ exports.searchClassroom = async (req: any, res: any) => {
   }
 };
 
+exports.addMateri = async (req: any, res: any) => {
+  try{
+    const { id } = req.params;
+    const { name, description, file, user_id } = req.body;
+
+    const classroom = await Classroom.findOne({
+      where : {
+        id : id,
+        teacher_id : user_id
+      }
+    });
+
+    if(!classroom){
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom not found",
+      });
+    }
+
+    const fileName = file.name;
+
+    const addMateri = await Materi.create({
+      name,
+      description,
+      file : fileName,
+      classroom_id : id,
+    });
+
+    return res.status(200).send({
+      status: 200,
+      message: "Materi added",
+      data: addMateri,
+    });
+
+  }catch(err : any){
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+
+}
 
 exports.getAllClassroom = async (req : any , res : any) =>{
   try {

@@ -235,7 +235,7 @@ exports.getUserById = async (req: any, res: any) => {
 exports.editProfile = async (req: any, res: any) => {
   try {
     const { id } = req.user;
-    const { name, email, profile, address, religion, birth_date, place_of_birth, father, mother, father_job, mother_job  } = req.body;
+    const { name, email, profile, address, religion, birth_date, place_of_birth, father, mother, father_job, mother_job , jk } = req.body;
 
     const user = await User.findOne({
       where: {
@@ -309,7 +309,7 @@ exports.editProfile = async (req: any, res: any) => {
       {
         name,
         email,
-        address, religion, birth_date, place_of_birth, father, mother, father_job, mother_job 
+        address, religion, birth_date, place_of_birth, father, mother, father_job, mother_job  ,jk
       },
       {
         where: {
