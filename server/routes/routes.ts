@@ -108,7 +108,7 @@ router.get(
 
 router.get("/getallusers", isAdmin, readAllUsers);
 router.get("/getuser", authenticate, readUser);
-router.get("/getuserbyid/:id", isAdmin, getUserById);
+router.get("/getuserbyid/:id", authenticate, getUserById);
 //task
 router.get("/gettask/:id", authenticate, getTaskAndQuestion);
 router.get("/getallscore/:id", isTeacherOfClass, getAllScore);

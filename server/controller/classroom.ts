@@ -837,6 +837,7 @@ exports.getAllMateri = async (req : any , res : any) =>{
       return res.status(200).send({
         status: 200,
         message: "Materi not found",
+        data : null,
         total : materi.length
       });
     }

@@ -505,13 +505,15 @@ export const editUser = (data: any, id : any) => {
 
 
 
-export const getUserById = (id : string, setLoading :any) => {
+export const getUserById = (id : string | undefined, setLoading :any) => {
   return async (dispatch: Dispatch) => {
-    const token = getCookie("admin_token");
+    const admin_token = getCookie("admin_token");
+    const token = getCookie('token');
+   
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${admin_token ? admin_token : token}`,
       },
     };
     setLoading(true);

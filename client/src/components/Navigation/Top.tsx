@@ -68,7 +68,8 @@ function Top(): JSX.Element {
             <li
               onClick={() => navigate(`/classroom/${id}/students`)}
               className={`${
-                location.pathname == `/classroom/${id}/students`
+                location.pathname == `/classroom/${id}/students` ||
+                location.pathname.includes(`student`)
                   ? "border-b-4  border-gray-500"
                   : ""
               } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}

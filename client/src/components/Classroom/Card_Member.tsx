@@ -16,13 +16,13 @@ function Card_Member() {
   }, [id]);
 
   return (
-    <div className="border p-4 border-gray-300 w-48  rounded-md  flex flex-col justify-between">
+    <div className="border p-4 border-gray-300 w-48  rounded-md  flex flex-col justify-between ">
       <h1 className="text-gray-500">Anggota Kelas</h1>
       {students && students.data.length >= 1 ? (
         students.data.slice(0, 5).map((student: any, i: number) => (
           <div
             key={i}
-            className="flex items-center border-b border-gray-300 p-2"
+            className="flex items-center border-b border-gray-300 p-2 hover:shadow-md cursor-pointer"
           >
             <AvatarCustom size={"small"} src={student.User.profile} />
             <div className="ml-2 text-xs text-gray-500">

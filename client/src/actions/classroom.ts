@@ -547,9 +547,10 @@ export const getAllMateri = (id : string | undefined) =>{
         isLoading : false ,
         isError : false 
       })
+   
     
     }).catch((err : any )=>{
-    
+  
       dispatch({
         type : actionTypes.GET_ALL_MATERI_FAILED,
         payload : err.response,
@@ -559,7 +560,7 @@ export const getAllMateri = (id : string | undefined) =>{
     })
 
   }catch(err : any){
-    
+ 
       dispatch({
         type : actionTypes.GET_ALL_MATERI_FAILED,
         payload : err.response,

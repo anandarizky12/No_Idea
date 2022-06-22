@@ -32,8 +32,8 @@ function Card_Materi({ title, description, file, date }: IProps) {
           <div className="AttachmentItem__icon flex justify-center items-center flex-shrink">
             <svg width="24" height="24" viewBox="0 0 24 24" name="pdf-icon">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6z"
                 fill="#FF3352"
               ></path>

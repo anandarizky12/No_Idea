@@ -21,6 +21,7 @@ import Admin_Dashboard from "./components/admin/Admin_Dashboard";
 import Add_Teacher from "./components/admin/AddTeacher/Add_Teacher";
 import Admin_Profile from "./components/admin/Profile/Admin_Profile";
 import Materi from "./components/Materi/Materi";
+import Biodata_Student from "./components/Classroom/Biodata_Student";
 
 function App() {
   moment.locale("id");
@@ -134,9 +135,12 @@ function App() {
         />
 
         <Route
-          path="/classroom/:id/user/:user_id"
+          path="/classroom/:id/student/:user_id"
           element={
-            <ProtectedRoute redirectTo="/login" Component={<Materi />} />
+            <ProtectedRoute
+              redirectTo="/login"
+              Component={<Biodata_Student />}
+            />
           }
         />
       </Routes>

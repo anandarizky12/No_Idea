@@ -22,7 +22,7 @@ function Materi() {
     dispatch(getAllMateri(id));
   }, [id]);
 
-  if (!materiData.isLoading && materiData.isError && materiData.error)
+  if (!materiData?.isLoading && materiData?.isError && materiData?.error)
     return (
       <DynamicError
         status={materiData?.error?.status}
@@ -30,7 +30,6 @@ function Materi() {
       />
     );
 
-  console.log(materi);
   return (
     <div className="flex flex-col items-center ">
       <div className="w-4/6 mt-7">
@@ -39,7 +38,7 @@ function Materi() {
             Materi Kelas
           </h1>
           <div className="flex items-center justify-center text-gray-500 font-bold">
-            {materi ? "Total " + materi.data.length + " Materi" : null}
+            {materi ? "Total " + materi?.data?.length + " Materi" : null}
           </div>
         </div>
       </div>
