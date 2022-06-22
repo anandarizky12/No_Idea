@@ -22,16 +22,16 @@ function Top(): JSX.Element {
         <div className="flex items-center justify-center">
           <MenuOutlined
             onClick={() => setOpen(!open)}
-            className="text-lg hover:cursor-pointer mr-5"
+            className="text-lg cursor-pointer mr-5"
           />
-          <div className="font-header text-xl font-bold text-primary">
-            Weclass&nbsp;
+          <div className="font-header font-bold text-primary">
+            SMKN 1 SUKAMARA
           </div>
         </div>
         {location.pathname.includes("classroom") ? (
           <ul
             className={`hidden ${
-              user.role === "guru" ? "w-80" : "w-60"
+              user.role === "guru" ? "w-96" : "w-80"
             } h-full items-end justify-between md:flex`}
           >
             <li
@@ -40,7 +40,7 @@ function Top(): JSX.Element {
                 location.pathname == `/classroom/${id}`
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Kelas
             </li>
@@ -51,9 +51,19 @@ function Top(): JSX.Element {
                 location.pathname.includes(`answertask`)
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Tugas
+            </li>
+            <li
+              onClick={() => navigate(`/classroom/${id}/materi`)}
+              className={`${
+                location.pathname == `/classroom/${id}/materi`
+                  ? "border-b-4  border-gray-500"
+                  : ""
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+            >
+              Materi
             </li>
             <li
               onClick={() => navigate(`/classroom/${id}/students`)}
@@ -61,7 +71,7 @@ function Top(): JSX.Element {
                 location.pathname == `/classroom/${id}/students`
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Anggota{" "}
             </li>
@@ -72,7 +82,7 @@ function Top(): JSX.Element {
                   location.pathname == `/classroom/${id}/scores`
                     ? "border-b-4  border-gray-500"
                     : ""
-                } font-medium text-primary text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+                } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
               >
                 Nilai
               </li>
@@ -87,7 +97,7 @@ function Top(): JSX.Element {
             <Tooltip placement="bottom" title="Buat Kelas">
               <PlusOutlined
                 onClick={() => setOpenRight(true)}
-                className="text-xl text-gray-400 hover:cursor-pointer mr-7"
+                className="text-xl text-gray-400 cursor-pointer mr-7"
               />
             </Tooltip>
           )}

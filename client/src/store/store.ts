@@ -10,6 +10,7 @@ import {
   getStudentsInClassroom,
   getStudentClassroom,
   joinClassroom,
+  getAllMateri 
 } from "../reducers/classroomReducers";
 import {
   getTaskInClassroom,
@@ -56,7 +57,8 @@ const rootReducer = combineReducers({
   getdashboardReducers,
   getAllUsers,
   editUserReducers,
-  getUserById
+  getUserById,
+  getAllMateri 
 });
 
 const middleware = applyMiddleware(thunk);

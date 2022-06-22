@@ -390,7 +390,228 @@ export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
   };
 };
 
+export const createMateri = (data : any) =>{
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("token");
+    const config = {
+      headers : {
+        "Content-Type" : "application/json",
+        Authorization :  `Bearer ${token}`
+      }
+    }
+  
 
+  const { title, description, file, classroom_id } = data;
+  
+  try{
+
+    await axios.post(`http://localhost:5000/api/createmateri/${classroom_id}`, {title, description, file}, config)
+    .then((res)=>{
+      dispatch({
+        type : actionTypes.CREATE_MATERI,
+        payload : res.data,
+        isLoading : false ,
+        isError : false 
+      })
+      alert("Create Materi Success");
+      window.location.reload()
+    }).catch((err : any )=>{
+      console.log(err)
+      alert(err.response.data.message);
+      dispatch({
+        type : actionTypes.CREATE_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+    })
+
+  }catch(err : any){
+    console.log(err)
+      alert(err.response.data.message)
+      dispatch({
+        type : actionTypes.CREATE_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+  }
+}
+};
+
+
+export const editMateri = (id : string, data : any) =>{
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("token");
+    const config = {
+      headers : {
+        "Content-Type" : "application/json",
+        Authorization :  `Bearer ${token}`
+      }
+    }
+  const { title, description, file } = data;  
+  try{
+
+    await axios.patch(`http://localhost:5000/api/editmateri/${id}`, {title, description, file}, config)
+    .then((res)=>{
+      dispatch({
+        type : actionTypes.EDIT_MATERI,
+        payload : res.data,
+        isLoading : false ,
+        isError : false 
+      })
+      alert("EDIT Materi Success");
+      window.location.reload()
+    }).catch((err : any )=>{
+      alert(err.response.data.message);
+      dispatch({
+        type : actionTypes.EDIT_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+    })
+
+  }catch(err : any){
+      alert(err.response.data.message)
+      dispatch({
+        type : actionTypes.EDIT_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+  }
+}
+};
+
+export const deleteMateri = (id : string) =>{
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("token");
+    const config = {
+      headers : {
+        "Content-Type" : "application/json",
+        Authorization :  `Bearer ${token}`
+      }
+    }
+
+  try{
+
+    await axios.delete(`http://localhost:5000/api/deletemateri/${id}`, config)
+    .then((res)=>{
+      dispatch({
+        type : actionTypes.DELETE_MATERI,
+        payload : res.data,
+        isLoading : false ,
+        isError : false 
+      })
+      alert("DELETE Materi Success");
+      window.location.reload()
+    }).catch((err : any )=>{
+      alert(err.response.data.message);
+      dispatch({
+        type : actionTypes.DELETE_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+    })
+
+  }catch(err : any){
+      alert(err.response.data.message)
+      dispatch({
+        type : actionTypes.DELETE_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+  }
+}
+};
+
+export const getAllMateri = (id : string | undefined) =>{
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("token");
+    const config = {
+      headers : {
+        "Content-Type" : "application/json",
+        Authorization :  `Bearer ${token}`
+      }
+    }
+  try{
+
+    await axios.get(`http://localhost:5000/api/allmateri/${id}`,  config)
+    .then((res)=>{
+      dispatch({
+        type : actionTypes.GET_ALL_MATERI,
+        payload : res.data,
+        isLoading : false ,
+        isError : false 
+      })
+    
+    }).catch((err : any )=>{
+    
+      dispatch({
+        type : actionTypes.GET_ALL_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+    })
+
+  }catch(err : any){
+    
+      dispatch({
+        type : actionTypes.GET_ALL_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+  }
+}
+};
+
+
+export const getMateri = (id : string) =>{
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("token");
+    const config = {
+      headers : {
+        "Content-Type" : "application/json",
+        Authorization :  `Bearer ${token}`
+      }
+    }
+  try{
+
+    await axios.get(`http://localhost:5000/api/materi/${id}`, config)
+    .then((res)=>{
+      dispatch({
+        type : actionTypes.GET_MATERI,
+        payload : res.data,
+        isLoading : false ,
+        isError : false 
+      })
+      
+    }).catch((err : any )=>{
+      
+      dispatch({
+        type : actionTypes.GET_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+    })
+
+  }catch(err : any){
+    
+      dispatch({
+        type : actionTypes.GET_MATERI_FAILED,
+        payload : err.response,
+        isLoading : false,
+        isError : true
+      })
+  }
+}
+};
 
 // export const joinClassroom = (code: any) => {
 //   return async (dispatch: Dispatch) => {

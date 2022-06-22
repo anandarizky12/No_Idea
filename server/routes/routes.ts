@@ -23,7 +23,11 @@ const {
   searchClassroom,
   getTaskAndQuestionInClassroom ,
   getAllClassroom,
-  addMateri
+  addMateri,
+  getAllMateri,
+  getMateri,
+  deleteMateri,
+  editMateri
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -114,6 +118,10 @@ router.get("/finishedtask", authenticate ,getFinishedTask)
 router.get('/unfinishedtask', authenticate, getUnfinishedTask)
 
 router.get('/getalltotal', isAdmin, getAllTotal);
-router.post('/createmateri',isTeacherOfClass, addMateri)
+router.post('/createmateri/:id',isTeacherOfClass, addMateri)
+router.get('/materi/:id', isTeacherOrMemberOfClass, getMateri)
+router.get('/allmateri/:id', isTeacherOrMemberOfClass, getAllMateri)
+router.patch('/updatemateri/:id',isTeacherOfClass, editMateri)
+router.delete('/deletemateri/:id',isTeacherOfClass, deleteMateri)
 
 module.exports = router;

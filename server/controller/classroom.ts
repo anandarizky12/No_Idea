@@ -683,13 +683,29 @@ exports.searchClassroom = async (req: any, res: any) => {
 
 exports.addMateri = async (req: any, res: any) => {
   try{
-    const { id } = req.params;
-    const { name, description, file, user_id } = req.body;
+    
+    const { id } = req.user;
+    const classroom_id = req.params.id;
+    const { title, description, file} = req.body;
+    
+    
 
+    const schema = joi.object({
+      title: joi.string().min(3).required(),
+      description : joi.string(),
+      file : joi.string().min(3).required(),
+    });
+    const { error } = schema.validate({title, description, file});
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
     const classroom = await Classroom.findOne({
       where : {
-        id : id,
-        teacher_id : user_id
+        id : classroom_id,
+        teacher_id : id
       }
     });
 
@@ -700,13 +716,13 @@ exports.addMateri = async (req: any, res: any) => {
       });
     }
 
-    const fileName = file.name;
+   
 
     const addMateri = await Materi.create({
-      name,
+      name : title,
       description,
-      file : fileName,
-      classroom_id : id,
+      file ,
+      classroom_id : classroom_id,
     });
 
     return res.status(200).send({
@@ -723,6 +739,159 @@ exports.addMateri = async (req: any, res: any) => {
   }
 
 }
+
+exports.editMateri = async (req : any , res : any ) =>{
+  try{
+
+    const { id } = req.params;
+
+    const { name, description, file } = req.body;
+
+    const schema = joi.object({
+      name: joi.string().min(3).required(),
+      description: joi.string().min(3).required(),
+    });
+
+    const { error } = schema.validate({name, description});
+    if (error) {
+      return res.status(500).send({
+        status: 500,
+        message: error.details[0].message,
+      });
+    }
+
+    const materi = await Materi.findOne({
+      where: {
+        id: id,
+      },
+    });
+    if (!materi) {
+      return res.status(500).send({
+        status: 500,
+        message: "Materi not found",
+      });
+    }
+
+    const updateMateri = await Materi.update(
+      {
+        name,
+        description,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    return res.status(200).send({
+      status: 200,
+      message: "Classroom updated",
+      data: updateMateri,
+    });
+
+
+  }catch(err : any){
+    return res.status(500).send({
+      message : err.message,
+      status : 500
+    })
+  }
+};
+
+
+exports.getMateri = async (req : any , res : any )=>{
+  try{
+    const { id } = req.params;
+
+    const materi = await Materi.findOne({
+      where : {
+        id : id 
+      }
+    })
+
+    return res.status(200).send({
+      messsage : "Successfully get Materi",
+      data : materi,
+      status : 200
+    })
+
+  }catch(err : any ){
+    return res.status(500).send({
+      message : err.message,
+      status : 500
+    })
+  }
+}
+
+
+exports.getAllMateri = async (req : any , res : any) =>{
+  try {
+    //classroom id
+    const { id } = req.params;
+    const materi = await Materi.findAll({
+      where : {
+        classroom_id : id
+      }
+    });
+    if (!materi) {
+      return res.status(200).send({
+        status: 200,
+        message: "Materi not found",
+        total : materi.length
+      });
+    }
+
+    return res.status(200).send({
+      status: 200,
+      message: "Succesfully get all materi",
+      data: materi,
+      total : materi.length
+    });
+
+  }catch (err : any ){
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+}
+
+exports.deleteMateri = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+
+    const materi = await Materi.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!materi) {
+      return res.status(500).send({
+        status: 500,
+        message: "Materi not found",
+      });
+    }
+
+    const deleteMateri = await Materi.destroy({
+      where: {
+        id,
+      },
+    });
+
+    return res.status(200).send({
+      status: 200,
+      message: "Materi deleted",
+      data: deleteMateri,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
 
 exports.getAllClassroom = async (req : any , res : any) =>{
   try {

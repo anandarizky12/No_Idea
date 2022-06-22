@@ -13,6 +13,7 @@ module.exports = {
       answer: Sequelize.STRING,
       student_id: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: "Users",
           key: "id",
@@ -23,12 +24,13 @@ module.exports = {
       },
       question_id : {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: "Questions",
           key: "id",
           as: "question_id",
         },
-        unique : true,
+
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },

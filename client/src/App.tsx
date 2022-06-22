@@ -129,11 +129,14 @@ function App() {
         <Route
           path="/classroom/:id/materi"
           element={
-            <ProtectedRoute
-              allowRole={"guru"}
-              redirectTo="/login"
-              Component={<Materi />}
-            />
+            <ProtectedRoute redirectTo="/login" Component={<Materi />} />
+          }
+        />
+
+        <Route
+          path="/classroom/:id/user/:user_id"
+          element={
+            <ProtectedRoute redirectTo="/login" Component={<Materi />} />
           }
         />
       </Routes>

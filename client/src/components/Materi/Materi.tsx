@@ -1,66 +1,71 @@
 import React from "react";
 import { Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getClassroom } from "../../actions/classroom";
+import { getAllMateri, getClassroom } from "../../actions/classroom";
 import { useParams } from "react-router-dom";
-import { getTaskInClassroom } from "../../actions/task";
 
-import CreateTask from "../CreateandEdit_Task/CreateTask";
 import Teacher_Materi from "./Teacher_Materi";
 import DynamicError from "../404/DynamicError";
+import Card_Materi from "./Card_Materi";
 
 function Materi() {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const { classroom } = useSelector((state: any) => state.getClassroom);
-  const taskData = useSelector((state: any) => state.getTaskInClassroom);
+  const materiData = useSelector((state: any) => state.getAllMateri);
+  const { materi } = materiData;
   const user = useSelector((state: any) => state.user);
-  const { task } = taskData;
 
   React.useEffect(() => {
     dispatch(getClassroom(id));
-    dispatch(getTaskInClassroom(id));
+    dispatch(getAllMateri(id));
   }, [id]);
 
-  console.log(taskData);
-  if (!taskData.isLoading && taskData.isError && taskData.error)
+  if (!materiData.isLoading && materiData.isError && materiData.error)
     return (
       <DynamicError
-        status={taskData?.error?.status}
-        message={taskData?.error?.data?.message}
+        status={materiData?.error?.status}
+        message={materiData?.error?.data?.message}
       />
     );
+
+  console.log(materi);
   return (
     <div className="flex flex-col items-center ">
       <div className="w-4/6 mt-7">
         <div className="border-b border-gray-400 px-0 md:px-0 flex justify-between">
           <h1 className="text-xl md:text-3xl font-normal text-gray-500">
-            Daftar Materi Kelas
+            Materi Kelas
           </h1>
           <div className="flex items-center justify-center text-gray-500 font-bold">
-            {task ? "Total " + task.data.length + " Materi" : null}
+            {materi ? "Total " + materi.data.length + " Materi" : null}
           </div>
         </div>
       </div>
-      {user.role === "guru" ? (
+      {user.role === "guru" && classroom ? (
         <Teacher_Materi open={open} setOpen={setOpen} classroom={classroom} />
       ) : null}
 
       <div className="w-full md:5/6  mt-5 md:mt-8 flex flex-col items-center justify-center">
-        {!task && (
+        {!materi && (
           <div className="flex h-96 items-center justify-center">
             <Spin size="large" />
           </div>
         )}
-        {/* {task && task.data.length > 0 ? (
-          task.data.map((task: any, number: Number) => {
+        {materi && materi.data.length > 0 ? (
+          materi.data.map((materi: any, number: Number) => {
             return (
               <div
-                key={task.id}
+                key={materi.id}
                 className="flex p-4 md:p-0 md:w-4/6 items-center justify-center"
               >
-                <Teacher_Materi task={task} user={user} />
+                <Card_Materi
+                  title={materi.name}
+                  description={materi.description}
+                  file={materi.file}
+                  date={materi.createdAt}
+                />
               </div>
             );
           })
@@ -70,9 +75,8 @@ function Materi() {
               Kelas ini belum memiliki tugas
             </h1>
           </div>
-        )} */}
+        )}
       </div>
-      <CreateTask setOpen={setOpen} open={open} />
     </div>
   );
 }

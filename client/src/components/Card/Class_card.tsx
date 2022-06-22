@@ -28,7 +28,9 @@ function Class_card({ classroom, id, user }: any) {
           {classroom.name}
         </h1>
         <div className="text-secondary font-bold">
-          <PopupMenu classroom={classroom} id={id} />
+          {user.role === "guru" ? (
+            <PopupMenu classroom={classroom} id={id} />
+          ) : null}
         </div>
       </div>
       <div className="border-t   border-gray-300 w-full h-12">

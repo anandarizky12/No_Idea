@@ -37,9 +37,17 @@ const storage = multer.diskStorage({
 
 const router = express.Router()
 
-router.post('/fileupload', upload.single('image'), (req : any, res : any) => {
-    res.send(`/${req.file.path}`)
+router.post('/fileupload', upload.single('file'), (req : any, res : any) => {
+    try{
+      console.log(req.file)
+      res.send(`/${req.file.path}`)
+
+    }catch(err :any){
+      console.log(err)
+      return res.status(500).send({message : err.message})
+    }
 })
 
+module.exports = router
 
 

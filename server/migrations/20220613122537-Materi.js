@@ -2,14 +2,14 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable("Materi", {
+    await queryInterface.createTable("Materis", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-     name : Sequelize.INTEGER,
+     name : Sequelize.STRING,
      description : Sequelize.STRING,
      file : Sequelize.STRING,
      classroom_id: {
@@ -33,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable("Materi");
+    queryInterface.dropTable("Materis");
   },
 };

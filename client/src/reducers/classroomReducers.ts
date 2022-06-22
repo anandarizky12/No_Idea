@@ -176,3 +176,81 @@ export const joinClassroom = (state = {}, action: any) => {
       return state;
   }
 };
+
+
+
+
+export const getMateri = (
+  state = { isLoading: true, materi: null },
+  action: any
+) => {
+  switch (action.type) {
+    case actionTypes.GET_MATERI:
+      return {
+        ...state,
+        materi: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_MATERI_FAILED:
+      return {
+        ...state,
+        materi: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const getAllMateri = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_MATERI:
+      return {
+        ...state,
+        materi : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_ALL_MATERI_FAILED:
+      return {
+        ...state,
+        materi : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const editMateri = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.EDIT_MATERI:
+      return {
+        ...state,
+        materi : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.EDIT_MATERI_FAILED:
+      return {
+        ...state,
+        materi : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+
+
