@@ -1,16 +1,16 @@
 import React from "react";
 import { DownloadOutlined } from "@ant-design/icons";
 import ReactToPrint from "react-to-print";
+import { Button } from "antd";
 
 function ButtonPrint({ componentRef }: any) {
   return (
     <ReactToPrint
       documentTitle="Cetak Laporan"
       trigger={() => (
-        <button className="bg-green-500 p-2 md:w-45 text-gray-100 font-semibold rounded-sm flex items-center justify-center">
-          <DownloadOutlined className="lg:mr-2" />{" "}
+        <Button type="primary" icon={<DownloadOutlined />}>
           <span className="hidden lg:inline-block">Cetak Data</span>
-        </button>
+        </Button>
       )}
       content={() => componentRef.current}
     />

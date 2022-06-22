@@ -44,7 +44,12 @@ function AllTask() {
         </div>
       </div>
       {user.role === "guru" ? (
-        <Teacher open={open} setOpen={setOpen} classroom={classroom} />
+        <Teacher
+          open={open}
+          setOpen={setOpen}
+          classroom={classroom}
+          task={task}
+        />
       ) : null}
 
       <div className="w-full md:5/6  mt-5 md:mt-8 flex flex-col items-center justify-center">

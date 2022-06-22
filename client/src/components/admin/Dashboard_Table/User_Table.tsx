@@ -22,53 +22,6 @@ export default function User_Table({
   setIsModalVisible,
   setId,
 }: any) {
-  const xx = [
-    {
-      id: 1,
-      name: "Usram Bin Ahmed",
-      phone: "0123456789",
-      email: "usram@gmail.com",
-      role: "guru",
-      profile: null,
-      jk: "Laki-Laki",
-      createdAt: "2022-06-13T13:11:32.000Z",
-      updatedAt: "2022-06-13T13:11:32.000Z",
-    },
-    {
-      id: 2,
-      name: "Ali Mahmud Aja",
-      phone: "0821367126324",
-      email: "Ali@gmail.com",
-      role: "siswa",
-      profile:
-        "http://res.cloudinary.com/drgorgm6v/image/upload/v1655187500/elearning/efcvzhdb97yxzuia4kpb.png",
-      jk: "Laki-Laki",
-      createdAt: "2022-06-13T13:11:32.000Z",
-      updatedAt: "2022-06-16T01:41:31.000Z",
-    },
-    {
-      id: 3,
-      name: "Mahmud Bin Ali",
-      phone: "0123456789",
-      email: "mahmud@gmail.com",
-      role: "admin",
-      profile: null,
-      jk: "Perempuan",
-      createdAt: "2022-06-13T13:11:32.000Z",
-      updatedAt: "2022-06-13T13:11:32.000Z",
-    },
-    {
-      id: 5,
-      name: "Adi Ma",
-      phone: "082176281231",
-      email: "adi123@gmail.com",
-      role: "siswa",
-      profile: null,
-      jk: "Perempuan",
-      createdAt: "2022-06-16T05:53:37.000Z",
-      updatedAt: "2022-06-16T05:53:37.000Z",
-    },
-  ];
   const [loading, setLoading] = React.useState(true);
   const dispatch = useDispatch();
   const [rows, setRows] = React.useState([]);
@@ -199,14 +152,7 @@ export default function User_Table({
       setRows([]);
     }
   }, [users, id]);
-  const data1 = [
-    { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
-    { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
-    { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" },
-  ];
 
-  console.log(data1);
-  console.log(filteredItems);
   return (
     <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">
       <div className="w-full border p-5 shadow-md">

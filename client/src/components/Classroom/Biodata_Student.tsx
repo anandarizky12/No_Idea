@@ -38,7 +38,7 @@ function Biodata_Student() {
         </div>
       </div>
       {user && !loading ? (
-        <div className="border border-gray-400 rounded-md shadow-md w-3/6 p-4 px-16">
+        <div className="border border-gray-300 rounded-md shadow-md w-3/6 p-4 px-16">
           <div className="">
             <h1 className="text-3xl text-center">Biodata Siswa</h1>
           </div>
