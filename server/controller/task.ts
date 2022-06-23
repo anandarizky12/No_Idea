@@ -1,4 +1,4 @@
-import { where } from "sequelize/types";
+
 
 const {
   Classroom,

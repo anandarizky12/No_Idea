@@ -1,4 +1,7 @@
 import { Progress } from "antd";
+import ButtonPrint from "../pdf/Button_PDF";
+import React from "react";
+import ResultAnswerPDF from "../pdf/ResultAnswerPDF";
 
 interface Iprops {
   data: any;
@@ -9,6 +12,8 @@ function ResultAnswer({ data }: Iprops) {
     (acc: number, cur: any) => acc + cur.Answer_task.Score.score,
     0
   );
+  const componentRef: any = React.useRef();
+  console.log(data);
 
   return (
     <div className="border p-8 shadow-lg w-4/6 mt-8">
@@ -60,6 +65,19 @@ function ResultAnswer({ data }: Iprops) {
             </div>
           </div>
         ))}
+      </div>
+      <div className="mt-5 float-right">
+        <ButtonPrint
+          size={"large"}
+          type={"secondary"}
+          componentRef={componentRef}
+        />
+      </div>
+
+      <div className="hidden">
+        <div ref={componentRef}>
+          <ResultAnswerPDF data={data} totalScore={totalScore} />
+        </div>
       </div>
     </div>
   );

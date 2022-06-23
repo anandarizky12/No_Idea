@@ -1,6 +1,6 @@
 export {};
 const joi = require("@hapi/joi");
-const { User, Classroom, Student_Classroom, Task, Question, Materi } = require("../models");
+const { User, Classroom, Student_Classroom, Task, Question, Materi, User_Answered_Task, Score, Answer_task } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
 const Sequelize = require("sequelize");
 
@@ -917,5 +917,47 @@ exports.getAllClassroom = async (req : any , res : any) =>{
       status: 500,
       message: err.message,
     });
+  }
+}
+
+exports.getYourScore = async (req : any , res : any) => {
+  try{
+    
+    const {id} = req.user;
+    const getThat = await User_Answered_Task.findAll({
+      where : {
+        student_id : id
+      },
+      include : [{
+        model : Task,
+        include :[{
+          model : Question,
+          attributes : {exclude : ["answer_key"]},
+          include : [
+            {
+              model : Answer_task,
+              where : {
+                student_id : id
+              },
+              include : [{
+                model : Score
+              }]
+            }
+          ]
+        }]
+      }]
+    })
+
+    return res.status(200).send({
+      message : "success get data",
+      status : 200,
+      data : getThat
+    })
+
+  }catch(err : any) {
+   return  res.status(500).send({
+      message : err.message,
+      status : 500
+    })
   }
 }

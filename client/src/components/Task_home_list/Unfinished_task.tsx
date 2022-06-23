@@ -6,7 +6,7 @@ import moment from "moment";
 import {
   FormOutlined,
   CheckOutlined,
-  ClockCircleOutlined,
+  ClockCircleFilled,
 } from "@ant-design/icons";
 import { Avatar } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,29 +24,30 @@ function Unfinished_Task() {
   }, [id]);
   console.log(taskData);
   return (
-    <div className="border  w-80  rounded-md ">
-      <div className="border-b border-gray-200 p-2">
+    <div className="border border-gray-300 shadow-sm w-80  rounded-md bg-white">
+      <div className="border-b border-gray-300 p-2">
         <h3 className="font-semibold text-primary  px-2 p-0 m-0">
           Tugas Yang Belum Dikerjakan
         </h3>
       </div>
 
       <div className="">
-        {taskData?.task?.data.map((task: any) => (
+        {taskData?.task?.data.map((task: any, i: number) => (
           <div
+            key={i}
             onClick={() =>
               navigate(`/classroom/${task.classroom_id}/answertask/${task.id}`)
             }
             className="p-4 flex items-center border-b hover:cursor-pointer cursor-pointer hover:bg-gray-300"
           >
-            <Avatar style={{ background: "gray" }} icon={<FormOutlined />} />
+            <Avatar style={{ background: "#3AB0FF" }} icon={<FormOutlined />} />
 
-            <div className="ml-4 ">
-              <h1 className="text-xs text-primary font-normal p-0 m-0">
+            <div className="ml-3">
+              <h1 className="text-xs text-primary font-semibold p-0 m-0">
                 {task.title.toUpperCase()}
               </h1>
-              <p className="text-xs text-gray-800 p-0 my-1">
-                <ClockCircleOutlined className="mr-2 text-primary" />
+              <p className="text-xs text-gray-400 p-0 m-0 mt-1">
+                <ClockCircleFilled className="mr-2 text-xs" />
                 {task.deadline
                   ? moment(task.deadline).format("MMM Do YY")
                   : "Tidak ada deadline"}

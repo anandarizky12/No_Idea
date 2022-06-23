@@ -7,7 +7,7 @@ function Class_card({ classroom, id, user }: any) {
   const navigate = useNavigate();
 
   return (
-    <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
+    <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 bg-white overflow-hidden flex flex-col justify-between">
       <div
         style={{
           backgroundImage: `linear-gradient(90deg,rgba(0, 0, 10, 0.5),rgba(255, 255, 255, 0.007)), 

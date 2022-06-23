@@ -27,7 +27,8 @@ const {
   getAllMateri,
   getMateri,
   deleteMateri,
-  editMateri
+  editMateri,
+  getYourScore
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -105,6 +106,7 @@ router.get(
   isTeacherOrMemberOfClass,
   getStudentsInClassroom
 );
+router.get("/getyourscore", authenticate, getYourScore)
 
 router.get("/getallusers", isAdmin, readAllUsers);
 router.get("/getuser", authenticate, readUser);

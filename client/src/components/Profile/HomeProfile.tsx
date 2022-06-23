@@ -16,7 +16,7 @@ function HomeProfile() {
   }, []);
 
   return (
-    <div className="p-3 flex items-center border  my-3 ">
+    <div className="p-3 flex items-center border  my-3 bg-white border-gray-300 shadow-sm rounded-md">
       {user && user.detail_user ? (
         <div className="w-full">
           <div className="flex items-center w-full">

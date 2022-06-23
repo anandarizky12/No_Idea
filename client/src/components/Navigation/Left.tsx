@@ -1,11 +1,6 @@
 import React from "react";
 import { Drawer } from "antd";
-import {
-  HomeOutlined,
-  FileTextOutlined,
-  ProfileOutlined,
-  AppstoreOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined, ProfileOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCookie } from "../../utils/utils";
@@ -91,9 +86,19 @@ function Left({ setOpen, open }: any): JSX.Element {
             className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
            hover:text-blue-300 cursor-pointer"
           >
-            <ProfileOutlined className="text-xl mr-6" />
+            <UserOutlined className="text-xl mr-6" />
             Profile Page
           </li>
+          {user.role == "siswa" ? (
+            <li
+              onClick={() => handleNavigate("/your_score")}
+              className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
+            >
+              <ProfileOutlined className="text-xl mr-6" />
+              Daftar nilai anda
+            </li>
+          ) : null}
           {/* {user.role === "guru" ? (
             <li
               onClick={() => handleNavigate("/report")}
@@ -106,7 +111,7 @@ function Left({ setOpen, open }: any): JSX.Element {
           ) : null} */}
           <div className="border-b"></div>
           <li className=" py-4 text- font-semibold text-primary flex items-center">
-            Your Classrooms
+            Kelas yang diikuti
           </li>
           {user.role === "guru" ? (
             <>

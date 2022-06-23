@@ -5,32 +5,32 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert("Users", [
       {
-        name: "Usram Bin Ahmed",
-        phone: "0123456789",
-        email: "usram@gmail.com",
-        password: "12345678",
-        role: "guru",
+        name: "Admin",
+        phone: "084325567890",
+        email: "admin@gmail.com",
+        password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
+        role: "admin",
         profile: null,
      
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "Ali Mahmud",
-        phone: "0123456789",
-        email: "Ali@gmail.com",
-        password: "12345678",
-        role: "siswa",
+        name: "Muhammad Zainal",
+        phone: "084537285746",
+        email: "ali@gmail.com",
+        password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
+        role: "guru",
         profile: null,
    
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "Mahmud Bin Ali",
-        phone: "0123456789",
+        name: "Renaldi Siswanto",
+        phone: "083467352617",
         email: "mahmud@gmail.com",
-        password: "12345678",
+        password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
         role: "siswa",
         profile: null,
      

@@ -28,6 +28,12 @@ module.exports = (sequelize: any, Sequelize: any) => {
           name: "student_id",
         },
       });
+
+      User.hasMany(models.Task_User_Score, {
+        foreignKey: {
+          name: "student_id",
+        },
+      });
     }
   }
 

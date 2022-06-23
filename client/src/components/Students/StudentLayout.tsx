@@ -48,7 +48,7 @@ function StudentLayout({
             </div>
           )}
         </div>
-        <div className="p-3 rounded-md">
+        <div className="py-2 rounded-md">
           {/* <Finished_Task /> */}
           <HomeProfile />
           <Unfinished_Task />
