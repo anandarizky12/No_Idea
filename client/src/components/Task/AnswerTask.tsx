@@ -7,7 +7,8 @@ import { Spin } from "antd";
 import { getCookie } from "../../utils/utils";
 import AnswerStepByStep from "./AnswerStepByStep";
 import ResultAnswer from "./ResultAnswer";
-
+import moment from "moment";
+import { LockOutlined } from "@ant-design/icons";
 function AnswerTask() {
   const Dispatch = useDispatch();
   const task = useSelector((state: any) => state.getTask);
@@ -38,6 +39,10 @@ function AnswerTask() {
     }
   }, [task]);
 
+  const isDeadline =
+    moment(data?.deadline).format() <
+    moment(new Date().toLocaleString()).format();
+
   if (task.error && task.error.data) {
     return (
       <DynamicError
@@ -46,27 +51,41 @@ function AnswerTask() {
       />
     );
   }
-
+  console.log(data);
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      {alreadyAnswered ? (
-        <ResultAnswer data={data} />
-      ) : (
-        <div className="w-5/6 px-8 m-8">
-          {!loading ? (
-            <AnswerStepByStep
-              Dispatch={Dispatch}
-              task={data}
-              steps={data.Questions}
-              id={id}
-              class_id={class_id}
-              user_id={user_id}
-            />
+      {!isDeadline ? (
+        <>
+          {alreadyAnswered ? (
+            <ResultAnswer data={data} />
           ) : (
-            <div className="flex flex-col items-center justify-center w-full  m-5">
-              <Spin />
+            <div className="w-5/6 px-8 m-8">
+              {!loading ? (
+                <AnswerStepByStep
+                  Dispatch={Dispatch}
+                  task={data}
+                  steps={data.Questions}
+                  id={id}
+                  class_id={class_id}
+                  user_id={user_id}
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center w-full  m-5">
+                  <Spin />
+                </div>
+              )}
             </div>
           )}
+        </>
+      ) : (
+        <div
+          style={{ height: "90vh" }}
+          className="flex flex-col items-center justify-center"
+        >
+          <LockOutlined style={{ fontSize: "17rem", color: "gray" }} />
+          <p className="text-2xl text-gray-400">
+            Batas Pengerjaan Tugas Sudah Lewat
+          </p>
         </div>
       )}
     </div>

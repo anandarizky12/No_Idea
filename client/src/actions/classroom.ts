@@ -614,6 +614,46 @@ export const getMateri = (id : string) =>{
 }
 };
 
+export const getYourScore = ()=>{
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("token");
+    const config = {
+      headers : {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }
+    try{
+      await axios
+              .get('http://localhost:5000/api/getyourscore', config)
+              .then((res) => {
+              
+                dispatch({
+                  type: actionTypes.GET_YOUR_SCORE,
+                  payload: res.data,
+                  isLoading: false,
+                  isError: false,
+                });
+              })
+              .catch((err : any) => {
+                dispatch({
+                  type: actionTypes.GET_YOUR_SCORE_FAILED,
+                  payload: err.response,
+                  isLoading: false,
+                  isError: true,
+                });
+              });
+    }catch(err : any){
+      dispatch({
+        type: actionTypes.GET_YOUR_SCORE_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  }
+}
+
 // export const joinClassroom = (code: any) => {
 //   return async (dispatch: Dispatch) => {
 //     const token = getCookie("token");

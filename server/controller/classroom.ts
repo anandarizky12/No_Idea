@@ -1,6 +1,6 @@
 export {};
 const joi = require("@hapi/joi");
-const { User, Classroom, Student_Classroom, Task, Question, Materi, User_Answered_Task, Score, Answer_task } = require("../models");
+const { User, Classroom, Student_Classroom, Task, Question, Materi, User_Answered_Task, Score, Answer_task, Task_User_Score } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
 const Sequelize = require("sequelize");
 
@@ -924,29 +924,22 @@ exports.getYourScore = async (req : any , res : any) => {
   try{
     
     const {id} = req.user;
-    const getThat = await User_Answered_Task.findAll({
+    const getThat = await Task_User_Score.findAll({
       where : {
         student_id : id
       },
-      include : [{
-        model : Task,
-        include :[{
-          model : Question,
-          attributes : {exclude : ["answer_key"]},
-          include : [
-            {
-              model : Answer_task,
-              where : {
-                student_id : id
-              },
-              include : [{
-                model : Score
-              }]
-            }
-          ]
-        }]
-      }]
+      include :[{
+        model : Task
+        },
+        {
+          model : Classroom
+        },
+        {
+          model : User
+        }
+      ]
     })
+
 
     return res.status(200).send({
       message : "success get data",

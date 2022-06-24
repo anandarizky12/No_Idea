@@ -40,6 +40,9 @@ export const GET_STUDENT_CLASSROOM_FAILED: string =
 
 export const JOIN_CLASSROOM: string = "JOIN_CLASSROOM";
 export const JOIN_CLASSROOM_FAILED: string = "JOIN_CLASSROOM_FAILED";
+
+export const GET_YOUR_SCORE :string = "GET_YOUR_SCORE";
+export const GET_YOUR_SCORE_FAILED : string = "GET_YOUR_SCORE_FAILED";
 // export const REGISTER_USER: string = "REGISTER_USER";
 // export const REGISTER_SUCCESS: string = "REGISTER_SUCCESS";
 // export const REGISTER_FAILED: string = "REGISTER_FAILED";

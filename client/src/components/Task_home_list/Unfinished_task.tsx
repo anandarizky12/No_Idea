@@ -7,6 +7,7 @@ import {
   FormOutlined,
   CheckOutlined,
   ClockCircleFilled,
+  LockOutlined,
 } from "@ant-design/icons";
 import { Avatar } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
@@ -31,28 +32,46 @@ function Unfinished_Task() {
         </h3>
       </div>
 
-      <div className="">
+      <div>
         {taskData?.task?.data.map((task: any, i: number) => (
           <div
             key={i}
             onClick={() =>
               navigate(`/classroom/${task.classroom_id}/answertask/${task.id}`)
             }
-            className="p-4 flex items-center border-b hover:cursor-pointer cursor-pointer hover:bg-gray-300"
+            className="p-4 flex justify-between items-center border-b hover:cursor-pointer cursor-pointer hover:bg-gray-300"
           >
-            <Avatar style={{ background: "#3AB0FF" }} icon={<FormOutlined />} />
+            <div className="flex">
+              <Avatar
+                style={{ background: "#3AB0FF" }}
+                icon={<FormOutlined />}
+              />
 
-            <div className="ml-3">
-              <h1 className="text-xs text-primary font-semibold p-0 m-0">
-                {task.title.toUpperCase()}
-              </h1>
-              <p className="text-xs text-gray-400 p-0 m-0 mt-1">
-                <ClockCircleFilled className="mr-2 text-xs" />
-                {task.deadline
-                  ? moment(task.deadline).format("MMM Do YY")
-                  : "Tidak ada deadline"}
-              </p>
+              <div className="ml-3">
+                <h1 className="text-xs text-primary font-semibold p-0 m-0">
+                  {task.title.toUpperCase()}
+                </h1>
+
+                <p
+                  className={`${
+                    moment(task.deadline).format() <
+                      moment(new Date().toLocaleString()).format() &&
+                    "text-red-500"
+                  } text-xs text-gray-400 p-0 m-0 mt-1`}
+                >
+                  <ClockCircleFilled className="mr-2 text-xs" />
+                  {task.deadline
+                    ? moment(task.deadline).format("MMM Do YY")
+                    : "Tidak ada deadline"}
+                </p>
+              </div>
             </div>
+            {moment(task.deadline).format() <
+              moment(new Date().toLocaleString()).format() && (
+              <div className="text-gray-400">
+                <LockOutlined className="text-3xl" />
+              </div>
+            )}
           </div>
         ))}
         {taskData?.task?.data.length === 0 && (

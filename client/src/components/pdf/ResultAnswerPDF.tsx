@@ -4,7 +4,7 @@ import Header_Report from "./Header_Report";
 
 function ResultAnswerPDF({ data, totalScore }: any) {
   return (
-    <div className="p-7">
+    <div className="px-7 py-2">
       <Header_Report />
       <h2 className="text-center font-bold text-2xl mt-5">
         Laporan Hasil Pengerjaan

@@ -252,5 +252,24 @@ export const editMateri = (state = {}, action: any) => {
 };
 
 
-
-
+export const getYourScore  = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_YOUR_SCORE:
+      return {
+        ...state,
+        data : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_YOUR_SCORE_FAILED:
+      return {
+        ...state,
+        data : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
