@@ -71,7 +71,7 @@ function Materi() {
         ) : (
           <div className="w-full h-96 flex items-center justify-center">
             <h1 className="text-gray-500 font-normal text-base">
-              Kelas ini belum memiliki tugas
+              Tidak Ada Materi Dikelas Ini
             </h1>
           </div>
         )}

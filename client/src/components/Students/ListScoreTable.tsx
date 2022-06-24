@@ -1,8 +1,11 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import { TableColumn } from "react-data-table-component";
-import { Avatar, Button, Input } from "antd";
+import { Input } from "antd";
 import { useDispatch } from "react-redux";
+import moment from "moment";
+import ButtonPrint from "../pdf/Button_PDF";
+import YourScore from "../pdf/YourScore";
 
 const { Search } = Input;
 
@@ -13,7 +16,7 @@ export default function ListScoreTable({ data, id }: any) {
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
-
+  const componentRef: any = React.useRef();
   const filteredItems = rows.filter(
     (item: any) =>
       (item.Classroom.name &&
@@ -52,13 +55,15 @@ export default function ListScoreTable({ data, id }: any) {
     },
     {
       name: "Tanggal",
-      selector: (row: any) => row.createdAt,
+      selector: (row: any) =>
+        moment(row.createdAt).format("MMMM Do YYYY, h:mm:ss a"),
     },
   ];
 
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <div className="flex items-center justify-center">
+        <ButtonPrint componentRef={componentRef} />
         <Search
           placeholder="input search text"
           allowClear
@@ -79,8 +84,6 @@ export default function ListScoreTable({ data, id }: any) {
     }
   }, [data, id]);
 
-  console.log(rows, data);
-
   return (
     <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">
       <div className="w-full border p-5 shadow-md">
@@ -97,6 +100,11 @@ export default function ListScoreTable({ data, id }: any) {
           highlightOnHover
           pointerOnHover
         />
+      </div>
+      <div className="hidden">
+        <div ref={componentRef}>
+          <YourScore data={filteredItems} />
+        </div>
       </div>
     </div>
   );

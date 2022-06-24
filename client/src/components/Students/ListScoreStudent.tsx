@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getYourScore } from "../../actions/classroom";
 import DynamicError from "../404/DynamicError";
+
 import ListScoreTable from "./ListScoreTable";
 
 function ListScoreStudent() {
@@ -12,8 +13,6 @@ function ListScoreStudent() {
   React.useEffect(() => {
     dispatch(getYourScore());
   }, []);
-
-  console.log(data);
 
   if (!data.isLoading && data.isError && data.error)
     return (
