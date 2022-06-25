@@ -212,8 +212,12 @@ exports.getStudentsInClassroom = async (req: any, res: any) => {
       include: [
         {
           model: User,
-          attributes: ["id", "name", "email", "profile", "jk"],
+          attributes: { exclude: ["password"] },
         },
+        {
+          model : Classroom,
+          attributes: { exclude: ["class_code"] },
+        }
       ],
     });
 

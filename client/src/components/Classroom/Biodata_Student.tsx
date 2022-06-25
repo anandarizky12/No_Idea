@@ -47,28 +47,6 @@ function Biodata_Student() {
               <Image width={200} src={user?.data?.profile} />
             </div>
             <div className="mt-4">
-              {/* <table>
-                <tr>
-                  <td>3476896</td>
-                  <td>My first HTML</td>
-                </tr>
-                <tr>
-                  <td>3476896</td>
-                  <td>My first HTML</td>
-                </tr>
-                <tr>
-                  <td>3476896</td>
-                  <td>My first HTML</td>
-                </tr>
-                <tr>
-                  <td>3476896</td>
-                  <td>My first HTML</td>
-                </tr>
-                <tr>
-                  <td>3476896</td>
-                  <td>My first HTML</td>
-                </tr>
-              </table> */}
               <p className="text-lg">
                 <span className="font-bold">Nama : </span>
                 {user?.data?.name}
