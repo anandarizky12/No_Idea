@@ -28,44 +28,13 @@ interface IConditionalStyles {
   score: string;
 }
 
-export const conditionalRowStyles: ConditionalStyles<IConditionalStyles>[] = [
-  {
-    when: (row) => row.score > "80",
-    style: {
-      backgroundColor: "#6BCB77",
-      color: "white",
-      "&:hover": {
-        cursor: "pointer",
-      },
-    },
-  },
-  {
-    when: (row) => row.score < "80" && row.score >= "60",
-    style: {
-      backgroundColor: "#EC9B3B",
-      color: "white",
-      "&:hover": {
-        cursor: "pointer",
-      },
-    },
-  },
-  {
-    when: (row) => row.score <= "50",
-    style: {
-      backgroundColor: "#FF1818",
-      color: "white",
-      "&:hover": {
-        cursor: "pointer",
-      },
-    },
-  },
-];
 
 
 type DataRow = {
   task_title: string;
   score: string;
   user: string;
+  date : string;
 };
 export const columns: TableColumn<DataRow>[] = [
   {
@@ -84,6 +53,11 @@ export const columns: TableColumn<DataRow>[] = [
     style: {
       fontSize: "15px",
     },
+  },
+  {
+    name: "Tanggal Pengerjaan",
+    selector: (row) => row.date,
+    sortable: true
   },
 ];
 

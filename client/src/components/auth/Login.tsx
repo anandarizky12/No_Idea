@@ -8,8 +8,10 @@ import { useDispatch } from "react-redux";
 import { AlertComponents } from "../alert/Alert";
 import { getCookie } from "../../utils/utils";
 import useWindowDimension from "../hook/useWindowDimension";
+import bg from "./images/school.jpg";
 
 function Login() {
+  console.log(bg);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [alert, setAlert] = useState({ message: "", typeAlert: 0 });
@@ -40,7 +42,8 @@ function Login() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        padding: `${useWindowDimension() > 400 ? "100px" : "10px"}`,
+        padding: `${useWindowDimension() > 400 ? "0px" : "0px"}`,
+        paddingLeft: `${useWindowDimension() > 400 ? "100px" : "10px"}`,
         justifyContent: "space-between",
       }}
     >
@@ -113,14 +116,24 @@ function Login() {
           </Form.Item>
         </Form>
       </Card>
-      <img
-        className="grayscale lg:block hidden"
-        src={"/icons8-class-dojo-480.png"}
-      ></img>
+
+      {/* <img
+        className="grayscale  lg:block hidden"
+        width={400}
+        src={"/logo_SMK.png"}
+      /> */}
 
       {alert.message !== null ? (
         <AlertComponents alert={alert} setAlert={setAlert} />
       ) : null}
+      <div
+        className="w-3/6 h-screen"
+        style={{
+          backgroundImage: `url('${bg}')`,
+          backgroundPosition: "center",
+          filter: "grayscale(1)",
+        }}
+      ></div>
     </div>
   );
 }

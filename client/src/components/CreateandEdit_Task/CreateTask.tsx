@@ -70,6 +70,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Enter Task Name"
                 name="title"
+                autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>
@@ -92,6 +93,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Enter Description"
                 name="description"
+                autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>
@@ -101,6 +103,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Lainnya"
                 name="other"
+                autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>

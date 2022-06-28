@@ -1,6 +1,6 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import { customStyles, conditionalRowStyles, columns } from "./StylesTable";
+import { customStyles, columns } from "./StylesTable";
 import { Input } from "antd";
 
 const { Search } = Input;
@@ -12,6 +12,7 @@ export default function ScoreTable({ scores, id }: any) {
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
 
+  console.log(rows);
   const filteredItems = rows.filter(
     (item: any) =>
       item.user && item.user.toLowerCase().includes(filterText.toLowerCase())
@@ -51,7 +52,6 @@ export default function ScoreTable({ scores, id }: any) {
           actions={subHeaderComponentMemo}
           defaultSortFieldId={1}
           customStyles={customStyles}
-          conditionalRowStyles={conditionalRowStyles}
         />
       </div>
     </div>

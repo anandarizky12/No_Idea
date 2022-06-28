@@ -23,7 +23,7 @@ function Class_card({ classroom, id, user }: any) {
           onClick={() => {
             navigate(`classroom/${classroom.id}`);
           }}
-          className="text-secondary font-normal text-xl  hover:cursor-pointer hover:underline"
+          className="text-secondary font-normal text-xl   cursor-pointer hover:underline"
         >
           {classroom.name}
         </h1>
@@ -41,7 +41,7 @@ function Class_card({ classroom, id, user }: any) {
                 onClick={() => {
                   navigate(`/classroom/${id}/tasks`);
                 }}
-                className="text-xl mr-4 hover:cursor-pointer"
+                className="text-xl mr-4   cursor-pointer"
               />
             </Tooltip>
           ) : null}
@@ -51,7 +51,7 @@ function Class_card({ classroom, id, user }: any) {
               onClick={() => {
                 navigate(`/classroom/${classroom.id}/students`);
               }}
-              className="text-xl  hover:cursor-pointer"
+              className="text-xl    cursor-pointer"
             />
           </Tooltip>
         </div>

@@ -1,7 +1,9 @@
 import { Steps, Button, message } from "antd";
 import React from "react";
 import { AnswerTask } from "../../actions/task";
+import { useCallbackPrompt } from "../hook/useCallbackPrompt";
 import AnswerContent from "./AnswerContent";
+import DialogBox from "./Dialog/Dialog";
 
 const { Step } = Steps;
 
@@ -32,6 +34,10 @@ const AnswerStepByStep = ({
     setCurrent(current - 1);
   };
 
+  const [showDialog, setShowDialog] = React.useState(false);
+  const [showPrompt, confirmNavigation, cancelNavigation] =
+    useCallbackPrompt(showDialog);
+
   const sendAnswer = () => {
     // const loading = message.loading("Action in progress..", 0);
     for (let x in task.Questions) {
@@ -49,6 +55,11 @@ const AnswerStepByStep = ({
 
   return (
     <div className="border p-8 shadow-lg">
+      <DialogBox
+        showDialog={showPrompt}
+        confirmNavigation={confirmNavigation}
+        cancelNavigation={cancelNavigation}
+      />
       <div>
         <h1 className="text-gray-500 text-2xl text-center">
           Sedang Mengerjakan <strong>{task.title}</strong>
@@ -67,6 +78,7 @@ const AnswerStepByStep = ({
               setAnswer={setAnswer}
               current={current}
               steps={steps}
+              setShowDialog={setShowDialog}
             />
           }
         </div>

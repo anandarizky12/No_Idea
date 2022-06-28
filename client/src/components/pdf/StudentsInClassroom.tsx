@@ -27,14 +27,14 @@ function StudentsInClassroomPDF({ data }: any) {
         </div>
       </div>
       <div className="mt-8 ">
-        <table className="border border-black">
+        <table className="border border-black table-fixed">
           <thead>
             <tr>
-              <th className="border border-black">Nama Siswa</th>
+              <th className="border border-black w-32">Nama Siswa</th>
               <th className="border border-black">Jenis Kelamin</th>
               <th className="border border-black">Tempat Lahir</th>
               <th className="border border-black">Tanggal Lahir</th>
-              <th className="border border-black">Agama</th>
+              <th className="border border-black w-16">Agama</th>
               <th className="border border-black">Alamat</th>
               <th className="border border-black">No Telepon</th>
             </tr>
@@ -54,7 +54,7 @@ function StudentsInClassroomPDF({ data }: any) {
                     ? moment(item.User.birth_date).format("MMMM Do YYYY")
                     : "-"}
                 </td>
-                <td className="border border-black text-center text-xs w-32">
+                <td className="border border-black text-center text-xs">
                   {item.User.religion ? item.User.religion : "-"}
                 </td>
                 <td className="border border-black text-center text-xs w-32">

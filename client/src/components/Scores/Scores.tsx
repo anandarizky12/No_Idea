@@ -15,8 +15,6 @@ function Scores() {
     dispatch(getAllScores(id));
   }, []);
 
-  console.log(scores);
-
   if (scores.error) {
     return (
       <DynamicError

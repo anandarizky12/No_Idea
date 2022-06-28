@@ -19,7 +19,7 @@ function TaskCard({ task, user }: any) {
           <div className="text-gray-500 ml-5">{task.title}</div>
         </div>
         <div className="flex items-center justify-center ">
-          {/* <MoreOutlined className="text-xl text-gray-500 hover:cursor-pointer" /> */}
+          {/* <MoreOutlined className="text-xl text-gray-500 cursor-pointer" /> */}
           <h1 className="text-gray-500 font-normal text-xs mr-2 hidden md:block">
             Dibuat pada {moment(task.createdAt).format("MMM Do YY")}
           </h1>{" "}
@@ -43,7 +43,7 @@ function TaskCard({ task, user }: any) {
           {user.role === "siswa" && (
             <h1
               onClick={() => navigate(`/classroom/${id}/answertask/${task.id}`)}
-              className="font-bold text-gray-700 hover:cursor-pointer"
+              className="font-bold text-gray-700 cursor-pointer"
             >
               Lihat Tugas
             </h1>

@@ -29,6 +29,7 @@
     "react-data-table-component-extensions": "^1.6.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
+    "react-router": "^6.3.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^4.0.3",
     "react-to-print": "^2.14.6",
@@ -68,6 +69,4 @@
     "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
-
-  
 }

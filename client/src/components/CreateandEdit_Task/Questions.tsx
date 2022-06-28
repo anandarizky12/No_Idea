@@ -13,6 +13,7 @@ function Questions(question: any, index: number, data: any) {
           <Input
             placeholder="Enter Task Name"
             name={`question_${question.index}`}
+            autoComplete="off"
             defaultValue={
               question.question[question.index][
                 `${"question_" + question.index}`
@@ -41,6 +42,7 @@ function Questions(question: any, index: number, data: any) {
           <Input.TextArea
             rows={4}
             name={`answer_key_${question.index}`}
+            autoComplete="off"
             defaultValue={
               question.question[question.index][
                 `${"answer_key_" + question.index}`

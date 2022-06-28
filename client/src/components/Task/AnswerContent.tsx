@@ -6,8 +6,15 @@ interface IAnswer {
   current: number;
   setAnswer: any;
   steps: any;
+  setShowDialog: any;
 }
-function AnswerContent({ answer, current, setAnswer, steps }: IAnswer) {
+function AnswerContent({
+  answer,
+  current,
+  setAnswer,
+  steps,
+  setShowDialog,
+}: IAnswer) {
   return (
     <div>
       <h1 className="text-gray-500 text-lg text-left">
@@ -19,9 +26,10 @@ function AnswerContent({ answer, current, setAnswer, steps }: IAnswer) {
           answer[current] ? answer[current][`answer${current}`] : ""
         }
         value={answer[current] ? answer[current][`answer${current}`] : ""}
-        onChange={(e) =>
-          handleChangeAnswer(e, answer, current, setAnswer, steps)
-        }
+        onChange={(e) => {
+          setShowDialog(true);
+          handleChangeAnswer(e, answer, current, setAnswer, steps);
+        }}
         style={{ width: "100%", marginTop: "10px" }}
         rows={4}
         placeholder="Enter Answer"

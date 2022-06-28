@@ -7,8 +7,8 @@ import { register } from "../../actions/user";
 import { AlertComponents } from "../alert/Alert";
 import { getCookie } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
-import { Radio } from "antd";
 import useWindowDimension from "../hook/useWindowDimension";
+import bg from "./images/school.jpg";
 
 function Register() {
   const Dispatch = useDispatch();
@@ -45,10 +45,12 @@ function Register() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        padding: `${useWindowDimension() > 400 ? "80px" : "10px"}`,
+        margin: "0px",
+        padding: `${useWindowDimension() > 400 ? "0px" : "0px"}`,
+        paddingLeft: `${useWindowDimension() > 400 ? "100px" : "10px"}`,
       }}
     >
-      <Card style={{ width: "600px", background: "none", border: "none" }}>
+      <Card style={{ width: 600, border: "none" }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -144,10 +146,15 @@ function Register() {
           </Form.Item>
         </Form>
       </Card>
-      {/* <img
-        className="grayscale hidden lg:block"
-        src={"/icons8-class-dojo-480.png"}
-      ></img> */}
+
+      <div
+        className="w-3/6 h-screen absolute right-0"
+        style={{
+          backgroundImage: `url('${bg}')`,
+          backgroundPosition: "center",
+          filter: "grayscale(1)",
+        }}
+      />
       {alert.message !== null ? (
         <AlertComponents setAlert={setAlert} alert={alert} />
       ) : null}
