@@ -28,7 +28,8 @@ const {
   getMateri,
   deleteMateri,
   editMateri,
-  getYourScore
+  getYourScore,
+  getAllScoreInApp
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -48,7 +49,8 @@ const {
   getDetailTask,
   editQuestion,
   getFinishedTask,
-  getUnfinishedTask
+  getUnfinishedTask,
+  getAllTaskScore
 } = require("../controller/task");
 
 
@@ -126,4 +128,7 @@ router.get('/allmateri/:id', isTeacherOrMemberOfClass, getAllMateri)
 router.patch('/updatemateri/:id',isTeacherOfClass, editMateri)
 router.delete('/deletemateri/:id',isTeacherOfClass, deleteMateri)
 
+//get all score 
+router.get('/getallscore', isAdmin, getAllScoreInApp)
+router.get('/getalltaskscore/:id', authenticate, getAllTaskScore)
 module.exports = router;

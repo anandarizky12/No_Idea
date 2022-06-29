@@ -958,3 +958,37 @@ exports.getYourScore = async (req : any , res : any) => {
     })
   }
 }
+
+
+exports.getAllScoreInApp = async (req : any, res :any)=>{
+  try{
+    const allScore = await Task_User_Score.findAll({
+      include :[{
+        model : Task
+        },
+        {
+          model : Classroom,
+          include : {
+            model : User
+          }
+        },
+        {
+          model : User
+        }
+      ]
+    })
+
+
+    return res.status(200).send({
+      message: "success get data",
+      status : 200,
+      data : allScore
+  })
+
+  }catch(err :any){
+    return res.status(500).send({
+      message : err.message ,
+      status : 500
+    })
+  }
+}

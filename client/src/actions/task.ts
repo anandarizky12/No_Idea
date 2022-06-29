@@ -534,3 +534,47 @@ export const getFinishedTasks = () => {
     }
   }
 };
+
+
+
+// http://localhost:5000/api/getalltaskscore/3
+
+export const getAllTasksScore = (id : string | undefined)=>{
+  return async (dispatch : Dispatch)=>{
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    try {
+      await axios.get(`http://localhost:5000/api/getalltaskscore/${id}`, config)
+        .then((res) => {
+          dispatch({
+            type: actionTypes.GET_ALL_TASK_SCORE,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        }).catch((err: any) => {
+         
+            return dispatch({
+              type: actionTypes.GET_ALL_TASK_SCORE_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+       
+      })
+    }catch(err: any) {
+
+      dispatch({
+        type: actionTypes.GET_ALL_TASK_SCORE_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  }
+}

@@ -61,15 +61,15 @@ function Register() {
           onFinishFailed={onFinishFailed}
         >
           <h1 className="text-3xl md:text-4xl font-bold">
-            Please Register Down Below<span>.</span>
+            Silahkan Daftar Pada Form Di Bawah<span>.</span>
           </h1>
           <Form.Item
             name="name"
-            rules={[{ required: true, message: "Please input your Name!" }]}
+            rules={[{ required: true, message: "Masukan Nama Anda!" }]}
           >
             <Input
               name="name"
-              placeholder="Name"
+              placeholder="Nama"
               style={{
                 borderRadius: "30px",
                 padding: "10px",
@@ -81,13 +81,11 @@ function Register() {
 
           <Form.Item
             name="phone"
-            rules={[
-              { required: true, message: "Please input your Phone Number!" },
-            ]}
+            rules={[{ required: true, message: "Masukan Nomor Telepon!" }]}
           >
             <Input
               name="phone"
-              placeholder="Phone Number"
+              placeholder="Nomor Telepon"
               style={{
                 borderRadius: "30px",
                 padding: "10px",
@@ -100,7 +98,7 @@ function Register() {
 
           <Form.Item
             name="Email"
-            rules={[{ required: true, message: "Please input your Email!" }]}
+            rules={[{ required: true, message: "Masukan Email Andal!" }]}
           >
             <Input
               name="email"
@@ -116,11 +114,11 @@ function Register() {
 
           <Form.Item
             name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[{ required: true, message: "Masukan Kata Sandi!" }]}
           >
             <Input.Password
               name="password"
-              placeholder="Password"
+              placeholder="Kata Sandi"
               style={{
                 borderRadius: "30px",
                 padding: "10px",
@@ -132,16 +130,16 @@ function Register() {
 
           <Form.Item name="remember" valuePropName="checked">
             <Typography>
-              Already Have an Account ?{" "}
+              Sudah Punya Akun ?{" "}
               <a className="font-bold" onClick={() => navigate("/login")}>
-                Click Here
+                Klik Disini
               </a>
             </Typography>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" shape="round" size="large" htmlType="submit">
-              Save
+              Daftar
             </Button>
           </Form.Item>
         </Form>

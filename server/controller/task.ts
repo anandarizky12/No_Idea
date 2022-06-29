@@ -8,7 +8,8 @@ const {
   Answer_task,
   Score,
   Question,
-  User_Answered_Task
+  User_Answered_Task,
+  Task_User_Score
 } = require("../models");
 const GenerateTotalScore = require("../utils/GenerateTotalScore");
 const GetUnfinishedTask = require("../utils/GetUnfinishedTask");
@@ -578,3 +579,38 @@ exports.getAllTask = async ( req : any , res : any) =>{
 }
 
 
+exports.getAllTaskScore = async(req : any , res : any) =>{
+  try{
+
+    const {id} = req.params;
+
+    const allScore = await Task_User_Score.findAll({
+      where : {
+        task_id : id
+       },
+       include :[{
+        model : Task
+        },
+        {
+          model : Classroom,
+          include : {
+            model : User
+          }
+        },
+        {
+          model : User
+        }
+      ]
+    })
+    return res.status(200).send({
+      message : "success get task score",
+      status : 200,
+      data : allScore
+    })
+  }catch(err : any){
+    return res.status(500).send({
+      message : err.message,
+      status : 500
+    })
+  }
+}

@@ -122,11 +122,12 @@ function Teacher_Materi({ setOpen, open, classroom }: any) {
               onChange={(e) => handleChange(e, payload, setPayload)}
             />
           </Form.Item>
-          <Upload maxCount={1} {...props}>
+          <Upload accept=".pdf" maxCount={1} {...props}>
             <Button type="primary" icon={<UploadOutlined />}>
-              Click to Upload
+              Upload
             </Button>
           </Upload>
+          <span className="text-xs text-gray-400"> * Jenis File PDF</span>
         </>
         {/* )} */}
       </Modal>

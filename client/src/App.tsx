@@ -23,6 +23,7 @@ import Admin_Profile from "./components/admin/Profile/Admin_Profile";
 import Materi from "./components/Materi/Materi";
 import Biodata_Student from "./components/Classroom/Biodata_Student";
 import ListScoreStudent from "./components/Students/ListScoreStudent";
+import AllScoresTask from "./components/Scores/AllScoresTask";
 
 function App() {
   moment.locale("id");
@@ -152,6 +153,17 @@ function App() {
               allowRole={"siswa"}
               redirectTo="/login"
               Component={<ListScoreStudent />}
+            />
+          }
+        />
+
+        <Route
+          path="/classroom/:id/taskscore/:task_id"
+          element={
+            <ProtectedRoute
+              allowRole={"guru"}
+              redirectTo="/login"
+              Component={<AllScoresTask />}
             />
           }
         />

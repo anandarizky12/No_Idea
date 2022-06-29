@@ -23,7 +23,8 @@ import {
   AnswerTask,
   editQuestion,
   getFinishedTask,
-  getUnfinishedTask
+  getUnfinishedTask,
+  getAllTaskScore 
 } from "../reducers/taskReducers";
 
 import {
@@ -60,7 +61,8 @@ const rootReducer = combineReducers({
   editUserReducers,
   getUserById,
   getAllMateri,
-  getYourScore
+  getYourScore,
+  getAllTaskScore 
 });
 
 const middleware = applyMiddleware(thunk);

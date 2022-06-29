@@ -222,3 +222,25 @@ export const getFinishedTask = (state = {}, action: any) => {
       return state;
   }
 }
+
+export const getAllTaskScore = (state = {}, action : any ) =>{
+  switch (action.type){
+    case actionTypes.GET_ALL_TASK_SCORE :
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_ALL_TASK_SCORE_FAILED :
+      return {
+        ...state, 
+        task : action.payload,
+        isLoading  : false,
+        isError : false
+      }
+    default : 
+    return state ;
+    
+  }
+}
