@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Class_card({ classroom, id, user }: any) {
   const navigate = useNavigate();
-
+  console.log(classroom);
   return (
     <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 bg-white overflow-hidden flex flex-col justify-between">
       <div
@@ -31,6 +31,11 @@ function Class_card({ classroom, id, user }: any) {
           {user.role === "guru" ? (
             <PopupMenu classroom={classroom} id={id} />
           ) : null}
+        </div>
+      </div>
+      <div className="h-full p-2">
+        <div className="flex flex-wrap w-64 overflow-hidden">
+          <p className="text-gray-500">{classroom.description}</p>
         </div>
       </div>
       <div className="border-t   border-gray-300 w-full h-12">

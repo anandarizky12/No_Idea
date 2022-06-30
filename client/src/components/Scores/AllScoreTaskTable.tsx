@@ -18,8 +18,10 @@ export default function AllScoreTaskTable({ data, id }: any) {
   const dispatch = useDispatch();
   const [rows, setRows] = React.useState<any>([]);
   const [filterText, setFilterText] = React.useState("");
+  const [arrayScore, setArrayScore] = React.useState<any>([]);
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
+
   const componentRef: any = React.useRef();
   const filteredItems = rows.filter(
     (item: any) =>
@@ -30,6 +32,9 @@ export default function AllScoreTaskTable({ data, id }: any) {
       (item.score && item.score == filterText.toLowerCase())
   );
 
+  const average = (array: Array<number>) =>
+    array.reduce((a: number, b: number) => a + b) / array.length;
+
   type DataRow = {
     name: string;
     email: string;
@@ -37,6 +42,14 @@ export default function AllScoreTaskTable({ data, id }: any) {
     date: string;
   };
 
+  const getArrayScore = (array: Array<any>) => {
+    let arr: any = [];
+    array.map((row: any) => {
+      arr.push(row.score);
+    });
+
+    return setArrayScore(arr);
+  };
   const conditionalScore = (score: number) => {
     if (score >= 89) {
       return "Sangat Baik";
@@ -104,33 +117,97 @@ export default function AllScoreTaskTable({ data, id }: any) {
     );
   }, [filterText, resetPaginationToggle, filteredItems]);
 
+  const subHeader = React.useMemo(() => {
+    return (
+      <div className="flex mb-7 mt-4">
+        <table>
+          <tbody>
+            <tr>
+              <th className="text-left font-semibold">Nilai Tertinggi</th>
+              <td>
+                : {arrayScore.length >= 1 ? Math.max(...arrayScore) : "-"}
+              </td>
+              <th className="text-left font-semibold pl-12">Rata-Rata Nilai</th>
+              <td>: {arrayScore.length >= 1 ? average(arrayScore) : "-"}</td>
+            </tr>
+            <tr>
+              <th className="text-left font-semibold">Nilai Terendah</th>
+              <td>
+                : {arrayScore.length >= 1 ? Math.min(...arrayScore) : "-"}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }, [filterText, resetPaginationToggle, filteredItems]);
+
   React.useEffect(() => {
     if (data && data?.task) {
       setLoading(false);
       setRows(data.task?.data);
+      getArrayScore(data?.task?.data);
     } else {
       setLoading(false);
       setRows([]);
     }
   }, [data, id]);
 
-  console.log(rows);
+  console.log(arrayScore);
   return (
     <div className="w-full h-full px-12 flex flex-col mt-12 items-center justify-center ">
       <div className="w-5/6 border p-5 shadow-md">
         <DataTable
-          title={`Daftar Nilai Siswa Di Kelas '${rows[0]?.Task.title.toUpperCase()}'`}
+          title={`Daftar Nilai Siswa Pada Tugas ${
+            rows[0]?.Task.title.toUpperCase()
+              ? rows[0]?.Task.title.toUpperCase()
+              : ""
+          }`}
           columns={columns}
           data={filteredItems}
           pagination
           progressPending={loading}
-          // subHeader
+          subHeader
+          subHeaderComponent={subHeader}
           actions={subHeaderComponentMemo}
           defaultSortFieldId={1}
           //   customStyles={customStyles}
           highlightOnHover
           pointerOnHover
         />
+
+        <div className="w-full flex">
+          <table className="border border-gray-300 mr-6">
+            <tbody>
+              <tr className="border border-gray-300">
+                <th className="text-center font-semibold border border-gray-300 p-2">
+                  Nilai
+                </th>
+                <th className="text-left font-semibold p-2">Keterangan</th>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(89-100)</td>
+                <td className="border border-gray-300 px-2">Sangat Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(70-89)</td>
+                <td className="border border-gray-300 px-2">Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(60-70)</td>
+                <td className="border border-gray-300 px-2">Cukup</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(50-60)</td>
+                <td className="border border-gray-300 px-2">Kurang</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(0-50)</td>
+                <td className="border border-gray-300 px-2">Sangat Kurang</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       {/* <div className="hidden">
         <div ref={componentRef}>
