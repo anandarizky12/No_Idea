@@ -654,6 +654,47 @@ export const getYourScore = ()=>{
   }
 }
 
+
+export const getAllScoreInApp = () => {
+  return async (dispatch : Dispatch) =>{
+    const token = getCookie("admin_token");
+    const config = {
+      headers : {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }
+    try{
+      await axios
+              .get('http://localhost:5000/api/getallscore', config)
+              .then((res) => {
+              
+                dispatch({
+                  type: actionTypes.GET_ALL_SCORE_IN_APP,
+                  payload: res.data,
+                  isLoading: false,
+                  isError: false,
+                });
+              })
+              .catch((err : any) => {
+                dispatch({
+                  type: actionTypes.GET_ALL_SCORE_IN_APP_FAILED,
+                  payload: err.response,
+                  isLoading: false,
+                  isError: true,
+                });
+              });
+    }catch(err : any){
+      dispatch({
+        type: actionTypes.GET_ALL_SCORE_IN_APP_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  }
+}
+
 // export const joinClassroom = (code: any) => {
 //   return async (dispatch: Dispatch) => {
 //     const token = getCookie("token");

@@ -244,3 +244,27 @@ export const getAllTaskScore = (state = {}, action : any ) =>{
     
   }
 }
+
+
+
+export const getDetailScoreStudent = (state = {}, action : any ) =>{
+  switch (action.type){
+    case actionTypes.GET_DETAIL_SCORE_STUDENT :
+      return {
+        ...state,
+        task: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_DETAIL_SCORE_STUDENT_FAILED :
+      return {
+        ...state, 
+        task : action.payload,
+        isLoading  : false,
+        isError : false
+      }
+    default : 
+    return state ;
+    
+  }
+}

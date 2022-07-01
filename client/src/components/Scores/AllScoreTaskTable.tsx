@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 
-export default function AllScoreTaskTable({ data, id }: any) {
+export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
   console.log(data.task?.data);
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
@@ -94,7 +94,11 @@ export default function AllScoreTaskTable({ data, id }: any) {
       name: "Aksi",
       cell: (row: any) => (
         <button
-          onClick={() => navigate("/")}
+          onClick={() =>
+            navigate(
+              `/classroom/${class_id}/scoredetail/${task_id}/${row.User.id}`
+            )
+          }
           className="bg-green-500 p-2 text-gray-200 rounded-md mr-4"
         >
           <EyeOutlined /> Lihat Detail
@@ -151,7 +155,7 @@ export default function AllScoreTaskTable({ data, id }: any) {
       setLoading(false);
       setRows([]);
     }
-  }, [data, id]);
+  }, [data, task_id]);
 
   console.log(arrayScore);
   return (

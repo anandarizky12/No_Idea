@@ -11,6 +11,8 @@ import { getAllUsers } from "../../actions/user";
 import User_Table from "./Dashboard_Table/User_Table";
 import Edit_User from "./Modal/Edit_User";
 import Add_User from "./Modal/Add_User";
+import { getAllScoreInApp as getAllScore } from "../../actions/classroom";
+import Scores_Table from "./Dashboard_Table/Scores_Table";
 
 function Admin_Dashboard() {
   const dispatch = useDispatch();
@@ -21,9 +23,11 @@ function Admin_Dashboard() {
 
   const dashboard = useSelector((state: any) => state.getdashboardReducers);
   const getallusers = useSelector((state: any) => state.getAllUsers);
+  const getallscore = useSelector((state: any) => state.getAllScoreInApp);
   React.useEffect(() => {
     dispatch(getDataDashboard());
     dispatch(getAllUsers());
+    dispatch(getAllScore());
   }, []);
 
   return (
@@ -118,6 +122,10 @@ function Admin_Dashboard() {
           setId={setId}
         />
       </div>
+      <div className="mt-32 w-full">
+        <Scores_Table data={getallscore} />
+      </div>
+
       <Edit_User
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}

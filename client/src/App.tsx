@@ -24,6 +24,7 @@ import Materi from "./components/Materi/Materi";
 import Biodata_Student from "./components/Classroom/Biodata_Student";
 import ListScoreStudent from "./components/Students/ListScoreStudent";
 import AllScoresTask from "./components/Scores/AllScoresTask";
+import ScoreDetail from "./components/Scores/ScoreDetail";
 
 function App() {
   moment.locale("id");
@@ -164,6 +165,17 @@ function App() {
               allowRole={"guru"}
               redirectTo="/login"
               Component={<AllScoresTask />}
+            />
+          }
+        />
+
+        <Route
+          path="/classroom/:id/scoredetail/:task_id/:user_id"
+          element={
+            <ProtectedRoute
+              allowRole={"guru"}
+              redirectTo="/login"
+              Component={<ScoreDetail />}
             />
           }
         />

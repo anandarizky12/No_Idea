@@ -22,6 +22,10 @@ export default function Navbar() {
               SMKN 1 SUKAMARA
             </a>
           </div>
+          <ul>
+            <li>Daftar Pengguna</li>
+            <li>Daftar Seluruh Nilai</li>
+          </ul>
 
           <ul className="flex-col md:flex-row p-0 m-0 list-none items-center justify-center  hidden md:flex hover:cursor-pointer">
             <PopupProfile user={user} />

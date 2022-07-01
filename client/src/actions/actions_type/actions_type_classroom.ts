@@ -43,6 +43,9 @@ export const JOIN_CLASSROOM_FAILED: string = "JOIN_CLASSROOM_FAILED";
 
 export const GET_YOUR_SCORE :string = "GET_YOUR_SCORE";
 export const GET_YOUR_SCORE_FAILED : string = "GET_YOUR_SCORE_FAILED";
+
+export const GET_ALL_SCORE_IN_APP :string = "GET_ALL_SCORE_IN_APP";
+export const GET_ALL_SCORE_IN_APP_FAILED : string = "GET_ALL_SCORE_IN_APP_FAILED";
 // export const REGISTER_USER: string = "REGISTER_USER";
 // export const REGISTER_SUCCESS: string = "REGISTER_SUCCESS";
 // export const REGISTER_FAILED: string = "REGISTER_FAILED";

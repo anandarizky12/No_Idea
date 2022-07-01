@@ -12,7 +12,7 @@ import AllScoreTaskTable from "./AllScoreTaskTable";
 function AllScoresTask() {
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.getAllTaskScore);
-  const { task_id } = useParams();
+  const { id, task_id } = useParams();
   React.useEffect(() => {
     dispatch(getAllTasksScore(task_id));
   }, []);
@@ -27,7 +27,11 @@ function AllScoresTask() {
   return (
     <div className="flex flex-col items-center  w-full h-5/6">
       <div className="w-full flex flex-col items-center">
-        {data ? <AllScoreTaskTable data={data} id={task_id} /> : <Spin />}
+        {data ? (
+          <AllScoreTaskTable data={data} class_id={id} task_id={task_id} />
+        ) : (
+          <Spin />
+        )}
       </div>
     </div>
   );

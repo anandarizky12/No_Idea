@@ -396,6 +396,7 @@ export const AnswerTask = (data : Idata ) =>{
 }
   
 
+
 export const getTask= (task_id: any, id: any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
@@ -443,6 +444,64 @@ export const getTask= (task_id: any, id: any) => {
     } catch (err: any) {
       dispatch({
         type: actionTypes.GET_TASK_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+      alert(err.response.data.message);
+    }
+  };
+};
+
+
+export const getDetailScoreStudent= (task_id: any, id: any, user_id : string | undefined) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        // classroom_id: class_id,
+        // any: class_id,
+      },
+    };
+
+    try {
+      await axios
+        .get(
+          `http://localhost:5000/api/getscoredetailtask/${user_id}/${task_id}/${id}`,
+          config
+        )
+        .then((res) => {
+      
+          dispatch({
+            type: actionTypes.GET_DETAIL_SCORE_STUDENT,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        })
+        .catch((err) => {
+          if(!err.response){
+            return dispatch({
+              type: actionTypes.GET_DETAIL_SCORE_STUDENT_FAILED,
+              payload: err,
+              isLoading : false,
+              isError : true
+            })
+        }
+          dispatch({
+            type: actionTypes.GET_DETAIL_SCORE_STUDENT_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+          console.log(err.response);
+          alert(err.response.data.message);
+        });
+    } catch (err: any) {
+      dispatch({
+        type: actionTypes.GET_DETAIL_SCORE_STUDENT_FAILED,
         payload: err.response,
         isLoading: false,
         isError: true,

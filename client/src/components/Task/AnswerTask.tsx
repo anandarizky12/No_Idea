@@ -51,43 +51,45 @@ function AnswerTask() {
       />
     );
   }
-  console.log(data);
+
+  if (data && isDeadline && !alreadyAnswered) {
+    return (
+      <div
+        style={{ height: "90vh" }}
+        className="flex flex-col items-center justify-center"
+      >
+        <LockOutlined style={{ fontSize: "17rem", color: "gray" }} />
+        <p className="text-2xl text-gray-400">
+          Batas Pengerjaan Tugas Sudah Lewat
+        </p>
+      </div>
+    );
+  }
+  console.log(data, alreadyAnswered);
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      {!isDeadline ? (
-        <>
-          {alreadyAnswered ? (
-            <ResultAnswer data={data} />
-          ) : (
-            <div className="w-5/6 px-8 m-8">
-              {!loading ? (
-                <AnswerStepByStep
-                  Dispatch={Dispatch}
-                  task={data}
-                  steps={data.Questions}
-                  id={id}
-                  class_id={class_id}
-                  user_id={user_id}
-                />
-              ) : (
-                <div className="flex flex-col items-center justify-center w-full  m-5">
-                  <Spin />
-                </div>
-              )}
-            </div>
-          )}
-        </>
-      ) : (
-        <div
-          style={{ height: "90vh" }}
-          className="flex flex-col items-center justify-center"
-        >
-          <LockOutlined style={{ fontSize: "17rem", color: "gray" }} />
-          <p className="text-2xl text-gray-400">
-            Batas Pengerjaan Tugas Sudah Lewat
-          </p>
-        </div>
-      )}
+      <>
+        {alreadyAnswered ? (
+          <ResultAnswer data={data} />
+        ) : (
+          <div className="w-5/6 px-8 m-8">
+            {!loading ? (
+              <AnswerStepByStep
+                Dispatch={Dispatch}
+                task={data}
+                steps={data.Questions}
+                id={id}
+                class_id={class_id}
+                user_id={user_id}
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center w-full  m-5">
+                <Spin />
+              </div>
+            )}
+          </div>
+        )}
+      </>
     </div>
   );
 }

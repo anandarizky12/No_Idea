@@ -273,3 +273,28 @@ export const getYourScore  = (state = {}, action: any) => {
       return state;
   }
 };
+
+
+
+
+export const getAllScoreInApp  = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_SCORE_IN_APP:
+      return {
+        ...state,
+        data : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_ALL_SCORE_IN_APP_FAILED:
+      return {
+        ...state,
+        data : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};

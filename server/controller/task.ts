@@ -589,6 +589,7 @@ exports.getAllTaskScore = async(req : any , res : any) =>{
         task_id : id
        },
        include :[{
+
         model : Task
         },
         {
@@ -614,3 +615,69 @@ exports.getAllTaskScore = async(req : any , res : any) =>{
     })
   }
 }
+
+
+exports.getScoreDetailTask = async (req : any ,res : any) =>{
+  try{
+    //id tugas 
+    const { task_id, user_id } = req.params;
+  
+    const task = await Task.findOne({
+      where : {
+        id : task_id,
+      },
+      include :[{
+        model :Question,
+      }]
+    });
+
+    if(!task){
+      return res.status(500).send({
+        status : 500,
+        message : "Task not found"
+      })
+    }
+
+
+     const task_with_answer  = await Task.findOne({
+        where : {
+          id : task_id
+        },
+        include : [{
+          model : Question,
+          attributes: { exclude: ["answer_key"]},
+          include :[{
+            model : Answer_task ,
+            where : {
+              student_id : user_id
+            },
+            include : [
+              {
+                model : User,
+              
+              },
+              {
+                model :Score
+              }
+            ]
+          }] 
+        }]
+      
+      })
+ 
+
+    return res.status(200).send({
+      status : 400,
+      message : "Success Get Task Details",
+      data : task_with_answer
+    })
+ 
+
+  }catch(err : any ){
+    res.status(500).send({
+      message : err.message,
+      status : 500
+    })
+  }
+}
+
