@@ -37,7 +37,7 @@ function ScoreDetail() {
       />
     );
   }
-  console.log(data);
+
   return (
     <div className="flex flex-col items-center justify-center w-full">
       {data ? <ResultAnswerStudent data={data} /> : <Spin />}

@@ -175,6 +175,39 @@ export default function Scores_Table({ data }: any) {
           highlightOnHover
           pointerOnHover
         />
+
+        <div className="w-full flex">
+          <table className="border border-gray-300 mr-6">
+            <tbody>
+              <tr className="border border-gray-300">
+                <th className="text-center font-semibold border border-gray-300 p-2">
+                  Nilai
+                </th>
+                <th className="text-left font-semibold p-2">Keterangan</th>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(89-100)</td>
+                <td className="border border-gray-300 px-2">Sangat Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(70-89)</td>
+                <td className="border border-gray-300 px-2">Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(60-70)</td>
+                <td className="border border-gray-300 px-2">Cukup</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(50-60)</td>
+                <td className="border border-gray-300 px-2">Kurang</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(0-50)</td>
+                <td className="border border-gray-300 px-2">Sangat Kurang</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

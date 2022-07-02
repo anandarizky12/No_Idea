@@ -31,7 +31,7 @@ function Admin_Dashboard() {
   }, []);
 
   return (
-    <div className="">
+    <div className="mt-12">
       <div className="w-full bg-pink-400  h-40 ">
         <div className="flex justify-between flex-row items-center w-full p-10 px-12">
           <p className="text-gray-200 font-light text-xl">Dashboard Admin</p>
@@ -47,7 +47,7 @@ function Admin_Dashboard() {
           </div>
         </div>
         {dashboard && dashboard.data ? (
-          <div className="w-full flex px-8 absolute top-36">
+          <div className="w-full flex px-8 absolute top-32">
             <div className="flex-auto p-4 shadow-md m-5 bg-white h-32 rounded-md overflow-hidden">
               <div className="flex flex-wrap">
                 <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
@@ -115,14 +115,14 @@ function Admin_Dashboard() {
           </div>
         )}
       </div>
-      <div className="mt-32 w-full">
+      <div id="user_table" className="mt-32 w-full">
         <User_Table
           users={getallusers}
           setIsModalVisible={setIsModalVisible}
           setId={setId}
         />
       </div>
-      <div className="mt-32 w-full">
+      <div id="scores_table" className="mt-32 w-full">
         <Scores_Table data={getallscore} />
       </div>
 

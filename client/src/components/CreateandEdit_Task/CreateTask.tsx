@@ -45,7 +45,7 @@ function CreateTask({ setOpen, open }: any) {
 
   return (
     <Drawer
-      title="Create a new Task"
+      title="Buat Tugas Baru"
       width={720}
       onClose={onClose}
       visible={open}
@@ -78,7 +78,7 @@ function CreateTask({ setOpen, open }: any) {
           <Col span={12}>
             <Form.Item
               name="deadline"
-              label="Pick Deadline"
+              label="Batas Pengerjaan"
               rules={[{ required: true, message: "Please select Deadline" }]}
             >
               <DatePicker name="deadline" onChange={onChangeDate} />
@@ -87,11 +87,11 @@ function CreateTask({ setOpen, open }: any) {
           <Col span={24}>
             <Form.Item
               name="description"
-              label="Description"
+              label="Deskripsi Tugas"
               rules={[{ required: true, message: "Please enter Description" }]}
             >
               <Input
-                placeholder="Enter Description"
+                placeholder="Masukan Deskripsi Tugas"
                 name="description"
                 autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
@@ -99,7 +99,7 @@ function CreateTask({ setOpen, open }: any) {
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Form.Item name="other" label="Other">
+            <Form.Item name="other" label="Tambahan">
               <Input
                 placeholder="Lainnya"
                 name="other"

@@ -53,11 +53,11 @@ function EditTask({ setOpen, open, task }: any) {
           <Col span={12}>
             <Form.Item
               name="title"
-              label="Name"
+              label="Judul Tugas"
               rules={[{ required: true, message: "Please enter Task Name" }]}
             >
               <Input
-                placeholder="Enter Task Name"
+                placeholder="Masukan Nama Tugas"
                 name="title"
                 defaultValue={task.title}
                 onChange={(e) => handleChange(e, state, setState)}
@@ -65,7 +65,7 @@ function EditTask({ setOpen, open, task }: any) {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="deadline" label="Pick Deadline">
+            <Form.Item name="deadline" label="Batas Waktu">
               <DatePicker
                 defaultValue={task.deadline && moment(task.deadline)}
                 name="deadline"
@@ -76,11 +76,11 @@ function EditTask({ setOpen, open, task }: any) {
           <Col span={24}>
             <Form.Item
               name="description"
-              label="Description"
+              label="Deskripsi"
               rules={[{ required: true, message: "Please enter Description" }]}
             >
               <Input
-                placeholder="Enter Description"
+                placeholder="Masukan Deskripsi Tugas"
                 name="description"
                 defaultValue={task.description}
                 onChange={(e) => handleChange(e, state, setState)}
@@ -88,9 +88,9 @@ function EditTask({ setOpen, open, task }: any) {
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Form.Item name="other" label="Other">
+            <Form.Item name="other" label="Tambahan">
               <Input
-                placeholder="Other"
+                placeholder="Tambahan"
                 name="other"
                 defaultValue={task.other}
                 onChange={(e) => handleChange(e, state, setState)}

@@ -29,7 +29,7 @@ export const QuestionEdit = ({ question, index, dispatch }: iProps) => {
           rules={[{ required: true, message: "Please enter Task Name" }]}
         >
           <Input
-            placeholder="Enter Task Name"
+            placeholder="Masukan Soal"
             name={`question`}
             defaultValue={state.question}
             onChange={(e) => handleChange(e, state, setState)}

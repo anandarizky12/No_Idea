@@ -28,7 +28,7 @@ function ResultAnswerStudent({ data }: Iprops) {
                 <tbody>
                   <tr>
                     <th className="text-left text-gray-500">Nama</th>
-                    <td>
+                    <td className="text-gray-500">
                       :{" "}
                       {data?.Questions[0]?.Answer_task?.User.name.toUpperCase()}
                     </td>
@@ -38,7 +38,7 @@ function ResultAnswerStudent({ data }: Iprops) {
                     <th className="text-left text-gray-500">
                       Tanggal Pengerjaan
                     </th>
-                    <td>
+                    <td className="text-gray-500">
                       :{" "}
                       {moment(data?.Questions[0].Answer_task.createdAt).format(
                         "MMMM Do YYYY, h:mm:ss a"
@@ -47,7 +47,9 @@ function ResultAnswerStudent({ data }: Iprops) {
                   </tr>
                   <tr>
                     <th className="text-left text-gray-500">Jumlah Soal</th>
-                    <td>: {data?.Questions.length}</td>
+                    <td className="text-gray-500">
+                      : {data?.Questions.length}
+                    </td>
                   </tr>
                 </tbody>
               </table>

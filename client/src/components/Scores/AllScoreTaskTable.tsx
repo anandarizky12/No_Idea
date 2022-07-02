@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 const { Search } = Input;
 
 export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
-  console.log(data.task?.data);
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
   const dispatch = useDispatch();

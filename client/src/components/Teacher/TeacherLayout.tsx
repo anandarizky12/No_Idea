@@ -17,9 +17,9 @@ function TeacherLayout({
 
   return (
     <div>
-      <div className="flex w-full h-screen flex-wrap">
+      <div className="flex w-full flex-wrap">
         {!classes.isLoading && !classes.isError && classroom !== null ? (
-          <div className="flex justify-center items-center w-full h-full">
+          <div className="flex justify-center items-center w-full h-screen">
             <Space size="middle">
               <Spin size="large" />
             </Space>
