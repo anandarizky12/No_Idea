@@ -6,7 +6,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.admin_login);
-  console.log(user);
+
   return (
     <div className="">
       <nav className="bg-white shadow-lg fixed hidden md:flex h-14 top-0 left-0 w-full z-10  md:flex-row md:flex-nowrap  md:justify-start  items-center p-4">

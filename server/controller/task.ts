@@ -681,3 +681,58 @@ exports.getScoreDetailTask = async (req : any ,res : any) =>{
   }
 }
 
+
+exports.editScore = async (req : any ,res : any) =>{
+  try{
+    //id tugas 
+    const {  score_id, task_id } = req.params;
+    const { score } = req.body;
+
+    const edit_score = await Score.update({
+      score
+    },{
+      where : {
+        id : score_id
+      }
+    });
+
+    if(edit_score){
+
+      const all_score = await Score.findAll({
+        where : {
+          task_id : task_id
+        }
+      })
+
+      let totalScore = await all_score.reduce((acc : any, curr : any)=>
+        acc + curr?.score,0
+      )
+
+      const student_score = await Task_User_Score.update({
+        score : totalScore
+      },{
+        where : {
+          task_id : task_id
+        }
+      })
+      return res.status(200).send({
+        message : "success edit scores",
+        all_score : edit_score,
+        totalScore : student_score
+      })
+    };
+
+  
+    return res.status(500).send({
+      message : "failed update score, possibly id not valid",
+      status : 500
+    })
+
+  }catch(err : any ){
+    res.status(500).send({
+      message : err.message,
+      status : 500
+    })
+  }
+}
+

@@ -1,19 +1,17 @@
 import { Progress } from "antd";
-import ButtonPrint from "../pdf/Button_PDF";
+
 import React from "react";
-import ResultAnswerStudentPDF from "../pdf/ResultAnswerPDF";
-import moment from "moment";
+import EachScore from "./EachScore";
+
 interface Iprops {
   data: any;
 }
 
-function ResultAnswerStudent({ data }: Iprops) {
+function EditScoreComponent({ data }: Iprops) {
   const totalScore = data.Questions.reduce(
     (acc: number, cur: any) => acc + cur.Answer_task.Score.score,
     0
   );
-  const componentRef: any = React.useRef();
-  console.log(data);
 
   return (
     <div className="border p-8 shadow-lg w-4/6 mt-8">
@@ -21,7 +19,7 @@ function ResultAnswerStudent({ data }: Iprops) {
         <div className="flex justify-between items-center">
           <div className="">
             <h1 className="font-semibold text-2xl text-gray-500">
-              {data.title}
+              Edit Nilai Siswa
             </h1>
             <div>
               <table className="table">
@@ -33,23 +31,9 @@ function ResultAnswerStudent({ data }: Iprops) {
                       {data?.Questions[0]?.Answer_task?.User.name.toUpperCase()}
                     </td>
                   </tr>
-
                   <tr>
-                    <th className="text-left text-gray-500">
-                      Tanggal Pengerjaan
-                    </th>
-                    <td className="text-gray-500">
-                      :{" "}
-                      {moment(data?.Questions[0].Answer_task.createdAt).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-left text-gray-500">Jumlah Soal</th>
-                    <td className="text-gray-500">
-                      : {data?.Questions.length}
-                    </td>
+                    <th className="text-left text-gray-500">Nama Tugas</th>
+                    <td className="text-gray-500">: {data.title}</td>
                   </tr>
                   <tr>
                     <th className="text-left text-gray-500">Deskripsi</th>
@@ -91,30 +75,18 @@ function ResultAnswerStudent({ data }: Iprops) {
                 </span>{" "}
                 : {item.Answer_task.answer}
               </p>
+              <EachScore data={data} item={item} />
             </div>
-            <div className="border-l border-gray-300 rounded-md text-center w-24 flex items-center justify-center bg-gray-500">
+            {/* <div className="border-l border-gray-300 rounded-md text-center w-24 flex items-center justify-center bg-gray-500">
               <h1 className="m-0 font-bold text-gray-100 text-xl">
                 {item.Answer_task.Score.score}
               </h1>
-            </div>
+            </div> */}
           </div>
         ))}
-      </div>
-      <div className="mt-5 float-right">
-        <ButtonPrint
-          size={"large"}
-          type={"secondary"}
-          componentRef={componentRef}
-        />
-      </div>
-
-      <div className="hidden">
-        <div ref={componentRef}>
-          <ResultAnswerStudentPDF data={data} totalScore={totalScore} />
-        </div>
       </div>
     </div>
   );
 }
 
-export default ResultAnswerStudent;
+export default EditScoreComponent;

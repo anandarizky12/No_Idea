@@ -2,19 +2,20 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import { TableColumn } from "react-data-table-component";
 import { Input } from "antd";
-import { useDispatch } from "react-redux";
+
 import moment from "moment";
 import ButtonPrint from "../pdf/Button_PDF";
-import YourScore from "../pdf/YourScore";
-import { EyeOutlined } from "@ant-design/icons";
+
+import { EyeOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import StudentScorePertask from "../pdf/StudentScorePertask";
 
 const { Search } = Input;
 
 export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
-  const dispatch = useDispatch();
+
   const [rows, setRows] = React.useState<any>([]);
   const [filterText, setFilterText] = React.useState("");
   const [arrayScore, setArrayScore] = React.useState<any>([]);
@@ -78,6 +79,7 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
       name: "Nilai",
       style: { fontSize: 30 },
       selector: (row: any) => row.score,
+      width: "7rem",
     },
     {
       name: "Tanggal Pengerjaan",
@@ -88,20 +90,35 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
     {
       name: "Status",
       cell: (row: any) => <p>{conditionalScore(row.score)}</p>,
+      width: "8rem",
     },
     {
       name: "Aksi",
       cell: (row: any) => (
-        <button
-          onClick={() =>
-            navigate(
-              `/classroom/${class_id}/scoredetail/${task_id}/${row.User.id}`
-            )
-          }
-          className="bg-green-500 p-2 text-gray-200 rounded-md mr-4"
-        >
-          <EyeOutlined /> Lihat Detail
-        </button>
+        <>
+          <button
+            onClick={() =>
+              navigate(
+                `/classroom/${class_id}/scoredetail/${task_id}/${row.User.id}`
+              )
+            }
+            className="bg-green-500 p-2 text-gray-200 rounded-md mr-4"
+          >
+            <EyeOutlined />
+            Detail
+          </button>
+          <button
+            onClick={() =>
+              navigate(
+                `/classroom/${class_id}/editscore/${row.task_id}/${row.User.id}`
+              )
+            }
+            className="bg-yellow-500 p-2 text-gray-200 rounded-md mr-4"
+          >
+            <EditOutlined />
+            Edit
+          </button>
+        </>
       ),
     },
   ];
@@ -212,11 +229,6 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
           </table>
         </div>
       </div>
-      {/* <div className="hidden">
-        <div ref={componentRef}>
-          <YourScore data={filteredItems} />
-        </div>
-      </div> */}
     </div>
   );
 }

@@ -51,7 +51,8 @@ const {
   getFinishedTask,
   getUnfinishedTask,
   getAllTaskScore,
-  getScoreDetailTask
+  getScoreDetailTask,
+  editScore
 } = require("../controller/task");
 
 
@@ -120,7 +121,7 @@ router.get("/gettask/:id", authenticate, getTaskAndQuestion);
 router.get("/getallscore/:id", isTeacherOfClass, getAllScore);
 router.get("/getdetailtask/:task_id/:id", isTeacherOrMemberOfClass , getDetailTask )
 router.get("/getscoredetailtask/:user_id/:task_id/:id", isTeacherOfClass , getScoreDetailTask )
-router.put("/editquestion/:id", isTeacherOfClass, editQuestion)
+router.put("/editquestion/:id", editQuestion)
 router.get("/finishedtask", authenticate ,getFinishedTask)
 router.get('/unfinishedtask', authenticate, getUnfinishedTask)
 
@@ -130,6 +131,7 @@ router.get('/materi/:id', isTeacherOrMemberOfClass, getMateri)
 router.get('/allmateri/:id', isTeacherOrMemberOfClass, getAllMateri)
 router.patch('/updatemateri/:id',isTeacherOfClass, editMateri)
 router.delete('/deletemateri/:id',isTeacherOfClass, deleteMateri)
+router.patch('/editscore/:id/:task_id/:score_id',isTeacherOfClass, editScore)
 
 
 //get all score 

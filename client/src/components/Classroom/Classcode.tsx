@@ -20,7 +20,7 @@ function Classcode({ code }: any) {
   return (
     <div className="border p-5 border-gray-300 rounded-md  flex justify-between  w-full  md:w-48 h-24 ">
       <div>
-        <h1 className="text-md text-primary">Class Code</h1>
+        <h1 className="text-md text-primary">Kode Kelas</h1>
         <p className="text-2xl font-semibold">{code}</p>
       </div>
       <CopyOutlined onClick={onCopy} className="text-xl" />

@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import { customStyles } from "./StylesTable";
 import { Input } from "antd";
 import moment from "moment";
-import { EyeOutlined } from "@ant-design/icons";
+import { EyeOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import { TableColumn } from "react-data-table-component";
 const { Search } = Input;
@@ -61,16 +61,28 @@ export default function ScoreTable({ scores, id }: Iprops) {
     {
       name: "Aksi",
       cell: (row: any) => (
-        <button
-          onClick={() =>
-            navigate(
-              `/classroom/${id}/scoredetail/${row.task_id}/${row.user_id}`
-            )
-          }
-          className="bg-green-500 p-2 text-gray-200 rounded-md mr-4"
-        >
-          <EyeOutlined /> Lihat Detail
-        </button>
+        <>
+          <button
+            onClick={() =>
+              navigate(
+                `/classroom/${id}/scoredetail/${row.task_id}/${row.user_id}`
+              )
+            }
+            className="bg-green-500 p-2 text-gray-200 rounded-md mr-4"
+          >
+            <EyeOutlined /> Detail
+          </button>
+          <button
+            onClick={() =>
+              navigate(
+                `/classroom/${id}/editscore/${row.task_id}/${row.user_id}`
+              )
+            }
+            className="bg-yellow-500 p-2 text-gray-200 rounded-md mr-4"
+          >
+            <EditOutlined /> Edit
+          </button>
+        </>
       ),
     },
   ];

@@ -358,7 +358,7 @@ export const AnswerTask = (data : Idata ) =>{
     try{
      
       await axios
-        .post(`http://localhost:8000/api/answer_tasks?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
+        .post(`http://localhost:8000/api/answer_tasks/wordnet?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
         .then((res)=>{
           dispatch({
             type: actionTypes.ANSWER_TASK,
@@ -637,3 +637,36 @@ export const getAllTasksScore = (id : string | undefined)=>{
     }
   }
 }
+
+
+export const editScore = (score: number, id: string, task_id : string, score_id : string) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      await axios
+      // http://localhost:5000/api/editscore/3/11/41
+        .patch(`http://localhost:5000/api/editscore/${id}/${task_id}/${score_id}`, {score : score}, config)
+        .then((res) => {
+       
+          alert("Edit Score success");
+          window.location.reload();
+       
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        
+        });
+    } catch (err: any) {
+    
+      alert(err.response.data.message)
+    
+    }
+  };
+};
