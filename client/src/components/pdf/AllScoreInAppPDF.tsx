@@ -2,12 +2,12 @@ import moment from "moment";
 import { conditionalScore } from "../../utils/utils";
 import Header_Report from "./Header_Report";
 
-function AllScoreInClassPDF({ data }: any) {
+function AllScoreInAppPDF({ data }: any) {
   return (
     <div className="px-7 py-2">
       <Header_Report />
       <h2 className="text-center font-bold text-2xl mt-5">
-        Laporan Nilai Pada Kelas
+        Laporan Nilai Seluruh Nilai Pada Aplikasi
       </h2>
       {/* <div className="mt-7 flex justify-between">
         <div>
@@ -45,7 +45,13 @@ function AllScoreInClassPDF({ data }: any) {
                   Nama Siswa
                 </th>
                 <th className="border border-black text-xs text-center">
-                  Nama Kelas
+                  Kelas
+                </th>
+                <th className="border border-black text-xs text-center">
+                  Nama Guru
+                </th>
+                <th className="border border-black text-xs text-center">
+                  Tugas
                 </th>
                 <th className="border border-black text-xs text-center">
                   Nilai
@@ -67,12 +73,24 @@ function AllScoreInClassPDF({ data }: any) {
                     </td>
                     <td className="border border-black text-left">
                       <div className="flex items-center">
-                        <span className="font-medium text-xs">{item.user}</span>
+                        <span className="font-medium text-xs">
+                          {item.User.name}
+                        </span>
                       </div>
                     </td>
                     <td className="border border-black text-left">
                       <div className="flex items-center">
-                        <span>{item.task_title}</span>
+                        <span>{item.Classroom.name}</span>
+                      </div>
+                    </td>
+                    <td className="border border-black text-left">
+                      <div className="flex items-center">
+                        <span>{item.Classroom.User.name}</span>
+                      </div>
+                    </td>
+                    <td className="border border-black text-center">
+                      <div className="flex items-center justify-center">
+                        <span className=" text-xs">{item.Task.title}</span>
                       </div>
                     </td>
                     <td className="border border-black text-center">
@@ -128,4 +146,4 @@ function AllScoreInClassPDF({ data }: any) {
   );
 }
 
-export default AllScoreInClassPDF;
+export default AllScoreInAppPDF;

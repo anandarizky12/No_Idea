@@ -1,26 +1,19 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import Export from "react-data-table-component";
+import moment from "moment";
 import { customStyles } from "./Styles";
 import { TableColumn } from "react-data-table-component";
-import {
-  EditOutlined,
-  DeleteOutlined,
-  DownloadOutlined,
-} from "@ant-design/icons";
-import { Avatar, Button, Input } from "antd";
-
-import { useDispatch } from "react-redux";
-import { deleteUser } from "../../../actions/user";
-import { ReportScores } from "./ReportScores";
+import { Input } from "antd";
 import { conditionalScore } from "../../../utils/utils";
+import ButtonPrint from "../../pdf/Button_PDF";
+import AllScoreInAppPDF from "../../pdf/AllScoreInAppPDF";
 
 const { Search } = Input;
 
 export default function Scores_Table({ data }: any) {
   const [loading, setLoading] = React.useState(true);
-  const dispatch = useDispatch();
   const [rows, setRows] = React.useState([]);
+  const componentRef: any = React.useRef();
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
@@ -81,50 +74,27 @@ export default function Scores_Table({ data }: any) {
     {
       name: "Status",
       selector: (row: any) => conditionalScore(row.score),
-      //   cell: (row: any) => (
-      //     <div>
-      //       <span
-      //         className={`${row.role == "admin" && "bg-blue-500"} ${
-      //           row.role == "siswa" && "bg-green-500"
-      //         } ${
-      //           row.role == "guru" && "bg-red-500"
-      //         } p-2  text-xs text-white rounded-md `}
-      //       >
-      //         {row.role}
-      //       </span>
-      //     </div>
-      //   ),
+
       sortable: true,
       style: {
         fontSize: "15px",
       },
     },
-    // {
-    //   name: "Aksi",
-    //   cell: (row: any) => (
-    //     <>
-    //       <span
-    //         onClick={() => handleButtonClick(row.id)}
-    //         className="text-xl text-yellow-400 mr-4"
-    //       >
-    //         <EditOutlined />
-    //       </span>
-    //       {"     "}
-    //       <span
-    //         onClick={() => handleDelete(row.id)}
-    //         className="text-xl text-red-600 mr-4"
-    //       >
-    //         <DeleteOutlined />
-    //       </span>
-    //     </>
-    //   ),
-    // },
+    {
+      name: "Tanggal Pengerjaan",
+      selector: (row: any) =>
+        moment(row.createdAt).format("MMMM Do YYYY, h:mm:ss a"),
+      sortable: true,
+      style: {
+        fontSize: "10px",
+      },
+    },
   ];
 
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <div className="flex items-center justify-center">
-        <ReportScores filteredItems={filteredItems} />
+        <ButtonPrint componentRef={componentRef} />
         <Search
           placeholder="input search text"
           allowClear
@@ -135,7 +105,6 @@ export default function Scores_Table({ data }: any) {
     );
   }, [filterText, resetPaginationToggle, filteredItems]);
 
-  console.log(data);
   React.useEffect(() => {
     if (data && data.data) {
       setLoading(false);
@@ -150,7 +119,7 @@ export default function Scores_Table({ data }: any) {
     <div className="w-full px-12 flex flex-col mt-7 items-center justify-center shadow-md">
       <div className="w-full border p-5 shadow-md">
         <DataTable
-          title="Daftar Nilai Seluruh Siswa"
+          title="Daftar Nilai Seluruh Siswa Pada Aplikasi"
           columns={columns}
           data={filteredItems}
           pagination
@@ -194,6 +163,11 @@ export default function Scores_Table({ data }: any) {
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div className="hidden">
+        <div ref={componentRef}>
+          <AllScoreInAppPDF data={filteredItems} />
         </div>
       </div>
     </div>

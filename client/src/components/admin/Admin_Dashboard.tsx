@@ -52,7 +52,7 @@ function Admin_Dashboard() {
               <div className="flex flex-wrap">
                 <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                   <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                    TOTAL USER
+                    TOTAL PENGGUNA
                   </h5>
                   <span className="font-semibold text-xl text-blueGray-700">
                     {dashboard.data.totalUsers.total}

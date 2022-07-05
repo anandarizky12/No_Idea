@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { adminLogin } from "../../actions/user";
 import { getCookie } from "../../utils/utils";
 import { AlertComponents } from "../alert/Alert";
+import { Typography } from "antd";
 
 export default function Admin_Login() {
   const [state, setState] = React.useState({
@@ -103,6 +104,12 @@ export default function Admin_Login() {
           </div>
         </div>
       </div>
+      <Typography className="absolute bottom-5 left-5">
+        Login{" "}
+        <a className="font-bold" onClick={() => navigate("/login")}>
+          User
+        </a>
+      </Typography>
     </div>
   );
 }

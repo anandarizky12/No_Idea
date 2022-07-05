@@ -48,7 +48,7 @@ function Admin_Profile() {
   console.log(state);
 
   return (
-    <div className="flex flex-col items-center w-full justify-center mt-10">
+    <div className="flex flex-col items-center w-full justify-center mt-28">
       <div className="border border-gray-200 flex p-5 rounded-md shadow-lg w-3/6">
         <ImageChange state={user} setSelectedImg={setState} />
         <div className="mt-5  ml-10">

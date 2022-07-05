@@ -26,7 +26,12 @@ function HomeProfile() {
             <div className="ml-2 w-full">
               <h1 className="font-medium p-0 m-0">{user.detail_user.name}</h1>
               <div className="flex justify-between">
-                <p className="text-gray-400 p-0 m-0 text-xs">Lihat Profile</p>
+                <p
+                  onClick={() => navigate("/profile")}
+                  className="text-gray-400 cursor-pointer p-0 m-0 text-xs"
+                >
+                  Lihat Profile
+                </p>
                 <p className="text-gray-400 p-0 m-0 text-xs">
                   {user.detail_user.role}
                 </p>

@@ -1,5 +1,10 @@
 import { Tooltip } from "antd";
-import { UserOutlined, FundOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  FundOutlined,
+  FilePdfOutlined,
+  SnippetsOutlined,
+} from "@ant-design/icons";
 import PopupMenu from "./PopupMenu";
 import { useNavigate } from "react-router-dom";
 
@@ -50,6 +55,22 @@ function Class_card({ classroom, id, user }: any) {
               />
             </Tooltip>
           ) : null}
+          <Tooltip placement="bottom" title="Tugas Kelas">
+            <SnippetsOutlined
+              onClick={() => {
+                navigate(`/classroom/${classroom.id}/tasks`);
+              }}
+              className="text-xl   mr-4   cursor-pointer"
+            />
+          </Tooltip>
+          <Tooltip placement="bottom" title="Materi Kelas">
+            <FilePdfOutlined
+              onClick={() => {
+                navigate(`/classroom/${classroom.id}/materi`);
+              }}
+              className="text-xl   mr-4   cursor-pointer"
+            />
+          </Tooltip>
 
           <Tooltip placement="bottom" title="Anggota Kelas">
             <UserOutlined
