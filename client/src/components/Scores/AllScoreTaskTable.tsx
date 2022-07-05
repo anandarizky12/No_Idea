@@ -9,6 +9,7 @@ import ButtonPrint from "../pdf/Button_PDF";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import StudentScorePertask from "../pdf/StudentScorePertask";
+import { conditionalScore } from "../../utils/utils";
 
 const { Search } = Input;
 
@@ -49,19 +50,6 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
     });
 
     return setArrayScore(arr);
-  };
-  const conditionalScore = (score: number) => {
-    if (score >= 89) {
-      return "Sangat Baik";
-    } else if (score >= 70) {
-      return "Baik";
-    } else if (score >= 60) {
-      return "Cukup";
-    } else if (score >= 50) {
-      return "Kurang";
-    } else {
-      return "Sangat Kurang";
-    }
   };
 
   const columns: TableColumn<DataRow>[] = [
@@ -173,7 +161,6 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
     }
   }, [data, task_id]);
 
-  console.log(arrayScore);
   return (
     <div className="w-full h-full px-12 flex flex-col mt-12 items-center justify-center ">
       <div className="w-5/6 border p-5 shadow-md">
@@ -229,6 +216,24 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
           </table>
         </div>
       </div>
+      {arrayScore && (
+        <div className="hidden">
+          <div ref={componentRef}>
+            <StudentScorePertask
+              data={filteredItems}
+              nama={
+                rows[0]?.Task.title.toUpperCase()
+                  ? rows[0]?.Task.title.toUpperCase()
+                  : ""
+              }
+              highest={arrayScore.length >= 1 ? Math.max(...arrayScore) : "-"}
+              average={arrayScore.length >= 1 ? average(arrayScore) : "-"}
+              lowest={arrayScore.length >= 1 ? Math.min(...arrayScore) : "-"}
+              conditionalScore={conditionalScore}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

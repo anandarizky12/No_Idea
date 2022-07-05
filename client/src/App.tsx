@@ -26,6 +26,7 @@ import ListScoreStudent from "./components/Students/ListScoreStudent";
 import AllScoresTask from "./components/Scores/AllScoresTask";
 import ScoreDetail from "./components/Scores/ScoreDetail";
 import EdtiScore from "./components/Scores/EditScore";
+import ClassroomList from "./components/Classroom/ClassroomList";
 
 function App() {
   moment.locale("id");
@@ -41,7 +42,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="*" element={<My404 />} />
-
         <Route
           path="/admin"
           element={
@@ -51,7 +51,6 @@ function App() {
             />
           }
         />
-
         <Route
           path="/admin/profile"
           element={
@@ -61,14 +60,12 @@ function App() {
             />
           }
         />
-
         <Route
           path="/admin/addteacher"
           element={
             <AdminRoute redirectTo="/admin/login" Component={<Add_Teacher />} />
           }
         />
-
         <Route
           path="/"
           element={<ProtectedRoute redirectTo="/login" Component={<Home />} />}
@@ -130,14 +127,12 @@ function App() {
             />
           }
         />
-
         <Route
           path="/classroom/:id/materi"
           element={
             <ProtectedRoute redirectTo="/login" Component={<Materi />} />
           }
         />
-
         <Route
           path="/classroom/:id/student/:user_id"
           element={
@@ -147,7 +142,6 @@ function App() {
             />
           }
         />
-
         <Route
           path="/your_score"
           element={
@@ -158,7 +152,6 @@ function App() {
             />
           }
         />
-
         <Route
           path="/classroom/:id/taskscore/:task_id"
           element={
@@ -169,7 +162,6 @@ function App() {
             />
           }
         />
-
         <Route
           path="/classroom/:id/scoredetail/:task_id/:user_id"
           element={
@@ -187,6 +179,16 @@ function App() {
               allowRole={"guru"}
               redirectTo="/login"
               Component={<EdtiScore />}
+            />
+          }
+        />
+        <Route
+          path="/classlist"
+          element={
+            <ProtectedRoute
+              allowRole={"guru"}
+              redirectTo="/login"
+              Component={<ClassroomList />}
             />
           }
         />

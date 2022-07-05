@@ -30,6 +30,7 @@ function Classroom() {
         message={classes?.error?.data?.error?.message}
       />
     );
+  console.log(classroom);
 
   return (
     <div className="mt-7 w-full flex justify-center items-center flex-col px-5 md:p-0">

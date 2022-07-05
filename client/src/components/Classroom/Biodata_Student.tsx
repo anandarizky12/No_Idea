@@ -19,6 +19,8 @@ function Biodata_Student() {
     dispatch(getUserById(user_id, setLoading));
   }, []);
 
+  console.log(user);
+
   if (!user.isLoading && user.isError && user.error)
     return (
       <DynamicError

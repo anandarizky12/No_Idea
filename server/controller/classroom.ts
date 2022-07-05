@@ -426,6 +426,8 @@ exports.getClassroom = async (req: any, res: any) => {
         },
       ],
     });
+
+    
     if (!classroom) {
       return res.status(500).send({
         status: 500,
@@ -435,7 +437,8 @@ exports.getClassroom = async (req: any, res: any) => {
     return res.status(200).send({
       status: 200,
       message: "Classroom found",
-      data: classroom,
+      data: classroom
+     
     });
   } catch (err: any) {
     res.status(500).send({
@@ -540,11 +543,21 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
           model: User,
           attributes: ["id", "name", "email"],
         },
+        {
+          model : Student_Classroom,
+        },
+        {
+          model : Task
+        },
+        {
+          model : Materi
+        },
+
       ],
       offset: startIndex,
       limit: endIndex
     });
-
+   
     if (!getClassroomByTeacherId) {
   
       return res.status(200).send({
@@ -558,8 +571,8 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
   
       status: 200,
       message: "Succesfully get the Class",
-      class: getClassroomByTeacherId,
-  
+      class: getClassroomByTeacherId
+      
     });
   } catch (err: any) {
   

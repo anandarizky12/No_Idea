@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 
 function StudentsCard({ student }: any) {
   const navigate = useNavigate();
-  const location = useLocation();
+
   const { id } = useParams();
+  console.log(student);
   return (
     <div
-      onClick={() => navigate(`/classroom/${id}/student/${student.id}`)}
+      onClick={() => navigate(`/classroom/${id}/student/${student?.User.id}`)}
       className="border w-full mt-5 rounded-md shadow-md h-16 hover:shadow-md cursor-pointer hover:text-blue-500"
     >
       <div className="flex items-center h-full px-5 justify-between">

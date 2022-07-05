@@ -9,6 +9,20 @@ export const setCookie = (key: string, value: any): void => {
   }
 };
 
+export const conditionalScore = (score: number) => {
+  if (score >= 89) {
+    return "Sangat Baik";
+  } else if (score >= 70) {
+    return "Baik";
+  } else if (score >= 60) {
+    return "Cukup";
+  } else if (score >= 50) {
+    return "Kurang";
+  } else {
+    return "Sangat Kurang";
+  }
+};
+
 export const removeCookie = (key: string): void => {
   if (typeof window !== "undefined") {
     Cookies.remove(key, {

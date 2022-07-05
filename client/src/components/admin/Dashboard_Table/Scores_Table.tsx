@@ -13,6 +13,7 @@ import { Avatar, Button, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../../actions/user";
 import { ReportScores } from "./ReportScores";
+import { conditionalScore } from "../../../utils/utils";
 
 const { Search } = Input;
 
@@ -45,20 +46,6 @@ export default function Scores_Table({ data }: any) {
     phone: string;
     profile: string;
     role: string;
-  };
-
-  const conditionalScore = (score: number) => {
-    if (score >= 89) {
-      return "Sangat Baik";
-    } else if (score >= 70) {
-      return "Baik";
-    } else if (score >= 60) {
-      return "Cukup";
-    } else if (score >= 50) {
-      return "Kurang";
-    } else {
-      return "Sangat Kurang";
-    }
   };
 
   const columns: TableColumn<DataRow>[] = [

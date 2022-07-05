@@ -79,7 +79,7 @@ function Left({ setOpen, open }: any): JSX.Element {
            hover:text-blue-300 cursor-pointer"
           >
             <HomeOutlined className="text-xl mr-6" />
-            Home Page
+            Beranda
           </li>
           <li
             onClick={() => handleNavigate("/profile")}
@@ -87,7 +87,7 @@ function Left({ setOpen, open }: any): JSX.Element {
            hover:text-blue-300 cursor-pointer"
           >
             <UserOutlined className="text-xl mr-6" />
-            Profile Page
+            Halaman Profile
           </li>
           {user.role == "siswa" ? (
             <li
@@ -97,6 +97,16 @@ function Left({ setOpen, open }: any): JSX.Element {
             >
               <ProfileOutlined className="text-xl mr-6" />
               Daftar nilai anda
+            </li>
+          ) : null}
+          {user.role == "guru" ? (
+            <li
+              onClick={() => handleNavigate("/classlist")}
+              className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
+            >
+              <ProfileOutlined className="text-xl mr-6" />
+              Halaman Daftar Kelas
             </li>
           ) : null}
           {/* {user.role === "guru" ? (

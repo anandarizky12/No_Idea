@@ -6,6 +6,9 @@ import moment from "moment";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import { TableColumn } from "react-data-table-component";
+import ButtonPrint from "../pdf/Button_PDF";
+import AllScoreInClassPDF from "../pdf/AllScoreInClassPDF";
+import { conditionalScore } from "../../utils/utils";
 const { Search } = Input;
 
 interface Iprops {
@@ -18,6 +21,7 @@ export default function ScoreTable({ scores, id }: Iprops) {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [rows, setRows] = React.useState([]);
   const [filterText, setFilterText] = React.useState<string>("");
+  const componentRef: any = React.useRef();
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState<boolean>(false);
 
@@ -35,6 +39,7 @@ export default function ScoreTable({ scores, id }: Iprops) {
     user: string;
     date: string;
   };
+
   const columns: TableColumn<DataRow>[] = [
     {
       name: "Nama Siswa",
@@ -52,6 +57,11 @@ export default function ScoreTable({ scores, id }: Iprops) {
       style: {
         fontSize: "15px",
       },
+    },
+    {
+      name: "Status",
+
+      selector: (row: any) => conditionalScore(row.score),
     },
     {
       name: "Tanggal Pengerjaan",
@@ -89,12 +99,15 @@ export default function ScoreTable({ scores, id }: Iprops) {
 
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
-      <Search
-        placeholder="input search text"
-        allowClear
-        style={{ width: 304 }}
-        onChange={(e) => setFilterText(e.target.value)}
-      />
+      <>
+        <ButtonPrint componentRef={componentRef} />
+        <Search
+          placeholder="input search text"
+          allowClear
+          style={{ width: 304 }}
+          onChange={(e) => setFilterText(e.target.value)}
+        />
+      </>
     );
   }, [filterText, resetPaginationToggle]);
 
@@ -123,6 +136,43 @@ export default function ScoreTable({ scores, id }: Iprops) {
           defaultSortFieldId={1}
           customStyles={customStyles}
         />
+        <div className="w-full flex">
+          <table className="border border-gray-300 mr-6">
+            <tbody>
+              <tr className="border border-gray-300">
+                <th className="text-center font-semibold border border-gray-300 p-2">
+                  Nilai
+                </th>
+                <th className="text-left font-semibold p-2">Keterangan</th>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(89-100)</td>
+                <td className="border border-gray-300 px-2">Sangat Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(70-89)</td>
+                <td className="border border-gray-300 px-2">Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(60-70)</td>
+                <td className="border border-gray-300 px-2">Cukup</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(50-60)</td>
+                <td className="border border-gray-300 px-2">Kurang</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(0-50)</td>
+                <td className="border border-gray-300 px-2">Sangat Kurang</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="hidden">
+        <div ref={componentRef}>
+          <AllScoreInClassPDF data={filteredItems} />
+        </div>
       </div>
     </div>
   );

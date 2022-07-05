@@ -1,12 +1,9 @@
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // components
 import Navbar from "./Navbar";
-import Sidenav from "./Sidenav";
 
 function Layout({ children }: any) {
   const location = useLocation();
-  const navigate = useNavigate();
   return (
     <>
       {/* <Sidenav /> */}

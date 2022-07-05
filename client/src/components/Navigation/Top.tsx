@@ -24,7 +24,10 @@ function Top(): JSX.Element {
             onClick={() => setOpen(!open)}
             className="text-lg cursor-pointer mr-5"
           />
-          <div className="font-header font-bold text-primary">
+          <div
+            onClick={() => navigate("/")}
+            className="font-header font-bold text-primary cursor-pointer"
+          >
             SMKN 1 SUKAMARA
           </div>
         </div>

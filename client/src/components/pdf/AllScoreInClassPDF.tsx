@@ -1,21 +1,15 @@
 import moment from "moment";
+import { conditionalScore } from "../../utils/utils";
 import Header_Report from "./Header_Report";
 
-function StudentScorePertask({
-  data,
-  highest,
-  average,
-  lowest,
-  conditionalScore,
-  nama,
-}: any) {
+function AllScoreInClassPDF({ data }: any) {
   return (
     <div className="px-7 py-2">
       <Header_Report />
       <h2 className="text-center font-bold text-2xl mt-5">
         Laporan Nilai Tugas
       </h2>
-      <div className="mt-7 flex justify-between">
+      {/* <div className="mt-7 flex justify-between">
         <div>
           <table className="table">
             <tbody>
@@ -36,14 +30,10 @@ function StudentScorePertask({
                 <th className="text-left">Rata-Rata Nilai</th>
                 <td>: {average}</td>
               </tr>
-              {/* <tr>
-                <th className="text-left">Jumlah Siswa Menjawab</th>
-                <td>: {data?.Questions.length}</td>
-              </tr> */}
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
       <div className="w-full lg:w-6/6">
         <div className=" shadow-md rounded my-6 ">
           <table className="min-w-full border">
@@ -55,7 +45,7 @@ function StudentScorePertask({
                   Nama Siswa
                 </th>
                 <th className="border border-black text-xs text-center">
-                  Email
+                  Nama Kelas
                 </th>
                 <th className="border border-black text-xs text-center">
                   Nilai
@@ -77,14 +67,12 @@ function StudentScorePertask({
                     </td>
                     <td className="border border-black text-left">
                       <div className="flex items-center">
-                        <span className="font-medium text-xs">
-                          {item.User.name}
-                        </span>
+                        <span className="font-medium text-xs">{item.user}</span>
                       </div>
                     </td>
                     <td className="border border-black text-left">
                       <div className="flex items-center">
-                        <span>{item.User.email}</span>
+                        <span>{item.task_title}</span>
                       </div>
                     </td>
                     <td className="border border-black text-center">
@@ -140,4 +128,4 @@ function StudentScorePertask({
   );
 }
 
-export default StudentScorePertask;
+export default AllScoreInClassPDF;
