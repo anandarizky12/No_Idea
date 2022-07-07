@@ -23,6 +23,13 @@ module.exports = (sequelize: any, Sequelize: any) => {
         },
       });
 
+      Task.belongsTo(models.Mapel, {
+        foreignKey: {
+          name: "mapel_id",
+        },
+      });
+
+
       Task.hasMany(models.User_Answered_Task, {
         foreignKey: {
           name: "task_id",

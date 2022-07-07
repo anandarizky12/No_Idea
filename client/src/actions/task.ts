@@ -65,12 +65,12 @@ export const createTask = (data: any, question : any, id : any,) => {
       },
     };
 
-    const { title, description, other, user_id, deadline} = data 
+    const { title, description, other, user_id, deadline, mapel_id} = data 
 
 
     try {
       await axios
-        .post(`http://localhost:5000/api/createtask/${id}`, {title, description, other, user_id, deadline, question }, config)
+        .post(`http://localhost:5000/api/createtask/${id}`, {title, description, other, user_id, deadline, question, mapel_id }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.CREATE_TASK,
@@ -358,7 +358,7 @@ export const AnswerTask = (data : Idata ) =>{
     try{
      
       await axios
-        .post(`http://localhost:8000/api/answer_tasks/wordnet?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
+        .post(`http://localhost:8000/api/answer_tasks?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
         .then((res)=>{
           dispatch({
             type: actionTypes.ANSWER_TASK,

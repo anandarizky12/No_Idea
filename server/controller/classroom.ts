@@ -508,7 +508,7 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
   
     //paginate
     const page = req.query.startIndex || 1;
-    const limit = req.query.limit || 8;
+    const limit = req.query.limit || 100;
   
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
@@ -518,6 +518,7 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
     const teacher = await User.findOne({
       where: {
         id: id,
+        status : 'active'
       },
     });
 
@@ -610,6 +611,44 @@ exports.deleteClassroom = async (req: any, res: any) => {
       status: 200,
       message: "Classroom deleted",
       data: deleteClassroom,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+exports.statusClassroom = async (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const classroom = await Classroom.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!classroom) {
+      return res.status(500).send({
+        status: 500,
+        message: "Classroom not found",
+      });
+    }
+
+    const statusClassroom = await Classroom.update({
+      status,
+      
+      where: {
+        id,
+      },
+      
+    });
+
+    return res.status(200).send({
+      status: 200,
+      message: "Classroom updated",
+      data: statusClassroom,
     });
   } catch (err: any) {
     res.status(500).send({
@@ -762,7 +801,7 @@ exports.editMateri = async (req : any , res : any ) =>{
 
     const { id } = req.params;
 
-    const { name, description, file } = req.body;
+    const { name, description} = req.body;
 
     const schema = joi.object({
       name: joi.string().min(3).required(),
@@ -949,7 +988,10 @@ exports.getYourScore = async (req : any , res : any) => {
         model : Task
         },
         {
-          model : Classroom
+          model : Classroom,
+          include : {
+            model : User
+          }
         },
         {
           model : User

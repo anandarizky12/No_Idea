@@ -18,7 +18,6 @@ export default function Scores_Table({ data }: any) {
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
 
-  console.log(rows);
   const filteredItems = rows.filter(
     (item: any) =>
       (item.User.name &&
@@ -96,7 +95,7 @@ export default function Scores_Table({ data }: any) {
       <div className="flex items-center justify-center">
         <ButtonPrint componentRef={componentRef} />
         <Search
-          placeholder="input search text"
+          placeholder="Cari"
           allowClear
           style={{ width: 304, marginLeft: "10px" }}
           onChange={(e) => setFilterText(e.target.value)}

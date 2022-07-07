@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import Header_Report from "./Header_Report";
+import { conditionalScore } from "../../utils/utils";
 
 function YourScore({ data }: any) {
   return (
@@ -18,6 +19,14 @@ function YourScore({ data }: any) {
                 <th className="text-left">Nama</th>
                 <td>: {data[0]?.User?.name.toUpperCase()}</td>
               </tr>
+              <tr>
+                <th className="text-left">Email</th>
+                <td>: {data[0]?.User?.email}</td>
+              </tr>
+              <tr>
+                <th className="text-left">Telepon</th>
+                <td>: {data[0]?.User?.phone}</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -28,8 +37,10 @@ function YourScore({ data }: any) {
             <tr>
               <th className="border border-black">Nama Tugas</th>
               <th className="border border-black">Keterangan</th>
+              <th className="border border-black">Guru</th>
               <th className="border border-black">Kelas</th>
               <th className="border border-black">Nilai</th>
+              <th className="border border-black">Status</th>
               <th className="border border-black">Tanggal</th>
             </tr>
           </thead>
@@ -37,20 +48,56 @@ function YourScore({ data }: any) {
             {data.map((item: any, index: number) => (
               <tr key={index}>
                 <td className="border border-black">{item.Task.title}</td>
-                <td className="border border-black w-72">
-                  {item.Task.description}
+                <td className="border border-black">{item.Task.description}</td>
+                <td className="border border-black text-xs">
+                  {item.Classroom.User.name}
                 </td>
                 <td className="border border-black text-xs">
                   {item.Classroom.name}
                 </td>
-                <td className="border border-black text-center text-xl w-32">
+                <td className="border border-black text-center text-xl w-28">
                   {item.score}
+                </td>
+                <td className="border border-black text-center">
+                  {conditionalScore(item.score)}
                 </td>
                 <td className="border border-black">
                   {moment(item.createdAt).format("MMMM Do YYYY")}
                 </td>
               </tr>
             ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="w-full flex mt-4">
+        <table className="border border-gray-300 mr-6">
+          <tbody>
+            <tr className="border border-gray-300">
+              <th className="text-center font-semibold border border-gray-300 p-2">
+                Nilai
+              </th>
+              <th className="text-left font-semibold p-2">Keterangan</th>
+            </tr>
+            <tr className="border border-gray-300">
+              <td className="border border-gray-300 px-2">(89-100)</td>
+              <td className="border border-gray-300 px-2">Sangat Baik</td>
+            </tr>
+            <tr className="border border-gray-300">
+              <td className="border border-gray-300 px-2">(70-89)</td>
+              <td className="border border-gray-300 px-2">Baik</td>
+            </tr>
+            <tr className="border border-gray-300">
+              <td className="border border-gray-300 px-2">(60-70)</td>
+              <td className="border border-gray-300 px-2">Cukup</td>
+            </tr>
+            <tr className="border border-gray-300">
+              <td className="border border-gray-300 px-2">(50-60)</td>
+              <td className="border border-gray-300 px-2">Kurang</td>
+            </tr>
+            <tr className="border border-gray-300">
+              <td className="border border-gray-300 px-2">(0-50)</td>
+              <td className="border border-gray-300 px-2">Sangat Kurang</td>
+            </tr>
           </tbody>
         </table>
       </div>

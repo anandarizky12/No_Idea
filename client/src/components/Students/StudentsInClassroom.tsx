@@ -14,6 +14,7 @@ function StudentsInClassroom() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.getStudentsInClassroom);
+  const user = useSelector((state: any) => state.user);
   const { students } = data;
   const classes = useSelector((state: any) => state.getClassroom);
   const { classroom } = classes;
@@ -33,8 +34,6 @@ function StudentsInClassroom() {
       />
     );
 
-  console.log(students);
-
   return (
     <div className="flex flex-col items-center justify-center p-8 md:px-12">
       <div className="w-full md:w-7/12 ">
@@ -44,9 +43,11 @@ function StudentsInClassroom() {
               Anggota Kelas
             </h1>
             <div className="flex items-center justify-center ">
-              <div className="mr-3">
-                <ButtonPrint componentRef={componentRef} type={"secondary"} />
-              </div>
+              {user.role === "guru" && (
+                <div className="mr-3">
+                  <ButtonPrint componentRef={componentRef} type={"secondary"} />
+                </div>
+              )}
               <h4 className="font-bold text-gray-500 p-0 m-0">
                 {students ? students.data.length + " Siswa" : null}
               </h4>

@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import { customStyles } from "./StylesTable";
-import { Input } from "antd";
+import { Input, Select } from "antd";
 import moment from "moment";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
@@ -9,6 +9,8 @@ import { TableColumn } from "react-data-table-component";
 import ButtonPrint from "../pdf/Button_PDF";
 import AllScoreInClassPDF from "../pdf/AllScoreInClassPDF";
 import { conditionalScore } from "../../utils/utils";
+import axios from "axios";
+const { Option } = Select;
 const { Search } = Input;
 
 interface Iprops {
@@ -22,6 +24,7 @@ export default function ScoreTable({ scores, id }: Iprops) {
   const [rows, setRows] = React.useState([]);
   const [filterText, setFilterText] = React.useState<string>("");
   const componentRef: any = React.useRef();
+  const [mapel, setMapel] = React.useState<any>();
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState<boolean>(false);
 
@@ -30,15 +33,31 @@ export default function ScoreTable({ scores, id }: Iprops) {
       (item.user &&
         item.user.toLowerCase().includes(filterText.toLowerCase())) ||
       (item.task_title &&
-        item.task_title.toLowerCase().includes(filterText.toLowerCase()))
+        item.task_title.toLowerCase().includes(filterText.toLowerCase())) ||
+      (item.mapel &&
+        item.mapel.toLowerCase().includes(filterText.toLowerCase()))
   );
-
+  const handleSelectClick = (value: string) => {
+    setFilterText(value);
+  };
   type DataRow = {
     task_title: string;
     score: string;
     user: string;
     date: string;
+    mapel: string;
   };
+
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/getmapel")
+      .then((res) => {
+        setMapel(res.data.data);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }, []);
 
   const columns: TableColumn<DataRow>[] = [
     {
@@ -49,6 +68,10 @@ export default function ScoreTable({ scores, id }: Iprops) {
     {
       name: "Nama Tugas",
       selector: (row) => row.task_title,
+    },
+    {
+      name: "Mata Pelajaran",
+      selector: (row) => row.mapel,
     },
     {
       name: "Nilai",
@@ -100,6 +123,16 @@ export default function ScoreTable({ scores, id }: Iprops) {
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <>
+        <Select
+          defaultValue="Mata Pelajaran"
+          style={{ width: 200 }}
+          onChange={handleSelectClick}
+        >
+          <Option value="">Mata Pelajaran</Option>
+          {mapel?.map((data: any, key: any) => (
+            <Option value={data.nama}>{data.nama}</Option>
+          ))}
+        </Select>
         <ButtonPrint componentRef={componentRef} />
         <Search
           placeholder="input search text"
@@ -109,7 +142,7 @@ export default function ScoreTable({ scores, id }: Iprops) {
         />
       </>
     );
-  }, [filterText, resetPaginationToggle]);
+  }, [filterText, resetPaginationToggle, mapel]);
 
   React.useEffect(() => {
     if (scores && scores.data) {
@@ -121,10 +154,10 @@ export default function ScoreTable({ scores, id }: Iprops) {
     }
   }, [scores, id]);
 
-  console.log(rows);
+  console.log(filterText);
   return (
     <div className="w-full flex flex-col mt-12 items-center justify-center">
-      <div className="w-4/6 border p-5 shadow-md">
+      <div className="w-5/6 border p-5 shadow-md">
         <DataTable
           title="Daftar Nilai Siswa"
           columns={columns}

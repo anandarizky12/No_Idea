@@ -2,10 +2,11 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import { TableColumn } from "react-data-table-component";
 import { Input } from "antd";
-import { useDispatch } from "react-redux";
+
 import moment from "moment";
 import ButtonPrint from "../pdf/Button_PDF";
 import YourScore from "../pdf/YourScore";
+import { conditionalScore } from "../../utils/utils";
 
 const { Search } = Input;
 
@@ -26,6 +27,7 @@ export default function ListScoreTable({ data, id }: any) {
       (item.score && item.score == filterText.toLowerCase())
   );
 
+  console.log(data);
   type DataRow = {
     name: string;
     email: string;
@@ -46,12 +48,20 @@ export default function ListScoreTable({ data, id }: any) {
       sortable: true,
     },
     {
+      name: "Guru",
+      selector: (row: any) => row.Classroom.User.name,
+    },
+    {
       name: "Kelas",
       selector: (row: any) => row.Classroom.name,
     },
     {
       name: "Nilai",
       selector: (row: any) => row.score,
+    },
+    {
+      name: "Status",
+      cell: (row: any) => <p>{conditionalScore(row.score)}</p>,
     },
     {
       name: "Tanggal",
@@ -65,7 +75,7 @@ export default function ListScoreTable({ data, id }: any) {
       <div className="flex items-center justify-center">
         <ButtonPrint componentRef={componentRef} />
         <Search
-          placeholder="input search text"
+          placeholder="Cari"
           allowClear
           style={{ width: 304, marginLeft: "10px" }}
           onChange={(e) => setFilterText(e.target.value)}
@@ -100,6 +110,38 @@ export default function ListScoreTable({ data, id }: any) {
           highlightOnHover
           pointerOnHover
         />
+        <div className="w-full flex">
+          <table className="border border-gray-300 mr-6">
+            <tbody>
+              <tr className="border border-gray-300">
+                <th className="text-center font-semibold border border-gray-300 p-2">
+                  Nilai
+                </th>
+                <th className="text-left font-semibold p-2">Keterangan</th>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(89-100)</td>
+                <td className="border border-gray-300 px-2">Sangat Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(70-89)</td>
+                <td className="border border-gray-300 px-2">Baik</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(60-70)</td>
+                <td className="border border-gray-300 px-2">Cukup</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(50-60)</td>
+                <td className="border border-gray-300 px-2">Kurang</td>
+              </tr>
+              <tr className="border border-gray-300">
+                <td className="border border-gray-300 px-2">(0-50)</td>
+                <td className="border border-gray-300 px-2">Sangat Kurang</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="hidden">
         <div ref={componentRef}>

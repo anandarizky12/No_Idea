@@ -29,7 +29,8 @@ const {
   deleteMateri,
   editMateri,
   getYourScore,
-  getAllScoreInApp
+  getAllScoreInApp,
+  statusClassroom
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -52,7 +53,8 @@ const {
   getUnfinishedTask,
   getAllTaskScore,
   getScoreDetailTask,
-  editScore
+  editScore,
+  getMapel
 } = require("../controller/task");
 
 
@@ -100,6 +102,7 @@ router.get(
   getClassroomByTeacherId
 );
 router.patch("/editclassroom/:id", isTeacherOfClass, editClassroom);
+router.patch('/statusclassroom/:id', isTeacherOfClass, statusClassroom)
 router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);
 
 //require student id
@@ -125,6 +128,8 @@ router.put("/editquestion/:id", editQuestion)
 router.get("/finishedtask", authenticate ,getFinishedTask)
 router.get('/unfinishedtask', authenticate, getUnfinishedTask)
 
+
+router.get('/getmapel', getMapel)
 router.get('/getalltotal', isAdmin, getAllTotal);
 router.post('/createmateri/:id',isTeacherOfClass, addMateri)
 router.get('/materi/:id', isTeacherOrMemberOfClass, getMateri)

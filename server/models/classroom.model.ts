@@ -54,6 +54,7 @@ module.exports = (sequelize: any, Sequelize: any) => {
       description: Sequelize.STRING,
       banner: Sequelize.STRING,
       classcode: Sequelize.STRING,
+      status : Sequelize.ENUM('active', 'off')
     },
     {
       sequelize,

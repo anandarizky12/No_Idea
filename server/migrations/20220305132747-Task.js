@@ -24,6 +24,16 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      mapel_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Mapels",
+          key: "id",
+          as: "mapel_id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       time : Sequelize.INTEGER,
       createdAt: {
         type: Sequelize.DATE,

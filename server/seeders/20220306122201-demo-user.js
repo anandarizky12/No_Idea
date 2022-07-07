@@ -18,7 +18,7 @@ module.exports = {
       {
         name: "Muhammad Zainal",
         phone: "084537285746",
-        email: "ali@gmail.com",
+        email: "guru@gmail.com",
         password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
         role: "guru",
         profile: null,
@@ -29,7 +29,7 @@ module.exports = {
       {
         name: "Renaldi Siswanto",
         phone: "083467352617",
-        email: "mahmud@gmail.com",
+        email: "siswa@gmail.com",
         password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
         role: "siswa",
         profile: null,

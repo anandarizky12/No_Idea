@@ -8,6 +8,7 @@ interface Iresults{
         user : string
         user_id : number
         date : string
+        mapel : string
 }
 
 
@@ -32,6 +33,7 @@ const GenerateTotalScore = (score : any) : any => {
         user : score[0]?.Answer_task.User.name,
         user_id : score[0]?.Answer_task.User.id,
         date : score[0]?.Answer_task.createdAt,
+        mapel : score[0]?.Task.Mapel.nama
         }]
 
    
@@ -51,7 +53,8 @@ const GenerateTotalScore = (score : any) : any => {
                             answer_id : score[y].Answer_task.id,
                             user : score[y].Answer_task.User.name,
                             user_id : score[y].Answer_task.User.id,
-                            date : score[y].Answer_task.createdAt
+                            date : score[y].Answer_task.createdAt,
+                            mapel : score[y]?.Task.Mapel.nama
                         }) 
                     }
                 } 

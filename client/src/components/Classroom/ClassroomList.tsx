@@ -16,7 +16,6 @@ function ClassroomList() {
   React.useEffect(() => {
     dispatch(getClassroomByTeacherId(user.id));
   }, []);
-  console.log(classroom);
 
   if (!classes.isLoading && classes.isError && classes.error)
     return (

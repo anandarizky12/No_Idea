@@ -1,5 +1,15 @@
 import React from "react";
-import { Drawer, Form, Button, Col, Row, Input, Space, DatePicker } from "antd";
+import {
+  Drawer,
+  Form,
+  Button,
+  Col,
+  Row,
+  Input,
+  Space,
+  DatePicker,
+  Select,
+} from "antd";
 import { useDispatch } from "react-redux";
 import { handleChange, addQuestion, deleteQuestion } from "../../utils/utils";
 import { createTask } from "../../actions/task";
@@ -7,10 +17,13 @@ import { getCookie } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import Questions from "./Questions";
 
+import axios from "axios";
+const { Option } = Select;
+
 function CreateTask({ setOpen, open }: any) {
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  const [mapel, setMapel] = React.useState<any>();
   const onClose = () => {
     setOpen(false);
   };
@@ -24,13 +37,14 @@ function CreateTask({ setOpen, open }: any) {
     },
   ]);
 
-  const [state, setState] = React.useState({
+  const [state, setState] = React.useState<any>({
     title: null,
     description: null,
     other: null,
     user_id: id_user,
     deadline: null,
     classroom_id: id,
+    mapel_id: null,
   });
 
   function onChangeDate(date: any, dateString: any): void {
@@ -39,8 +53,24 @@ function CreateTask({ setOpen, open }: any) {
       deadline: dateString,
     });
   }
+
   const handleSubmit = () => {
     dispatch(createTask(state, question, id));
+  };
+
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/getmapel")
+      .then((res) => {
+        setMapel(res.data.data);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleSelectClick = (value: string) => {
+    setState({ ...state, mapel_id: value });
   };
 
   return (
@@ -98,7 +128,8 @@ function CreateTask({ setOpen, open }: any) {
               />
             </Form.Item>
           </Col>
-          <Col span={24}>
+
+          <Col span={12}>
             <Form.Item name="other" label="Tambahan">
               <Input
                 placeholder="Lainnya"
@@ -106,6 +137,20 @@ function CreateTask({ setOpen, open }: any) {
                 autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
               />
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Form.Item name="mapel_id" label="Mata Pelajaran">
+              <Select
+                defaultValue="Pilih Mata Pelajaran"
+                style={{ width: 200 }}
+                onChange={handleSelectClick}
+              >
+                {mapel?.map((data: any, key: any) => (
+                  <Option value={data.id}>{data.nama}</Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>

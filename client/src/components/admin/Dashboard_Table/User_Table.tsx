@@ -3,16 +3,14 @@ import DataTable from "react-data-table-component";
 import Export from "react-data-table-component";
 import { customStyles } from "./Styles";
 import { TableColumn } from "react-data-table-component";
-import {
-  EditOutlined,
-  DeleteOutlined,
-  DownloadOutlined,
-} from "@ant-design/icons";
-import { Avatar, Button, Input } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Avatar, Input } from "antd";
 
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../../actions/user";
-import { ReportExcel } from "./ReportUsers";
+
+import ButtonPrint from "../../pdf/Button_PDF";
+import AllUsersPDF from "../../pdf/AllUsersPDF";
 
 const { Search } = Input;
 
@@ -28,6 +26,7 @@ export default function User_Table({
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
+  const componentRef: any = React.useRef();
 
   const handleButtonClick = (id: string) => {
     setIsModalVisible(true);
@@ -87,6 +86,14 @@ export default function User_Table({
       },
     },
     {
+      name: "Jenis Kelamin",
+      selector: (row: any) => row.jk,
+      sortable: true,
+      style: {
+        fontSize: "15px",
+      },
+    },
+    {
       name: "Role",
       selector: (row: any) => row.role,
       cell: (row: any) => (
@@ -132,9 +139,10 @@ export default function User_Table({
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <div className="flex items-center justify-center">
-        <ReportExcel filteredItems={filteredItems} />
+        {/* <ReportExcel filteredItems={filteredItems} /> */}
+        <ButtonPrint componentRef={componentRef} />
         <Search
-          placeholder="input search text"
+          placeholder="Cari"
           allowClear
           style={{ width: 304, marginLeft: "10px" }}
           onChange={(e) => setFilterText(e.target.value)}
@@ -169,6 +177,11 @@ export default function User_Table({
           highlightOnHover
           pointerOnHover
         />
+      </div>
+      <div className="hidden">
+        <div ref={componentRef}>
+          <AllUsersPDF data={filteredItems} />
+        </div>
       </div>
     </div>
   );

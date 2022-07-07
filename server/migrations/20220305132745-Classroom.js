@@ -23,6 +23,11 @@ module.exports = {
       },
       classcode: Sequelize.STRING,
       banner: Sequelize.STRING,
+      status: {
+        allowNull: false,
+        defaultValue : "active",
+        type: Sequelize.ENUM('active', 'off'),
+      },
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),

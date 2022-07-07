@@ -9,7 +9,8 @@ const {
   Score,
   Question,
   User_Answered_Task,
-  Task_User_Score
+  Task_User_Score,
+  Mapel
 } = require("../models");
 const GenerateTotalScore = require("../utils/GenerateTotalScore");
 const GetUnfinishedTask = require("../utils/GetUnfinishedTask");
@@ -24,7 +25,8 @@ exports.createTask = async (req: any, res: any) => {
       deadline,
       description,
       other,
-      question 
+      question ,
+      mapel_id
     } = req.body;
     const schema = joi.object({
       user_id: joi.number().required(),
@@ -67,6 +69,7 @@ exports.createTask = async (req: any, res: any) => {
       deadline,
       description,
       other,
+      mapel_id
     });
 
        //create new arr of question to rename the key_value, to bulk insert to the database
@@ -139,13 +142,14 @@ exports.editTask = async (req: any, res: any) => {
   try {
  
     const { id } = req.params;
-    const { title, deadline, description, other } = req.body;
+    const { title, deadline, description, other, mapel_id } = req.body;
   
     const schema = joi.object({
       title: joi.string().required(),
       deadline: joi.string().allow(null),
       description: joi.string().required(),
       other: joi.string().allow(null),
+      mapel_id : joi.number().required(),
     });
     const { error } = schema.validate(req.body);
     if (error) {
@@ -161,6 +165,7 @@ exports.editTask = async (req: any, res: any) => {
         deadline,
         description,
         other,
+        mapel_id
       },
       {
         where: {
@@ -235,6 +240,9 @@ exports.getTask = async (req: any, res: any) => {
         id: id,
         classroom_id: classroom_id,
       },
+      include : [{
+        model : Mapel
+    }],
       attributes: { exclude: ["answer_key"] },
     });
     if (!task) {
@@ -265,7 +273,10 @@ exports.getAllScore = async (req: any, res: any) => {
         classroom_id: id,
       },
       include : [{
-        model : Task
+        model : Task,
+        include : [{
+          model : Mapel
+      }],
       },
       {
         model : Answer_task,
@@ -324,6 +335,9 @@ exports.getTaskAndQuestion = async (req: any, res: any) => {
       
         attributes: { exclude: ["answer_key"] },
        
+      },
+      {
+        model : Mapel
       }
       ],
     });
@@ -370,6 +384,8 @@ exports.getDetailTask = async (req : any ,res : any) =>{
         },
         include :[{
           model :Question,
+        },{
+          model : Mapel
         }]
       });
 
@@ -473,6 +489,9 @@ exports.getFinishedTask = async (req : any, res : any ) =>{
     },
     include : [{
       model : Task,
+      include : [{
+        model : Mapel
+    }],
    
    }]
    })
@@ -512,6 +531,9 @@ exports.getUnfinishedTask = async(req : any , res : any)=>{
     },
     include : [{
       model : Task,
+      include : [{
+        model : Mapel
+    }],
      
    }]
    })
@@ -556,7 +578,11 @@ exports.getUnfinishedTask = async(req : any , res : any)=>{
 
 exports.getAllTask = async ( req : any , res : any) =>{
   try{
-    const task = await Task.findAll();
+    const task = await Task.findAll({
+      include : [{
+        model : Mapel
+    }],
+    });
     
     if(!task){
       return res.status(500).send({
@@ -590,7 +616,10 @@ exports.getAllTaskScore = async(req : any , res : any) =>{
        },
        include :[{
 
-        model : Task
+        model : Task,
+        include : [{
+          model : Mapel
+      }],
         },
         {
           model : Classroom,
@@ -628,7 +657,9 @@ exports.getScoreDetailTask = async (req : any ,res : any) =>{
       },
       include :[{
         model :Question,
-      }]
+      }, {
+        model : Mapel
+      },]
     });
 
     if(!task){
@@ -736,3 +767,27 @@ exports.editScore = async (req : any ,res : any) =>{
   }
 }
 
+exports.getMapel = async (req: any, res: any) => {
+  try {
+    const mapel = await Mapel.findAll();
+    if(!mapel){
+      return res.status(400).send({
+        status: 400,
+        message: "Mapel NOt found",
+     
+      });
+    }
+    return res.status(200).send({
+      status: 200,
+      message: "Mapel found",
+      data: mapel,
+    });
+  }catch (err: any) {
+  
+    return res.status(500).send({
+      status: 500,
+      message: "Tuk",
+    
+    });
+  }
+};

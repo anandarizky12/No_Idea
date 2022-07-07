@@ -27,7 +27,7 @@ function Create({ setOpenRight, openRight }: any) {
 
   return (
     <Drawer
-      title="Create a new classroom"
+      title="Buat Kelas baru"
       width={useWindowDimension() > 400 ? 720 : "100%"}
       onClose={onClose}
       visible={openRight}
@@ -46,11 +46,11 @@ function Create({ setOpenRight, openRight }: any) {
           <Col span={12}>
             <Form.Item
               name="name"
-              label="Name"
-              rules={[{ required: true, message: "Please enter user name" }]}
+              label="Nama"
+              rules={[{ required: true, message: "Masukan Nama" }]}
             >
               <Input
-                placeholder="Please enter user name"
+                placeholder="Masukan Nama"
                 name="name"
                 onChange={(e) => handleChange(e, state, setState)}
               />
@@ -59,11 +59,11 @@ function Create({ setOpenRight, openRight }: any) {
           <Col span={12}>
             <Form.Item
               name="banner"
-              label="Image Banner"
+              label="Gambar"
               rules={[
                 {
                   required: true,
-                  message: "Please enter image banner url",
+                  message: "Masukan URL Gambar",
                 },
               ]}
             >
@@ -73,7 +73,7 @@ function Create({ setOpenRight, openRight }: any) {
                 addonBefore="http://"
                 addonAfter=".com"
                 onChange={(e) => handleChange(e, state, setState)}
-                placeholder="Please enter url"
+                placeholder="Masukan URL"
               />
             </Form.Item>
           </Col>
@@ -83,11 +83,11 @@ function Create({ setOpenRight, openRight }: any) {
           <Col span={24}>
             <Form.Item
               name="description"
-              label="Description"
+              label="Deskripsi"
               rules={[
                 {
                   required: true,
-                  message: "please enter url description",
+                  message: "Masukan Deskripsi",
                 },
               ]}
             >
@@ -95,7 +95,7 @@ function Create({ setOpenRight, openRight }: any) {
                 rows={4}
                 name="description"
                 onChange={(e) => handleChange(e, state, setState)}
-                placeholder="please enter url description"
+                placeholder="Masukan Deskripsi"
               />
             </Form.Item>
           </Col>
