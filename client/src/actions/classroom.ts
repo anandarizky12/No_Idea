@@ -49,10 +49,62 @@ export const getClassroomByTeacherId = (id: any) => {
         isLoading: false,
         isError: true,
       });
-      console.log(err);
+      
     }
   };
 };
+
+export const getAllClassroomByTeacherId = (id: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      await axios
+
+        .get(`http://localhost:5000/api/getallclassroombyteacherid/${id}`, config)
+        .then((res) => {
+          dispatch({
+            type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER,
+            payload: res.data,
+            isLoading: false,
+            isError: false,
+          });
+        })
+        .catch((err) => {
+          if(!err.response){
+           return dispatch({
+              type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            })
+          }
+          dispatch({
+            type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+        });
+    } catch (err: any) {
+      dispatch({
+        type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+      
+    }
+  };
+};
+
 
 export const createClassroom = (data: any) => {
   const { name, description, teacher_id, banner } = data;
@@ -146,6 +198,56 @@ export const editClassroom = (data: any) => {
     }
   };
 };
+
+
+export const editStatusClassroom = (data: any) => {
+  const { status, id } = data;
+
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      await axios
+        .patch(
+          `http://localhost:5000/api/statusclassroom/${id}`,
+          {status},
+          config
+        )
+        .then((res) => {
+          dispatch({
+            type: actionTypes.EDIT_STATUS_CLASSROOM,
+            payload: res.data,
+          });
+          alert("Success");
+          window.location.reload();
+        })
+      .catch((err) => {
+          console.log(err)
+          dispatch({
+            type: actionTypes.EDIT_STATUS_CLASSROOM_FAILED,
+            payload: err,
+          });
+       
+         
+        });
+    } catch (err: any) {
+      console.log(err)
+      dispatch({
+        type: actionTypes.EDIT_STATUS_CLASSROOM_FAILED,
+        payload: err,
+      });
+    
+     
+    }
+  };
+};
+
 
 export const getClassroom = (id: any) => {
   return async (dispatch: Dispatch) => {

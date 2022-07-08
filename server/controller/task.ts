@@ -521,8 +521,6 @@ exports.getFinishedTask = async (req : any, res : any ) =>{
 exports.getUnfinishedTask = async(req : any , res : any)=>{
   
   try{
-  
-    const { id } = req.params;
     const user_id = req.user.id;
 
    const getFinishedTask = await User_Answered_Task.findAll({
@@ -545,6 +543,9 @@ exports.getUnfinishedTask = async(req : any , res : any)=>{
       include : [
         {
           model : Classroom,
+          where : {
+            status : 'active'
+          },
           include : [
             {
               model : Task,

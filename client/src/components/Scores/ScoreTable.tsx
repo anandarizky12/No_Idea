@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import { customStyles } from "./StylesTable";
-import { Input, Select } from "antd";
+import { DatePicker, Input, Select } from "antd";
 import moment from "moment";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
@@ -10,6 +10,7 @@ import ButtonPrint from "../pdf/Button_PDF";
 import AllScoreInClassPDF from "../pdf/AllScoreInClassPDF";
 import { conditionalScore } from "../../utils/utils";
 import axios from "axios";
+
 const { Option } = Select;
 const { Search } = Input;
 
@@ -21,14 +22,14 @@ interface Iprops {
 export default function ScoreTable({ scores, id }: Iprops) {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState<any>([]);
   const [filterText, setFilterText] = React.useState<string>("");
   const componentRef: any = React.useRef();
   const [mapel, setMapel] = React.useState<any>();
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState<boolean>(false);
 
-  const filteredItems = rows.filter(
+  let filteredItems = rows.filter(
     (item: any) =>
       (item.user &&
         item.user.toLowerCase().includes(filterText.toLowerCase())) ||
@@ -37,6 +38,20 @@ export default function ScoreTable({ scores, id }: Iprops) {
       (item.mapel &&
         item.mapel.toLowerCase().includes(filterText.toLowerCase()))
   );
+  const [filter, setFilter] = React.useState<any>([]);
+
+  let filteredDate =
+    filter && filter.length > 1
+      ? rows.filter(
+          (item: any) =>
+            item.date &&
+            moment(moment(item.date).format("L")).isBetween(
+              filter[0],
+              filter[1]
+            )
+        )
+      : filteredItems;
+
   const handleSelectClick = (value: string) => {
     setFilterText(value);
   };
@@ -120,29 +135,41 @@ export default function ScoreTable({ scores, id }: Iprops) {
     },
   ];
 
+  const handleRange = (dates: any) => {
+    if (dates) {
+      let start = moment(dates[0]._d).subtract(1, "day");
+      let end = moment(dates[1]._d).add(1, "day");
+
+      setFilter([start, end]);
+      return;
+    }
+    return setFilter([]);
+  };
+
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <>
+        {" "}
         <Select
           defaultValue="Mata Pelajaran"
           style={{ width: 200 }}
           onChange={handleSelectClick}
+          allowClear={false}
         >
           <Option value="">Mata Pelajaran</Option>
           {mapel?.map((data: any, key: any) => (
             <Option value={data.nama}>{data.nama}</Option>
           ))}
         </Select>
-        <ButtonPrint componentRef={componentRef} />
         <Search
-          placeholder="input search text"
+          placeholder="Cari"
           allowClear
           style={{ width: 304 }}
           onChange={(e) => setFilterText(e.target.value)}
         />
       </>
     );
-  }, [filterText, resetPaginationToggle, mapel]);
+  }, [filterText, resetPaginationToggle, mapel, filteredItems]);
 
   React.useEffect(() => {
     if (scores && scores.data) {
@@ -154,17 +181,29 @@ export default function ScoreTable({ scores, id }: Iprops) {
     }
   }, [scores, id]);
 
-  console.log(filterText);
   return (
     <div className="w-full flex flex-col mt-12 items-center justify-center">
       <div className="w-5/6 border p-5 shadow-md">
         <DataTable
           title="Daftar Nilai Siswa"
           columns={columns}
-          data={filteredItems}
+          data={filteredDate}
           pagination
           progressPending={loading}
-          // subHeader
+          subHeader
+          subHeaderComponent={
+            <div style={{ width: "30.9rem" }} className=" flex">
+              <div className="mr-4">
+                <DatePicker.RangePicker
+                  style={{ width: "23rem" }}
+                  format="DD/MM/YYYY"
+                  placeholder={["Dari Tanggal", "Sampai Tanggal"]}
+                  onChange={(e) => handleRange(e)}
+                />
+              </div>
+              <ButtonPrint componentRef={componentRef} />
+            </div>
+          }
           actions={subHeaderComponentMemo}
           defaultSortFieldId={1}
           customStyles={customStyles}
@@ -202,9 +241,10 @@ export default function ScoreTable({ scores, id }: Iprops) {
           </table>
         </div>
       </div>
+
       <div className="hidden">
         <div ref={componentRef}>
-          <AllScoreInClassPDF data={filteredItems} />
+          <AllScoreInClassPDF data={filteredDate} />
         </div>
       </div>
     </div>

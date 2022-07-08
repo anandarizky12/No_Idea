@@ -21,7 +21,27 @@ export const getClassroomByTeacherIdReducers = (state = {}, action: any) => {
       return state;
   }
 };
-
+export const getAllClassroomByTeacherIdReducers = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_WHOLE_CLASSROOM_TEACHER:
+      return {
+        ...state,
+        classroom: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_WHOLE_CLASSROOM_TEACHER_FAILED:
+      return {
+        ...state,
+        classroom: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
 export const createClassroomReducers = (state = {}, action: any) => {
   switch (action.type) {
     case actionTypes.CREATE_CLASSROOM:
@@ -110,6 +130,31 @@ export const editClassroom = (state = {}, action: any) => {
       return state;
   }
 };
+
+
+
+export const editStatusClassroom = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.EDIT_STATUS_CLASSROOM:
+      return {
+        ...state,
+        classroom: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.EDIT_STATUS_CLASSROOM_FAILED:
+      return {
+        ...state,
+        classroom: null,
+        error: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    default:
+      return state;
+  }
+};
+
 
 export const getStudentsInClassroom = (state = {}, action: any) => {
   switch (action.type) {

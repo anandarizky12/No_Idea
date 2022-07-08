@@ -5,13 +5,17 @@ import { Input } from "antd";
 import moment from "moment";
 import ButtonPrint from "../pdf/Button_PDF";
 import ClassroomListPDF from "../pdf/ClassroomListPDF";
-
+import { PoweroffOutlined } from "@ant-design/icons";
+import { Popconfirm } from "antd";
+import { useDispatch } from "react-redux";
+import { editStatusClassroom } from "../../actions/classroom";
 const { Search } = Input;
 
 export default function ClassroomListTable({ data, id }: any) {
   const [loading, setLoading] = React.useState(true);
   const [rows, setRows] = React.useState([]);
   const [filterText, setFilterText] = React.useState("");
+  const dispatch = useDispatch();
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
   const componentRef: any = React.useRef();
@@ -21,9 +25,13 @@ export default function ClassroomListTable({ data, id }: any) {
         item.name.toLowerCase().includes(filterText.toLowerCase())) ||
       (item.classcode &&
         item.classcode.toLowerCase().includes(filterText.toLowerCase()))
-    //     ||
-    // (item.score && item.score == filterText.toLowerCase())
   );
+
+  const confirm = (id: string, status: string): void => {
+    dispatch(editStatusClassroom({ id, status }));
+  };
+
+  console.log(data);
 
   const columns: TableColumn<any>[] = [
     {
@@ -59,9 +67,61 @@ export default function ClassroomListTable({ data, id }: any) {
       width: "8rem",
     },
     {
+      name: "Status",
+      selector: (row: any) =>
+        row.status === "active" ? "Aktif" : "Tidak Aktif",
+      sortable: true,
+      width: "8rem",
+    },
+    {
       name: "Tanggal Dibuat",
       selector: (row: any) =>
         moment(row.createdAt).format("MMMM Do YYYY, h:mm:ss a"),
+    },
+    {
+      name: "Aksi",
+      width: "10rem",
+      cell: (row: any) => (
+        <>
+          {row.status === "active" ? (
+            <Popconfirm
+              title="Apa Anda Yakin Menonaktifkan Kelas Ini?"
+              onConfirm={() => confirm(row.id, "off")}
+              // onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <button
+                // onClick={() =>
+
+                // }
+                className="bg-red-500 p-1 text-gray-200 mr-4 rounded-sm text-xs cursor-pointer hover:bg-red-700 w-5/6"
+              >
+                <PoweroffOutlined className="mr-2" />
+                Non Aktifkan
+              </button>
+            </Popconfirm>
+          ) : (
+            <Popconfirm
+              title="Apa Anda Yakin Mengaktifkan Kelas Ini?"
+              onConfirm={() => confirm(row.id, "active")}
+              // onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <button
+                // onClick={() =>
+
+                // }
+                className="bg-green-500 p-1 text-gray-200 mr-4 rounded-sm text-xs cursor-pointer hover:bg-green-700 w-5/6"
+              >
+                <PoweroffOutlined className="mr-2" />
+                Aktifkan
+              </button>
+            </Popconfirm>
+          )}
+        </>
+      ),
     },
   ];
 

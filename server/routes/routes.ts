@@ -30,7 +30,8 @@ const {
   editMateri,
   getYourScore,
   getAllScoreInApp,
-  statusClassroom
+  statusClassroom,
+  getAllClassroomByTeacherId 
 } = require("../controller/classroom");
 const {
   authenticate,
@@ -101,6 +102,14 @@ router.get(
   authTeacher,
   getClassroomByTeacherId
 );
+router.get(
+  "/getallclassroombyteacherid/:id",
+  authTeacher,
+  getAllClassroomByTeacherId 
+);
+
+
+
 router.patch("/editclassroom/:id", isTeacherOfClass, editClassroom);
 router.patch('/statusclassroom/:id', isTeacherOfClass, statusClassroom)
 router.delete("/deleteclassroom/:id", isTeacherOfClass, deleteClassroom);

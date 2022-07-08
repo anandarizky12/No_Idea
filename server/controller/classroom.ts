@@ -121,7 +121,7 @@ exports.editClassroom = async (req: any, res: any) => {
       data: updateClassroom,
     });
   } catch (err: any) {
-    res.status(500).send({
+    return res.status(500).send({
       status: 500,
       message: err.message,
     });
@@ -474,6 +474,9 @@ exports.getClassByUserId = async (req: any, res: any) => {
       include: [
         {
           model: Classroom,
+          where : {
+            status : "active"
+          },
           attributes: ["id", "name", "banner", "description", "teacher_id", "classcode", "banner"],
         },
         {
@@ -518,7 +521,7 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
     const teacher = await User.findOne({
       where: {
         id: id,
-        status : 'active'
+      
       },
     });
 
@@ -536,6 +539,7 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
       where: {
   
         teacher_id: id,
+        status : 'active'
   
       },
       include: [
@@ -584,6 +588,90 @@ exports.getClassroomByTeacherId = async (req: any, res: any) => {
   }
 };
 
+
+exports.getAllClassroomByTeacherId = async (req: any, res: any) => {
+  
+  try {
+  
+    //paginate
+    const page = req.query.startIndex || 1;
+    const limit = req.query.limit || 100;
+  
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+
+    const { id } = req.params;
+    const teacher = await User.findOne({
+      where: {
+        id: id,
+      
+      },
+    });
+
+    if (!teacher) {
+  
+      return res.status(500).send({
+        status: 500,
+        message: "User id not valid",
+      });
+  
+    }
+
+    const getClassroomByTeacherId = await Classroom.findAll({
+  
+      where: {
+  
+        teacher_id: id,
+     
+      },
+      include: [
+  
+        {
+          model: User,
+          attributes: ["id", "name", "email"],
+        },
+        {
+          model : Student_Classroom,
+        },
+        {
+          model : Task
+        },
+        {
+          model : Materi
+        },
+
+      ],
+      offset: startIndex,
+      limit: endIndex
+    });
+   
+    if (!getClassroomByTeacherId) {
+  
+      return res.status(200).send({
+        status: 200,
+        message: "you are not create any class yet",
+      });
+  
+    }
+
+    return res.status(200).send({
+  
+      status: 200,
+      message: "Succesfully get the Class",
+      class: getClassroomByTeacherId
+      
+    });
+  } catch (err: any) {
+  
+    res.status(500).send({
+      message: err.message,
+    });
+  
+  }
+};
+
+
 exports.deleteClassroom = async (req: any, res: any) => {
   try {
     const { id } = req.params;
@@ -623,9 +711,10 @@ exports.statusClassroom = async (req: any, res: any) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
+
     const classroom = await Classroom.findOne({
       where: {
-        id,
+        id : id,
       },
     });
 
@@ -638,12 +727,13 @@ exports.statusClassroom = async (req: any, res: any) => {
 
     const statusClassroom = await Classroom.update({
       status,
-      
+    },
+    {
       where: {
-        id,
+        id : id,
       },
-      
-    });
+    } 
+    );
 
     return res.status(200).send({
       status: 200,
@@ -651,7 +741,8 @@ exports.statusClassroom = async (req: any, res: any) => {
       data: statusClassroom,
     });
   } catch (err: any) {
-    res.status(500).send({
+    console.log(err)
+    return res.status(500).send({
       status: 500,
       message: err.message,
     });

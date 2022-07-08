@@ -18,7 +18,6 @@ function Unfinished_Task() {
   const dispatch = useDispatch();
 
   const taskData = useSelector((state: any) => state.getUnfinishedTask);
-  const user = useSelector((state: any) => state.user);
 
   React.useEffect(() => {
     dispatch(getUnfinishedTasks());

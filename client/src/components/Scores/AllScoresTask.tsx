@@ -11,7 +11,9 @@ import AllScoreTaskTable from "./AllScoreTaskTable";
 
 function AllScoresTask() {
   const dispatch = useDispatch();
-  const data = useSelector((state: any) => state.getAllTaskScore);
+  const data = useSelector(
+    (state: any) => state.getAllClassroomByTeacherIdReducers
+  );
   const { id, task_id } = useParams();
   React.useEffect(() => {
     dispatch(getAllTasksScore(task_id));
