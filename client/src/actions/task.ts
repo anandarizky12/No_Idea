@@ -358,7 +358,7 @@ export const AnswerTask = (data : Idata ) =>{
     try{
      
       await axios
-        .post(`http://localhost:8000/api/answer_tasks?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
+        .post(`http://localhost:8000/api/answer_tasks/wordnet?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
         .then((res)=>{
           dispatch({
             type: actionTypes.ANSWER_TASK,
@@ -370,7 +370,7 @@ export const AnswerTask = (data : Idata ) =>{
         })
         .catch((err : any)=>{
           if (!err.response){
-            return alert("Sorry Server is busy now")
+            return alert("Sorry Server is Off")
          
           }
         

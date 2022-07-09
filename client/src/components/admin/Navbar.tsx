@@ -13,7 +13,7 @@ export default function Navbar() {
         <div className="w-full mx-auto  items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
           {/* Brand */}
           <div className="flex items-center">
-            <img src={"/logo.png"} width={32} />
+            <img src={"/logo_smk.png"} width={32} />
             <a
               className="text-gray-500 ml-2 text-sm uppercase hidden md:inline-block font-semibold "
               onClick={(e) => navigate("/admin")}

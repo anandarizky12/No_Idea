@@ -2,12 +2,9 @@ import { Spin } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-
 import { getAllTasksScore } from "../../actions/task";
 import DynamicError from "../404/DynamicError";
 import AllScoreTaskTable from "./AllScoreTaskTable";
-
-// import ListScoreTable from "./ListScoreTable";
 
 function AllScoresTask() {
   const dispatch = useDispatch();

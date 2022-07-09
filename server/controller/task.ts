@@ -705,6 +705,13 @@ exports.getScoreDetailTask = async (req : any ,res : any) =>{
               }
             ]
           }] 
+        },{
+          model : Mapel
+        }, {
+          model : Classroom,
+          include : {
+            model : User
+          }
         }]
       
       })

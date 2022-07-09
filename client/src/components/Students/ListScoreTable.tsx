@@ -10,10 +10,10 @@ import { conditionalScore } from "../../utils/utils";
 
 const { Search } = Input;
 const { Option } = Select;
+
 export default function ListScoreTable({ data, id }: any) {
   const [loading, setLoading] = React.useState(true);
-
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState<any>([]);
   const [filterText, setFilterText] = React.useState("");
   const [filter, setFilter] = React.useState<any>();
   const [mapel, setMapel] = React.useState<any>();
@@ -90,8 +90,8 @@ export default function ListScoreTable({ data, id }: any) {
 
   const handleRange = (dates: any) => {
     if (dates) {
-      let start = moment(dates[0]._d).subtract(1, "day");
-      let end = moment(dates[1]._d).add(1, "day");
+      let start = moment(dates[0]).subtract(1, "day").format("YYYY-MM-DD");
+      let end = moment(dates[1]).add(1, "day").format("YYYY-MM-DD");
 
       setFilter([start, end]);
       return;
@@ -145,12 +145,12 @@ export default function ListScoreTable({ data, id }: any) {
                 .toLowerCase()
                 .includes(filterText.toLowerCase()) &&
               item.createdAt &&
-              moment(moment(item.createdAt).format("L")).isBetween(
+              moment(moment(item.createdAt).format("YYYY-MM-DD")).isBetween(
                 filter[0],
                 filter[1]
               )
             : item.createdAt &&
-              moment(moment(item.createdAt).format("L")).isBetween(
+              moment(moment(item.createdAt).format("YYYY-MM-DD")).isBetween(
                 filter[0],
                 filter[1]
               )

@@ -155,12 +155,12 @@ export default function Scores_Table({ data }: any) {
                 .toLowerCase()
                 .includes(filterText.toLowerCase()) &&
               item.createdAt &&
-              moment(moment(item.createdAt).format("L")).isBetween(
+              moment(moment(item.createdAt).format("YYYY-MM-DD")).isBetween(
                 filter[0],
                 filter[1]
               )
             : item.createdAt &&
-              moment(moment(item.createdAt).format("L")).isBetween(
+              moment(moment(item.createdAt).format("YYYY-MM-DD")).isBetween(
                 filter[0],
                 filter[1]
               )
@@ -169,8 +169,8 @@ export default function Scores_Table({ data }: any) {
 
   const handleRange = (dates: any) => {
     if (dates) {
-      let start = moment(dates[0]._d).subtract(1, "day");
-      let end = moment(dates[1]._d).add(1, "day");
+      let start = moment(dates[0]._d).subtract(1, "day").format("YYYY-MM-DD");
+      let end = moment(dates[1]._d).add(1, "day").format("YYYY-MM-DD");
 
       setFilter([start, end]);
       return;

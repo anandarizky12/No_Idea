@@ -49,7 +49,7 @@ function Left({ setOpen, open }: any): JSX.Element {
         extra={
           <div>
             <div className="logo">
-              <img src="/logo.png" width={40} alt="logo" />
+              <img src="/logo_smk.png" width={40} alt="logo" />
             </div>
           </div>
         }
