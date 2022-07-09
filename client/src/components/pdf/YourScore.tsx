@@ -1,4 +1,3 @@
-import React from "react";
 import moment from "moment";
 import Header_Report from "./Header_Report";
 import { conditionalScore } from "../../utils/utils";
@@ -35,7 +34,9 @@ function YourScore({ data }: any) {
         <table className="table-fixed border border-black">
           <thead>
             <tr>
+              <th className="border border-black">No.</th>
               <th className="border border-black">Nama Tugas</th>
+              <th className="border border-black">Mapel</th>
               <th className="border border-black">Keterangan</th>
               <th className="border border-black">Guru</th>
               <th className="border border-black">Kelas</th>
@@ -47,21 +48,27 @@ function YourScore({ data }: any) {
           <tbody>
             {data.map((item: any, index: number) => (
               <tr key={index}>
-                <td className="border border-black">{item.Task.title}</td>
-                <td className="border border-black">{item.Task.description}</td>
-                <td className="border border-black text-xs">
+                <td className=" p-1 border border-black">{index + 1}</td>
+                <td className=" p-1 border border-black">{item.Task.title}</td>
+                <td className=" p-1 border border-black text-xs">
+                  {item.Task.Mapel.nama}
+                </td>
+                <td className=" p-1 border border-black">
+                  {item.Task.description}
+                </td>
+                <td className=" p-1 border border-black text-xs">
                   {item.Classroom.User.name}
                 </td>
-                <td className="border border-black text-xs">
+                <td className=" p-1 border border-black text-xs">
                   {item.Classroom.name}
                 </td>
-                <td className="border border-black text-center text-xl w-28">
+                <td className=" p-1 border border-black text-center text-xl">
                   {item.score}
                 </td>
-                <td className="border border-black text-center">
+                <td className=" p-1 border border-black text-center">
                   {conditionalScore(item.score)}
                 </td>
-                <td className="border border-black">
+                <td className=" p-1 border border-black">
                   {moment(item.createdAt).format("MMMM Do YYYY")}
                 </td>
               </tr>

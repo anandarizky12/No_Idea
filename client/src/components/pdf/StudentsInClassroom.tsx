@@ -30,6 +30,7 @@ function StudentsInClassroomPDF({ data }: any) {
         <table className="border border-black table-fixed">
           <thead>
             <tr>
+              <th className="border border-black w-32">No.</th>
               <th className="border border-black w-32">Nama Siswa</th>
               <th className="border border-black">Jenis Kelamin</th>
               <th className="border border-black">Tempat Lahir</th>
@@ -42,6 +43,7 @@ function StudentsInClassroomPDF({ data }: any) {
           <tbody>
             {data?.data.map((item: any, index: number) => (
               <tr key={index}>
+                <td className="border border-black">{index + 1}</td>
                 <td className="border border-black">{item.User.name}</td>
                 <td className="border border-black ">
                   {item.User.jk ? item.User.jk : "-"}

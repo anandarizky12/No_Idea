@@ -1,6 +1,6 @@
 export {};
 const joi = require("@hapi/joi");
-const { User, Classroom, Student_Classroom, Task, Question, Materi, User_Answered_Task, Score, Answer_task, Task_User_Score } = require("../models");
+const { User, Classroom, Student_Classroom, Task, Question, Materi, User_Answered_Task, Score, Answer_task, Task_User_Score, Mapel } = require("../models");
 const makeClassCode = require("../utils/GenerateClassCode");
 const Sequelize = require("sequelize");
 
@@ -1076,7 +1076,10 @@ exports.getYourScore = async (req : any , res : any) => {
         student_id : id
       },
       include :[{
-        model : Task
+        model : Task,
+        include : {
+          model : Mapel
+        }
         },
         {
           model : Classroom,
@@ -1110,7 +1113,10 @@ exports.getAllScoreInApp = async (req : any, res :any)=>{
   try{
     const allScore = await Task_User_Score.findAll({
       include :[{
-        model : Task
+        model : Task,
+        include : {
+          model : Mapel
+        }
         },
         {
           model : Classroom,

@@ -380,13 +380,16 @@ exports.getDetailTask = async (req : any ,res : any) =>{
       const task = await Task.findOne({
         where : {
           id : task_id,
+          
 
         },
         include :[{
           model :Question,
-        },{
+        },
+        {
           model : Mapel
-        }]
+        }
+      ]
       });
 
       if(!task){
@@ -443,6 +446,15 @@ exports.getDetailTask = async (req : any ,res : any) =>{
                 }
               ]
             }] 
+          },{
+            model : Mapel
+          }, {
+            model : Classroom,
+            include : [
+              {
+                model : User
+              }
+            ]
           }]
         
         })

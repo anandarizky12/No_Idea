@@ -42,13 +42,20 @@ export default function ScoreTable({ scores, id }: Iprops) {
 
   let filteredDate =
     filter && filter.length > 1
-      ? rows.filter(
-          (item: any) =>
-            item.date &&
-            moment(moment(item.date).format("L")).isBetween(
-              filter[0],
-              filter[1]
-            )
+      ? rows.filter((item: any) =>
+          filterText
+            ? item.mapel &&
+              item.mapel.toLowerCase().includes(filterText.toLowerCase()) &&
+              item.createdAt &&
+              moment(moment(item.createdAt).format("L")).isBetween(
+                filter[0],
+                filter[1]
+              )
+            : item.createdAt &&
+              moment(moment(item.createdAt).format("L")).isBetween(
+                filter[0],
+                filter[1]
+              )
         )
       : filteredItems;
 

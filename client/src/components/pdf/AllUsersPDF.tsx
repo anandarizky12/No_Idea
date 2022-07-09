@@ -43,24 +43,18 @@ function AllUsersPDF({ data }: any) {
                     <td className="border border-black text-center">
                       {index + 1}.
                     </td>
-                    <td className="border border-black text-left">
-                      <div className="flex items-center">
-                        <span className="font-medium text-xs">{item.name}</span>
-                      </div>
+                    <td className="border border-black text-center">
+                      <span className="font-medium text-xs">{item.name}</span>
                     </td>
-                    <td className="border border-black text-left">
-                      <div className="flex items-center">
-                        <span>{item.email}</span>
-                      </div>
+                    <td className="border border-black text-center">
+                      <span>{item.email}</span>
                     </td>
-                    <td className="border border-black text-left">
-                      <div className="flex items-center">
-                        <span>{item.phone}</span>
-                      </div>
+                    <td className="border border-black text-center">
+                      <span>{item.phone}</span>
                     </td>
                     <td className="border border-black text-center">
                       <div className="flex items-center justify-center">
-                        <Avatar src={item.profile} />;
+                        <Avatar size={70} src={item.profile} />;
                       </div>
                     </td>
                     <td className="border border-black text-center">

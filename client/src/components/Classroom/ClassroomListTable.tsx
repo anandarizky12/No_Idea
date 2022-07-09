@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import { TableColumn } from "react-data-table-component";
-import { Input } from "antd";
+import { Input, Select } from "antd";
 import moment from "moment";
 import ButtonPrint from "../pdf/Button_PDF";
 import ClassroomListPDF from "../pdf/ClassroomListPDF";
@@ -9,6 +9,7 @@ import { PoweroffOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
 import { useDispatch } from "react-redux";
 import { editStatusClassroom } from "../../actions/classroom";
+const { Option } = Select;
 const { Search } = Input;
 
 export default function ClassroomListTable({ data, id }: any) {
@@ -24,14 +25,14 @@ export default function ClassroomListTable({ data, id }: any) {
       (item.name &&
         item.name.toLowerCase().includes(filterText.toLowerCase())) ||
       (item.classcode &&
-        item.classcode.toLowerCase().includes(filterText.toLowerCase()))
+        item.classcode.toLowerCase().includes(filterText.toLowerCase())) ||
+      (item.status &&
+        item.status.toLowerCase().includes(filterText.toLowerCase()))
   );
 
   const confirm = (id: string, status: string): void => {
     dispatch(editStatusClassroom({ id, status }));
   };
-
-  console.log(data);
 
   const columns: TableColumn<any>[] = [
     {
@@ -128,9 +129,23 @@ export default function ClassroomListTable({ data, id }: any) {
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <div className="flex items-center justify-center">
+        <Select
+          defaultValue="Status"
+          style={{ width: 200, marginRight: "10px" }}
+          onChange={(value) => setFilterText(value)}
+          // allowClear={false}
+        >
+          <Option value="">Status</Option>
+          <Option value="active">Aktif</Option>
+          <Option value="off">Non Aktif</Option>
+
+          {/* {mapel?.map((data: any, key: any) => (
+            <Option value={data.nama}>{data.nama}</Option>
+          ))} */}
+        </Select>
         <ButtonPrint componentRef={componentRef} />
         <Search
-          placeholder="input search text"
+          placeholder="Cari"
           allowClear
           style={{ width: 304, marginLeft: "10px" }}
           onChange={(e) => setFilterText(e.target.value)}

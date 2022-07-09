@@ -1,4 +1,3 @@
-import React from "react";
 import moment from "moment";
 import Header_Report from "./Header_Report";
 
@@ -18,6 +17,14 @@ function ResultAnswerPDF({ data, totalScore }: any) {
                 <td>
                   : {data?.Questions[0]?.Answer_task?.User.name.toUpperCase()}
                 </td>
+              </tr>
+              <tr>
+                <th className="text-left">Guru</th>
+                <td>: {data?.Classroom.User.name}</td>
+              </tr>
+              <tr>
+                <th className="text-left">Kelas</th>
+                <td>: {data?.Mapel.nama}</td>
               </tr>
               <tr>
                 <th className="text-left">Tugas</th>

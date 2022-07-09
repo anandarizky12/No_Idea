@@ -51,6 +51,9 @@ function AllScoreInAppPDF({ data }: any) {
                   Nama Guru
                 </th>
                 <th className="border border-black text-xs text-center">
+                  Mapel
+                </th>
+                <th className="border border-black text-xs text-center">
                   Tugas
                 </th>
                 <th className="border border-black text-xs text-center">
@@ -72,29 +75,34 @@ function AllScoreInAppPDF({ data }: any) {
                       {index + 1}.
                     </td>
                     <td className="border border-black text-left">
-                      <div className="flex items-center">
+                      <div className="flex items-center p-1">
                         <span className="font-medium text-xs">
                           {item.User.name}
                         </span>
                       </div>
                     </td>
                     <td className="border border-black text-left">
-                      <div className="flex items-center">
+                      <div className="flex items-center p-1">
                         <span>{item.Classroom.name}</span>
                       </div>
                     </td>
                     <td className="border border-black text-left">
-                      <div className="flex items-center">
+                      <div className="flex items-center p-1">
                         <span>{item.Classroom.User.name}</span>
                       </div>
                     </td>
+                    <td className="border border-black text-left">
+                      <div className="flex items-center p-1">
+                        <span>{item.Task.Mapel.nama}</span>
+                      </div>
+                    </td>
                     <td className="border border-black text-center">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center p-1 justify-center">
                         <span className=" text-xs">{item.Task.title}</span>
                       </div>
                     </td>
                     <td className="border border-black text-center">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center p-1 justify-center">
                         <span className=" text-xs">{item.score}</span>
                       </div>
                     </td>
@@ -102,7 +110,7 @@ function AllScoreInAppPDF({ data }: any) {
                       <span>{conditionalScore(item.score)}</span>
                     </td>
                     <td className="border border-black text-center text-xs">
-                      {moment(item.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+                      {moment(item.createdAt).format("MMMM Do YYYY")}
                     </td>
                   </tr>
                 ))}

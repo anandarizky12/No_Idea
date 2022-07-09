@@ -51,6 +51,9 @@ function ClassroomListPDF({ data }: any) {
                   Jumlah Materi
                 </th>
                 <th className="border border-black text-xs text-center">
+                  Status
+                </th>
+                <th className="border border-black text-xs text-center">
                   Tanggal dibuat
                 </th>
               </tr>
@@ -85,6 +88,11 @@ function ClassroomListPDF({ data }: any) {
                     </td>
                     <td className="border border-black text-center">
                       <span>{item.Materis.length}</span>
+                    </td>
+                    <td className="border border-black text-center">
+                      <span>
+                        {item.status === "active" ? "Aktif" : "Tidak Aktif"}
+                      </span>
                     </td>
                     <td className="border border-black text-center text-xs">
                       {moment(item.createdAt).format("MMMM Do YYYY, h:mm:ss a")}

@@ -1,20 +1,22 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import { TableColumn } from "react-data-table-component";
-import { Input } from "antd";
-
+import { DatePicker, Input, Select } from "antd";
+import axios from "axios";
 import moment from "moment";
 import ButtonPrint from "../pdf/Button_PDF";
 import YourScore from "../pdf/YourScore";
 import { conditionalScore } from "../../utils/utils";
 
 const { Search } = Input;
-
+const { Option } = Select;
 export default function ListScoreTable({ data, id }: any) {
   const [loading, setLoading] = React.useState(true);
 
   const [rows, setRows] = React.useState([]);
   const [filterText, setFilterText] = React.useState("");
+  const [filter, setFilter] = React.useState<any>();
+  const [mapel, setMapel] = React.useState<any>();
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
   const componentRef: any = React.useRef();
@@ -24,10 +26,21 @@ export default function ListScoreTable({ data, id }: any) {
         item.Classroom.name.toLowerCase().includes(filterText.toLowerCase())) ||
       (item.Task.title &&
         item.Task.title.toLowerCase().includes(filterText.toLowerCase())) ||
-      (item.score && item.score == filterText.toLowerCase())
+      (item.score && item.score == filterText.toLowerCase()) ||
+      (item.Task.Mapel.nama &&
+        item.Task.Mapel.nama.toLowerCase().includes(filterText.toLowerCase()))
   );
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/getmapel")
+      .then((res) => {
+        setMapel(res.data.data);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }, []);
 
-  console.log(data);
   type DataRow = {
     name: string;
     email: string;
@@ -45,6 +58,11 @@ export default function ListScoreTable({ data, id }: any) {
     {
       name: "Keterangan",
       selector: (row: any) => row.Task.description,
+      sortable: true,
+    },
+    {
+      name: "Mapel",
+      selector: (row: any) => row.Task.Mapel.nama,
       sortable: true,
     },
     {
@@ -70,10 +88,34 @@ export default function ListScoreTable({ data, id }: any) {
     },
   ];
 
+  const handleRange = (dates: any) => {
+    if (dates) {
+      let start = moment(dates[0]._d).subtract(1, "day");
+      let end = moment(dates[1]._d).add(1, "day");
+
+      setFilter([start, end]);
+      return;
+    }
+    return setFilter([]);
+  };
+  const handleSelectClick = (value: string) => {
+    setFilterText(value);
+  };
+
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <div className="flex items-center justify-center">
-        <ButtonPrint componentRef={componentRef} />
+        <Select
+          defaultValue="Mata Pelajaran"
+          style={{ width: 200 }}
+          onChange={handleSelectClick}
+          allowClear={false}
+        >
+          <Option value="">Mata Pelajaran</Option>
+          {mapel?.map((data: any, key: any) => (
+            <Option value={data.nama}>{data.nama}</Option>
+          ))}
+        </Select>
         <Search
           placeholder="Cari"
           allowClear
@@ -94,16 +136,50 @@ export default function ListScoreTable({ data, id }: any) {
     }
   }, [data, id]);
 
+  let filteredDate =
+    filter && filter.length > 1
+      ? rows.filter((item: any) =>
+          filterText
+            ? item.Task.Mapel.nama &&
+              item.Task.Mapel.nama
+                .toLowerCase()
+                .includes(filterText.toLowerCase()) &&
+              item.createdAt &&
+              moment(moment(item.createdAt).format("L")).isBetween(
+                filter[0],
+                filter[1]
+              )
+            : item.createdAt &&
+              moment(moment(item.createdAt).format("L")).isBetween(
+                filter[0],
+                filter[1]
+              )
+        )
+      : filteredItems;
+
   return (
     <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">
       <div className="w-full border p-5 shadow-md">
         <DataTable
           title="Daftar Nilai Anda"
           columns={columns}
-          data={filteredItems}
+          data={filteredDate}
           pagination
           progressPending={loading}
-          // subHeader
+          subHeader
+          subHeaderComponent={
+            <div style={{ width: "30.9rem" }} className=" flex">
+              <div className="mr-2">
+                <DatePicker.RangePicker
+                  style={{ width: "23rem" }}
+                  format="DD/MM/YYYY"
+                  placeholder={["Dari Tanggal", "Sampai Tanggal"]}
+                  onChange={(e) => handleRange(e)}
+                />
+              </div>
+              <ButtonPrint componentRef={componentRef} />
+            </div>
+          }
           actions={subHeaderComponentMemo}
           defaultSortFieldId={1}
           //   customStyles={customStyles}
@@ -145,7 +221,7 @@ export default function ListScoreTable({ data, id }: any) {
       </div>
       <div className="hidden">
         <div ref={componentRef}>
-          <YourScore data={filteredItems} />
+          <YourScore data={filteredDate} />
         </div>
       </div>
     </div>
