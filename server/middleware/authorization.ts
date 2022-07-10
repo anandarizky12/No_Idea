@@ -56,6 +56,35 @@ exports.authTeacher = async (req: any, res: any, next: any) => {
   }
 };
 
+exports.isAdmin = async (req: any, res: any, next: any) => {
+  let header, token;
+  if (
+    !(header = req.header("Authorization")) ||
+    !(token = header.split(" ")[1])
+  )
+    
+    
+    return res.status(401).send({
+      error: { message: "Access denied" , status: 401},
+    });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ where: { id: decoded.id } });
+
+    if (user.role !== "admin")
+      return res
+        .status(400)
+        .send({ status: 400, message: "invalid operation" });
+    next();
+  } catch (err : any) {
+    console.log(err);
+    res.status(400).send({
+      error: { message: err.message, status: 400 },
+    });
+  }
+};
+  
+
 exports.isMemberOfClass = async (req: any, res: any, next: any) => {
   let header, token;
   if (
@@ -100,7 +129,8 @@ exports.isTeacherOfClass = async (req: any, res: any, next: any) => {
     });
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+   
+    
     const isTeacher = await Classroom.findOne({
       where: {
         teacher_id: decoded.id,
@@ -109,8 +139,8 @@ exports.isTeacherOfClass = async (req: any, res: any, next: any) => {
     });
 
     if (!isTeacher)
-      return res.status(400).send({
-        status: 400,
+      return res.status(401).send({
+        status: 401,
         message: "Sorry, You are not a teacher of this class",
       });
     req.user = decoded;
@@ -142,9 +172,12 @@ exports.isTeacherOrMemberOfClass = async (req: any, res: any, next: any) => {
       },
     });
 
+
+    req.user = decoded;
     if (isTeacher) {
       next();
     } else {
+      
       const isInClass = await Student_Classroom.findOne({
         where: {
           student_id: decoded.id,

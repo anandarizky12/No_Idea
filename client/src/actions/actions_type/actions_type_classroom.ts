@@ -2,17 +2,40 @@ export const GET_ALL_CLASSROOM_TEACHER: string = "GET_ALL_CLASSROOM_TEACHER";
 export const GET_ALL_CLASSROOM_TEACHER_FAILED: string =
   "GET_ALL_CLASSROOM_TEACHER_FAILED";
 
+export const GET_WHOLE_CLASSROOM_TEACHER: string = "GET_WHOLE_CLASSROOM_TEACHER";
+export const GET_WHOLE_CLASSROOM_TEACHER_FAILED: string =
+  "GET_WHOLE_CLASSROOM_TEACHER_FAILED";
+
 export const CREATE_CLASSROOM: string = "CREATE_CLASSROOM";
 export const CREATE_CLASSROOM_FAILED: string = "CREATE_CLASSROOM_FAILED";
 
+export const CREATE_MATERI: string = "CREATE_MATERI";
+export const CREATE_MATERI_FAILED: string = "CREATE_MATERI_FAILED";
+
+export const GET_MATERI: string = "GET_MATERI";
+export const GET_MATERI_FAILED: string = "GET_MATERI_FAILED";
+
+export const GET_ALL_MATERI: string = "GET_ALL_MATERI";
+export const GET_ALL_MATERI_FAILED: string = "GET_ALL_MATERI_FAILED";
+
+export const EDIT_MATERI: string = "EDIT_MATERI";
+export const EDIT_MATERI_FAILED: string = "EDIT_MATERI_FAILED";
+
+export const DELETE_MATERI: string = "DELETE_MATERI";
+export const DELETE_MATERI_FAILED: string = "DELETE_MATERI_FAILED";
+
 export const GET_CLASSROOM: string = "GET_CLASSSROOM";
 export const GET_CLASSROOM_FAILED: string = "GET_CLASSSROOM_FAILED";
+
 
 export const DELETE_CLASSROOM: string = "DELETE_CLASSROOM";
 export const DELETE_CLASSROOM_FAILED: string = "DELETE_CLASSROOM_FAILED";
 
 export const EDIT_CLASSROOM: string = "EDIT_CLASSROOM";
 export const EDIT_CLASSROOM_FAILED: string = "EDIT_CLASSROOM_FAILED";
+
+export const EDIT_STATUS_CLASSROOM: string = "EDIT_STATUS_CLASSROOM";
+export const EDIT_STATUS_CLASSROOM_FAILED: string = "EDIT_STATUS_CLASSROOM_FAILED";
 
 export const GET_STUDENTS_IN_CLASSROOM: string = "GET_STUDENTS_IN_CLASSROOM";
 export const GET_STUDENTS_IN_CLASSROOM_FAILED: string =
@@ -24,6 +47,12 @@ export const GET_STUDENT_CLASSROOM_FAILED: string =
 
 export const JOIN_CLASSROOM: string = "JOIN_CLASSROOM";
 export const JOIN_CLASSROOM_FAILED: string = "JOIN_CLASSROOM_FAILED";
+
+export const GET_YOUR_SCORE :string = "GET_YOUR_SCORE";
+export const GET_YOUR_SCORE_FAILED : string = "GET_YOUR_SCORE_FAILED";
+
+export const GET_ALL_SCORE_IN_APP :string = "GET_ALL_SCORE_IN_APP";
+export const GET_ALL_SCORE_IN_APP_FAILED : string = "GET_ALL_SCORE_IN_APP_FAILED";
 // export const REGISTER_USER: string = "REGISTER_USER";
 // export const REGISTER_SUCCESS: string = "REGISTER_SUCCESS";
 // export const REGISTER_FAILED: string = "REGISTER_FAILED";

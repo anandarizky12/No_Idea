@@ -1,39 +1,39 @@
 "use strict";
-import bycrypt from 'bcrypt';
+
 
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert("Users", [
       {
-        name: "Usram Bin Ahmed",
-        phone: "0123456789",
-        email: "usram@gmail.com",
-        password: bycrypt("12345678"),
+        name: "Admin",
+        phone: "084325567890",
+        email: "admin@gmail.com",
+        password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
+        role: "admin",
+        profile: null,
+     
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Muhammad Zainal",
+        phone: "084537285746",
+        email: "guru@gmail.com",
+        password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
         role: "guru",
         profile: null,
-        no_induk: bycrypt("123456789"),
+   
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "Ali Mahmud",
-        phone: "0123456789",
-        email: "Ali@gmail.com",
-        password: bycrypt("12345678"),
+        name: "Renaldi Siswanto",
+        phone: "083467352617",
+        email: "siswa@gmail.com",
+        password: "$2b$10$PDDo8s2gaHUXHMxGHcbppedp99lBqSFAp41w9B96GoXE1JEJAUd0.",
         role: "siswa",
         profile: null,
-        no_induk: "124323423",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        name: "Mahmud Bin Ali",
-        phone: "0123456789",
-        email: "mahmud@gmail.com",
-        password: bycrypt("12345678"),
-        role: "siswa",
-        profile: null,
-        no_induk: "12345678",
+     
         createdAt: new Date(),
         updatedAt: new Date(),
       },

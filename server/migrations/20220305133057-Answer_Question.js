@@ -11,23 +11,26 @@ module.exports = {
       },
 
       answer: Sequelize.STRING,
-      task_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Tasks",
-          key: "id",
-          as: "task_id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
       student_id: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: "Users",
           key: "id",
           as: "student_id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      question_id : {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        references: {
+          model: "Questions",
+          key: "id",
+          as: "question_id",
+        },
+
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },

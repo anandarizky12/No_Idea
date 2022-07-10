@@ -1,5 +1,3 @@
-import React from "react";
-
 function TeacherLayout({
   classes,
   classroom,
@@ -12,15 +10,16 @@ function TeacherLayout({
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
-        status={classes.error.status}
-        message={classes.error.data.error.message}
+        status={classes?.error?.status}
+        message={classes?.error?.data?.message}
       />
     );
+
   return (
     <div>
-      <div className="flex w-full h-screen flex-wrap">
+      <div className="flex w-full flex-wrap">
         {!classes.isLoading && !classes.isError && classroom !== null ? (
-          <div className="flex justify-center items-center w-full h-full">
+          <div className="flex justify-center items-center w-full h-screen">
             <Space size="middle">
               <Spin size="large" />
             </Space>

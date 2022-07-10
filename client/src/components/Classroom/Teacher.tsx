@@ -27,12 +27,12 @@ function Teacher({ classroom, user }: any) {
           <CreateTaskButton teacher={classroom.data.User} />
         </div>
       </div>
-      <div className="">
+      <div>
         {task && task.data.length > 0
           ? task.data.map((task: any, number: Number) => {
               return (
                 <div className="flex ">
-                  <TaskCard key={number} task={task} user={user} />;
+                  <TaskCard task={task} user={user} />;
                 </div>
               );
             })

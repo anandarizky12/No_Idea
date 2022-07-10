@@ -1,0 +1,3 @@
+export const GET_DATA_DASHBOARD: string = "GET_DATA_DASHBOARD";
+export const GET_DATA_DASHBOARD_FAILED: string =
+  "GET_DATA_DASHBOARD_FAILED";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Drawer } from "antd";
-import { HomeOutlined, FileTextOutlined } from "@ant-design/icons";
+import { HomeOutlined, ProfileOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCookie } from "../../utils/utils";
@@ -39,63 +39,115 @@ function Left({ setOpen, open }: any): JSX.Element {
   return (
     <div>
       <Drawer
-        title="WeClass"
+        title="SMKN 1 Sukamara"
         placement={"left"}
         closable={false}
         onClose={() => setOpen(false)}
         visible={open}
         key={"left"}
-        width={300}
-      >
-        <div
-          onClick={() => handleNavigate("/")}
-          className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
-           hover:text-blue-300 
-          hover:cursor-pointer"
-        >
-          <HomeOutlined className="text-2xl mr-6" />
-          Home Page
-        </div>
-
-        {user.role === "guru" ? (
-          <div
-            onClick={() => handleNavigate("/report")}
-            className="px-2 left-0 py-4 font-semibold text-gray-500 flex items-centerflex-row rounded-md 
-           hover:text-blue-300 
-          hover:cursor-pointer"
-          >
-            <FileTextOutlined className="text-2xl mr-6" />
-            Report Page
+        width={260}
+        extra={
+          <div>
+            <div className="logo">
+              <img src="/logo_smk.png" width={40} alt="logo" />
+            </div>
           </div>
-        ) : null}
-        <div className="border-b"></div>
-        <div className="px-1 py-4 text- font-semibold text-gray-500 flex items-center">
-          Classroom
-        </div>
-        {user.role === "guru" ? (
-          <>
-            {classroom &&
-              classroom.class.map((item: any) => (
-                <ClassroomList
-                  navigate={handleNavigate}
-                  key={item.id}
-                  classroom={item}
-                />
-              ))}
-          </>
-        ) : (
-          <>
-            {student &&
-              student.class.map((item: any) => (
-                <ClassroomList
-                  navigate={handleNavigate}
-                  key={item.id}
-                  classroom={item.Classroom}
-                />
-              ))}
-          </>
-        )}
-        <div className="border-b"></div>
+        }
+        headerStyle={{
+          background: "#fff",
+          fontWeight: "bold",
+        }}
+        footer={
+          <div className="text-center">
+            <h1 className="text-primary">
+              © {new Date().getFullYear()} SMKN 1 SUKAMARA
+            </h1>
+          </div>
+        }
+        bodyStyle={{
+          paddingLeft: 20,
+          paddingRight: 10,
+          paddingTop: 0,
+
+          // borderTop: 1 + "px solid #2525",
+        }}
+      >
+        <ul>
+          <li
+            onClick={() => handleNavigate("/")}
+            className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
+          >
+            <HomeOutlined className="text-xl mr-6" />
+            Beranda
+          </li>
+          <li
+            onClick={() => handleNavigate("/profile")}
+            className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
+          >
+            <UserOutlined className="text-xl mr-6" />
+            Halaman Profile
+          </li>
+          {user.role == "siswa" ? (
+            <li
+              onClick={() => handleNavigate("/your_score")}
+              className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
+            >
+              <ProfileOutlined className="text-xl mr-6" />
+              Daftar nilai anda
+            </li>
+          ) : null}
+          {user.role == "guru" ? (
+            <li
+              onClick={() => handleNavigate("/classlist")}
+              className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
+           hover:text-blue-300 cursor-pointer"
+            >
+              <ProfileOutlined className="text-xl mr-6" />
+              Halaman Daftar Kelas
+            </li>
+          ) : null}
+          {/* {user.role === "guru" ? (
+            <li
+              onClick={() => handleNavigate("/report")}
+              className="px-2 left-0 py-4 font-normal text-primary flex items-centerflex-row rounded-md 
+           hover:text-blue-300 cursor-pointer"
+            >
+              <FileTextOutlined className="text-xl mr-6" />
+              Report Page
+            </li>
+          ) : null} */}
+          <div className="border-b"></div>
+          <li className=" py-4 text- font-semibold text-primary flex items-center">
+            Kelas yang diikuti
+          </li>
+          {user.role === "guru" ? (
+            <>
+              {classroom &&
+                classroom.class.map((item: any) => (
+                  <ClassroomList
+                    navigate={handleNavigate}
+                    key={item.id}
+                    classroom={item}
+                  />
+                ))}
+            </>
+          ) : (
+            <>
+              {student &&
+                student.class.map((item: any) => (
+                  <ClassroomList
+                    navigate={handleNavigate}
+                    key={item.id}
+                    classroom={item.Classroom}
+                  />
+                ))}
+            </>
+          )}
+          <div className="border-b "></div>
+        </ul>
       </Drawer>
     </div>
   );

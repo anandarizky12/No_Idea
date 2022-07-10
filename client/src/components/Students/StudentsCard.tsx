@@ -1,9 +1,17 @@
-import React from "react";
 import AvatarCustom from "../Avatar/AvatarCustom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function StudentsCard({ student }: any) {
+  const navigate = useNavigate();
+
+  const { id } = useParams();
+  console.log(student);
   return (
-    <div className="border w-full mt-5 rounded-md shadow-md h-16">
+    <div
+      onClick={() => navigate(`/classroom/${id}/student/${student?.User.id}`)}
+      className="border w-full mt-5 rounded-md shadow-md h-16 hover:shadow-md cursor-pointer hover:text-blue-500"
+    >
       <div className="flex items-center h-full px-5 justify-between">
         <div className="flex items-center">
           <AvatarCustom size={"large"} src={student.User.profile} />

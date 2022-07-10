@@ -8,8 +8,11 @@ import { useDispatch } from "react-redux";
 import { AlertComponents } from "../alert/Alert";
 import { getCookie } from "../../utils/utils";
 import useWindowDimension from "../hook/useWindowDimension";
+import bg from "./images/school.jpg";
+import logo from "./images/logo_smk.png";
 
 function Login() {
+  console.log(bg);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [alert, setAlert] = useState({ message: "", typeAlert: 0 });
@@ -40,7 +43,8 @@ function Login() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        padding: `${useWindowDimension() > 400 ? "100px" : "10px"}`,
+        padding: `${useWindowDimension() > 400 ? "0px" : "0px"}`,
+        paddingLeft: `${useWindowDimension() > 400 ? "70px" : "10px"}`,
         justifyContent: "space-between",
       }}
     >
@@ -48,18 +52,23 @@ function Login() {
         <Form
           name="basic"
           labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
+          wrapperCol={{ span: 20 }}
           initialValues={{ remember: true }}
           autoComplete="off"
           onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
         >
-          <h1 className="text-xl font-semibold text-gray-400">
-            Welcome To The App
-          </h1>
-          <h1 className="text-3xl md:text-4xl font-bold">
-            Please Login Down Below<span>.</span>
-          </h1>
+          <div className="flex mb-8">
+            <img width={70} height={70} src={logo} />
+            <div className="ml-2 flex flex-col">
+              <h1 className="p-0 m-0 text-xl font-semibold text-primary">
+                Aplikasi Penilaian Otomatis SMKN 1 Sukamara
+              </h1>
+              <h1 className="p-0 m-0 text-3xl md:text-4xl font-bold">
+                Silahkan Login Dibawah<span>.</span>
+              </h1>
+            </div>
+          </div>
           <Form.Item
             name="Email"
             rules={[{ required: true, message: "Please input your Email!" }]}
@@ -99,28 +108,44 @@ function Login() {
             // wrapperCol={{ offset: 8, span: 16 }}
           >
             <Typography>
-              Dont Have Account?{" "}
+              Belum Punya Akun Siswa?{" "}
               <a className="font-bold" onClick={() => navigate("/register")}>
-                Click Here
+                Klik Disini
               </a>
             </Typography>
           </Form.Item>
 
           <Form.Item>
             <Button shape="round" size="large" type="primary" htmlType="submit">
-              Submit
+              Login
             </Button>
           </Form.Item>
         </Form>
       </Card>
-      <img
-        className="grayscale lg:block hidden"
-        src={"/icons8-class-dojo-480.png"}
-      ></img>
+
+      {/* <img
+        className="grayscale  lg:block hidden"
+        width={400}
+        src={"/logo_SMK.png"}
+      /> */}
 
       {alert.message !== null ? (
         <AlertComponents alert={alert} setAlert={setAlert} />
       ) : null}
+      <div
+        className="w-3/6 h-screen"
+        style={{
+          backgroundImage: `url('${bg}')`,
+          backgroundPosition: "center",
+          filter: "grayscale(1)",
+        }}
+      ></div>
+      <Typography className="absolute bottom-5 left-5">
+        Login{" "}
+        <a className="font-bold" onClick={() => navigate("/admin/login")}>
+          Admin
+        </a>
+      </Typography>
     </div>
   );
 }

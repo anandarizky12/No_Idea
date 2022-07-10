@@ -1,4 +1,4 @@
-import { Modal, Spin, Button } from "antd";
+import { Modal, Spin, Button, Alert } from "antd";
 import React, { useRef } from "react";
 import { SettingOutlined } from "@ant-design/icons";
 import { Tooltip, Input } from "antd";
@@ -9,12 +9,17 @@ import ImageChange from "./ImageChange";
 import { editProfile } from "../../actions/user";
 import { handleChange } from "../../utils/utils";
 
+interface IProps {
+  name: string;
+  email: string;
+  profile: any;
+}
 export const EditProfile = () => {
   const [visible, setVisible] = React.useState(false);
   const [alert, setAlert] = React.useState({ message: "", typeAlert: "" });
   const [loading, setLoading] = React.useState(false);
   const user = useSelector((state: any) => state.user);
-  const [state, setState] = React.useState<any>({
+  const [state, setState] = React.useState<IProps>({
     name: user.name,
     email: user.email,
     profile: null,
@@ -34,14 +39,14 @@ export const EditProfile = () => {
           dispatch(editProfile(state, setAlert, setLoading));
         };
         reader.onerror = (error) => {
-          console.log("Error: ", error);
+          window.alert(error);
         };
         return;
       }
 
       dispatch(editProfile(state, setAlert, setLoading));
     } catch (err: any) {
-      console.log(err);
+      window.alert(err);
       setVisible(false);
     }
   };
@@ -73,7 +78,7 @@ export const EditProfile = () => {
           {loading ? (
             <div className="flex flex-col justify-center items-center w-full">
               <Spin />
-              <p className="text-gray-500 mt-2">
+              <p className="text-primary mt-2">
                 Please Wait Uploading Image...
               </p>
             </div>

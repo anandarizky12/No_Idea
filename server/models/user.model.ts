@@ -22,6 +22,18 @@ module.exports = (sequelize: any, Sequelize: any) => {
           name: "student_id",
         },
       });
+
+      User.hasMany(models.User_Answered_Task, {
+        foreignKey: {
+          name: "student_id",
+        },
+      });
+
+      User.hasMany(models.Task_User_Score, {
+        foreignKey: {
+          name: "student_id",
+        },
+      });
     }
   }
 
@@ -33,7 +45,15 @@ module.exports = (sequelize: any, Sequelize: any) => {
       password: Sequelize.STRING,
       role: Sequelize.STRING,
       profile: Sequelize.STRING,
-      no_induk: Sequelize.STRING,
+      jk: Sequelize.STRING,
+      address: Sequelize.STRING,
+      religion : Sequelize.STRING,
+      birth_date : Sequelize.DATE,
+      place_of_birth : Sequelize.STRING,
+      father : Sequelize.STRING,
+      mother : Sequelize.STRING,
+      father_job : Sequelize.STRING,
+      mother_job : Sequelize.STRING,
     },
     {
       sequelize,

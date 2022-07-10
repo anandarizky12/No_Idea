@@ -1,4 +1,6 @@
-import React from "react";
+import HomeProfile from "../Profile/HomeProfile";
+import Finished_Task from "../Task_home_list/Finished_Task";
+import Unfinished_Task from "../Task_home_list/Unfinished_task";
 
 function StudentLayout({
   classes,
@@ -12,15 +14,15 @@ function StudentLayout({
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
-        status={classes.error.status}
-        message={classes.error.data.error.message}
+        status={classes?.error?.status}
+        message={classes?.error?.data?.message}
       />
     );
 
   return (
-    <div>
-      <div>
-        <div className="flex w-full h-screen flex-wrap">
+    <div className="w-full">
+      <div className="flex justify-between w-full ">
+        <div className="flex w-full flex-wrap">
           {classroom ? (
             classroom.class.map((classroom: any) => {
               return (
@@ -45,6 +47,11 @@ function StudentLayout({
               Belum ada kelas yang diikuti
             </div>
           )}
+        </div>
+        <div className="py-2 rounded-md">
+          {/* <Finished_Task /> */}
+          <HomeProfile />
+          <Unfinished_Task />
         </div>
       </div>
     </div>

@@ -12,19 +12,20 @@ function PopupMenu({ task, user }: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpenEdit] = React.useState(false);
+
   function handleDelete() {
     let userVal = window.confirm("Apakah kamu yakin tuk menghapus Tugas ini ?");
     if (userVal) dispatch(deleteTask(task.id));
   }
 
-  const menuTeacher = (
+  const teacherMenu = (
     <Menu>
       <Menu.Item onClick={() => setOpenEdit(!open)}>Edit Tugas</Menu.Item>
       <Menu.Item onClick={handleDelete}>Delete Tugas</Menu.Item>
     </Menu>
   );
 
-  const menuStudent = (
+  const studentMenu = (
     <Menu>
       <Menu.Item
         onClick={() => navigate(`/classroom/${id}/answertask/${task.id}`)}
@@ -35,21 +36,15 @@ function PopupMenu({ task, user }: any) {
   );
 
   return (
-    // <Menu style={{ width: 256 }}>
-    // <Space wrap>
     <div className="">
       <Dropdown
-        overlay={user.role === "guru" ? menuTeacher : menuStudent}
+        overlay={user.role === "guru" ? teacherMenu : studentMenu}
         placement="bottomRight"
       >
         <MoreOutlined className="text-xl hover:cursor-pointer" />
       </Dropdown>
       <EditTask task={task} setOpen={setOpenEdit} open={open} />
     </div>
-
-    // </Space>
-
-    // </Menu>
   );
 }
 

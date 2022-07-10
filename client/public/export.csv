@@ -1,0 +1,5 @@
+﻿"id","name","phone","email","role","profile","jk","address","religion","birth_date","place_of_birth","father","mother","father_job","mother_job","createdAt","updatedAt"
+"1","Admin","084325567890","admin@gmail.com","admin","","","","","","","","","","","2022-06-23T12:15:19.000Z","2022-06-23T12:15:19.000Z"
+"2","Muhammad Zainal","084537285746","ali@gmail.com","guru","http://res.cloudinary.com/drgorgm6v/image/upload/v1656020608/elearning/ecplmfzl4dxgrjf63brf.jpg","Laki-Laki","","","","","","","","","2022-06-23T12:15:19.000Z","2022-06-23T21:43:42.000Z"
+"3","Renaldi Siswanto","083467352617","mahmud@gmail.com","siswa","http://res.cloudinary.com/drgorgm6v/image/upload/v1656072549/elearning/g0sg5mjvjeimr92ebqld.png","Laki-Laki","jl klsakdlaskdoiqwiodjska dasdsad","Islam","2006-06-15T00:00:00.000Z","Jakarta ","","","","","2022-06-23T12:15:19.000Z","2022-06-25T00:02:53.000Z"
+"4","Aldy","083456431234","siswa@gmail.com","siswa","http://res.cloudinary.com/drgorgm6v/image/upload/v1656380387/elearning/fbgqiegz5wuyagiwfhvc.jpg","Laki-Laki","","","","","","","","","2022-06-28T01:38:45.000Z","2022-06-28T06:56:14.000Z"

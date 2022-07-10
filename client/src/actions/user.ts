@@ -40,7 +40,10 @@ export const login = (email: string, password: string, setAlert: any) =>
 
         })
         .catch((err) => {
-          console.log(err);
+          if(!err.response){
+            setAlert({ message: "Server Error", typeAlert: 4 });
+            return;
+          }
           setAlert({ message: err.response.data.message, typeAlert: 4 });
         });
         
@@ -50,8 +53,10 @@ export const login = (email: string, password: string, setAlert: any) =>
     }
   };
 
+
+
 export const register = (state: any, setAlert: any) => async () => {
-  const { name, email, password, no_induk, role, phone } = state;
+  const { name, email, password, phone } = state;
 
   try {
     await axios
@@ -59,9 +64,8 @@ export const register = (state: any, setAlert: any) => async () => {
         name,
         email,
         password,
-        no_induk,
         phone,
-        role,
+       
       })
       .then((res) => {
         setAlert({
@@ -73,14 +77,58 @@ export const register = (state: any, setAlert: any) => async () => {
         }, 500);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        if(!err.response){
+          setAlert({ message: "Server Error", typeAlert: 4 });
+          return;
+        }
         setAlert({ message: err.response.data.message, typeAlert: 4 });
       });
   } catch (err: any) {
     setAlert({ message: err.message, typeAlert: 4 });
-    console.log(err);
+   
   }
 };
+
+ 
+export const addUser = (state: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  
+    const { name, email, password, role, phone , jk} = state;
+    console.log("hello")
+  try {
+    await axios
+      .post("http://localhost:5000/api/adduser", {
+        name,
+        email,
+        password,
+        phone,
+        role,
+        jk
+      }, config)
+      .then((res) => {
+        alert("Succesfully Added User");
+        window.location.reload();
+      })
+      .catch((err) => {
+        if(!err.response){
+         alert("Server Error");
+          return;
+        }
+        alert(err.response.data.message);
+      });
+  } catch (err: any) {
+   alert(err.message);
+   
+  }
+};
+}
 
 export const logout = (): void => {
   removeCookie("name");
@@ -92,6 +140,18 @@ export const logout = (): void => {
   removeCookie("profile");
   window.location.href = "/login";
 };
+
+export const logoutAdmin = (): void => {
+  removeCookie("name");
+  removeCookie("email");
+  removeCookie("admin_token");
+  removeCookie("is_auth");
+  removeCookie("role");
+  removeCookie("id");
+  removeCookie("profile");
+  window.location.href = "/admin/login";
+};
+
 
 export const getUser = () => async (dispatch: Dispatch) => {
   const token = getCookie("token");
@@ -114,7 +174,14 @@ export const getUser = () => async (dispatch: Dispatch) => {
         });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        if(!err.response){
+          return dispatch({
+            type: actionTypes.GET_USER_FAIL,
+            payload: err,
+            isLoading: false,
+            isError: true,
+          });
+        }
         dispatch({
           type: actionTypes.GET_USER_FAIL,
           payload: {
@@ -124,11 +191,10 @@ export const getUser = () => async (dispatch: Dispatch) => {
           
           },
         });
-        // setAlert({ message: err.response.data.message, typeAlert: 4 });
+       
       });
   } catch (err: any) {
-    // setAlert({ message: err.message, typeAlert: 4 });
-    console.log(err);
+    
     dispatch({
       type: actionTypes.GET_USER_FAIL,
       payload: {
@@ -169,8 +235,17 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
           window.location.reload();
         })
         .catch((err) => {
+            if(!err.response){
+              setLoading(false)
+              return dispatch({
+                    type: actionTypes.EDIT_PROFILE_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
           setLoading(false);
-          console.log(err.response);
+  
           dispatch({
             type: actionTypes.EDIT_PROFILE_FAILED,
             payload: err.response,
@@ -182,7 +257,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
         });
     } catch (err: any) {
       setLoading(false);
-      console.log(err.response);
+    
       dispatch({
         type: actionTypes.EDIT_PROFILE_FAILED,
         payload: err.response,
@@ -194,3 +269,362 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
     }
   };
 };
+
+
+export const editProfileAdmin = (data: any, setAlert: any, setLoading: any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      setLoading(true);
+      await axios
+        .patch("http://localhost:5000/api/editprofile", data, config)
+        .then((res) => {
+          setLoading(false);
+
+          dispatch({
+            type: actionTypes.EDIT_PROFILE,
+            payload: res.data.data,
+          });
+
+          setAlert({
+            message: "Succesfully Edit Profile",
+            typeAlert: 1,
+          });
+          window.location.reload();
+        })
+        .catch((err) => {
+            if(!err.response){
+              setLoading(false)
+              return dispatch({
+                    type: actionTypes.EDIT_PROFILE_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
+          setLoading(false);
+  
+          dispatch({
+            type: actionTypes.EDIT_PROFILE_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
+        });
+    } catch (err: any) {
+      setLoading(false);
+    
+      dispatch({
+        type: actionTypes.EDIT_PROFILE_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+
+      setAlert({ message: err.response.data.message, typeAlert: 4 });
+    }
+  };
+};
+
+
+
+export const adminLogin = (email: string, password: string, setAlert: any) =>
+  async (dispatch: Dispatch) => {
+    try {
+      await axios
+        .post("http://localhost:5000/api/admin_login", { email, password })
+        .then((res) => {
+
+          const { name, email, role, token, id, profile } = res.data.data;
+
+          dispatch({
+            type: actionTypes.ADMIN_LOGIN_SUCCESS,
+            payload: {
+              name,
+              role,
+              email,
+              id,
+              profile,
+            },
+          });
+
+          dispatch({
+            type: actionTypes.ADMIN_LOGIN_USER,
+            payload: {
+              name,
+            },
+          });
+
+          dispatch({
+            type: actionTypes.ADMIN_SET_TOKEN,
+            payload: token,
+          });
+
+          setAlert({ message: "Succesfully Login", typeAlert: 1 });
+
+        })
+        .catch((err) => {
+          if(!err.response){
+            setAlert({ message: "Server Error", typeAlert: 4 });
+            return;
+          }
+          console.log(err.response.data)
+          setAlert({ message: err.response.data.message, typeAlert: 4 });
+        });
+        
+    }catch (err: any) {
+      console.log(err);
+      setAlert({ message: err.message, typeAlert: 4 });
+    }
+  }
+
+
+export const getAllUsers = () => async (dispatch: Dispatch) => {
+  const token = getCookie("admin_token");
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    await axios
+      .get("http://localhost:5000/api/getallusers", config)
+      .then((res) => {
+        dispatch({
+          type: actionTypes.GET_ALL_USERS,
+          payload: res.data.data,
+          isLoading: false,
+          isError: false,
+        });
+      })
+      .catch((err) => {
+        if(!err.response){
+          return dispatch({
+            type: actionTypes.GET_ALL_USERS_FAILED,
+            payload: err,
+            isLoading: false,
+            isError: true,
+          });
+        }
+        dispatch({
+          type: actionTypes.GET_ALL_USERS_FAILED,
+          payload: {
+            res: err.response.data,
+            isLoading: false,
+            isError: true,
+          
+          },
+        });
+       
+      });
+  } catch (err: any) {
+    
+    dispatch({
+      type: actionTypes.GET_ALL_USERS_FAILED,
+      payload: {
+        res: err.response.data,
+        isLoading: false,
+        isError: true,
+      },
+    });
+  }
+}
+
+
+
+export const editUser = (data: any, id : any) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      
+      await axios
+        .patch(`http://localhost:5000/api/edituser/${id}`, data, config)
+        .then((res) => {
+      
+          dispatch({
+            type: actionTypes.EDIT_USER,
+            payload: res.data.data,
+          });
+          alert("Succesfully Edit User");
+          window.location.reload();
+        })
+        .catch((err) => {
+            if(!err.response){
+             
+              return dispatch({
+                    type: actionTypes.EDIT_USER_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
+        
+  
+          dispatch({
+            type: actionTypes.EDIT_USER_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+          alert(err.response.data.message)
+       
+        });
+    } catch (err: any) {
+      
+      dispatch({
+        type: actionTypes.EDIT_USER_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+
+     alert(err.response.data.message)
+    }
+  };
+};
+
+
+
+
+
+export const getUserById = (id : string | undefined, setLoading :any) => {
+  return async (dispatch: Dispatch) => {
+    const admin_token = getCookie("admin_token");
+    const token = getCookie('token');
+   
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${admin_token ? admin_token : token}`,
+      },
+    };
+    setLoading(true);
+    try {
+    
+      await axios
+        .get(`http://localhost:5000/api/getuserbyid/${id}`, config)
+        .then((res) => {
+         
+          dispatch({
+            type: actionTypes.GET_USER_BY_ID,
+            payload: res.data.data,
+          });
+          setLoading(false)
+     
+        })
+        .catch((err) => {
+            setLoading(false)
+            if(!err.response){
+              return dispatch({
+                    type: actionTypes.GET_USER_BY_ID_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
+     
+          dispatch({
+            type: actionTypes.GET_USER_BY_ID_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+
+       
+        });
+    } catch (err: any) {  
+      setLoading(false)
+      dispatch({
+        type: actionTypes.GET_USER_BY_ID_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
+};
+
+
+
+
+
+
+export const deleteUser = (id : string) => {
+  return async (dispatch: Dispatch) => {
+    const token = getCookie("admin_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    if(!window.confirm("Are you sure to delete this user?")){
+      return;
+    }
+    try {
+      
+      await axios
+        .delete(`http://localhost:5000/api/deleteuser/${id}`, config)
+        .then((res) => {
+      
+          dispatch({
+            type: actionTypes.DELETE_USER,
+            payload: res.data.data,
+          });
+          alert("Succesfully Delete User");
+          window.location.reload();
+        })
+        .catch((err) => {
+            if(!err.response){
+              alert("Server Error")
+              return dispatch({
+                    type: actionTypes.DELETE_USER_FAILED,
+                    payload: err,
+                    isLoading: false,
+                    isError: true,
+                });
+          }
+        
+  
+          dispatch({
+            type: actionTypes.DELETE_USER_FAILED,
+            payload: err.response,
+            isLoading: false,
+            isError: true,
+          });
+          console.log(err.response)
+          alert(err.response.data.message)
+       
+        });
+    } catch (err: any) {
+      console.log(err.response.data)
+      dispatch({
+        type: actionTypes.DELETE_USER_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+
+     alert(err.response.data.message)
+    }
+  }
+
+}

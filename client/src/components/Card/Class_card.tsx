@@ -1,14 +1,18 @@
-import React from "react";
 import { Tooltip } from "antd";
-import { UserOutlined, FundOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  FundOutlined,
+  FilePdfOutlined,
+  SnippetsOutlined,
+} from "@ant-design/icons";
 import PopupMenu from "./PopupMenu";
 import { useNavigate } from "react-router-dom";
 
 function Class_card({ classroom, id, user }: any) {
   const navigate = useNavigate();
-
+  console.log(classroom);
   return (
-    <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-72 border border-gray-300 overflow-hidden flex flex-col justify-between">
+    <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-52 border border-gray-300 bg-white overflow-hidden flex flex-col justify-between">
       <div
         style={{
           backgroundImage: `linear-gradient(90deg,rgba(0, 0, 10, 0.5),rgba(255, 255, 255, 0.007)), 
@@ -24,12 +28,19 @@ function Class_card({ classroom, id, user }: any) {
           onClick={() => {
             navigate(`classroom/${classroom.id}`);
           }}
-          className="text-white font-normal text-xl  hover:cursor-pointer hover:underline"
+          className="text-secondary font-normal text-xl   cursor-pointer hover:underline"
         >
           {classroom.name}
         </h1>
-        <div className="text-white font-bold">
-          <PopupMenu classroom={classroom} id={id} />
+        <div className="text-secondary font-bold">
+          {user.role === "guru" ? (
+            <PopupMenu classroom={classroom} id={id} />
+          ) : null}
+        </div>
+      </div>
+      <div className="h-full p-2">
+        <div className="flex flex-wrap w-64 overflow-hidden">
+          <p className="text-gray-500">{classroom.description}</p>
         </div>
       </div>
       <div className="border-t   border-gray-300 w-full h-12">
@@ -40,17 +51,33 @@ function Class_card({ classroom, id, user }: any) {
                 onClick={() => {
                   navigate(`/classroom/${id}/tasks`);
                 }}
-                className="text-xl mr-4 hover:cursor-pointer"
+                className="text-xl mr-4   cursor-pointer"
               />
             </Tooltip>
           ) : null}
+          <Tooltip placement="bottom" title="Tugas Kelas">
+            <SnippetsOutlined
+              onClick={() => {
+                navigate(`/classroom/${classroom.id}/tasks`);
+              }}
+              className="text-xl   mr-4   cursor-pointer"
+            />
+          </Tooltip>
+          <Tooltip placement="bottom" title="Materi Kelas">
+            <FilePdfOutlined
+              onClick={() => {
+                navigate(`/classroom/${classroom.id}/materi`);
+              }}
+              className="text-xl   mr-4   cursor-pointer"
+            />
+          </Tooltip>
 
           <Tooltip placement="bottom" title="Anggota Kelas">
             <UserOutlined
               onClick={() => {
                 navigate(`/classroom/${classroom.id}/students`);
               }}
-              className="text-xl  hover:cursor-pointer"
+              className="text-xl    cursor-pointer"
             />
           </Tooltip>
         </div>

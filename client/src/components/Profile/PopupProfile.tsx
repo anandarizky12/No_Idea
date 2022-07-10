@@ -1,37 +1,22 @@
-import React from "react";
-import { Menu, Dropdown, Space, Avatar } from "antd";
-import {
-  UserOutlined,
-  LogoutOutlined,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
+import { Menu, Dropdown, Space } from "antd";
+import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "antd";
+import showConfirm from "../../utils/Confirm";
 import { logout } from "../../actions/user";
 import AvatarCustom from "../Avatar/AvatarCustom";
 
 function PopupProfile({ user }: any) {
-  const { confirm } = Modal;
   const navigate = useNavigate();
-
-  function showConfirm() {
-    confirm({
-      title: "Are you sure wanna logout?",
-      icon: <ExclamationCircleOutlined />,
-
-      onOk() {
-        logout();
-      },
-      onCancel() {},
-    });
-  }
 
   const menu = (
     <Menu>
       <Menu.Item onClick={() => navigate("/profile")} icon={<UserOutlined />}>
         Profile
       </Menu.Item>
-      <Menu.Item onClick={showConfirm} icon={<LogoutOutlined />}>
+      <Menu.Item
+        onClick={() => showConfirm("Apa Anda Yakin Ingin Keluar ?", logout)}
+        icon={<LogoutOutlined />}
+      >
         Logout
       </Menu.Item>
     </Menu>

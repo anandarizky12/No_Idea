@@ -4,12 +4,22 @@ const { Model } = require("sequelize");
 module.exports = (sequelize: any, Sequelize: any) => {
   class Classroom extends Model {
     static associate(models: any) {
-      Classroom.belongsToMany(models.User, {
-        through: "Students_Classroom",
+      // Classroom.belongsToMany(models.User, {
+      //   through: "Student_Classroom",
+      //   foreignKey: {
+      //     name: "classroom_id",
+      //   },
+      //   as: "user.id",
+      // });
+      Classroom.hasMany(models.Student_Classroom, {
+        foreignKey: {
+          name: "classroom_id",
+        }
+      });
+      Classroom.hasMany(models.Materi, {
         foreignKey: {
           name: "classroom_id",
         },
-        as: "users",
       });
       Classroom.hasMany(models.Task, {
         foreignKey: {
@@ -27,11 +37,14 @@ module.exports = (sequelize: any, Sequelize: any) => {
         },
       });
 
-      Classroom.hasMany(models.Score, {
+      Classroom.hasMany(models.Task_User_Score, {
         foreignKey: {
-          name: "task_id",
+          name: "classroom_id",
         },
       });
+    
+
+   
     }
   }
 
@@ -41,6 +54,7 @@ module.exports = (sequelize: any, Sequelize: any) => {
       description: Sequelize.STRING,
       banner: Sequelize.STRING,
       classcode: Sequelize.STRING,
+      status : Sequelize.ENUM('active', 'off')
     },
     {
       sequelize,

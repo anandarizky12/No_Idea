@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { user, getUser, editProfile } from "../reducers/userReducers";
+import { user, getUser, editProfile, admin_login, getAllUsers,editUserReducers, getUserById} from "../reducers/userReducers";
 import {
   getClassroomByTeacherIdReducers,
   createClassroomReducers,
@@ -10,6 +10,10 @@ import {
   getStudentsInClassroom,
   getStudentClassroom,
   joinClassroom,
+  getAllMateri,
+  getYourScore,
+  getAllScoreInApp,
+  getAllClassroomByTeacherIdReducers
 } from "../reducers/classroomReducers";
 import {
   getTaskInClassroom,
@@ -18,8 +22,18 @@ import {
   editTask,
   getTask,
   getAllScores,
-  AnswerTask
+  AnswerTask,
+  editQuestion,
+  getFinishedTask,
+  getUnfinishedTask,
+  getAllTaskScore,
+  getDetailScoreStudent
 } from "../reducers/taskReducers";
+
+import {
+  getdashboardReducers
+} from "../reducers/dashboardReducers";
+
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
@@ -40,7 +54,21 @@ const rootReducer = combineReducers({
   joinClassroom,
   editProfile,
   getAllScores,
-  AnswerTask
+  AnswerTask,
+  editQuestion,
+  getFinishedTask,
+  getUnfinishedTask,
+  admin_login,
+  getdashboardReducers,
+  getAllUsers,
+  editUserReducers,
+  getUserById,
+  getAllMateri,
+  getYourScore,
+  getAllTaskScore ,
+  getDetailScoreStudent,
+  getAllScoreInApp,
+  getAllClassroomByTeacherIdReducers  
 });
 
 const middleware = applyMiddleware(thunk);

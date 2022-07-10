@@ -7,8 +7,8 @@ import { register } from "../../actions/user";
 import { AlertComponents } from "../alert/Alert";
 import { getCookie } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
-import { Radio } from "antd";
 import useWindowDimension from "../hook/useWindowDimension";
+import bg from "./images/school.jpg";
 
 function Register() {
   const Dispatch = useDispatch();
@@ -45,10 +45,12 @@ function Register() {
         height: "100vh",
         width: "100vw",
         alignItems: "center",
-        padding: `${useWindowDimension() > 400 ? "80px" : "10px"}`,
+        margin: "0px",
+        padding: `${useWindowDimension() > 400 ? "0px" : "0px"}`,
+        paddingLeft: `${useWindowDimension() > 400 ? "100px" : "10px"}`,
       }}
     >
-      <Card style={{ width: "600px", background: "none", border: "none" }}>
+      <Card style={{ width: 600, border: "none" }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -59,49 +61,31 @@ function Register() {
           onFinishFailed={onFinishFailed}
         >
           <h1 className="text-3xl md:text-4xl font-bold">
-            Please Register Down Below<span>.</span>
+            Silahkan Daftar Pada Form Di Bawah<span>.</span>
           </h1>
           <Form.Item
             name="name"
-            rules={[{ required: true, message: "Please input your Name!" }]}
+            rules={[{ required: true, message: "Masukan Nama Anda!" }]}
           >
             <Input
               name="name"
-              placeholder="Name"
+              placeholder="Nama"
               style={{
                 borderRadius: "30px",
                 padding: "10px",
                 paddingLeft: "20px",
               }}
-              onChange={(e) => handleChange(e, state, setState)}
-            />
-          </Form.Item>
-          <Form.Item
-            name="no_induk"
-            rules={[{ required: true, message: "Please input your No!" }]}
-          >
-            <Input
-              name="no_induk"
-              placeholder="No Induk"
-              style={{
-                borderRadius: "30px",
-                padding: "10px",
-                paddingLeft: "20px",
-              }}
-              type="number"
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
 
           <Form.Item
             name="phone"
-            rules={[
-              { required: true, message: "Please input your Phone Number!" },
-            ]}
+            rules={[{ required: true, message: "Masukan Nomor Telepon!" }]}
           >
             <Input
               name="phone"
-              placeholder="Phone Number"
+              placeholder="Nomor Telepon"
               style={{
                 borderRadius: "30px",
                 padding: "10px",
@@ -114,7 +98,7 @@ function Register() {
 
           <Form.Item
             name="Email"
-            rules={[{ required: true, message: "Please input your Email!" }]}
+            rules={[{ required: true, message: "Masukan Email Andal!" }]}
           >
             <Input
               name="email"
@@ -130,11 +114,11 @@ function Register() {
 
           <Form.Item
             name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[{ required: true, message: "Masukan Kata Sandi!" }]}
           >
             <Input.Password
               name="password"
-              placeholder="Password"
+              placeholder="Kata Sandi"
               style={{
                 borderRadius: "30px",
                 padding: "10px",
@@ -143,47 +127,32 @@ function Register() {
               onChange={(e) => handleChange(e, state, setState)}
             />
           </Form.Item>
-          <Form.Item
-            name="role"
-            rules={[{ required: true, message: "Please choose your Role!" }]}
-          >
-            <Radio.Group
-              name="role"
-              style={{
-                width: "100%",
-              }}
-              onChange={(e) => handleChange(e, state, setState)}
-            >
-              <Radio.Button className="text-gray-500 w-3/6" value="guru">
-                Guru
-              </Radio.Button>
-              <Radio.Button className="w-3/6" value="siswa">
-                Siswa
-              </Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-          <h1 className="text-gray-400"> * Pilih Role</h1>
 
           <Form.Item name="remember" valuePropName="checked">
             <Typography>
-              Already Have an Account ?{" "}
+              Sudah Punya Akun ?{" "}
               <a className="font-bold" onClick={() => navigate("/login")}>
-                Click Here
+                Klik Disini
               </a>
             </Typography>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" shape="round" size="large" htmlType="submit">
-              Submit
+              Daftar
             </Button>
           </Form.Item>
         </Form>
       </Card>
-      <img
-        className="grayscale hidden lg:block"
-        src={"/icons8-class-dojo-480.png"}
-      ></img>
+
+      <div
+        className="w-3/6 h-screen absolute right-0"
+        style={{
+          backgroundImage: `url('${bg}')`,
+          backgroundPosition: "center",
+          filter: "grayscale(1)",
+        }}
+      />
       {alert.message !== null ? (
         <AlertComponents setAlert={setAlert} alert={alert} />
       ) : null}

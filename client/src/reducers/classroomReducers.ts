@@ -21,7 +21,27 @@ export const getClassroomByTeacherIdReducers = (state = {}, action: any) => {
       return state;
   }
 };
-
+export const getAllClassroomByTeacherIdReducers = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_WHOLE_CLASSROOM_TEACHER:
+      return {
+        ...state,
+        classroom: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_WHOLE_CLASSROOM_TEACHER_FAILED:
+      return {
+        ...state,
+        classroom: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
 export const createClassroomReducers = (state = {}, action: any) => {
   switch (action.type) {
     case actionTypes.CREATE_CLASSROOM:
@@ -111,6 +131,31 @@ export const editClassroom = (state = {}, action: any) => {
   }
 };
 
+
+
+export const editStatusClassroom = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.EDIT_STATUS_CLASSROOM:
+      return {
+        ...state,
+        classroom: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.EDIT_STATUS_CLASSROOM_FAILED:
+      return {
+        ...state,
+        classroom: null,
+        error: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    default:
+      return state;
+  }
+};
+
+
 export const getStudentsInClassroom = (state = {}, action: any) => {
   switch (action.type) {
     case actionTypes.GET_STUDENTS_IN_CLASSROOM:
@@ -168,6 +213,128 @@ export const joinClassroom = (state = {}, action: any) => {
       return {
         ...state,
         classroom: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+
+
+export const getMateri = (
+  state = { isLoading: true, materi: null },
+  action: any
+) => {
+  switch (action.type) {
+    case actionTypes.GET_MATERI:
+      return {
+        ...state,
+        materi: action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_MATERI_FAILED:
+      return {
+        ...state,
+        materi: null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const getAllMateri = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_MATERI:
+      return {
+        ...state,
+        materi : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_ALL_MATERI_FAILED:
+      return {
+        ...state,
+        materi : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const editMateri = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.EDIT_MATERI:
+      return {
+        ...state,
+        materi : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.EDIT_MATERI_FAILED:
+      return {
+        ...state,
+        materi : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const getYourScore  = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_YOUR_SCORE:
+      return {
+        ...state,
+        data : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_YOUR_SCORE_FAILED:
+      return {
+        ...state,
+        data : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
+
+
+export const getAllScoreInApp  = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_SCORE_IN_APP:
+      return {
+        ...state,
+        data : action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    case actionTypes.GET_ALL_SCORE_IN_APP_FAILED:
+      return {
+        ...state,
+        data : null,
         error: action.payload,
         isLoading: false,
         isError: true,

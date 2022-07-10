@@ -2,13 +2,14 @@ import React from "react";
 import { Menu, Dropdown, Space } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import Copy from "copy-to-clipboard";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteClassroom } from "../../actions/classroom";
 import Edit from "../Edit_Classroom/Edit";
 
 function PopupMenu({ classroom, id }: any) {
   const dispatch = useDispatch();
   const [open, setOpenEdit] = React.useState(false);
+
   function handleDelete() {
     const userVal = window.confirm(
       "Apakah kamu yakin tuk menghapus kelas ini ? " + " " + id
@@ -30,7 +31,6 @@ function PopupMenu({ classroom, id }: any) {
   );
 
   return (
-    // <Menu style={{ width: 256 }}>
     <Space wrap>
       <Dropdown overlay={menu} placement="bottomRight">
         <MoreOutlined className="text-xl hover:cursor-pointer" />
@@ -42,8 +42,6 @@ function PopupMenu({ classroom, id }: any) {
         setOpenEdit={setOpenEdit}
       />
     </Space>
-
-    // </Menu>
   );
 }
 

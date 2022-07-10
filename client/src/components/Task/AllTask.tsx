@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Spin } from "antd";
-// import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getClassroom } from "../../actions/classroom";
 import { useParams } from "react-router-dom";
@@ -8,6 +7,7 @@ import { getTaskInClassroom } from "../../actions/task";
 import TaskCard from "./TaskCard";
 import CreateTask from "../CreateandEdit_Task/CreateTask";
 import Teacher from "./Teacher";
+import DynamicError from "../404/DynamicError";
 
 function AllTask() {
   const [open, setOpen] = React.useState(false);
@@ -23,10 +23,33 @@ function AllTask() {
     dispatch(getTaskInClassroom(id));
   }, [id]);
 
+  console.log(taskData);
+  if (!taskData.isLoading && taskData.isError && taskData.error)
+    return (
+      <DynamicError
+        status={taskData?.error?.status}
+        message={taskData?.error?.data?.message}
+      />
+    );
   return (
     <div className="flex flex-col items-center ">
+      <div className="w-4/6 mt-7">
+        <div className="border-b border-gray-400 px-0 md:px-0 flex justify-between">
+          <h1 className="text-xl md:text-3xl font-normal text-gray-500">
+            Daftar Tugas Kelas
+          </h1>
+          <div className="flex items-center justify-center text-gray-500 font-bold">
+            {task ? "Total " + task.data.length + " Tugas" : null}
+          </div>
+        </div>
+      </div>
       {user.role === "guru" ? (
-        <Teacher open={open} setOpen={setOpen} classroom={classroom} />
+        <Teacher
+          open={open}
+          setOpen={setOpen}
+          classroom={classroom}
+          task={task}
+        />
       ) : null}
 
       <div className="w-full md:5/6  mt-5 md:mt-8 flex flex-col items-center justify-center">
@@ -42,7 +65,7 @@ function AllTask() {
                 key={task.id}
                 className="flex p-4 md:p-0 md:w-4/6 items-center justify-center"
               >
-                <TaskCard task={task} user={user} />;
+                <TaskCard task={task} user={user} />
               </div>
             );
           })

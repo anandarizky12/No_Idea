@@ -1,4 +1,7 @@
-function DynamicError({ status, message }: any) {
+function DynamicError({
+  status = 500,
+  message = "Server Error, Please Try Agai Later",
+}: any) {
   return (
     <div
       style={{ minHeight: "80vh" }}

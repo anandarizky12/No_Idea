@@ -2,7 +2,7 @@ import { Modal, Spin } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip, Input } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { joinClassroom } from "../../actions/classroom";
 import { AlertComponents } from "../alert/Alert";
 export const JoinClass = () => {
@@ -35,7 +35,7 @@ export const JoinClass = () => {
       >
         {!loading ? (
           <>
-            <p className="text-gray-500 text-base">
+            <p className="text-primary text-base">
               Minta Kode Kelas Kepada Guru Untuk Gabung Ke dalam Kelas
             </p>
             <Input

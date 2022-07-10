@@ -13,71 +13,85 @@ function Top(): JSX.Element {
   const [openRight, setOpenRight] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const id = location.pathname.split("/")[2];
+  const id: string = location.pathname.split("/")[2];
   const user = useSelector((state: any) => state.user);
 
   return (
     <>
-      <nav className="border-b h-16 border-gray-300 flex justify-between items-center px-6">
+      <nav className="border-b h-16  border-gray-300 flex justify-between items-center px-6">
         <div className="flex items-center justify-center">
           <MenuOutlined
             onClick={() => setOpen(!open)}
-            className="text-lg hover:cursor-pointer mr-5"
+            className="text-lg cursor-pointer mr-5"
           />
-          <div className="font-header text-xl font-bold text-gray-500">
-            Weclass&nbsp;
+          <div
+            onClick={() => navigate("/")}
+            className="font-header font-bold text-primary cursor-pointer"
+          >
+            SMKN 1 SUKAMARA
           </div>
         </div>
         {location.pathname.includes("classroom") ? (
-          <div
+          <ul
             className={`hidden ${
-              user.role === "guru" ? "w-80" : "w-60"
+              user.role === "guru" ? "w-96" : "w-80"
             } h-full items-end justify-between md:flex`}
           >
-            <div
+            <li
               onClick={() => navigate(`/classroom/${id}`)}
               className={`${
                 location.pathname == `/classroom/${id}`
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Kelas
-            </div>
-            <div
+            </li>
+            <li
               onClick={() => navigate(`/classroom/${id}/tasks`)}
               className={`${
                 location.pathname == `/classroom/${id}/tasks` ||
                 location.pathname.includes(`answertask`)
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Tugas
-            </div>
-            <div
-              onClick={() => navigate(`/classroom/${id}/students`)}
+            </li>
+            <li
+              onClick={() => navigate(`/classroom/${id}/materi`)}
               className={`${
-                location.pathname == `/classroom/${id}/students`
+                location.pathname == `/classroom/${id}/materi`
                   ? "border-b-4  border-gray-500"
                   : ""
-              } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+            >
+              Materi
+            </li>
+            <li
+              onClick={() => navigate(`/classroom/${id}/students`)}
+              className={`${
+                location.pathname == `/classroom/${id}/students` ||
+                location.pathname.includes(`student`)
+                  ? "border-b-4  border-gray-500"
+                  : ""
+              } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
             >
               Anggota{" "}
-            </div>
+            </li>
             {user.role === "guru" ? (
-              <div
+              <li
                 onClick={() => navigate(`/classroom/${id}/scores`)}
                 className={`${
                   location.pathname == `/classroom/${id}/scores`
                     ? "border-b-4  border-gray-500"
                     : ""
-                } font-medium text-gray-500 text-base hover:cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+                } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
               >
                 Nilai
-              </div>
+              </li>
             ) : null}
-          </div>
+          </ul>
         ) : null}
 
         <div className="flex items-center" id="icons">
@@ -87,7 +101,7 @@ function Top(): JSX.Element {
             <Tooltip placement="bottom" title="Buat Kelas">
               <PlusOutlined
                 onClick={() => setOpenRight(true)}
-                className="text-xl text-gray-400 hover:cursor-pointer mr-7"
+                className="text-xl text-gray-400 cursor-pointer mr-7"
               />
             </Tooltip>
           )}

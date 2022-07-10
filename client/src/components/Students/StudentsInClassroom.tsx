@@ -6,14 +6,19 @@ import { getClassroom, getStudentsinClassroom } from "../../actions/classroom";
 import { Spin } from "antd";
 import { getUser } from "../../actions/user";
 import AvatarCustom from "../Avatar/AvatarCustom";
+import DynamicError from "../404/DynamicError";
+import ButtonPrint from "../pdf/Button_PDF";
+import StudentsInClassroomPDF from "../pdf/StudentsInClassroom";
 
 function StudentsInClassroom() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.getStudentsInClassroom);
+  const user = useSelector((state: any) => state.user);
   const { students } = data;
   const classes = useSelector((state: any) => state.getClassroom);
   const { classroom } = classes;
+  const componentRef = React.useRef<any>();
 
   React.useEffect(() => {
     dispatch(getStudentsinClassroom(id));
@@ -21,17 +26,30 @@ function StudentsInClassroom() {
     dispatch(getClassroom(id));
   }, []);
 
+  if (!data.isLoading && data.isError && data.error)
+    return (
+      <DynamicError
+        status={data?.error?.status}
+        message={data?.error?.data?.message}
+      />
+    );
+
   return (
     <div className="flex flex-col items-center justify-center p-8 md:px-12">
       <div className="w-full md:w-7/12 ">
         <div>
-          <div className="border-b border-gray-600 px-0 md:px-5 flex justify-between">
+          <div className="border-b border-gray-400 px-0 md:px-5 flex justify-between">
             <h1 className="text-xl md:text-3xl font-normal text-gray-500">
               Anggota Kelas
             </h1>
             <div className="flex items-center justify-center ">
-              <h4>
-                {students ? students.data.length : <Spin size="small" />} Siswa
+              {user.role === "guru" && (
+                <div className="mr-3">
+                  <ButtonPrint componentRef={componentRef} type={"secondary"} />
+                </div>
+              )}
+              <h4 className="font-bold text-gray-500 p-0 m-0">
+                {students ? students.data.length + " Siswa" : null}
               </h4>
             </div>
           </div>
@@ -71,6 +89,11 @@ function StudentsInClassroom() {
             </h1>
           </div>
         ) : null}
+      </div>
+      <div className="hidden">
+        <div ref={componentRef}>
+          <StudentsInClassroomPDF data={students} />
+        </div>
       </div>
     </div>
   );

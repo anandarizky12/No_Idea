@@ -26,8 +26,8 @@ function Classroom() {
   if (!classes.isLoading && classes.isError && classes.error)
     return (
       <DynamicError
-        status={classes.error.data.error.status}
-        message={classes.error.data.error.message}
+        status={classes?.error?.data?.error?.status}
+        message={classes?.error?.data?.error?.message}
       />
     );
 
@@ -36,7 +36,7 @@ function Classroom() {
       {classes.isLoading && !classes.isError && !classroom ? (
         <div
           style={{ minHeight: "90vh" }}
-          className="text-center text-gray-500 w-full flex items-center justify-center"
+          className="text-center text-primary w-full flex items-center justify-center"
         >
           <Space size="middle">
             <Spin size="large" />
@@ -54,26 +54,27 @@ function Classroom() {
               })`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
             className={` w-full h-64 bg-gray-300 rounded-md p-3 font-semibold relative md:w-3/4`}
           >
             <div className="p-4 absolute bottom-0">
-              <h1 className="text-3xl text-white">{classroom.data.name}</h1>
+              <h1 className="text-3xl text-secondary">{classroom.data.name}</h1>
               <div className="flex items-center">
                 <AvatarCustom
                   size={"small"}
                   src={classroom.data.User.profile}
                 />
-                <h4 className="ml-2 text-white text-xs font-light">
+                <h4 className="ml-2 text-secondary text-xs font-light">
                   {classroom.data.User.name}
                 </h4>
               </div>
             </div>
 
-            <h3 className="p-4 text-xs text-white font-light">
+            <h3 className="p-4 text-xs text-secondary font-light">
               Dibuat pada {moment(classroom.data.createdAt).calendar()}
             </h3>
-            <div className="absolute text-white text-xl right-4 top-4 hover:cursor-pointer">
+            <div className="absolute text-secondary text-xl right-4 top-4 hover:cursor-pointer">
               <SettingOutlined />
             </div>
           </div>

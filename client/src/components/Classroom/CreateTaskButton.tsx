@@ -13,7 +13,7 @@ function CreateTaskButton({ teacher }: any) {
           Buat Tugas Untuk Kelas Ini
         </h1>
         <div onClick={() => setOpen(!open)} className="">
-          <PlusOutlined className="text-xl text-gray-400 hover:cursor-pointer mr-7" />
+          <PlusOutlined className="text-xl text-primary hover:cursor-pointer mr-7" />
         </div>
       </div>
       <CreateTask setOpen={setOpen} open={open} />

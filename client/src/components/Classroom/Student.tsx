@@ -3,8 +3,8 @@ import Card_Member from "./Card_Member";
 import { useDispatch, useSelector } from "react-redux";
 import { getTaskInClassroom } from "../../actions/task";
 import TaskCardHome from "../Task/TaskCardHome";
-
 import { Spin } from "antd";
+
 function Student({ classroom }: any) {
   const dispatch = useDispatch();
   const taskData = useSelector((state: any) => state.getTaskInClassroom);
@@ -17,6 +17,7 @@ function Student({ classroom }: any) {
   return (
     <div className="flex my-5 w-full flex-col md:flex-row md:w-3/4 ">
       {/* left team */}
+
       <div className="hidden md:block">
         <Card_Member />
       </div>
