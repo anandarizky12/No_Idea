@@ -46,13 +46,13 @@ export default function ScoreTable({ scores, id }: Iprops) {
           filterText
             ? item.mapel &&
               item.mapel.toLowerCase().includes(filterText.toLowerCase()) &&
-              item.createdAt &&
-              moment(moment(item.createdAt).format("YYYY-MM-DD")).isBetween(
+              item.date &&
+              moment(moment(item.date).format("YYYY-MM-DD")).isBetween(
                 filter[0],
                 filter[1]
               )
-            : item.createdAt &&
-              moment(moment(item.createdAt).format("YYYY-MM-DD")).isBetween(
+            : item.date &&
+              moment(moment(item.date).format("YYYY-MM-DD")).isBetween(
                 filter[0],
                 filter[1]
               )
@@ -192,7 +192,7 @@ export default function ScoreTable({ scores, id }: Iprops) {
     <div className="w-full flex flex-col mt-12 items-center justify-center">
       <div className="w-5/6 border p-5 shadow-md">
         <DataTable
-          title="Daftar Nilai Siswa"
+          title="Daftar Nilai Siswa dsd"
           columns={columns}
           data={filteredDate}
           pagination

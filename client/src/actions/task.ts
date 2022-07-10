@@ -596,8 +596,6 @@ export const getFinishedTasks = () => {
 
 
 
-// http://localhost:5000/api/getalltaskscore/3
-
 export const getAllTasksScore = (id : string | undefined)=>{
   return async (dispatch : Dispatch)=>{
     const token = getCookie("token");
@@ -610,10 +608,11 @@ export const getAllTasksScore = (id : string | undefined)=>{
     try {
       await axios.get(`http://localhost:5000/api/getalltaskscore/${id}`, config)
         .then((res) => {
+        
           dispatch({
             type: actionTypes.GET_ALL_TASK_SCORE,
             payload: res.data,
-            isLoading: false,
+             isLoading: false,
             isError: false,
           });
         }).catch((err: any) => {

@@ -288,11 +288,11 @@ exports.getAllScore = async (req: any, res: any) => {
       order: [["createdAt", "DESC"]],
     });
 
-    const task = await Task.findAll({
-      where: {
-        classroom_id: id,
-      },
-    });
+    // const task = await Task.findAll({
+    //   where: {
+    //     classroom_id: id,
+    //   },
+    // });
 
     
     if (!score) {
