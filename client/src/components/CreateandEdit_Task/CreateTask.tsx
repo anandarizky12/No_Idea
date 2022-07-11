@@ -95,7 +95,7 @@ function CreateTask({ setOpen, open }: any) {
             <Form.Item
               name="title"
               label="Nama Tugas"
-              rules={[{ required: true, message: "Please enter Task Name" }]}
+              rules={[{ required: true, message: "Pilih Task Name" }]}
             >
               <Input
                 placeholder="Enter Task Name"
@@ -118,7 +118,7 @@ function CreateTask({ setOpen, open }: any) {
             <Form.Item
               name="description"
               label="Deskripsi Tugas"
-              rules={[{ required: true, message: "Please enter Description" }]}
+              rules={[{ required: true, message: "Pilih Description" }]}
             >
               <Input
                 placeholder="Masukan Deskripsi Tugas"
@@ -141,11 +141,16 @@ function CreateTask({ setOpen, open }: any) {
           </Col>
 
           <Col span={12}>
-            <Form.Item name="mapel_id" label="Mata Pelajaran">
+            <Form.Item
+              name="mapel_id"
+              label="Mata Pelajaran"
+              rules={[{ required: true, message: "Pilih Mata Pelajaran" }]}
+            >
               <Select
                 defaultValue="Pilih Mata Pelajaran"
                 style={{ width: 200 }}
                 onChange={handleSelectClick}
+                value={null}
               >
                 {mapel?.map((data: any, key: any) => (
                   <Option value={data.id}>{data.nama}</Option>

@@ -129,6 +129,7 @@ exports.deleteTask = async (req: any, res: any) => {
       message: "Task succesfully deleted",
     });
   } catch (err: any) {
+    console.log(err)
     return res.status(500).send({
       status: 500,
       message: err.message,

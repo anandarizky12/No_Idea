@@ -323,6 +323,15 @@ exports.getTaskAndQuestionInClassroom = async (req: any, res: any) => {
       include : [{
         model : Question,
         attributes: {  exclude : [checkUserRole.role === 'siswa' ?  'answer_key' : null]}, 
+      },
+      {
+        model : Mapel
+      },
+      {
+        model : Classroom,
+        include :{
+          model : User
+        }
       }
       ],
       

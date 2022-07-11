@@ -192,14 +192,14 @@ export default function ScoreTable({ scores, id }: Iprops) {
     <div className="w-full flex flex-col mt-12 items-center justify-center">
       <div className="w-5/6 border p-5 shadow-md">
         <DataTable
-          title="Daftar Nilai Siswa dsd"
+          title="Daftar Nilai Siswa"
           columns={columns}
           data={filteredDate}
           pagination
           progressPending={loading}
           subHeader
           subHeaderComponent={
-            <div style={{ width: "30.9rem" }} className=" flex">
+            <div style={{ width: "30.9rem" }} className="flex">
               <div className="mr-4">
                 <DatePicker.RangePicker
                   style={{ width: "23rem" }}

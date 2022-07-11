@@ -23,7 +23,6 @@ function AllTask() {
     dispatch(getTaskInClassroom(id));
   }, [id]);
 
-  console.log(taskData);
   if (!taskData.isLoading && taskData.isError && taskData.error)
     return (
       <DynamicError

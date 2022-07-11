@@ -12,8 +12,12 @@ function TasksReport({ task, name }: any) {
           <table className="table">
             <tbody>
               <tr>
-                <th className="text-left">Nama Kelas</th>
-                <td>: {name}</td>
+                <th className="text-left">Kelas</th>
+                <td>: {name?.toUpperCase()}</td>
+              </tr>
+              <tr>
+                <th className="text-left">Guru</th>
+                <td>: {task?.data[0].Classroom.User.name.toUpperCase()}</td>
               </tr>
             </tbody>
           </table>
@@ -24,8 +28,9 @@ function TasksReport({ task, name }: any) {
           <table className="min-w-full border">
             <thead className="border-b">
               <tr className=" text-primary uppercase text-sm leading-normal">
-                <th className="border border-black text-left">No.</th>
-                <th className="border border-black text-left">Nama</th>
+                <th className="border border-black text-center">No.</th>
+                <th className="border border-black text-center">Nama</th>
+                <th className="border border-black text-center">Mapel</th>
                 <th className="border border-black text-center">Deskripsi</th>
                 <th className="border border-black text-center">
                   Batas Pengerjaan
@@ -44,6 +49,13 @@ function TasksReport({ task, name }: any) {
                     <td className="border border-black text-left">
                       <div className="flex items-center">
                         <span className="font-medium p-2">{task.title}</span>
+                      </div>
+                    </td>
+                    <td className="border border-black text-left">
+                      <div className="flex items-center">
+                        <span className="font-medium p-2">
+                          {task.Mapel.nama}
+                        </span>
                       </div>
                     </td>
                     <td className="border border-black text-left">
