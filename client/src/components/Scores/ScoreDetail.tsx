@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import DynamicError from "../404/DynamicError";
 import { Spin } from "antd";
-import { getCookie } from "../../utils/utils";
+
 import ResultAnswerStudent from "./ResultAnswerStudent";
-import moment from "moment";
 import { getDetailScoreStudent } from "../../actions/task";
 
 function ScoreDetail() {

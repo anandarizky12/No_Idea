@@ -8,7 +8,7 @@ export const login = (email: string, password: string, setAlert: any) =>
   async (dispatch: Dispatch) => {
     try {
       await axios
-        .post("http://localhost:5000/api/login", { email, password })
+        .post("/api/login", { email, password })
         .then((res) => {
 
           const { name, email, role, token, id, profile } = res.data.data;
@@ -60,7 +60,7 @@ export const register = (state: any, setAlert: any) => async () => {
 
   try {
     await axios
-      .post("http://localhost:5000/api/register", {
+      .post("/api/register", {
         name,
         email,
         password,
@@ -104,7 +104,7 @@ export const addUser = (state: any) => {
     console.log("hello")
   try {
     await axios
-      .post("http://localhost:5000/api/adduser", {
+      .post("/api/adduser", {
         name,
         email,
         password,
@@ -164,7 +164,7 @@ export const getUser = () => async (dispatch: Dispatch) => {
   };
   try {
     await axios
-      .get("http://localhost:5000/api/getuser", config)
+      .get("/api/getuser", config)
       .then((res) => {
         dispatch({
           type: actionTypes.GET_USER,
@@ -219,7 +219,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
     try {
       setLoading(true);
       await axios
-        .patch("http://localhost:5000/api/editprofile", data, config)
+        .patch("/api/editprofile", data, config)
         .then((res) => {
           setLoading(false);
 
@@ -284,7 +284,7 @@ export const editProfileAdmin = (data: any, setAlert: any, setLoading: any) => {
     try {
       setLoading(true);
       await axios
-        .patch("http://localhost:5000/api/editprofile", data, config)
+        .patch("/api/editprofile", data, config)
         .then((res) => {
           setLoading(false);
 
@@ -341,7 +341,7 @@ export const adminLogin = (email: string, password: string, setAlert: any) =>
   async (dispatch: Dispatch) => {
     try {
       await axios
-        .post("http://localhost:5000/api/admin_login", { email, password })
+        .post("/api/admin_login", { email, password })
         .then((res) => {
 
           const { name, email, role, token, id, profile } = res.data.data;
@@ -399,7 +399,7 @@ export const getAllUsers = () => async (dispatch: Dispatch) => {
   };
   try {
     await axios
-      .get("http://localhost:5000/api/getallusers", config)
+      .get("/api/getallusers", config)
       .then((res) => {
         dispatch({
           type: actionTypes.GET_ALL_USERS,
@@ -456,7 +456,7 @@ export const editUser = (data: any, id : any) => {
     try {
       
       await axios
-        .patch(`http://localhost:5000/api/edituser/${id}`, data, config)
+        .patch(`/api/edituser/${id}`, data, config)
         .then((res) => {
       
           dispatch({
@@ -520,7 +520,7 @@ export const getUserById = (id : string | undefined, setLoading :any) => {
     try {
     
       await axios
-        .get(`http://localhost:5000/api/getuserbyid/${id}`, config)
+        .get(`/api/getuserbyid/${id}`, config)
         .then((res) => {
          
           dispatch({
@@ -582,7 +582,7 @@ export const deleteUser = (id : string) => {
     try {
       
       await axios
-        .delete(`http://localhost:5000/api/deleteuser/${id}`, config)
+        .delete(`/api/deleteuser/${id}`, config)
         .then((res) => {
       
           dispatch({

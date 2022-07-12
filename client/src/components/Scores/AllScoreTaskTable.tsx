@@ -162,13 +162,11 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
     }
   }, [data, task_id]);
 
-  console.log(data);
-
   return (
     <div className="w-full h-full px-12 flex flex-col mt-12 items-center justify-center ">
       <div className="w-5/6 border p-5 shadow-md">
         <DataTable
-          title={`Daftar Nilai Siswa Pada Tugasds ${
+          title={`Daftar Nilai Siswa Pada Tugas ${
             rows[0]?.Task.title.toUpperCase()
               ? rows[0]?.Task.title.toUpperCase()
               : ""

@@ -17,7 +17,7 @@ export const getClassroomByTeacherId = (id: any) => {
     try {
       await axios
 
-        .get(`http://localhost:5000/api/getclassroombyteacherid/${id}`, config)
+        .get(`/api/getclassroombyteacherid/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_ALL_CLASSROOM_TEACHER,
@@ -68,7 +68,7 @@ export const getAllClassroomByTeacherId = (id: any) => {
     try {
       await axios
 
-        .get(`http://localhost:5000/api/getallclassroombyteacherid/${id}`, config)
+        .get(`/api/getallclassroombyteacherid/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER,
@@ -122,7 +122,7 @@ export const createClassroom = (data: any) => {
     try {
       await axios
         .post(
-          "http://localhost:5000/api/createclassroom",
+          "/api/createclassroom",
           { name, description, teacher_id, banner },
           config
         )
@@ -168,7 +168,7 @@ export const editClassroom = (data: any) => {
     try {
       await axios
         .patch(
-          `http://localhost:5000/api/editclassroom/${id}`,
+          `/api/editclassroom/${id}`,
           { name, description, banner },
           config
         )
@@ -215,7 +215,7 @@ export const editStatusClassroom = (data: any) => {
     try {
       await axios
         .patch(
-          `http://localhost:5000/api/statusclassroom/${id}`,
+          `/api/statusclassroom/${id}`,
           {status},
           config
         )
@@ -261,7 +261,7 @@ export const getClassroom = (id: any) => {
     };
     try {
       await axios
-        .get(`http://localhost:5000/api/getclassroom/${id}`, config)
+        .get(`/api/getclassroom/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_CLASSROOM,
@@ -310,7 +310,7 @@ export const deleteClassroom = (id: any) => {
     };
     try {
       await axios
-        .delete(`http://localhost:5000/api/deleteclassroom/${id}`, config)
+        .delete(`/api/deleteclassroom/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.DELETE_CLASSROOM,
@@ -355,7 +355,7 @@ export const getStudentsinClassroom = (id: any) => {
 
     try {
       await axios
-        .get(`http://localhost:5000/api/getstudentsinclass/${id}`, config)
+        .get(`/api/getstudentsinclass/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_STUDENTS_IN_CLASSROOM,
@@ -405,7 +405,7 @@ export const getStudentClassroom = () => {
 
     try {
       await axios
-        .get(`http://localhost:5000/api/getstudentclassroom`, config)
+        .get(`/api/getstudentclassroom`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_STUDENT_CLASSROOM,
@@ -456,7 +456,7 @@ export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
 
     try {
       await axios
-        .post(`http://localhost:5000/api/joinclassroom`, { code: code }, config)
+        .post(`/api/joinclassroom`, { code: code }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.JOIN_CLASSROOM,
@@ -507,7 +507,7 @@ export const createMateri = (data : any) =>{
   
   try{
 
-    await axios.post(`http://localhost:5000/api/createmateri/${classroom_id}`, {title, description, file}, config)
+    await axios.post(`/api/createmateri/${classroom_id}`, {title, description, file}, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.CREATE_MATERI,
@@ -554,7 +554,7 @@ export const editMateri = (id : string, data : any) =>{
   const { title, description, file } = data;  
   try{
 
-    await axios.patch(`http://localhost:5000/api/editmateri/${id}`, {title, description, file}, config)
+    await axios.patch(`/api/editmateri/${id}`, {title, description, file}, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.EDIT_MATERI,
@@ -598,7 +598,7 @@ export const deleteMateri = (id : string) =>{
 
   try{
 
-    await axios.delete(`http://localhost:5000/api/deletemateri/${id}`, config)
+    await axios.delete(`/api/deletemateri/${id}`, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.DELETE_MATERI,
@@ -641,7 +641,7 @@ export const getAllMateri = (id : string | undefined) =>{
     }
   try{
 
-    await axios.get(`http://localhost:5000/api/allmateri/${id}`,  config)
+    await axios.get(`/api/allmateri/${id}`,  config)
     .then((res)=>{
       dispatch({
         type : actionTypes.GET_ALL_MATERI,
@@ -685,7 +685,7 @@ export const getMateri = (id : string) =>{
     }
   try{
 
-    await axios.get(`http://localhost:5000/api/materi/${id}`, config)
+    await axios.get(`/api/materi/${id}`, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.GET_MATERI,
@@ -727,7 +727,7 @@ export const getYourScore = ()=>{
     }
     try{
       await axios
-              .get('http://localhost:5000/api/getyourscore', config)
+              .get('/api/getyourscore', config)
               .then((res) => {
               
                 dispatch({
@@ -768,7 +768,7 @@ export const getAllScoreInApp = () => {
     }
     try{
       await axios
-              .get('http://localhost:5000/api/getallscore', config)
+              .get('/api/getallscore', config)
               .then((res) => {
               
                 dispatch({
@@ -809,7 +809,7 @@ export const getAllScoreInApp = () => {
 
 //     try {
 //       await axios
-//         .post(`http://localhost:5000/api/joinclassroom/${code}`, config)
+//         .post(`/api/joinclassroom/${code}`, config)
 //         .then((res) => {
 //           dispatch({
 //             type: actionTypes.JOIN_CLASSROOM,

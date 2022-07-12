@@ -1,5 +1,4 @@
 import HomeProfile from "../Profile/HomeProfile";
-import Finished_Task from "../Task_home_list/Finished_Task";
 import Unfinished_Task from "../Task_home_list/Unfinished_task";
 
 function StudentLayout({

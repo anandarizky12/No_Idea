@@ -32,7 +32,7 @@ export default function ListScoreTable({ data, id }: any) {
   );
   React.useEffect(() => {
     axios
-      .get("http://localhost:5000/api/getmapel")
+      .get("/api/getmapel")
       .then((res) => {
         setMapel(res.data.data);
       })

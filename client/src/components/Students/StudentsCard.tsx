@@ -1,12 +1,12 @@
 import AvatarCustom from "../Avatar/AvatarCustom";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function StudentsCard({ student }: any) {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  console.log(student);
+
   return (
     <div
       onClick={() => navigate(`/classroom/${id}/student/${student?.User.id}`)}

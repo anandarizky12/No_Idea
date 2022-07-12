@@ -19,7 +19,7 @@ export const getDataDashboard = () => {
         try {
           await axios
     
-            .get(`http://localhost:5000/api/getalltotal`, config)
+            .get(`/api/getalltotal`, config)
             .then((res) => {
               dispatch({
                 type: actionTypes.GET_DATA_DASHBOARD,

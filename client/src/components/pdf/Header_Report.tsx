@@ -13,7 +13,7 @@ function Header_Report() {
           Kalimantan Tengah
         </p>
         <div className="flex flex-col">
-          <p className="p-0 m-0">Email : loremipsum@gmail.com</p>
+          <p className="p-0 m-0">Email : smknsukamara9@gmail.com </p>
           <p className="p-0 m-0">Telpon : (0532) 26675</p>
         </div>
       </div>

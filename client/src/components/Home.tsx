@@ -9,7 +9,6 @@ import { Spin, Space } from "antd";
 import DynamicError from "./404/DynamicError";
 import StudentLayout from "./Students/StudentLayout";
 import TeacherLayout from "./Teacher/TeacherLayout";
-import HomeBanner from "./Banner/HomeBanner";
 
 function Home() {
   const Dispatch = useDispatch();

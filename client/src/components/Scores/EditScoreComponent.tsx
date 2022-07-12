@@ -1,6 +1,4 @@
 import { Progress } from "antd";
-
-import React from "react";
 import EachScore from "./EachScore";
 
 interface Iprops {

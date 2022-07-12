@@ -15,7 +15,7 @@ export const getTaskInClassroom = (id: any) => {
 
     try {
       await axios
-        .get(`http://localhost:5000/api/getalltaskinclass/${id}`, config)
+        .get(`/api/getalltaskinclass/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_ALL_TASK_IN_CLASS,
@@ -70,7 +70,7 @@ export const createTask = (data: any, question : any, id : any,) => {
 
     try {
       await axios
-        .post(`http://localhost:5000/api/createtask/${id}`, {title, description, other, user_id, deadline, question, mapel_id }, config)
+        .post(`/api/createtask/${id}`, {title, description, other, user_id, deadline, question, mapel_id }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.CREATE_TASK,
@@ -116,7 +116,7 @@ export const editTask = (data: any, id: string) => {
 
     try {
       await axios
-        .put(`http://localhost:5000/api/edittask/${id}`, data, config)
+        .put(`/api/edittask/${id}`, data, config)
         .then((res) => {
           dispatch({
             type: actionTypes.EDIT_TASK,
@@ -161,7 +161,7 @@ export const editQuestion = (data: any, id: string) => {
     };
       try{
         await axios
-        .put(`http://localhost:5000/api/editquestion/${id}`, data, config)
+        .put(`/api/editquestion/${id}`, data, config)
         .then((res) => {
           dispatch({
             type: actionTypes.EDIT_QUESTION,
@@ -207,7 +207,7 @@ export const deleteTask = (id: string) => {
 
     try {
       await axios
-        .delete(`http://localhost:5000/api/deletetask/${id}`, config)
+        .delete(`/api/deletetask/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.DELETE_TASK,
@@ -255,7 +255,7 @@ export const deleteTask = (id: string) => {
 //     try {
 //       await axios
 //         .get(
-//           `http://localhost:5000/api/gettask/${id}?class=${class_id}`,
+//           `/api/gettask/${id}?class=${class_id}`,
 //           config
 //         )
 //         .then((res) => {
@@ -299,7 +299,7 @@ export const getAllScores = (class_id: any) => {
     };
     try {
       await axios
-        .get(`http://localhost:5000/api/getallscore/${class_id}`, config)
+        .get(`/api/getallscore/${class_id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_ALL_SCORES,
@@ -412,7 +412,7 @@ export const getTask= (task_id: any, id: any) => {
     try {
       await axios
         .get(
-          `http://localhost:5000/api/getdetailtask/${task_id}/${id}`,
+          `/api/getdetailtask/${task_id}/${id}`,
           config
         )
         .then((res) => {
@@ -469,7 +469,7 @@ export const getDetailScoreStudent= (task_id: any, id: any, user_id : string | u
     try {
       await axios
         .get(
-          `http://localhost:5000/api/getscoredetailtask/${user_id}/${task_id}/${id}`,
+          `/api/getscoredetailtask/${user_id}/${task_id}/${id}`,
           config
         )
         .then((res) => {
@@ -522,7 +522,7 @@ export const getUnfinishedTasks = () => {
       },
     };
     try {
-      await axios.get(`http://localhost:5000/api/unfinishedtask`, config)
+      await axios.get(`/api/unfinishedtask`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_UNFINISHED_TASK,
@@ -564,7 +564,7 @@ export const getFinishedTasks = () => {
       },
     };
     try {
-      await axios.get(`http://localhost:5000/api/finishedtask`, config)
+      await axios.get(`/api/finishedtask`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_FINISHED_TASK,
@@ -606,7 +606,7 @@ export const getAllTasksScore = (id : string | undefined)=>{
       },
     }
     try {
-      await axios.get(`http://localhost:5000/api/getalltaskscore/${id}`, config)
+      await axios.get(`/api/getalltaskscore/${id}`, config)
         .then((res) => {
         
           dispatch({
@@ -650,8 +650,8 @@ export const editScore = (score: number, id: string, task_id : string, score_id 
 
     try {
       await axios
-      // http://localhost:5000/api/editscore/3/11/41
-        .patch(`http://localhost:5000/api/editscore/${id}/${task_id}/${score_id}`, {score : score}, config)
+      // /api/editscore/3/11/41
+        .patch(`/api/editscore/${id}/${task_id}/${score_id}`, {score : score}, config)
         .then((res) => {
        
           alert("Edit Score success");
