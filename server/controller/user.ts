@@ -2,6 +2,7 @@ export {};
 const joi = require("@hapi/joi");
 const { User } = require("../models");
 const { cloudinary } = require("../utils/Cloudinary");
+const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -103,6 +104,7 @@ exports.Login = async (req: any, res: any) => {
     const user = await User.findOne({
       where: {
         email,
+        role : {[Op.or]: ["siswa", "guru"]}
       },
     });
 

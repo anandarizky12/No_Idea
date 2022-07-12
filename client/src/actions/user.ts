@@ -12,7 +12,6 @@ export const login = (email: string, password: string, setAlert: any) =>
         .then((res) => {
 
           const { name, email, role, token, id, profile } = res.data.data;
-
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             payload: {
