@@ -17,7 +17,7 @@ function TasksReport({ task, name }: any) {
               </tr>
               <tr>
                 <th className="text-left">Guru</th>
-                <td>: {task?.data[0].Classroom.User.name.toUpperCase()}</td>
+                <td>: {task?.data[0]?.Classroom.User.name.toUpperCase()}</td>
               </tr>
             </tbody>
           </table>
