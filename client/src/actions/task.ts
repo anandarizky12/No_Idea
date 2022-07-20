@@ -638,7 +638,7 @@ export const getAllTasksScore = (id : string | undefined)=>{
 }
 
 
-export const editScore = (score: number, id: string, task_id : string, score_id : string) => {
+export const editScore = (score: number, id: string, task_id : string, score_id : string, student_id : string) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
     const config = {
@@ -651,7 +651,7 @@ export const editScore = (score: number, id: string, task_id : string, score_id 
     try {
       await axios
       // /api/editscore/3/11/41
-        .patch(`/api/editscore/${id}/${task_id}/${score_id}`, {score : score}, config)
+        .patch(`/api/editscore/${id}/${task_id}/${score_id}/${student_id}`, {score : score}, config)
         .then((res) => {
        
           alert("Edit Score success");

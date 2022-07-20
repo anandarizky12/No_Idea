@@ -12,13 +12,15 @@ function EachScore({ data, item }: any) {
     setScore(value);
   };
 
+  console.log(data);
   const handleSubmit = () => {
     return dispatch(
       editScore(
         score,
         data.classroom_id,
         item.task_id,
-        item.Answer_task.Score.id
+        item.Answer_task.Score.id,
+        item.Answer_task.User.id
       )
     );
   };

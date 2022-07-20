@@ -145,7 +145,7 @@ router.get('/materi/:id', isTeacherOrMemberOfClass, getMateri)
 router.get('/allmateri/:id', isTeacherOrMemberOfClass, getAllMateri)
 router.patch('/updatemateri/:id',isTeacherOfClass, editMateri)
 router.delete('/deletemateri/:id',isTeacherOfClass, deleteMateri)
-router.patch('/editscore/:id/:task_id/:score_id',isTeacherOfClass, editScore)
+router.patch('/editscore/:id/:task_id/:score_id/:student_id',isTeacherOfClass, editScore)
 
 
 //get all score 

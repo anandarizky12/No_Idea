@@ -737,8 +737,10 @@ exports.getScoreDetailTask = async (req : any ,res : any) =>{
 exports.editScore = async (req : any ,res : any) =>{
   try{
     //id tugas 
-    const {  score_id, task_id } = req.params;
+    const {  score_id, task_id, student_id } = req.params;
     const { score } = req.body;
+
+    console.log(req.params)
 
     const edit_score = await Score.update({
       score
@@ -752,8 +754,16 @@ exports.editScore = async (req : any ,res : any) =>{
 
       const all_score = await Score.findAll({
         where : {
-          task_id : task_id
-        }
+          task_id : task_id,
+        },
+          include : [
+            {
+              model : Answer_task,
+              where : {
+                student_id : student_id
+              }
+            }
+          ]
       })
 
       let totalScore = await all_score.reduce((acc : any, curr : any)=>
@@ -764,7 +774,8 @@ exports.editScore = async (req : any ,res : any) =>{
         score : totalScore
       },{
         where : {
-          task_id : task_id
+          task_id : task_id,
+          student_id : student_id
         }
       })
       return res.status(200).send({
@@ -781,7 +792,8 @@ exports.editScore = async (req : any ,res : any) =>{
     })
 
   }catch(err : any ){
-    res.status(500).send({
+    console.log(err.message)
+    return res.status(500).send({
       message : err.message,
       status : 500
     })
