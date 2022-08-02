@@ -3,9 +3,10 @@ import EachScore from "./EachScore";
 
 interface Iprops {
   data: any;
+  loading: boolean;
 }
 
-function EditScoreComponent({ data }: Iprops) {
+function EditScoreComponent({ data, loading }: Iprops) {
   const totalScore = data.Questions.reduce(
     (acc: number, cur: any) => acc + cur.Answer_task.Score.score,
     0
@@ -53,35 +54,36 @@ function EditScoreComponent({ data }: Iprops) {
         </div>
       </div>
       <div className="mt-8 ">
-        {data.Questions.map((item: any, index: number) => (
-          <div
-            key={item.id}
-            className="border border-gray-300 rounded-md flex my-4 "
-          >
-            <div className="border-r border-gray-300   text-center w-16 flex items-center justify-center">
-              <h1 className="m-0 font-bold text-gray-500 text-xl">
-                {index + 1}
-              </h1>
-            </div>
-            <div className="flex justify-center flex-col h-full mx-4 p-2 w-full">
-              <h1 className="font-semibold  text-gray-600 p-0 m-0">
-                {item.question}
-              </h1>
-              <p className=" text-gray-500 p-0 m-0">
-                <span className="font-semibold text-gray-500">
-                  Jawaban Siswa
-                </span>{" "}
-                : {item.Answer_task.answer}
-              </p>
-              <EachScore data={data} item={item} />
-            </div>
-            {/* <div className="border-l border-gray-300 rounded-md text-center w-24 flex items-center justify-center bg-gray-500">
+        {!loading &&
+          data.Questions.map((item: any, index: number) => (
+            <div
+              key={item.id}
+              className="border border-gray-300 rounded-md flex my-4 "
+            >
+              <div className="border-r border-gray-300   text-center w-16 flex items-center justify-center">
+                <h1 className="m-0 font-bold text-gray-500 text-xl">
+                  {index + 1}
+                </h1>
+              </div>
+              <div className="flex justify-center flex-col h-full mx-4 p-2 w-full">
+                <h1 className="font-semibold  text-gray-600 p-0 m-0">
+                  {item.question}
+                </h1>
+                <p className=" text-gray-500 p-0 m-0">
+                  <span className="font-semibold text-gray-500">
+                    Jawaban Siswa
+                  </span>{" "}
+                  : {item.Answer_task.answer}
+                </p>
+                <EachScore data={data} item={item} />
+              </div>
+              {/* <div className="border-l border-gray-300 rounded-md text-center w-24 flex items-center justify-center bg-gray-500">
               <h1 className="m-0 font-bold text-gray-100 text-xl">
                 {item.Answer_task.Score.score}
               </h1>
             </div> */}
-          </div>
-        ))}
+            </div>
+          ))}
       </div>
     </div>
   );

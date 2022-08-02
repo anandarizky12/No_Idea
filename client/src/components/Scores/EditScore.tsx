@@ -8,16 +8,17 @@ import { getDetailScoreStudent } from "../../actions/task";
 import EditScoreComponent from "./EditScoreComponent";
 
 function EdtiScore() {
-  const Dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   const detail = useSelector((state: any) => state.getDetailScoreStudent);
   const { user_id, id, task_id } = useParams();
-
-  const [data, setData]: any = React.useState();
+  const [data, setData]: any = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    Dispatch(getDetailScoreStudent(task_id, id, user_id));
-  }, []);
+    setData(null);
+    setLoading(true);
+    dispatch(getDetailScoreStudent(task_id, id, user_id));
+  }, [user_id]);
 
   React.useEffect(() => {
     if (detail && detail.task) {
@@ -39,7 +40,11 @@ function EdtiScore() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      {data ? <EditScoreComponent data={data} /> : <Spin />}
+      {!loading ? (
+        <EditScoreComponent data={data} loading={loading} />
+      ) : (
+        <Spin />
+      )}
     </div>
   );
 }

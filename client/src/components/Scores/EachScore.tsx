@@ -8,11 +8,14 @@ function EachScore({ data, item }: any) {
 
   const [score, setScore] = React.useState(item.Answer_task.Score.score);
 
+  React.useEffect(() => {
+    setScore(item.Answer_task.Score.score);
+  }, [item]);
+
   const onChange = (value: number) => {
     setScore(value);
   };
 
-  console.log(data);
   const handleSubmit = () => {
     return dispatch(
       editScore(

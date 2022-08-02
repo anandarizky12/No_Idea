@@ -14,8 +14,6 @@ function ResultAnswer({ data }: Iprops) {
   );
   const componentRef: any = React.useRef();
 
-  console.log(data);
-
   return (
     <div className="border p-8 shadow-lg w-4/6 mt-8">
       <div className="">
