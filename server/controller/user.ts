@@ -264,6 +264,9 @@ exports.editProfile = async (req: any, res: any) => {
         const updateProfile = await User.update(
           {
             profile: uploadResponse.url,
+            name,
+            email,
+            address, religion, birth_date, place_of_birth, father, mother, father_job, mother_job  ,jk
           },
           {
             where: {
@@ -294,21 +297,7 @@ exports.editProfile = async (req: any, res: any) => {
         });
       }
     }
-    // const schema = joi.object({
-    //   name: joi.string().min(3).required(),
-    //   email: joi.string().email().min(10).required(),
-    //   // phone: joi.string().min(12).required(),
-    //   // jk: joi.string().min(8).required(),
-    // });
-
-    // const { error } = schema.validate(req.body);
-
-    // if (error) {
-    //   return res.status(500).send({
-    //     status: 500,
-    //     message: error.details[0].message,
-    //   });
-    // }
+   
 
     const updateUser = await User.update(
       {

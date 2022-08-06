@@ -1,6 +1,6 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  
+  darkMode : 'class',
   theme: {
     extend: {
       backgroundImage: {
@@ -12,6 +12,8 @@ module.exports = {
       colors: {
         primary : "#413F42",
         secondary : "#f5f5f5",
+        dark_1 : "#171717",
+        dark_2 : "#27272a"
       },
       fontFamily: {
         header: ["Nunito"],

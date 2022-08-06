@@ -214,7 +214,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
         Authorization: `Bearer ${token}`,
       },
     };
-
+   
     try {
       setLoading(true);
       await axios

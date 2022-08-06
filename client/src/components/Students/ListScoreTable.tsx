@@ -158,9 +158,10 @@ export default function ListScoreTable({ data, id }: any) {
       : filteredItems;
 
   return (
-    <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">
+    <div className="w-full  px-12 flex flex-col mt-12 items-center justify-center shadow-md">
       <div className="w-full border p-5 shadow-md">
         <DataTable
+          className=""
           title="Daftar Nilai Anda"
           columns={columns}
           data={filteredDate}
