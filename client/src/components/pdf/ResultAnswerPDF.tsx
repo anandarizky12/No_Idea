@@ -2,7 +2,6 @@ import moment from "moment";
 import Header_Report from "./Header_Report";
 
 function ResultAnswerPDF({ data, totalScore }: any) {
-  console.log(data);
   return (
     <div className="px-7 py-2">
       <Header_Report />
@@ -25,7 +24,7 @@ function ResultAnswerPDF({ data, totalScore }: any) {
               </tr>
               <tr>
                 <th className="text-left">Kelas</th>
-                <td>: {data?.Mapel.nama}</td>
+                <td>: {data?.Mapel?.nama}</td>
               </tr>
               <tr>
                 <th className="text-left">Tugas</th>

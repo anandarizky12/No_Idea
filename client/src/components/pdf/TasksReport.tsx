@@ -54,7 +54,7 @@ function TasksReport({ task, name }: any) {
                     <td className="border border-black text-left">
                       <div className="flex items-center">
                         <span className="font-medium p-2">
-                          {task.Mapel.nama}
+                          {task?.Mapel?.nama}
                         </span>
                       </div>
                     </td>

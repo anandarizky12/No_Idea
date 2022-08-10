@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { TableColumn } from "react-data-table-component";
 import ButtonPrint from "../pdf/Button_PDF";
 import AllScoreInClassPDF from "../pdf/AllScoreInClassPDF";
-import { conditionalScore } from "../../utils/utils";
+import { conditionalScore, getAverage } from "../../utils/utils";
 import axios from "axios";
 
 const { Option } = Select;
@@ -93,7 +93,7 @@ export default function ScoreTable({ scores, id }: Iprops) {
     },
     {
       name: "Mata Pelajaran",
-      selector: (row) => row.mapel,
+      selector: (row) => row?.mapel,
     },
     {
       name: "Nilai",
@@ -165,7 +165,9 @@ export default function ScoreTable({ scores, id }: Iprops) {
         >
           <Option value="">Mata Pelajaran</Option>
           {mapel?.map((data: any, key: any) => (
-            <Option value={data.nama}>{data.nama}</Option>
+            <Option key={key} value={data?.nama}>
+              {data?.nama}
+            </Option>
           ))}
         </Select>
         <Search
@@ -215,7 +217,8 @@ export default function ScoreTable({ scores, id }: Iprops) {
           defaultSortFieldId={1}
           customStyles={customStyles}
         />
-        <div className="w-full flex">
+
+        <div className="w-full flex flex-row">
           <table className="border border-gray-300 mr-6">
             <tbody>
               <tr className="border border-gray-300">
@@ -246,6 +249,60 @@ export default function ScoreTable({ scores, id }: Iprops) {
               </tr>
             </tbody>
           </table>
+          {rows && (
+            <div>
+              <table className="border border-gray-300 mr-6">
+                <tbody>
+                  <tr className="border border-gray-300">
+                    <th className="text-center font-semibold border border-gray-300 p-2">
+                      Status
+                    </th>
+                    <th className="text-left font-semibold p-2">Persentase</th>
+                  </tr>
+                  <tr className="border border-gray-300">
+                    <td className="text-center border border-gray-300 px-2">
+                      Sangat Baik
+                    </td>
+                    <td className="text-center border border-gray-300 px-2">
+                      {getAverage(89, 100, rows)} %
+                    </td>
+                  </tr>
+                  <tr className="border border-gray-300">
+                    <td className="text-center border border-gray-300 px-2">
+                      Baik
+                    </td>
+                    <td className="text-center border border-gray-300 px-2">
+                      {getAverage(70, 89, rows)} %
+                    </td>
+                  </tr>
+                  <tr className="border border-gray-300">
+                    <td className="text-center border border-gray-300 px-2">
+                      Cukup
+                    </td>
+                    <td className="text-center border border-gray-300 px-2">
+                      {getAverage(60, 70, rows)} %
+                    </td>
+                  </tr>
+                  <tr className="border border-gray-300">
+                    <td className="text-center border border-gray-300 px-2">
+                      Kurang
+                    </td>
+                    <td className="text-center border border-gray-300 px-2">
+                      {getAverage(50, 60, rows)} %
+                    </td>
+                  </tr>
+                  <tr className="border border-gray-300">
+                    <td className="text-center border border-gray-300 px-2">
+                      Sangat Kurang
+                    </td>
+                    <td className="text-center border border-gray-300 px-2">
+                      {getAverage(0, 50, rows)} %
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
 

@@ -23,6 +23,21 @@ export const conditionalScore = (score: number) => {
   }
 };
 
+export const getAverage = (scores_min : number, scores_max : number , arr : any)=>{
+    let total = 0
+    for (let i = 0 ; i < arr.length ; i++){
+      if(arr[i].score >= scores_min && arr[i].score <= scores_max ){
+        total += 1
+      }
+    }
+
+    return Math.round((total/arr.length) * 100)
+    // return total > 0 ? Math.round((100 * arr.length) / (total * (arr.length > 1 ? 10 : 0))) == Infinity ? 100 : Math.round((100 * arr.length) / (total * (arr.length > 1 ? 10 : 0))) : 0;
+
+
+
+}
+
 export const removeCookie = (key: string): void => {
   if (typeof window !== "undefined") {
     Cookies.remove(key, {
