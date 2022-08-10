@@ -26,6 +26,7 @@ import AllScoresTask from "./components/Scores/AllScoresTask";
 import ScoreDetail from "./components/Scores/ScoreDetail";
 import EdtiScore from "./components/Scores/EditScore";
 import ClassroomList from "./components/Classroom/ClassroomList";
+import AllQuestions from "./components/AllQuestions/AllQuestions";
 
 function App() {
   moment.locale("id");
@@ -149,6 +150,16 @@ function App() {
               allowRole={"guru"}
               redirectTo="/login"
               Component={<AllScoresTask />}
+            />
+          }
+        />
+        <Route
+          path="/classroom/:id/getallquestions"
+          element={
+            <ProtectedRoute
+              allowRole={"guru"}
+              redirectTo="/login"
+              Component={<AllQuestions />}
             />
           }
         />

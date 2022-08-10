@@ -155,6 +155,29 @@ export const getAllScores = (state = {}, action: any) => {
 };
 
 
+export const getAllQuestions = (state = {}, action: any) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_TASK_QUESTION:
+      return {
+        ...state,
+        question : action.payload,
+        isLoading: false,
+        isError: false,
+      };
+    case actionTypes.GET_ALL_TASK_QUESTION_FAILED:
+      return {
+        ...state,
+        question : null,
+        error: action.payload,
+        isLoading: false,
+        isError: true,
+      };
+    default:
+      return state;
+  }
+};
+
+
 
 export const AnswerTask = (state = {}, action: any) => {
   switch (action.type){

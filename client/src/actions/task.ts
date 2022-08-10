@@ -638,6 +638,48 @@ export const getAllTasksScore = (id : string | undefined)=>{
 }
 
 
+export const getAllQuestions = (page : number, limit : number)=>{
+  return async (dispatch : Dispatch)=>{
+    const token = getCookie("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    try {
+      await axios.get(`/api/getallquestion?limit=${limit}&page=${page}`, config)
+        .then((res) => {
+        
+          dispatch({
+            type: actionTypes.GET_ALL_TASK_QUESTION,
+            payload: res.data,
+             isLoading: false,
+            isError: false,
+          });
+        }).catch((err: any) => {
+         
+            return dispatch({
+              type: actionTypes.GET_ALL_TASK_QUESTION_FAILED,
+              payload: err,
+              isLoading: false,
+              isError: true,
+            });
+       
+      })
+    }catch(err: any) {
+
+      dispatch({
+        type: actionTypes.GET_ALL_TASK_QUESTION_FAILED,
+        payload: err.response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  }
+}
+
+
 export const editScore = (score: number, id: string, task_id : string, score_id : string, student_id : string) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");

@@ -55,7 +55,8 @@ const {
   getAllTaskScore,
   getScoreDetailTask,
   editScore,
-  getMapel
+  getMapel,
+  getAllQuestions 
 } = require("../controller/task");
 
 
@@ -88,6 +89,12 @@ router.get(
   "/getalltaskinclass/:id",
   isTeacherOrMemberOfClass,
   getTaskAndQuestionInClassroom 
+);
+
+router.get(
+  "/getallquestion",
+  authTeacher,
+  getAllQuestions 
 );
 
 router.get(

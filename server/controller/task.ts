@@ -740,7 +740,6 @@ exports.editScore = async (req : any ,res : any) =>{
     const {  score_id, task_id, student_id } = req.params;
     const { score } = req.body;
 
-    console.log(req.params)
 
     const edit_score = await Score.update({
       score
@@ -824,3 +823,35 @@ exports.getMapel = async (req: any, res: any) => {
     });
   }
 };
+
+exports.getAllQuestions = async (req: any, res: any)=>{
+  try{
+
+    const page = parseInt(req.query.page, 0);
+    const limit = parseInt(req.query.limit, 10);
+
+    const data = await Question.findAndCountAll({
+         offset: page * limit,// your page number
+         limit: limit,// your limit
+    })
+  
+    if(!data){
+      return res.status(500).send({
+        status: 500,
+        message: "No questions"
+      });
+    }
+    
+    return res.status(200).send({
+        status: 200,
+        message : "Success",
+        data : data
+    }
+    )
+  }catch(err: any) {
+    return res.status(500).send({
+      status: 500,
+      message: err.message
+    });
+  }
+}

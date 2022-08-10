@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actions_type/actions_type_classroom";
-import { getCookie, removeCookie } from "../utils/utils";
+import { getCookie } from "../utils/utils";
 import { Dispatch } from "redux";
 
 export const getClassroomByTeacherId = (id: any) => {
@@ -16,7 +16,6 @@ export const getClassroomByTeacherId = (id: any) => {
 
     try {
       await axios
-
         .get(`/api/getclassroombyteacherid/${id}`, config)
         .then((res) => {
           dispatch({

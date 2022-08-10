@@ -27,7 +27,8 @@ import {
   getFinishedTask,
   getUnfinishedTask,
   getAllTaskScore,
-  getDetailScoreStudent
+  getDetailScoreStudent,
+  getAllQuestions
 } from "../reducers/taskReducers";
 
 import {
@@ -68,7 +69,8 @@ const rootReducer = combineReducers({
   getAllTaskScore ,
   getDetailScoreStudent,
   getAllScoreInApp,
-  getAllClassroomByTeacherIdReducers  
+  getAllClassroomByTeacherIdReducers ,
+  getAllQuestions
 });
 
 const middleware = applyMiddleware(thunk);

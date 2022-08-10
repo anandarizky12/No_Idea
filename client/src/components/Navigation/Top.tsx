@@ -80,16 +80,28 @@ function Top(): JSX.Element {
               Anggota{" "}
             </li>
             {user.role === "guru" ? (
-              <li
-                onClick={() => navigate(`/classroom/${id}/scores`)}
-                className={`${
-                  location.pathname == `/classroom/${id}/scores`
-                    ? "border-b-4  border-gray-500"
-                    : ""
-                } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
-              >
-                Nilai
-              </li>
+              <>
+                <li
+                  onClick={() => navigate(`/classroom/${id}/scores`)}
+                  className={`${
+                    location.pathname == `/classroom/${id}/scores`
+                      ? "border-b-4  border-gray-500"
+                      : ""
+                  } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+                >
+                  Nilai
+                </li>
+                <li
+                  onClick={() => navigate(`/classroom/${id}/getallquestions`)}
+                  className={`${
+                    location.pathname == `/classroom/${id}/getallquestions`
+                      ? "border-b-4  border-gray-500"
+                      : ""
+                  } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
+                >
+                  Soal
+                </li>
+              </>
             ) : null}
           </ul>
         ) : null}
