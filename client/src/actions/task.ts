@@ -650,13 +650,12 @@ export const getAllQuestions = (page : number, limit : number)=>{
     try {
       await axios.get(`/api/getallquestion?limit=${limit}&page=${page}`, config)
         .then((res) => {
-        
           dispatch({
             type: actionTypes.GET_ALL_TASK_QUESTION,
             payload: res.data,
              isLoading: false,
             isError: false,
-          });
+          })
         }).catch((err: any) => {
          
             return dispatch({

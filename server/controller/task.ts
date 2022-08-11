@@ -831,6 +831,7 @@ exports.getAllQuestions = async (req: any, res: any)=>{
     const limit = parseInt(req.query.limit, 10);
 
     const data = await Question.findAndCountAll({
+      
          offset: page * limit,// your page number
          limit: limit,// your limit
     })
