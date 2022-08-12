@@ -1,10 +1,11 @@
 import { Steps, Button, message } from "antd";
 import React from "react";
 import { AnswerTask } from "../../actions/task";
+import { timer } from "../../utils/utils";
 import { useCallbackPrompt } from "../hook/useCallbackPrompt";
 import AnswerContent from "./AnswerContent";
 import DialogBox from "./Dialog/Dialog";
-
+import { ClockCircleOutlined } from "@ant-design/icons";
 const { Step } = Steps;
 
 interface AnswerTaskProps {
@@ -53,6 +54,11 @@ const AnswerStepByStep = ({
     Dispatch(AnswerTask({ answer, id, class_id, user_id }));
   };
 
+  const [timerstate, setTimer] = React.useState<any>(timer(task.deadline));
+  setInterval(() => {
+    setTimer(timer(task.deadline));
+  }, 60000);
+
   return (
     <div className="border p-8 shadow-lg">
       <DialogBox
@@ -61,6 +67,11 @@ const AnswerStepByStep = ({
         cancelNavigation={cancelNavigation}
       />
       <div>
+        <h1 className="text-right text-3xl  text-primary">
+          {" "}
+          <ClockCircleOutlined /> {timerstate}
+        </h1>
+
         <h1 className="text-gray-500 text-2xl text-center">
           Sedang Mengerjakan <strong>{task.title}</strong>
         </h1>
