@@ -55,6 +55,9 @@ const AnswerStepByStep = ({
   };
 
   const [timerstate, setTimer] = React.useState<any>(timer(task.deadline));
+  React.useEffect(() => {
+    setTimer(timer(task.deadline));
+  }, [task]);
   setInterval(() => {
     setTimer(timer(task.deadline));
   }, 60000);
@@ -67,7 +70,7 @@ const AnswerStepByStep = ({
         cancelNavigation={cancelNavigation}
       />
       <div>
-        <h1 className="text-right text-3xl  text-primary">
+        <h1 className="text-right text-2xl  text-primary">
           {" "}
           <ClockCircleOutlined /> {timerstate}
         </h1>
