@@ -14,15 +14,16 @@ export const getTaskInClassroom = (id: any) => {
     };
 
     try {
+     
       await axios
         .get(`/api/getalltaskinclass/${id}`, config)
         .then((res) => {
-          dispatch({
-            type: actionTypes.GET_ALL_TASK_IN_CLASS,
-            payload: res.data,
-            isLoading: false,
-            isError: false,
-          });
+            dispatch({
+                type: actionTypes.GET_ALL_TASK_IN_CLASS,
+                payload: res.data,
+                isLoading: false,
+                isError: false,
+            });
         })
         .catch((err) => {
           
@@ -55,8 +56,8 @@ export const getTaskInClassroom = (id: any) => {
   };
 };
 
-export const createTask = (data: any, question : any, id : any,) => {
-  return async (dispatch: Dispatch) => {
+export const createTask = (data: any, question : any, id : any,setAlert : any, setState : any, setQuestion : any, form : any) => {
+  return async (dispatch: any) => {
     const token = getCookie("token");
     const config = {
       headers: {
@@ -66,8 +67,6 @@ export const createTask = (data: any, question : any, id : any,) => {
     };
 
     const { title, description, other, user_id, deadline, mapel_id} = data 
-
-
     try {
       await axios
         .post(`/api/createtask/${id}`, {title, description, other, user_id, deadline, question, mapel_id }, config)
@@ -78,22 +77,62 @@ export const createTask = (data: any, question : any, id : any,) => {
             isLoading: false,
             isError: false,
           });
-          alert("Create Task Success");
-          window.location.reload();
+
+          setAlert({
+            message : "Success create task",
+            typeAlert : 1
+          })
+
+          setState((state: any) => ({
+            ...state,
+            title: "",
+            description: "",
+            other: "",
+            deadline: undefined,
+            timetable: undefined,
+            mapel_id: undefined,
+          }));
+
+          setQuestion([
+            {
+              no: 1,
+              question_0: null,
+              answer_key_0: null,
+            },
+          ])
+
+          form.resetFields();
+
+          dispatch({
+            type: actionTypes.GET_ALL_TASK_IN_CLASS,
+            payload: null,
+            isLoading: true,
+            isError: false,
+          });     
+        
+  
+        }).then(()=>{
+          dispatch(getTaskInClassroom(id))
         })
         .catch((err) => {
-         
-          alert(err.response.data.message)
+          setAlert({
+            message : err.response.data.message,
+            typeAlert : 4
+          })
+  
           dispatch({
             type: actionTypes.CREATE_TASK_FAILED,
             payload: err.response,
             isLoading: false,
             isError: true,
           });
-          // window.location.reload();
+         
         });
     } catch (err: any) {
-      alert(err.response.data.message)
+      setAlert({
+        message : err.response.data.message,
+        typeAlert : 4
+      })
       dispatch({
         type: actionTypes.CREATE_TASK_FAILED,
         payload: err.response,
@@ -104,8 +143,8 @@ export const createTask = (data: any, question : any, id : any,) => {
   };
 };
 
-export const editTask = (data: any, id: string) => {
-  return async (dispatch: Dispatch) => {
+export const editTask = (data: any, id: string, class_id : string, setAlert : any) => {
+  return async (dispatch: any) => {
     const token = getCookie("token");
     const config = {
       headers: {
@@ -124,13 +163,26 @@ export const editTask = (data: any, id: string) => {
             isLoading: false,
             isError: false,
           });
-          alert("Edit task success");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          
+          dispatch({
+            type: actionTypes.GET_ALL_TASK_IN_CLASS,
+            payload: null,
+            isLoading: true,
+            isError: false,
+          });     
+
+          setAlert({
+            message : "Edit task Success",
+            typeAler : 1
+          })
+        }).then(()=>{
+            dispatch(getTaskInClassroom(class_id))
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          setAlert({
+            message : err.response.data.message,
+            typeAler : 4
+          })
           dispatch({
             type: actionTypes.EDIT_TASK_FAILED,
             payload: err.response,
@@ -139,7 +191,10 @@ export const editTask = (data: any, id: string) => {
           });
         });
     } catch (err: any) {
-      alert(err.response.data.message)
+      setAlert({
+        message : err.response.data.message,
+        typeAler : 4
+      })
       dispatch({
         type: actionTypes.EDIT_TASK_FAILED,
         payload: err.response,
@@ -150,7 +205,7 @@ export const editTask = (data: any, id: string) => {
   };
 };
 
-export const editQuestion = (data: any, id: string) => {
+export const editQuestion = (data: any, id: string, setAlert : any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
     const config = {
@@ -169,13 +224,17 @@ export const editQuestion = (data: any, id: string) => {
             isLoading: false,
             isError: false,
           });
-          alert("Edit question success");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          setAlert({
+            message : "Question Edited",
+            typeAlert : 1
+          })
+       
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          setAlert({
+            message : err.response.data.message,
+            typeAlert : 4
+          })
           dispatch({
             type: actionTypes.EDIT_QUESTION_FAILED,
             payload: err.response,
@@ -184,7 +243,10 @@ export const editQuestion = (data: any, id: string) => {
           });
         });
       }catch(err : any ){
-        alert(err.response.data.message)
+        setAlert({
+          message : err.response.data.message,
+          typeAlert : 4
+        })
         dispatch({
           type: actionTypes.EDIT_QUESTION_FAILED,
           payload: err.response,
@@ -195,8 +257,8 @@ export const editQuestion = (data: any, id: string) => {
   };
 };
 
-export const deleteTask = (id: string) => {
-  return async (dispatch: Dispatch) => {
+export const deleteTask = (id: string, class_id :any, setAlert : any) => {
+  return async (dispatch: any) => {
     const token = getCookie("token");
     const config = {
       headers: {
@@ -215,13 +277,26 @@ export const deleteTask = (id: string) => {
             isLoading: false,
             isError: false,
           });
-          alert("Delete task success");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          
+          setAlert({
+            message : "Task Deleted"  ,
+            typeAlert : 1
+          })
+          dispatch({
+            type: actionTypes.GET_ALL_TASK_IN_CLASS,
+            payload: null,
+            isLoading: true,
+            isError: false,
+          });     
+
+        }).then(()=>{
+          dispatch(getTaskInClassroom(class_id))
         })
         .catch((err) => {
-          console.log(err.response);
+          setAlert({
+            message : err.response.data.message,
+            typeAlert : 4
+          })
           dispatch({
             type: actionTypes.DELETE_TASK_FAILED,
             payload: err.response,
@@ -230,6 +305,10 @@ export const deleteTask = (id: string) => {
           });
         });
     } catch (err: any) {
+      setAlert({
+        message : err.response.data.message,
+        typeAlert : 4
+      })
       dispatch({
         type: actionTypes.DELETE_TASK_FAILED,
         payload: err.response,

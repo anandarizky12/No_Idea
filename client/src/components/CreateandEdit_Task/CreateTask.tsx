@@ -9,6 +9,7 @@ import {
   Space,
   DatePicker,
   Select,
+  Alert,
 } from "antd";
 import { useDispatch } from "react-redux";
 import { handleChange, addQuestion, deleteQuestion } from "../../utils/utils";
@@ -16,14 +17,30 @@ import { createTask } from "../../actions/task";
 import { getCookie } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import Questions from "./Questions";
-
 import axios from "axios";
+import { AlertComponents } from "../alert/Alert";
+import { Moment } from "moment";
 const { Option } = Select;
 
+interface IState {
+  title: string;
+  description: string;
+  other: string;
+  user_id: string | undefined;
+  deadline: Moment | undefined;
+  timetable: Moment | undefined;
+  classroom_id: string | undefined;
+  mapel_id: string | null | undefined;
+}
 function CreateTask({ setOpen, open }: any) {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [form] = Form.useForm();
   const [mapel, setMapel] = React.useState<any>();
+  const [alert, setAlert] = React.useState({
+    message: "",
+    typeAlert: 0,
+  });
   const onClose = () => {
     setOpen(false);
   };
@@ -37,14 +54,15 @@ function CreateTask({ setOpen, open }: any) {
     },
   ]);
 
-  const [state, setState] = React.useState<any>({
-    title: null,
-    description: null,
-    other: null,
+  const [state, setState] = React.useState<IState>({
+    title: "dsfdsfdf",
+    description: "",
+    other: "",
     user_id: id_user,
-    deadline: null,
+    deadline: undefined,
+    timetable: undefined,
     classroom_id: id,
-    mapel_id: null,
+    mapel_id: undefined,
   });
 
   function onChangeDate(date: any, dateString: any): void {
@@ -55,7 +73,10 @@ function CreateTask({ setOpen, open }: any) {
   }
 
   const handleSubmit = () => {
-    dispatch(createTask(state, question, id));
+    dispatch(
+      createTask(state, question, id, setAlert, setState, setQuestion, form)
+    );
+    setOpen(false);
   };
 
   React.useEffect(() => {
@@ -89,7 +110,12 @@ function CreateTask({ setOpen, open }: any) {
         </Space>
       }
     >
-      <Form layout="vertical" hideRequiredMark>
+      <Form
+        layout="vertical"
+        hideRequiredMark
+        form={form}
+        onFinish={handleSubmit}
+      >
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -100,18 +126,41 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Enter Task Name"
                 name="title"
+                value={state.title}
                 autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
               />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={6}>
             <Form.Item
               name="deadline"
               label="Batas Pengerjaan"
               rules={[{ required: true, message: "Please select Deadline" }]}
             >
-              <DatePicker name="deadline" onChange={onChangeDate} />
+              <DatePicker
+                value={state.deadline}
+                name="deadline"
+                onChange={onChangeDate}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item
+              name="timetable"
+              label="Penjadwalan"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select Please Select Timetable",
+                },
+              ]}
+            >
+              <DatePicker
+                name="timetable"
+                value={state.timetable}
+                onChange={onChangeDate}
+              />
             </Form.Item>
           </Col>
           <Col span={24}>
@@ -123,6 +172,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Masukan Deskripsi Tugas"
                 name="description"
+                value={state.description}
                 autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
               />
@@ -134,6 +184,7 @@ function CreateTask({ setOpen, open }: any) {
               <Input
                 placeholder="Lainnya"
                 name="other"
+                value={state.other}
                 autoComplete="off"
                 onChange={(e) => handleChange(e, state, setState)}
               />
@@ -147,10 +198,10 @@ function CreateTask({ setOpen, open }: any) {
               rules={[{ required: true, message: "Pilih Mata Pelajaran" }]}
             >
               <Select
-                defaultValue="Pilih Mata Pelajaran"
+                placeholder={"Pilih Mapel"}
                 style={{ width: 200 }}
                 onChange={handleSelectClick}
-                value={null}
+                // value={null}
               >
                 {mapel?.map((data: any, key: any) => (
                   <Option value={data.id}>{data.nama}</Option>
@@ -189,6 +240,9 @@ function CreateTask({ setOpen, open }: any) {
           {/* <Questions question={question} /> */}
         </Row>
       </Form>
+      {alert.message !== null ? (
+        <AlertComponents alert={alert} setAlert={setAlert} />
+      ) : null}
     </Drawer>
   );
 }

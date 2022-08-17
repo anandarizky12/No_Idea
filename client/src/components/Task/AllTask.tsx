@@ -8,9 +8,14 @@ import TaskCard from "./TaskCard";
 import CreateTask from "../CreateandEdit_Task/CreateTask";
 import Teacher from "./Teacher";
 import DynamicError from "../404/DynamicError";
+import { AlertComponents } from "../alert/Alert";
 
 function AllTask() {
   const [open, setOpen] = React.useState(false);
+  const [alert, setAlert] = React.useState({
+    message: "",
+    typeAlert: 0,
+  });
   const dispatch = useDispatch();
   const { id } = useParams();
   const { classroom } = useSelector((state: any) => state.getClassroom);
@@ -32,6 +37,7 @@ function AllTask() {
     );
   return (
     <div className="flex flex-col items-center ">
+      <AlertComponents alert={alert} setAlert={setAlert} />
       <div className="w-4/6 mt-7">
         <div className="border-b border-gray-400 px-0 md:px-0 flex justify-between">
           <h1 className="text-xl md:text-3xl font-normal text-gray-500">
@@ -64,7 +70,7 @@ function AllTask() {
                 key={task.id}
                 className="flex p-4 md:p-0 md:w-4/6 items-center justify-center"
               >
-                <TaskCard task={task} user={user} />
+                <TaskCard task={task} user={user} setAlert={setAlert} />
               </div>
             );
           })

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import EditTask from "../CreateandEdit_Task/EditTask";
 import { useParams } from "react-router-dom";
 
-function PopupMenu({ task, user }: any) {
+function PopupMenu({ task, user, setAlert }: any) {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ function PopupMenu({ task, user }: any) {
 
   function handleDelete() {
     let userVal = window.confirm("Apakah kamu yakin tuk menghapus Tugas ini ?");
-    if (userVal) dispatch(deleteTask(task.id));
+    if (userVal) dispatch(deleteTask(task.id, task.Classroom.id, setAlert));
   }
 
   const teacherMenu = (

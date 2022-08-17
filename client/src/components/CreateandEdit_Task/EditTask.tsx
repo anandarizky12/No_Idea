@@ -16,10 +16,15 @@ import moment from "moment";
 import axios from "axios";
 import { editTask } from "../../actions/task";
 import { QuestionEdit } from "./QuestionEdit";
+import { AlertComponents } from "../alert/Alert";
 const { Option } = Select;
 
 function EditTask({ setOpen, open, task }: any) {
   const dispatch = useDispatch();
+  const [alert, setAlert] = React.useState({
+    message: "",
+    typeAlert: 0,
+  });
   const onClose = () => {
     setOpen(false);
   };
@@ -42,7 +47,7 @@ function EditTask({ setOpen, open, task }: any) {
     });
   }
   const handleSubmit = () => {
-    dispatch(editTask(state, task.id));
+    dispatch(editTask(state, task.id, task.Classroom.id, setAlert));
   };
   React.useEffect(() => {
     axios
@@ -142,6 +147,7 @@ function EditTask({ setOpen, open, task }: any) {
           task.Questions.map((data: any, index: number) => {
             return (
               <QuestionEdit
+                setAlert={setAlert}
                 key={index}
                 question={data}
                 index={index}
@@ -190,6 +196,7 @@ function EditTask({ setOpen, open, task }: any) {
           </Col>
         </Row> */}
       </Form>
+      <AlertComponents alert={alert} setAlert={setAlert} />
     </Drawer>
   );
 }

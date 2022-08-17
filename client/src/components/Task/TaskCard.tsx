@@ -4,7 +4,7 @@ import PopupMenu from "./Popup";
 import { Avatar } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 
-function TaskCard({ task, user }: any) {
+function TaskCard({ task, user, setAlert }: any) {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -23,7 +23,9 @@ function TaskCard({ task, user }: any) {
           <h1 className="text-gray-500 font-normal text-xs mr-2 hidden md:block">
             Dibuat pada {moment(task.createdAt).format("MMM Do YY")}
           </h1>{" "}
-          {user.role === "guru" && <PopupMenu user={user} task={task} />}
+          {user.role === "guru" && (
+            <PopupMenu user={user} task={task} setAlert={setAlert} />
+          )}
         </div>
       </div>
       <div className="border-t relative">

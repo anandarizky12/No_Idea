@@ -7,19 +7,22 @@ interface iProps {
   question: any;
   index: number;
   dispatch: any;
+  setAlert: any;
 }
 
-export const QuestionEdit = ({ question, index, dispatch }: iProps) => {
+export const QuestionEdit = ({
+  question,
+  index,
+  dispatch,
+  setAlert,
+}: iProps) => {
   const [state, setState] = useState({
     question: question.question,
     answer_key: question.answer_key,
   });
-
   const handleEdit = () => {
-    dispatch(editQuestion(state, question.id));
+    dispatch(editQuestion(state, question.id, setAlert));
   };
-
-  console.log(state);
 
   return (
     <Row gutter={16}>
