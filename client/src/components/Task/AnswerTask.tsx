@@ -8,7 +8,8 @@ import { getCookie } from "../../utils/utils";
 import AnswerStepByStep from "./AnswerStepByStep";
 import ResultAnswer from "./ResultAnswer";
 import moment from "moment";
-import { LockOutlined } from "@ant-design/icons";
+import LockTask from "./LockTask";
+
 function AnswerTask() {
   const Dispatch = useDispatch();
   const task = useSelector((state: any) => state.getTask);
@@ -43,6 +44,10 @@ function AnswerTask() {
     moment(data?.deadline).format() <
     moment(new Date().toLocaleString()).format();
 
+  const checkTimetable =
+    moment(new Date().toLocaleString()).format() <=
+    moment(data?.timetable).format();
+
   if (task.error && task.error.data) {
     return (
       <DynamicError
@@ -53,16 +58,16 @@ function AnswerTask() {
   }
 
   if (data && isDeadline && !alreadyAnswered) {
+    return <LockTask message=" Batas Pengerjaan Tugas Sudah Lewat" />;
+  }
+
+  if (data && checkTimetable && data.timetable) {
     return (
-      <div
-        style={{ height: "90vh" }}
-        className="flex flex-col items-center justify-center"
-      >
-        <LockOutlined style={{ fontSize: "17rem", color: "gray" }} />
-        <p className="text-2xl text-gray-400">
-          Batas Pengerjaan Tugas Sudah Lewat
-        </p>
-      </div>
+      <LockTask
+        message={`Tugas Masih Dikunci, Dapat Mulai dikerjakan pada ${moment(
+          data?.timetable
+        ).toLocaleString()}`}
+      />
     );
   }
 

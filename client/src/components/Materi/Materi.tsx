@@ -13,12 +13,13 @@ function Materi() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { classroom } = useSelector((state: any) => state.getClassroom);
+  const [loading, setLoading] = React.useState(true);
   const materiData = useSelector((state: any) => state.getAllMateri);
   const { materi } = materiData;
   const user = useSelector((state: any) => state.user);
 
   React.useEffect(() => {
-    dispatch(getClassroom(id));
+    dispatch(getClassroom(id, setLoading));
     dispatch(getAllMateri(id));
   }, [id]);
 

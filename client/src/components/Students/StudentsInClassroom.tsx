@@ -19,11 +19,11 @@ function StudentsInClassroom() {
   const classes = useSelector((state: any) => state.getClassroom);
   const { classroom } = classes;
   const componentRef = React.useRef<any>();
-
+  const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     dispatch(getStudentsinClassroom(id));
     dispatch(getUser());
-    dispatch(getClassroom(id));
+    dispatch(getClassroom(id, setLoading));
   }, []);
 
   if (!data.isLoading && data.isError && data.error)

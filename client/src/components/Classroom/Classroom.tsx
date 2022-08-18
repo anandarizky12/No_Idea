@@ -13,15 +13,15 @@ import AvatarCustom from "../Avatar/AvatarCustom";
 function Classroom() {
   const { id } = useParams();
   const classes = useSelector((state: any) => state.getClassroom);
+  const [loading, setLoading] = React.useState(true);
   const user = useSelector((state: any) => state.user);
+  const { classroom } = classes;
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getClassroom(id));
+    dispatch(getClassroom(id, setLoading));
   }, [id]);
-
-  const { classroom } = classes;
 
   if (!classes.isLoading && classes.isError && classes.error)
     return (
@@ -33,25 +33,16 @@ function Classroom() {
 
   return (
     <div className="mt-7 w-full flex justify-center items-center flex-col px-5 md:p-0">
-      {classes.isLoading && !classes.isError && !classroom ? (
-        <div
-          style={{ minHeight: "90vh" }}
-          className="text-center text-primary w-full flex items-center justify-center"
-        >
-          <Space size="middle">
-            <Spin size="large" />
-          </Space>
-        </div>
-      ) : (
+      {classroom && !loading ? (
         <>
           <div
             style={{
               backgroundImage: `linear-gradient(90deg,rgba(10, 10, 10, 15),rgba(255, 255, 255, 0.007)), 
-              url(${
-                classroom.data.banner
-                  ? classroom.data.banner
-                  : "https://source.unsplash.com/1200x400?school"
-              })`,
+                url(${
+                  classroom.data.banner
+                    ? classroom.data.banner
+                    : "https://source.unsplash.com/1200x400?school"
+                })`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",
@@ -84,6 +75,15 @@ function Classroom() {
             <Student classroom={classroom} />
           )}
         </>
+      ) : (
+        <div
+          style={{ minHeight: "90vh" }}
+          className="text-center text-primary w-full flex items-center justify-center"
+        >
+          <Space size="middle">
+            <Spin size="large" />
+          </Space>
+        </div>
       )}
     </div>
   );

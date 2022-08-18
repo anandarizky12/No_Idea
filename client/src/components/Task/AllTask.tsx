@@ -12,6 +12,7 @@ import { AlertComponents } from "../alert/Alert";
 
 function AllTask() {
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [alert, setAlert] = React.useState({
     message: "",
     typeAlert: 0,
@@ -24,7 +25,7 @@ function AllTask() {
   const { task } = taskData;
 
   React.useEffect(() => {
-    dispatch(getClassroom(id));
+    dispatch(getClassroom(id, setLoading));
     dispatch(getTaskInClassroom(id));
   }, [id]);
 

@@ -248,7 +248,7 @@ export const editStatusClassroom = (data: any) => {
 };
 
 
-export const getClassroom = (id: any) => {
+export const getClassroom = (id: any, setLoading : any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("token");
 
@@ -268,8 +268,10 @@ export const getClassroom = (id: any) => {
             isLoading: false,
             isError: false,
           });
+          setLoading(false)
         })
         .catch((err) => {
+          setLoading(false)
           if(!err.response){
             return  dispatch({
               type: actionTypes.GET_CLASSROOM_FAILED,
@@ -286,6 +288,7 @@ export const getClassroom = (id: any) => {
           });
         });
     } catch (err : any) {
+      setLoading(false)
       dispatch({
         type: actionTypes.GET_CLASSROOM_FAILED,
         payload: err.response,

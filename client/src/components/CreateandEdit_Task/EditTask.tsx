@@ -136,7 +136,9 @@ function EditTask({ setOpen, open, task }: any) {
                 onChange={handleSelectClick}
               >
                 {mapel?.map((data: any, key: any) => (
-                  <Option value={data.id}>{data?.nama}</Option>
+                  <Option key={key} value={data.id}>
+                    {data?.nama}
+                  </Option>
                 ))}
               </Select>
             </Form.Item>

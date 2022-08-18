@@ -1,4 +1,5 @@
 import { Alert } from "antd";
+import React from "react";
 
 interface IProps {
   alert: {
@@ -15,6 +16,18 @@ export const AlertComponents = ({ alert, setAlert }: IProps) => {
       typeAlert: 0,
     });
   };
+
+  React.useEffect(() => {
+    const timeId = setTimeout(() => {
+      setAlert({
+        message: "",
+        typeAlert: 0,
+      });
+    }, 3000);
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, [alert]);
 
   return (
     <div style={{ position: "fixed", top: 5, right: 5, zIndex: 100 }}>

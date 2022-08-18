@@ -19,10 +19,12 @@ const joi = require("@hapi/joi");
 exports.createTask = async (req: any, res: any) => {
   try {
     const { id } = req.params
+    console.log(req.body)
     const {
       user_id,
       title,
       deadline,
+      timetable,
       description,
       other,
       question ,
@@ -32,6 +34,7 @@ exports.createTask = async (req: any, res: any) => {
       user_id: joi.number().required(),
       title: joi.string().required(),
       deadline: joi.string().allow(null),
+      timetable: joi.string().allow(null),
       description: joi.string().allow(null),
       other: joi.string().allow(null),
     });
@@ -40,6 +43,7 @@ exports.createTask = async (req: any, res: any) => {
       user_id,
       title,
       deadline,
+      timetable,
       description,
       other});
 
@@ -67,6 +71,7 @@ exports.createTask = async (req: any, res: any) => {
       classroom_id : id,
       title,
       deadline,
+      timetable,
       description,
       other,
       mapel_id
@@ -143,11 +148,12 @@ exports.editTask = async (req: any, res: any) => {
   try {
  
     const { id } = req.params;
-    const { title, deadline, description, other, mapel_id } = req.body;
+    const { title, deadline, timetable, description, other, mapel_id } = req.body;
   
     const schema = joi.object({
       title: joi.string().required(),
       deadline: joi.string().allow(null),
+      timetable : joi.string().allow(null),
       description: joi.string().required(),
       other: joi.string().allow(null),
       mapel_id : joi.number().required(),
@@ -164,6 +170,7 @@ exports.editTask = async (req: any, res: any) => {
       {
         title,
         deadline,
+        timetable,
         description,
         other,
         mapel_id

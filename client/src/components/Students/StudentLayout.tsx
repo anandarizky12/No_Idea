@@ -21,7 +21,7 @@ function StudentLayout({
   return (
     <div className="w-full">
       <div className="flex justify-between w-full ">
-        <div className="flex w-full flex-wrap">
+        <div className="flex w-5/6 max-h-96 flex-wrap">
           {classroom ? (
             classroom.class.map((classroom: any) => {
               return (

@@ -12,6 +12,7 @@ module.exports = {
       title: Sequelize.STRING,
       // answer_key: Sequelize.STRING,
       deadline: Sequelize.DATE,
+      timetable: Sequelize.DATE,
       description: Sequelize.STRING,
       other: Sequelize.STRING,
       classroom_id: {

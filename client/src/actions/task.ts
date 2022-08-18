@@ -66,10 +66,10 @@ export const createTask = (data: any, question : any, id : any,setAlert : any, s
       },
     };
 
-    const { title, description, other, user_id, deadline, mapel_id} = data 
+    const { title, description, timetable,other, user_id, deadline, mapel_id} = data 
     try {
       await axios
-        .post(`/api/createtask/${id}`, {title, description, other, user_id, deadline, question, mapel_id }, config)
+        .post(`/api/createtask/${id}`, {title, description, timetable, other, user_id, deadline, question, mapel_id }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.CREATE_TASK,

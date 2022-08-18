@@ -7,12 +7,12 @@ import { editClassroom, getClassroom } from "../../actions/classroom";
 import { Space } from "antd";
 function Edit({ setOpenEdit, open, id, classroom }: any) {
   const dispatch = useDispatch();
-
+  const [loading, setLoading] = React.useState(true);
   const onClose = () => {
     setOpenEdit(false);
   };
   React.useEffect(() => {
-    dispatch(getClassroom(id));
+    dispatch(getClassroom(id, setLoading));
   }, [id]);
 
   const [state, setState] = React.useState({
@@ -25,8 +25,6 @@ function Edit({ setOpenEdit, open, id, classroom }: any) {
   const handleSubmit = () => {
     dispatch(editClassroom(state));
   };
-
-  console.log(state);
 
   return (
     <Drawer

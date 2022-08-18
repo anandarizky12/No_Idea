@@ -9,7 +9,6 @@ import {
   Space,
   DatePicker,
   Select,
-  Alert,
 } from "antd";
 import { useDispatch } from "react-redux";
 import { handleChange, addQuestion, deleteQuestion } from "../../utils/utils";
@@ -55,7 +54,7 @@ function CreateTask({ setOpen, open }: any) {
   ]);
 
   const [state, setState] = React.useState<IState>({
-    title: "dsfdsfdf",
+    title: "",
     description: "",
     other: "",
     user_id: id_user,
@@ -71,12 +70,17 @@ function CreateTask({ setOpen, open }: any) {
       deadline: dateString,
     });
   }
+  function onChangeDateTimetable(date: any, dateString: any): void {
+    setState({
+      ...state,
+      timetable: dateString,
+    });
+  }
 
   const handleSubmit = () => {
     dispatch(
       createTask(state, question, id, setAlert, setState, setQuestion, form)
     );
-    setOpen(false);
   };
 
   React.useEffect(() => {
@@ -93,7 +97,7 @@ function CreateTask({ setOpen, open }: any) {
   const handleSelectClick = (value: string) => {
     setState({ ...state, mapel_id: value });
   };
-
+  console.log(state);
   return (
     <Drawer
       title="Buat Tugas Baru"
@@ -141,7 +145,7 @@ function CreateTask({ setOpen, open }: any) {
               <DatePicker
                 value={state.deadline}
                 name="deadline"
-                onChange={onChangeDate}
+                onChange={onChangeDateTimetable}
               />
             </Form.Item>
           </Col>
@@ -204,7 +208,9 @@ function CreateTask({ setOpen, open }: any) {
                 // value={null}
               >
                 {mapel?.map((data: any, key: any) => (
-                  <Option value={data.id}>{data.nama}</Option>
+                  <Option key={key} value={data.id}>
+                    {data.nama}
+                  </Option>
                 ))}
               </Select>
             </Form.Item>

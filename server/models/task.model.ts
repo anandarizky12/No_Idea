@@ -47,6 +47,7 @@ module.exports = (sequelize: any, Sequelize: any) => {
     {
       title: Sequelize.STRING,
       deadline: Sequelize.DATE,
+      timetable: Sequelize.DATE,
       description: Sequelize.STRING,
       other: Sequelize.STRING,
       // classroom_id: Sequelize.INTEGER,
