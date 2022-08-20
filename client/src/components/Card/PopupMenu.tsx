@@ -12,7 +12,7 @@ function PopupMenu({ classroom, id }: any) {
 
   function handleDelete() {
     const userVal = window.confirm(
-      "Apakah kamu yakin tuk menghapus kelas ini ? " + " " + id
+      "Apakah kamu yakin tuk menghapus kelas ini ?  " + id
     );
     if (userVal) dispatch(deleteClassroom(id));
   }

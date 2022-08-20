@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllMateri, getClassroom } from "../../actions/classroom";
 import { useParams } from "react-router-dom";
 
-import Teacher_Materi from "./Teacher_Materi";
+import TeacherMateri from "./TeacherMateri";
 import DynamicError from "../404/DynamicError";
-import Card_Materi from "./Card_Materi";
+import CardMateri from "./CardMateri";
 
 function Materi() {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const { classroom } = useSelector((state: any) => state.getClassroom);
+  // eslint-disable-next-line
   const [loading, setLoading] = React.useState(true);
   const materiData = useSelector((state: any) => state.getAllMateri);
   const { materi } = materiData;
@@ -21,7 +22,7 @@ function Materi() {
   React.useEffect(() => {
     dispatch(getClassroom(id, setLoading));
     dispatch(getAllMateri(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   if (!materiData?.isLoading && materiData?.isError && materiData?.error)
     return (
@@ -44,7 +45,7 @@ function Materi() {
         </div>
       </div>
       {user.role === "guru" && classroom ? (
-        <Teacher_Materi open={open} setOpen={setOpen} classroom={classroom} />
+        <TeacherMateri open={open} setOpen={setOpen} classroom={classroom} />
       ) : null}
 
       <div className="w-full md:5/6  mt-5 md:mt-8 flex flex-col items-center justify-center">
@@ -60,7 +61,7 @@ function Materi() {
                 key={materi.id}
                 className="flex p-4 md:p-0 md:w-4/6 items-center justify-center"
               >
-                <Card_Materi
+                <CardMateri
                   title={materi.name}
                   description={materi.description}
                   file={materi.file}

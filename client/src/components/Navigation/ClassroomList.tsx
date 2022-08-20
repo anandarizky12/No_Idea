@@ -5,6 +5,7 @@ import { useMemo } from "react";
 function ClassroomList({ classroom, navigate }: any) {
   const bgColor: string = useMemo(() => {
     return colorArray[Math.floor(Math.random() * colorArray.length - 1)];
+    // eslint-disable-next-line
   }, []);
 
   return (

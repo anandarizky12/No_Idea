@@ -1,12 +1,12 @@
 import React from "react";
-import { useNavigate, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { adminLogin } from "../../actions/user";
 import { getCookie } from "../../utils/utils";
 import { AlertComponents } from "../alert/Alert";
 import { Typography } from "antd";
 
-export default function Admin_Login() {
+export default function AdminLogin() {
   const [state, setState] = React.useState({
     email: "",
     password: "",

@@ -8,7 +8,7 @@ import {
 import PopupMenu from "./PopupMenu";
 import { useNavigate } from "react-router-dom";
 
-function Class_card({ classroom, id, user }: any) {
+function Classcard({ classroom, id, user }: any) {
   const navigate = useNavigate();
 
   return (
@@ -86,4 +86,4 @@ function Class_card({ classroom, id, user }: any) {
   );
 }
 
-export default Class_card;
+export default Classcard;

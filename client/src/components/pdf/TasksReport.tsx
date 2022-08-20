@@ -1,10 +1,10 @@
-import Header_Report from "./Header_Report";
+import HeaderReport from "./HeaderReport";
 import moment from "moment";
 
 function TasksReport({ task, name }: any) {
   return (
     <div className="p-12">
-      <Header_Report />
+      <HeaderReport />
       <h1 className="text-3xl text-center mt-5">Daftar Tugas</h1>
       <div className="mt-7 flex justify-between">
         <div>

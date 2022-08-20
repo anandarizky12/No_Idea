@@ -9,13 +9,13 @@ import { getDataDashboard } from "../../actions/dashboard";
 import { Button, Spin } from "antd";
 import { getAllUsers } from "../../actions/user";
 import User_Table from "./Dashboard_Table/User_Table";
-import Edit_User from "./Modal/Edit_User";
-import Add_User from "./Modal/Add_User";
+import Edit_User from "./Modal/EditUser";
+import Add_User from "./Modal/AddUser";
 import { getAllScoreInApp as getAllScore } from "../../actions/classroom";
 import Scores_Table from "./Dashboard_Table/Scores_Table";
 import { AlertComponents } from "../alert/Alert";
 
-function Admin_Dashboard() {
+function AdminDashboard() {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [addUserModal, setAddUserModal] = React.useState(false);
@@ -147,4 +147,4 @@ function Admin_Dashboard() {
   );
 }
 
-export default Admin_Dashboard;
+export default AdminDashboard;

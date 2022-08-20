@@ -1,6 +1,6 @@
 import { Image } from "antd";
 import moment from "moment";
-import Header_Report from "./Header_Report";
+import HeaderReport from "./HeaderReport";
 function BiodataPDF({ user }: any) {
   return (
     <div className="w-full flex items-center justify-center">
@@ -8,7 +8,7 @@ function BiodataPDF({ user }: any) {
       <div className="w-full rounded-md shadow-md p-4 px-24 mt-12">
         <div>
           <div>
-            <Header_Report />
+            <HeaderReport />
           </div>
           <h1 className="text-3xl text-center mt-5">Biodata Siswa</h1>
         </div>

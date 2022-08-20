@@ -13,7 +13,7 @@ function Teacher({ classroom, user }: any) {
 
   React.useEffect(() => {
     dispatch(getTaskInClassroom(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <div className="w-full md:w-3/4">

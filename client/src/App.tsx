@@ -15,12 +15,11 @@ import Scores from "./components/Scores/Scores";
 import moment from "moment";
 import "moment/locale/id";
 import AdminRoute from "./Admin_Route/AdminRoute";
-import Admin_Login from "./components/admin/Admin_Login";
-import Admin_Dashboard from "./components/admin/Admin_Dashboard";
-import Add_Teacher from "./components/admin/AddTeacher/Add_Teacher";
-import Admin_Profile from "./components/admin/Profile/Admin_Profile";
+import AdminLogin from "./components/admin/AdminLogin";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminProfile from "./components/admin/Profile/AdminProfile";
 import Materi from "./components/Materi/Materi";
-import Biodata_Student from "./components/Classroom/Biodata_Student";
+import BiodataStudent from "./components/Classroom/BiodataStudent";
 import ListScoreStudent from "./components/Students/ListScoreStudent";
 import AllScoresTask from "./components/Scores/AllScoresTask";
 import ScoreDetail from "./components/Scores/ScoreDetail";
@@ -33,12 +32,12 @@ function App() {
   const location = useLocation();
   return (
     <div className="App h-screen ">
-      {location.pathname != "/login" &&
-        location.pathname != "/register" &&
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register" &&
         !location.pathname.includes("/admin") && <Top />}
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/login" element={<Admin_Login />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="*" element={<My404 />} />
@@ -47,7 +46,7 @@ function App() {
           element={
             <AdminRoute
               redirectTo="/admin/login"
-              Component={<Admin_Dashboard />}
+              Component={<AdminDashboard />}
             />
           }
         />
@@ -56,14 +55,8 @@ function App() {
           element={
             <AdminRoute
               redirectTo="/admin/login"
-              Component={<Admin_Profile />}
+              Component={<AdminProfile />}
             />
-          }
-        />
-        <Route
-          path="/admin/addteacher"
-          element={
-            <AdminRoute redirectTo="/admin/login" Component={<Add_Teacher />} />
           }
         />
         <Route
@@ -129,7 +122,7 @@ function App() {
           element={
             <ProtectedRoute
               redirectTo="/login"
-              Component={<Biodata_Student />}
+              Component={<BiodataStudent />}
             />
           }
         />

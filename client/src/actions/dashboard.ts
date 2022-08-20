@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actions_type/actions_type_dashboard";
-import { getCookie, removeCookie } from "../utils/utils";
+import { getCookie } from "../utils/utils";
 import { Dispatch } from "redux";
 
 

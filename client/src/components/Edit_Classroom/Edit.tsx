@@ -7,13 +7,14 @@ import { editClassroom, getClassroom } from "../../actions/classroom";
 import { Space } from "antd";
 function Edit({ setOpenEdit, open, id, classroom }: any) {
   const dispatch = useDispatch();
+  // eslint-disable-next-line
   const [loading, setLoading] = React.useState(true);
   const onClose = () => {
     setOpenEdit(false);
   };
   React.useEffect(() => {
     dispatch(getClassroom(id, setLoading));
-  }, [id]);
+  }, [id, dispatch]);
 
   const [state, setState] = React.useState({
     name: classroom.name,

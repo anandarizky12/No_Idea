@@ -1,4 +1,4 @@
-function Header_Report() {
+function HeaderReport() {
   return (
     <div className="flex border-b border-black py-2">
       <div>
@@ -21,4 +21,4 @@ function Header_Report() {
   );
 }
 
-export default Header_Report;
+export default HeaderReport;

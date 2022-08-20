@@ -20,8 +20,6 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
   const [rows, setRows] = React.useState<any>([]);
   const [filterText, setFilterText] = React.useState("");
   const [arrayScore, setArrayScore] = React.useState<any>([]);
-  const [resetPaginationToggle, setResetPaginationToggle] =
-    React.useState(false);
 
   const componentRef: any = React.useRef();
   const filteredItems = rows.filter(
@@ -30,7 +28,7 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
         item.User.name.toLowerCase().includes(filterText.toLowerCase())) ||
       (item.User.email &&
         item.User.email.toLowerCase().includes(filterText.toLowerCase())) ||
-      (item.score && item.score == filterText.toLowerCase())
+      (item.score && item.score === filterText.toLowerCase())
   );
 
   const average = (array: Array<number>) =>
@@ -46,7 +44,7 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
   const getArrayScore = (array: Array<any>) => {
     let arr: any = [];
     array.map((row: any) => {
-      arr.push(row.score);
+      return arr.push(row.score);
     });
 
     return setArrayScore(arr);
@@ -123,7 +121,8 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
         />
       </div>
     );
-  }, [filterText, resetPaginationToggle, filteredItems]);
+    // eslint-disable-next-line
+  }, [filterText, filteredItems]);
 
   const subHeader = React.useMemo(() => {
     return (
@@ -148,7 +147,8 @@ export default function AllScoreTaskTable({ data, class_id, task_id }: any) {
         </table>
       </div>
     );
-  }, [filterText, resetPaginationToggle, filteredItems]);
+    // eslint-disable-next-line
+  }, [arrayScore]);
 
   React.useEffect(() => {
     if (data && data?.task) {

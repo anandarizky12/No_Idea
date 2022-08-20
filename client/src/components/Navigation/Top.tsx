@@ -40,7 +40,7 @@ function Top(): JSX.Element {
             <li
               onClick={() => navigate(`/classroom/${id}`)}
               className={`${
-                location.pathname == `/classroom/${id}`
+                location.pathname === `/classroom/${id}`
                   ? "border-b-4  border-gray-500"
                   : ""
               } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
@@ -50,7 +50,7 @@ function Top(): JSX.Element {
             <li
               onClick={() => navigate(`/classroom/${id}/tasks`)}
               className={`${
-                location.pathname == `/classroom/${id}/tasks` ||
+                location.pathname === `/classroom/${id}/tasks` ||
                 location.pathname.includes(`answertask`)
                   ? "border-b-4  border-gray-500"
                   : ""
@@ -61,7 +61,7 @@ function Top(): JSX.Element {
             <li
               onClick={() => navigate(`/classroom/${id}/materi`)}
               className={`${
-                location.pathname == `/classroom/${id}/materi`
+                location.pathname === `/classroom/${id}/materi`
                   ? "border-b-4  border-gray-500"
                   : ""
               } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
@@ -71,7 +71,7 @@ function Top(): JSX.Element {
             <li
               onClick={() => navigate(`/classroom/${id}/students`)}
               className={`${
-                location.pathname == `/classroom/${id}/students` ||
+                location.pathname === `/classroom/${id}/students` ||
                 location.pathname.includes(`student`)
                   ? "border-b-4  border-gray-500"
                   : ""
@@ -84,7 +84,7 @@ function Top(): JSX.Element {
                 <li
                   onClick={() => navigate(`/classroom/${id}/scores`)}
                   className={`${
-                    location.pathname == `/classroom/${id}/scores`
+                    location.pathname === `/classroom/${id}/scores`
                       ? "border-b-4  border-gray-500"
                       : ""
                   } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}
@@ -94,7 +94,7 @@ function Top(): JSX.Element {
                 <li
                   onClick={() => navigate(`/classroom/${id}/getallquestions`)}
                   className={`${
-                    location.pathname == `/classroom/${id}/getallquestions`
+                    location.pathname === `/classroom/${id}/getallquestions`
                       ? "border-b-4  border-gray-500"
                       : ""
                   } font-medium text-primary text-base cursor-pointer hover:text-blue-500  rounded-sm h-4/6 w-14 flex justify-center`}

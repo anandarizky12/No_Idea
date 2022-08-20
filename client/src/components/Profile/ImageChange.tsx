@@ -1,10 +1,9 @@
 import React, { useRef } from "react";
-import { Avatar, Image } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Avatar } from "antd";
 
 function ImageChange({ setSelectedImg, state }: any) {
+  //eslint-disable-next-line
   const [image, setImage] = React.useState("");
-  const dispatch = useDispatch();
   const [preview, setPreview] = React.useState("");
 
   const ref = useRef<any>(null);
@@ -27,8 +26,6 @@ function ImageChange({ setSelectedImg, state }: any) {
     setSelectedImg({ ...state, profile: file });
     previewFile(file);
   };
-
-  console.log(state);
 
   return (
     <div>

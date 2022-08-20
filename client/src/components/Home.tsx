@@ -4,7 +4,7 @@ import {
   getClassroomByTeacherId,
   getStudentClassroom,
 } from "../actions/classroom";
-import Class_card from "./Card/Class_card";
+import Class_card from "./Card/Classcard";
 import { Spin, Space } from "antd";
 import DynamicError from "./404/DynamicError";
 import StudentLayout from "./Students/StudentLayout";
@@ -27,6 +27,7 @@ function Home() {
     if (user.role === "siswa") {
       Dispatch(getStudentClassroom());
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
