@@ -123,7 +123,9 @@ export default function Scores_Table({ data }: any) {
         >
           <Option value="">Mata Pelajaran</Option>
           {mapel?.map((data: any, key: any) => (
-            <Option value={data.nama}>{data.nama}</Option>
+            <Option key={key} value={data.nama}>
+              {data.nama}
+            </Option>
           ))}
         </Select>
         <Search

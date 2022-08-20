@@ -1,15 +1,15 @@
-import { Modal, Spin } from "antd";
+import { Modal } from "antd";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Col, Form, Input, Row, Select, Space } from "antd";
+import { useDispatch } from "react-redux";
+import { Col, Form, Input, Row, Select } from "antd";
 import { handleChange } from "../../../utils/utils";
 import { addUser } from "../../../actions/user";
 
 const { Option } = Select;
 
-const Add_User = ({ setAddUserModal, addUserModal }: any) => {
+const Add_User = ({ setAddUserModal, addUserModal, setAlert }: any) => {
   const dispatch = useDispatch();
-
+  const [form] = Form.useForm();
   const handleCancel = () => {
     setAddUserModal(false);
   };
@@ -25,15 +25,11 @@ const Add_User = ({ setAddUserModal, addUserModal }: any) => {
 
   const handleOk = () => {
     setAddUserModal(false);
-    dispatch(addUser(state));
+    dispatch(addUser(state, setAlert, setState, form));
   };
-  console.log(state);
 
   return (
     <>
-      {/* <Button type="primary" onClick={showModal}>
-        Open Modal
-      </Button> */}
       <Modal
         title="Tambah Pengguna"
         style={{ width: "100%" }}
@@ -42,7 +38,12 @@ const Add_User = ({ setAddUserModal, addUserModal }: any) => {
         onCancel={handleCancel}
       >
         <div className="w-full">
-          <Form style={{ width: "100%" }} layout="vertical" hideRequiredMark>
+          <Form
+            style={{ width: "100%" }}
+            layout="vertical"
+            hideRequiredMark
+            form={form}
+          >
             <Row gutter={16}>
               <Col span={24}>
                 <Form.Item
@@ -63,7 +64,6 @@ const Add_User = ({ setAddUserModal, addUserModal }: any) => {
                 <Form.Item
                   name="email"
                   label="Email"
-                  initialValue={state.email}
                   rules={[{ required: true, message: "example@mail.com" }]}
                 >
                   <Input
@@ -80,7 +80,6 @@ const Add_User = ({ setAddUserModal, addUserModal }: any) => {
                 <Form.Item
                   name="phone"
                   label="Phone"
-                  initialValue={state.phone}
                   rules={[{ required: true, message: "Masukan Nomor Telepon" }]}
                 >
                   <Input
@@ -100,7 +99,6 @@ const Add_User = ({ setAddUserModal, addUserModal }: any) => {
                   rules={[{ required: true, message: "Pilih Jenis Kelamin" }]}
                 >
                   <Select
-                    defaultValue={state.jk}
                     placeholder="Pilih Jenis Kelamin"
                     onChange={(e) => setState({ ...state, jk: e })}
                   >
@@ -117,7 +115,6 @@ const Add_User = ({ setAddUserModal, addUserModal }: any) => {
                 >
                   <Select
                     onChange={(e) => setState({ ...state, role: e })}
-                    defaultValue={state.role}
                     placeholder="Pilih Role"
                   >
                     <Option value="admin">Admin</Option>
@@ -132,7 +129,6 @@ const Add_User = ({ setAddUserModal, addUserModal }: any) => {
                 <Form.Item
                   name="password"
                   label="Password"
-                  initialValue={state.password}
                   rules={[{ required: true, message: "example@mail.com" }]}
                 >
                   <Input

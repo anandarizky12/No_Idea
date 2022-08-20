@@ -43,7 +43,12 @@ function EdtiScore() {
       {!loading ? (
         <EditScoreComponent data={data} loading={loading} />
       ) : (
-        <Spin />
+        <div
+          style={{ height: "90vh" }}
+          className="flex items-center justify-center"
+        >
+          <Spin size="large" />
+        </div>
       )}
     </div>
   );

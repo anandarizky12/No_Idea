@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function Class_card({ classroom, id, user }: any) {
   const navigate = useNavigate();
-  console.log(classroom);
+
   return (
     <div className="hover:shadow-lg  my-5 mr-6 rounded-xl  min-w-11 h-52 border border-gray-300 bg-white overflow-hidden flex flex-col justify-between">
       <div

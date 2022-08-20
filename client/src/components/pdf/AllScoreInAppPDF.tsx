@@ -9,31 +9,7 @@ function AllScoreInAppPDF({ data }: any) {
       <h2 className="text-center font-bold text-2xl mt-5">
         Laporan Nilai Seluruh Nilai Pada Aplikasi
       </h2>
-      {/* <div className="mt-7 flex justify-between">
-        <div>
-          <table className="table">
-            <tbody>
-              <tr>
-                <th className="text-left">Nama Tugas</th>
-                <td>: {nama}</td>
-              </tr>
-              <tr>
-                <th className="text-left">Nilai Tertinggi</th>
-                <td>: {highest}</td>
-              </tr>
-              <tr>
-                <th className="text-left">Nilai Terendah</th>
-                <td>: {lowest}</td>
-              </tr>
 
-              <tr>
-                <th className="text-left">Rata-Rata Nilai</th>
-                <td>: {average}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> */}
       <div className="w-full lg:w-6/6">
         <div className=" shadow-md rounded my-6 ">
           <table className="min-w-full border">
@@ -93,7 +69,7 @@ function AllScoreInAppPDF({ data }: any) {
                     </td>
                     <td className="border border-black text-left">
                       <div className="flex items-center p-1">
-                        <span>{item.Task.Mapel.nama}</span>
+                        <span>{item.Task.Mapel?.nama}</span>
                       </div>
                     </td>
                     <td className="border border-black text-center">

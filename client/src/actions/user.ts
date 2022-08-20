@@ -89,8 +89,8 @@ export const register = (state: any, setAlert: any) => async () => {
 };
 
  
-export const addUser = (state: any) => {
-  return async (dispatch: Dispatch) => {
+export const addUser = (state: any, setAlert : any, setState : any, form : any) => {
+  return async (dispatch: any) => {
     const token = getCookie("admin_token");
     const config = {
       headers: {
@@ -98,9 +98,8 @@ export const addUser = (state: any) => {
         Authorization: `Bearer ${token}`,
       },
     };
-  
     const { name, email, password, role, phone , jk} = state;
-    console.log("hello")
+  
   try {
     await axios
       .post("/api/adduser", {
@@ -111,20 +110,42 @@ export const addUser = (state: any) => {
         role,
         jk
       }, config)
-      .then((res) => {
-        alert("Succesfully Added User");
-        window.location.reload();
+      .then(() => {
+        setAlert({
+          message : "Success Add User",
+          typeAlert : 1
+        })
+
+        setState({ 
+          name: null,
+          email: "",
+          role: null,
+          phone: 0,
+          jk: null,
+          password: null,})
+          form.resetFields();
+      }).then(()=>{
+        dispatch(getAllUsers())
       })
       .catch((err) => {
         if(!err.response){
-         alert("Server Error");
+          setAlert({
+            message : "server error",
+            typeAlet : 4
+          })
           return;
         }
-        alert(err.response.data.message);
+        setAlert({
+          message : err.response.data.message,
+          typeAlert : 4
+        })
+       
       });
   } catch (err: any) {
-   alert(err.message);
-   
+      setAlert({
+        message : err.message,
+        typeAlert : 4
+      })
   }
 };
 }
@@ -442,8 +463,8 @@ export const getAllUsers = () => async (dispatch: Dispatch) => {
 
 
 
-export const editUser = (data: any, id : any) => {
-  return async (dispatch: Dispatch) => {
+export const editUser = (data: any, id : any, setAlert : any) => {
+  return async (dispatch: any) => {
     const token = getCookie("admin_token");
     const config = {
       headers: {
@@ -453,7 +474,6 @@ export const editUser = (data: any, id : any) => {
     };
 
     try {
-      
       await axios
         .patch(`/api/edituser/${id}`, data, config)
         .then((res) => {
@@ -462,40 +482,58 @@ export const editUser = (data: any, id : any) => {
             type: actionTypes.EDIT_USER,
             payload: res.data.data,
           });
-          alert("Succesfully Edit User");
-          window.location.reload();
+          dispatch({
+            type: actionTypes.GET_ALL_USERS,
+            payload: null,
+            isLoading: false,
+            isError: false,
+          });
+          setAlert({
+            message : "Succes Edit User",
+            typeAlert : 1
+          })
+        
+        }).then(()=>{
+            return dispatch(getAllUsers())          
         })
         .catch((err) => {
             if(!err.response){
-             
+              setAlert({
+                message : "Error server, Please try again later",
+                typeAlert : 4
+              })
+            
               return dispatch({
                     type: actionTypes.EDIT_USER_FAILED,
                     payload: err,
                     isLoading: false,
                     isError: true,
                 });
-          }
-        
-  
+            }
+            dispatch({
+              type: actionTypes.EDIT_USER_FAILED,
+              payload: err.response,
+              isLoading: false,
+              isError: true,
+            });
+            setAlert({
+              message :err.response.data.message,
+              typeAlert : 4
+            })
+            return
+        });
+    } catch (err: any) {
           dispatch({
             type: actionTypes.EDIT_USER_FAILED,
             payload: err.response,
             isLoading: false,
             isError: true,
           });
-          alert(err.response.data.message)
-       
-        });
-    } catch (err: any) {
-      
-      dispatch({
-        type: actionTypes.EDIT_USER_FAILED,
-        payload: err.response,
-        isLoading: false,
-        isError: true,
-      });
-
-     alert(err.response.data.message)
+          setAlert({
+            message :err.response.data.message,
+            typeAlert : 4
+          })
+          return
     }
   };
 };
@@ -566,7 +604,7 @@ export const getUserById = (id : string | undefined, setLoading :any) => {
 
 
 
-export const deleteUser = (id : string) => {
+export const deleteUser = (id : string, setAlert : any, setRows : any , rows : any) => {
   return async (dispatch: Dispatch) => {
     const token = getCookie("admin_token");
     const config = {
@@ -578,8 +616,7 @@ export const deleteUser = (id : string) => {
     if(!window.confirm("Are you sure to delete this user?")){
       return;
     }
-    try {
-      
+    try {  
       await axios
         .delete(`/api/deleteuser/${id}`, config)
         .then((res) => {
@@ -588,12 +625,22 @@ export const deleteUser = (id : string) => {
             type: actionTypes.DELETE_USER,
             payload: res.data.data,
           });
-          alert("Succesfully Delete User");
-          window.location.reload();
+          setAlert({
+            message : "Succesfully delete user",
+            typeAlert : 1
+          })
+          let deletedRows = [...rows].filter((data)=>{
+           return data.id !== id
+          })
+          setRows(deletedRows)
         })
         .catch((err) => {
             if(!err.response){
-              alert("Server Error")
+              setAlert({
+                message : "Server Error",
+                typeAlert : 4
+              })
+             
               return dispatch({
                     type: actionTypes.DELETE_USER_FAILED,
                     payload: err,
@@ -601,20 +648,21 @@ export const deleteUser = (id : string) => {
                     isError: true,
                 });
           }
-        
-  
           dispatch({
             type: actionTypes.DELETE_USER_FAILED,
             payload: err.response,
             isLoading: false,
             isError: true,
           });
-          console.log(err.response)
-          alert(err.response.data.message)
+          setAlert({
+            message : err.response.data.message,
+            typeAlert : 4
+          })
+       
        
         });
     } catch (err: any) {
-      console.log(err.response.data)
+  
       dispatch({
         type: actionTypes.DELETE_USER_FAILED,
         payload: err.response,
@@ -622,7 +670,10 @@ export const deleteUser = (id : string) => {
         isError: true,
       });
 
-     alert(err.response.data.message)
+      setAlert({
+        message : err.response.data.message,
+        typeAlert : 4
+      })
     }
   }
 

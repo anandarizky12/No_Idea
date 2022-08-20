@@ -13,12 +13,16 @@ import Edit_User from "./Modal/Edit_User";
 import Add_User from "./Modal/Add_User";
 import { getAllScoreInApp as getAllScore } from "../../actions/classroom";
 import Scores_Table from "./Dashboard_Table/Scores_Table";
+import { AlertComponents } from "../alert/Alert";
 
 function Admin_Dashboard() {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [addUserModal, setAddUserModal] = React.useState(false);
-
+  const [alert, setAlert] = React.useState({
+    message: "",
+    typeAlert: 0,
+  });
   const [id, setId] = React.useState("");
 
   const dashboard = useSelector((state: any) => state.getdashboardReducers);
@@ -31,7 +35,7 @@ function Admin_Dashboard() {
   }, []);
 
   return (
-    <div className="mt-12">
+    <div className="mt-12 scroll-smooth">
       <div className="w-full bg-pink-400  h-40 ">
         <div className="flex justify-between flex-row items-center w-full p-10 px-12">
           <p className="text-gray-200 font-light text-xl">Dashboard Admin</p>
@@ -120,6 +124,7 @@ function Admin_Dashboard() {
           users={getallusers}
           setIsModalVisible={setIsModalVisible}
           setId={setId}
+          setAlert={setAlert}
         />
       </div>
       <div id="scores_table" className="mt-32 w-full">
@@ -130,8 +135,14 @@ function Admin_Dashboard() {
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         id={id}
+        setAlert={setAlert}
       />
-      <Add_User addUserModal={addUserModal} setAddUserModal={setAddUserModal} />
+      <Add_User
+        addUserModal={addUserModal}
+        setAddUserModal={setAddUserModal}
+        setAlert={setAlert}
+      />
+      <AlertComponents alert={alert} setAlert={setAlert} />
     </div>
   );
 }
