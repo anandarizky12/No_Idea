@@ -1,12 +1,10 @@
 import { useLocation } from "react-router-dom";
-// components
 import Navbar from "./Navbar";
 
 function Layout({ children }: any) {
   const location = useLocation();
   return (
     <>
-      {/* <Sidenav /> */}
       <div
         className={` ${
           location.pathname !== "/admin"
@@ -15,7 +13,6 @@ function Layout({ children }: any) {
         }`}
       >
         <Navbar />
-        {/* Header */}
 
         <div
           className={` ${

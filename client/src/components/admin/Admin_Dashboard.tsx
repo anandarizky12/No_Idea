@@ -35,7 +35,7 @@ function Admin_Dashboard() {
   }, []);
 
   return (
-    <div className="mt-12">
+    <div className="mt-12 scroll-smooth">
       <div className="w-full bg-pink-400  h-40 ">
         <div className="flex justify-between flex-row items-center w-full p-10 px-12">
           <p className="text-gray-200 font-light text-xl">Dashboard Admin</p>
