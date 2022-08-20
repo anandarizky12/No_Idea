@@ -759,7 +759,7 @@ export const getAllQuestions = (page : number, limit : number)=>{
 
 
 export const editScore = (score: number, id: string, task_id : string, score_id : string, student_id : string) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: any) => {
     const token = getCookie("token");
     const config = {
       headers: {
@@ -770,13 +770,18 @@ export const editScore = (score: number, id: string, task_id : string, score_id 
 
     try {
       await axios
-      // /api/editscore/3/11/41
         .patch(`/api/editscore/${id}/${task_id}/${score_id}/${student_id}`, {score : score}, config)
         .then((res) => {
-       
+          dispatch({
+            type: actionTypes.GET_DETAIL_SCORE_STUDENT,
+            payload: null,
+            isLoading: false,
+            isError: false,
+          });
           alert("Edit Score success");
-          window.location.reload();
-       
+        
+        }).then(()=>{
+          dispatch(getDetailScoreStudent(task_id, id, student_id))
         })
         .catch((err) => {
           alert(err.response.data.message);

@@ -2,19 +2,24 @@ import { Modal, Spin } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editUser, getUserById } from "../../../actions/user";
-import { Button, Col, Form, Input, Row, Select, Space } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
 import { handleChange } from "../../../utils/utils";
 
 const { Option } = Select;
 
-const Edit_User = ({ setIsModalVisible, isModalVisible, id }: any) => {
+const Edit_User = ({
+  setIsModalVisible,
+  isModalVisible,
+  id,
+  setAlert,
+}: any) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
   const user = useSelector((state: any) => state.getUserById);
 
   const handleOk = () => {
     setIsModalVisible(false);
-    dispatch(editUser(state, id));
+    dispatch(editUser(state, id, setAlert));
   };
 
   const handleCancel = () => {
@@ -45,13 +50,8 @@ const Edit_User = ({ setIsModalVisible, isModalVisible, id }: any) => {
     jk: null,
   });
 
-  console.log(state);
-
   return (
     <>
-      {/* <Button type="primary" onClick={showModal}>
-        Open Modal
-      </Button> */}
       <Modal
         title="Edit Pengguna"
         style={{ width: "100%" }}

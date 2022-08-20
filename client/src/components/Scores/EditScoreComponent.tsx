@@ -7,7 +7,7 @@ interface Iprops {
 }
 
 function EditScoreComponent({ data, loading }: Iprops) {
-  const totalScore = data.Questions.reduce(
+  const totalScore = data?.Questions.reduce(
     (acc: number, cur: any) => acc + cur.Answer_task.Score.score,
     0
   );
@@ -77,11 +77,6 @@ function EditScoreComponent({ data, loading }: Iprops) {
                 </p>
                 <EachScore data={data} item={item} />
               </div>
-              {/* <div className="border-l border-gray-300 rounded-md text-center w-24 flex items-center justify-center bg-gray-500">
-              <h1 className="m-0 font-bold text-gray-100 text-xl">
-                {item.Answer_task.Score.score}
-              </h1>
-            </div> */}
             </div>
           ))}
       </div>

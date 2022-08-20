@@ -25,7 +25,7 @@ function TeacherLayout({
             </Space>
           </div>
         ) : (
-          classroom.class.map((classroom: any) => {
+          classroom?.class.map((classroom: any) => {
             return (
               <Class_card
                 key={classroom.id}

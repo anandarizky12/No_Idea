@@ -19,6 +19,7 @@ export default function User_Table({
   id,
   setIsModalVisible,
   setId,
+  setAlert,
 }: any) {
   const [loading, setLoading] = React.useState(true);
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function User_Table({
   };
 
   const handleDelete = (id: string) => {
-    dispatch(deleteUser(id));
+    dispatch(deleteUser(id, setAlert, setRows, rows));
   };
 
   const filteredItems = rows.filter(
@@ -160,6 +161,8 @@ export default function User_Table({
       setRows([]);
     }
   }, [users, id]);
+
+  console.log(rows);
 
   return (
     <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">
