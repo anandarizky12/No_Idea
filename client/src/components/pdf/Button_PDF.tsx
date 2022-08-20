@@ -1,4 +1,3 @@
-import React from "react";
 import { DownloadOutlined } from "@ant-design/icons";
 import ReactToPrint from "react-to-print";
 import { Button } from "antd";

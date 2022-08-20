@@ -18,20 +18,22 @@ export const AlertComponents = ({ alert, setAlert }: IProps) => {
   };
 
   React.useEffect(() => {
-    const timeId = setTimeout(() => {
-      setAlert({
-        message: "",
-        typeAlert: 0,
-      });
-    }, 3000);
-    return () => {
-      clearTimeout(timeId);
-    };
-  }, [alert]);
+    if (alert.message !== "") {
+      const timeId = setTimeout(() => {
+        setAlert({
+          message: "",
+          typeAlert: 0,
+        });
+      }, 3000);
+      return () => {
+        clearTimeout(timeId);
+      };
+    }
+  }, [alert, setAlert]);
 
   return (
     <div style={{ position: "fixed", top: 5, right: 5, zIndex: 100 }}>
-      {alert.typeAlert == 1 && (
+      {alert.typeAlert === 1 && (
         <Alert
           description={alert.message}
           message="Success"
@@ -41,7 +43,7 @@ export const AlertComponents = ({ alert, setAlert }: IProps) => {
           onClose={onClose}
         />
       )}
-      {alert.typeAlert == 2 && (
+      {alert.typeAlert === 2 && (
         <Alert
           description={alert.message}
           message="Info"
@@ -51,7 +53,7 @@ export const AlertComponents = ({ alert, setAlert }: IProps) => {
           onClose={onClose}
         />
       )}
-      {alert.typeAlert == 3 && (
+      {alert.typeAlert === 3 && (
         <Alert
           description={alert.message}
           message="Warning"
@@ -61,7 +63,7 @@ export const AlertComponents = ({ alert, setAlert }: IProps) => {
           onClose={onClose}
         />
       )}
-      {alert.typeAlert == 4 && (
+      {alert.typeAlert === 4 && (
         <Alert
           description={alert.message}
           message="Error"

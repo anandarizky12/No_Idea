@@ -12,7 +12,7 @@ function AllScoresTask() {
   const { id, task_id } = useParams();
   React.useEffect(() => {
     dispatch(getAllTasksScore(task_id));
-  }, [dispatch]);
+  }, [dispatch, task_id]);
   if (!data.isLoading && data.isError && data.error)
     return (
       <DynamicError

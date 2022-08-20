@@ -20,8 +20,8 @@ export default function AdminLogin() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (token && role == "admin") navigate("/admin");
-  }, [token]);
+    if (token && role === "admin") navigate("/admin");
+  }, [token, role, navigate]);
 
   const handleInput = (e: any) => {
     const { name, value } = e.target;
@@ -92,7 +92,6 @@ export default function AdminLogin() {
                       type="submit"
                     >
                       Login
-                      {/* {loading ? <ButtonLoader /> : "Login"} */}
                     </button>
                   </div>
                 </form>
@@ -106,9 +105,9 @@ export default function AdminLogin() {
       </div>
       <Typography className="absolute bottom-5 left-5">
         Login{" "}
-        <a className="font-bold" onClick={() => navigate("/login")}>
+        <p className="font-bold" onClick={() => navigate("/login")}>
           User
-        </a>
+        </p>
       </Typography>
     </div>
   );

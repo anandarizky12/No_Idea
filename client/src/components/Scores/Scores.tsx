@@ -12,7 +12,7 @@ function Scores() {
 
   React.useEffect(() => {
     dispatch(getAllScores(id));
-  }, []);
+  }, [dispatch, id]);
 
   if (scores.error) {
     return (

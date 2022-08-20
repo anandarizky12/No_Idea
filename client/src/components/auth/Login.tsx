@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Form, Input, Button, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Card } from "antd";
@@ -12,7 +12,6 @@ import bg from "./images/school.jpg";
 import logo from "./images/logo_smk.png";
 
 function Login() {
-  console.log(bg);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [alert, setAlert] = useState({ message: "", typeAlert: 0 });
@@ -26,7 +25,7 @@ function Login() {
     if (isLog) {
       navigate("/");
     }
-  }, [isLog]);
+  }, [isLog, navigate]);
 
   const onFinishFailed = (errorInfo: any): void => {
     console.log("Failed:", errorInfo);
@@ -59,7 +58,7 @@ function Login() {
           onFinishFailed={onFinishFailed}
         >
           <div className="flex mb-8">
-            <img width={70} height={70} src={logo} />
+            <img width={70} height={70} src={logo} alt="logo" />
             <div className="ml-2 flex flex-col">
               <h1 className="p-0 m-0 text-xl font-semibold text-primary">
                 Aplikasi Penilaian Otomatis SMKN 1 Sukamara
@@ -109,9 +108,9 @@ function Login() {
           >
             <Typography>
               Belum Punya Akun Siswa?{" "}
-              <a className="font-bold" onClick={() => navigate("/register")}>
+              <p className="font-bold" onClick={() => navigate("/register")}>
                 Klik Disini
-              </a>
+              </p>
             </Typography>
           </Form.Item>
 
@@ -142,9 +141,9 @@ function Login() {
       ></div>
       <Typography className="absolute bottom-5 left-5">
         Login{" "}
-        <a className="font-bold" onClick={() => navigate("/admin/login")}>
+        <p className="font-bold" onClick={() => navigate("/admin/login")}>
           Admin
-        </a>
+        </p>
       </Typography>
     </div>
   );

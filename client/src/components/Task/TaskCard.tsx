@@ -53,7 +53,7 @@ function TaskCard({ task, user, setAlert }: any) {
           <h1 className=" text-gray-600">
             Jumlah Soal {task.Questions.length}
           </h1>
-          {user.role == "guru" ? (
+          {user.role === "guru" ? (
             <h1
               onClick={() => navigate(`/classroom/${id}/taskscore/${task.id}`)}
               className=" text-gray-600 font-bold cursor-pointer hover:text-blue-500"

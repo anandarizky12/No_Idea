@@ -11,14 +11,13 @@ import axios from "axios";
 
 const { Search } = Input;
 const { Option } = Select;
-export default function Scores_Table({ data }: any) {
+export default function ScoresTable({ data }: any) {
   const [loading, setLoading] = React.useState(true);
   const [rows, setRows] = React.useState([]);
   const componentRef: any = React.useRef();
   const [filterText, setFilterText] = React.useState("");
   const [mapel, setMapel] = React.useState<any>();
-  const [resetPaginationToggle, setResetPaginationToggle] =
-    React.useState(false);
+
   const [filter, setFilter] = React.useState<any>();
 
   React.useEffect(() => {
@@ -136,7 +135,8 @@ export default function Scores_Table({ data }: any) {
         />
       </div>
     );
-  }, [filterText, resetPaginationToggle, filteredItems, mapel]);
+    //eslint-disable-next-line
+  }, [filterText, filteredItems, mapel]);
 
   React.useEffect(() => {
     if (data && data.data) {

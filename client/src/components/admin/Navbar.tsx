@@ -12,13 +12,13 @@ export default function Navbar() {
       <nav className="bg-white shadow-lg fixed hidden md:flex h-14 top-0 left-0 w-full z-10  md:flex-row md:flex-nowrap  md:justify-start  items-center p-4">
         <div className="w-full mx-auto  items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
           <div className="flex items-center">
-            <img src={"/logo_smk.png"} width={32} />
-            <a
+            <img src={"/logo_smk.png"} width={32} alt="logo" />
+            <p
               className="text-gray-500 ml-2 text-sm uppercase hidden md:inline-block font-semibold "
               onClick={(e) => navigate("/admin")}
             >
               SMKN 1 SUKAMARA
-            </a>
+            </p>
           </div>
           <div className="flex items-center justify-center">
             <ul className="flex items-center p-0 m-0 mr-12 text-gray-500">
@@ -26,7 +26,7 @@ export default function Navbar() {
                 <a
                   className="text-gray-500"
                   href={`${
-                    location.pathname == "/admin"
+                    location.pathname === "/admin"
                       ? "#user_table"
                       : "/admin#user_table"
                   }`}
@@ -38,7 +38,7 @@ export default function Navbar() {
                 <a
                   className="text-gray-500"
                   href={`${
-                    location.pathname == "/admin"
+                    location.pathname === "/admin"
                       ? "#scores_table"
                       : "/admin#scores_table"
                   }`}

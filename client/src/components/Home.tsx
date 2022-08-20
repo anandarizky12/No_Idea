@@ -4,7 +4,7 @@ import {
   getClassroomByTeacherId,
   getStudentClassroom,
 } from "../actions/classroom";
-import Class_card from "./Card/Classcard";
+import Classcard from "./Card/Classcard";
 import { Spin, Space } from "antd";
 import DynamicError from "./404/DynamicError";
 import StudentLayout from "./Students/StudentLayout";
@@ -43,7 +43,7 @@ function Home() {
             classroom={student}
             Spin={Spin}
             Space={Space}
-            Class_card={Class_card}
+            Classcard={Classcard}
             DynamicError={DynamicError}
             user={user}
           />
@@ -53,7 +53,7 @@ function Home() {
             classroom={classroom}
             Spin={Spin}
             Space={Space}
-            Class_card={Class_card}
+            Classcard={Classcard}
             user={user}
             DynamicError={DynamicError}
           />

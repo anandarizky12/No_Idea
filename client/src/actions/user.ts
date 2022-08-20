@@ -186,12 +186,14 @@ export const getUser = () => async (dispatch: Dispatch) => {
     await axios
       .get("/api/getuser", config)
       .then((res) => {
-        dispatch({
-          type: actionTypes.GET_USER,
-          payload: res.data.data,
-          isLoading: false,
-          isError: false,
-        });
+     
+          dispatch({
+            type: actionTypes.GET_USER,
+            payload: res.data.data,
+            isLoading: false,
+            isError: false,
+          });
+     
       })
       .catch((err) => {
         if(!err.response){
@@ -421,12 +423,14 @@ export const getAllUsers = () => async (dispatch: Dispatch) => {
     await axios
       .get("/api/getallusers", config)
       .then((res) => {
-        dispatch({
-          type: actionTypes.GET_ALL_USERS,
-          payload: res.data.data,
-          isLoading: false,
-          isError: false,
-        });
+     
+          dispatch({
+            type: actionTypes.GET_ALL_USERS,
+            payload: res.data.data,
+            isLoading: false,
+            isError: false,
+          })
+   
       })
       .catch((err) => {
         if(!err.response){
@@ -494,7 +498,7 @@ export const editUser = (data: any, id : any, setAlert : any) => {
           })
         
         }).then(()=>{
-            return dispatch(getAllUsers())          
+            dispatch(getAllUsers())          
         })
         .catch((err) => {
             if(!err.response){
@@ -625,14 +629,17 @@ export const deleteUser = (id : string, setAlert : any, setRows : any , rows : a
             type: actionTypes.DELETE_USER,
             payload: res.data.data,
           });
+         
           setAlert({
             message : "Succesfully delete user",
             typeAlert : 1
           })
+        }).then(()=>{
           let deletedRows = [...rows].filter((data)=>{
            return data.id !== id
           })
           setRows(deletedRows)
+
         })
         .catch((err) => {
             if(!err.response){

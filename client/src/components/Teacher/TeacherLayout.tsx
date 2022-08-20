@@ -3,7 +3,7 @@ function TeacherLayout({
   classroom,
   Spin,
   Space,
-  Class_card,
+  Classcard,
   DynamicError,
   user,
 }: any) {
@@ -27,7 +27,7 @@ function TeacherLayout({
         ) : (
           classroom?.class.map((classroom: any) => {
             return (
-              <Class_card
+              <Classcard
                 key={classroom.id}
                 id={classroom.id}
                 classroom={classroom}

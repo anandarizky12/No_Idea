@@ -32,7 +32,7 @@ function Register() {
     if (isLog) {
       navigate("/");
     }
-  }, [isLog]);
+  }, [isLog, navigate]);
 
   const handleSubmit = (): void => {
     Dispatch(register(state, setAlert));
@@ -131,9 +131,9 @@ function Register() {
           <Form.Item name="remember" valuePropName="checked">
             <Typography>
               Sudah Punya Akun ?{" "}
-              <a className="font-bold" onClick={() => navigate("/login")}>
+              <p className="font-bold" onClick={() => navigate("/login")}>
                 Klik Disini
-              </a>
+              </p>
             </Typography>
           </Form.Item>
 

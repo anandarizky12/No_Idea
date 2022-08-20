@@ -15,7 +15,7 @@ function ScoreDetail() {
 
   React.useEffect(() => {
     Dispatch(getDetailScoreStudent(task_id, id, user_id));
-  }, []);
+  }, [Dispatch, task_id, user_id, id]);
 
   React.useEffect(() => {
     if (detail && detail.task) {

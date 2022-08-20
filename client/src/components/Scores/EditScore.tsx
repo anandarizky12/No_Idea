@@ -18,7 +18,7 @@ function EdtiScore() {
     setData(null);
     setLoading(true);
     dispatch(getDetailScoreStudent(task_id, id, user_id));
-  }, [user_id]);
+  }, [dispatch, user_id, task_id, id]);
 
   React.useEffect(() => {
     if (detail && detail.task) {

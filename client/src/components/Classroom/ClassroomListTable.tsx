@@ -22,6 +22,7 @@ export default function ClassroomListTable({ data, id, user_id }: any) {
   });
   const [filterText, setFilterText] = React.useState("");
   const dispatch = useDispatch();
+
   const componentRef: any = React.useRef();
   const filteredItems = rows.filter(
     (item: any) =>
@@ -139,7 +140,7 @@ export default function ClassroomListTable({ data, id, user_id }: any) {
         />
       </div>
     );
-    // eslint-disable-next-line
+    //eslint-disable-next-line
   }, [filterText, filteredItems]);
 
   React.useEffect(() => {

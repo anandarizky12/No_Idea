@@ -26,8 +26,6 @@ export default function ScoreTable({ scores, id }: Iprops) {
   const [filterText, setFilterText] = React.useState<string>("");
   const componentRef: any = React.useRef();
   const [mapel, setMapel] = React.useState<any>();
-  const [resetPaginationToggle, setResetPaginationToggle] =
-    React.useState<boolean>(false);
 
   let filteredItems = rows.filter(
     (item: any) =>
@@ -178,7 +176,8 @@ export default function ScoreTable({ scores, id }: Iprops) {
         />
       </>
     );
-  }, [filterText, resetPaginationToggle, mapel, filteredItems]);
+    //eslint-disable-next-line
+  }, [filterText, mapel, filteredItems]);
 
   React.useEffect(() => {
     if (scores && scores.data) {

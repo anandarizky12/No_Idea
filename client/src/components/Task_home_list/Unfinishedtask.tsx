@@ -12,7 +12,7 @@ import {
 import { Avatar } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 
-function Unfinished_Task() {
+function UnfinishedTask() {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -21,8 +21,8 @@ function Unfinished_Task() {
 
   React.useEffect(() => {
     dispatch(getUnfinishedTasks());
-  }, [id]);
-  console.log(taskData);
+  }, [id, dispatch]);
+
   return (
     <div className="border border-gray-300 shadow-sm w-80  rounded-md bg-white">
       <div className="border-b border-gray-300 p-2">
@@ -84,4 +84,4 @@ function Unfinished_Task() {
   );
 }
 
-export default Unfinished_Task;
+export default UnfinishedTask;

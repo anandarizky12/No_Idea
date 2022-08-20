@@ -69,12 +69,14 @@ export const getAllClassroomByTeacherId = (id: any) => {
 
         .get(`/api/getallclassroombyteacherid/${id}`, config)
         .then((res) => {
-          dispatch({
-            type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER,
-            payload: res.data,
-            isLoading: false,
-            isError: false,
-          });
+       
+            dispatch({
+              type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER,
+              payload: res.data,
+              isLoading: false,
+              isError: false,
+            });
+
         })
         .catch((err) => {
           if(!err.response){
@@ -220,22 +222,25 @@ export const editStatusClassroom = (data: any, setAlert : any,  user_id : string
             type: actionTypes.EDIT_STATUS_CLASSROOM,
             payload: res.data,
           });
-
-          dispatch({
-            type: actionTypes.GET_ALL_CLASSROOM_TEACHER,
-            payload: null,
-            isLoading: false,
-            isError: false,
-          });
-        
           setAlert({
             message : "Classroom Status Edited",
             typeAlert : 1
           })
+
+          // dispatch({
+          //   type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER,
+          //   payload: null,
+          //   isLoading: false,
+          //   isError: false,
+          // });
+
+        
        
-        }).then(()=>{
-          dispatch(getAllClassroomByTeacherId(user_id));
-      })
+        })
+        .then(()=>{ 
+          
+          dispatch(getAllClassroomByTeacherId(user_id))
+        })
       .catch((err) => {
         setAlert({
           message : err.response.data.message,

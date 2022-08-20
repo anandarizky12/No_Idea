@@ -24,7 +24,7 @@ function StudentsInClassroom() {
     dispatch(getStudentsinClassroom(id));
     dispatch(getUser());
     dispatch(getClassroom(id, setLoading));
-  }, []);
+  }, [dispatch, id]);
 
   if (!data.isLoading && data.isError && data.error)
     return (
@@ -70,7 +70,7 @@ function StudentsInClassroom() {
             </div>
           </div>
         ) : null}
-        {students && students.data ? (
+        {!loading && students && students.data ? (
           students.data.map((student: any, index: any) => (
             <StudentsCard key={index} student={student} />
           ))

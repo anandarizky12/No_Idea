@@ -21,7 +21,7 @@ function AnswerTask() {
 
   React.useEffect(() => {
     Dispatch(getTask(id, class_id));
-  }, []);
+  }, [Dispatch, id, class_id]);
 
   React.useEffect(() => {
     if (task && task.task) {

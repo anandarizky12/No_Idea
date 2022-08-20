@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataDashboard } from "../../actions/dashboard";
 import { Button, Spin } from "antd";
 import { getAllUsers } from "../../actions/user";
-import User_Table from "./Dashboard_Table/User_Table";
-import Edit_User from "./Modal/EditUser";
-import Add_User from "./Modal/AddUser";
+import UserTable from "./Dashboard_Table/UserTable";
+import EditUser from "./Modal/EditUser";
+import AddUser from "./Modal/AddUser";
 import { getAllScoreInApp as getAllScore } from "../../actions/classroom";
-import Scores_Table from "./Dashboard_Table/Scores_Table";
+import ScoresTable from "./Dashboard_Table/ScoresTable";
 import { AlertComponents } from "../alert/Alert";
 
 function AdminDashboard() {
@@ -32,8 +32,7 @@ function AdminDashboard() {
     dispatch(getDataDashboard());
     dispatch(getAllUsers());
     dispatch(getAllScore());
-  }, []);
-
+  }, [dispatch]);
   return (
     <div className="mt-12 scroll-smooth">
       <div className="w-full bg-pink-400  h-40 ">
@@ -119,8 +118,8 @@ function AdminDashboard() {
           </div>
         )}
       </div>
-      <div id="user_table" className="mt-32 w-full">
-        <User_Table
+      <div id="usertable" className="mt-32 w-full">
+        <UserTable
           users={getallusers}
           setIsModalVisible={setIsModalVisible}
           setId={setId}
@@ -128,16 +127,16 @@ function AdminDashboard() {
         />
       </div>
       <div id="scores_table" className="mt-32 w-full">
-        <Scores_Table data={getallscore} />
+        <ScoresTable data={getallscore} />
       </div>
 
-      <Edit_User
+      <EditUser
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         id={id}
         setAlert={setAlert}
       />
-      <Add_User
+      <AddUser
         addUserModal={addUserModal}
         setAddUserModal={setAddUserModal}
         setAlert={setAlert}

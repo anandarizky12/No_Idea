@@ -27,7 +27,7 @@ function AllTask() {
   React.useEffect(() => {
     dispatch(getClassroom(id, setLoading));
     dispatch(getTaskInClassroom(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   if (!taskData.isLoading && taskData.isError && taskData.error)
     return (
@@ -64,8 +64,8 @@ function AllTask() {
             <Spin size="large" />
           </div>
         )}
-        {task && task.data.length > 0 ? (
-          task.data.map((task: any, number: Number) => {
+        {!loading && task && task.data.length > 0 ? (
+          task.data.map((task: any) => {
             return (
               <div
                 key={task.id}
