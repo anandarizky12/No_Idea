@@ -97,7 +97,7 @@ function CreateTask({ setOpen, open }: any) {
   const handleSelectClick = (value: string) => {
     setState({ ...state, mapel_id: value });
   };
-  console.log(state);
+
   return (
     <Drawer
       title="Buat Tugas Baru"

@@ -9,12 +9,17 @@ import { PoweroffOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
 import { useDispatch } from "react-redux";
 import { editStatusClassroom } from "../../actions/classroom";
+import { AlertComponents } from "../alert/Alert";
 const { Option } = Select;
 const { Search } = Input;
 
-export default function ClassroomListTable({ data, id }: any) {
+export default function ClassroomListTable({ data, id, user_id }: any) {
   const [loading, setLoading] = React.useState(true);
   const [rows, setRows] = React.useState([]);
+  const [alert, setAlert] = React.useState({
+    message: "",
+    typeAlert: 0,
+  });
   const [filterText, setFilterText] = React.useState("");
   const dispatch = useDispatch();
   const [resetPaginationToggle, setResetPaginationToggle] =
@@ -31,7 +36,7 @@ export default function ClassroomListTable({ data, id }: any) {
   );
 
   const confirm = (id: string, status: string): void => {
-    dispatch(editStatusClassroom({ id, status }));
+    dispatch(editStatusClassroom({ id, status }, setAlert, user_id));
   };
 
   const columns: TableColumn<any>[] = [
@@ -92,12 +97,7 @@ export default function ClassroomListTable({ data, id }: any) {
               okText="Yes"
               cancelText="No"
             >
-              <button
-                // onClick={() =>
-
-                // }
-                className="bg-red-500 p-1 text-gray-200 mr-4 rounded-sm text-xs cursor-pointer hover:bg-red-700 w-5/6"
-              >
+              <button className="bg-red-500 p-1 text-gray-200 mr-4 rounded-sm text-xs cursor-pointer hover:bg-red-700 w-5/6">
                 <PoweroffOutlined className="mr-2" />
                 Non Aktifkan
               </button>
@@ -106,16 +106,10 @@ export default function ClassroomListTable({ data, id }: any) {
             <Popconfirm
               title="Apa Anda Yakin Mengaktifkan Kelas Ini?"
               onConfirm={() => confirm(row.id, "active")}
-              // onCancel={cancel}
               okText="Yes"
               cancelText="No"
             >
-              <button
-                // onClick={() =>
-
-                // }
-                className="bg-green-500 p-1 text-gray-200 mr-4 rounded-sm text-xs cursor-pointer hover:bg-green-700 w-5/6"
-              >
+              <button className="bg-green-500 p-1 text-gray-200 mr-4 rounded-sm text-xs cursor-pointer hover:bg-green-700 w-5/6">
                 <PoweroffOutlined className="mr-2" />
                 Aktifkan
               </button>
@@ -133,15 +127,10 @@ export default function ClassroomListTable({ data, id }: any) {
           defaultValue="Status"
           style={{ width: 200, marginRight: "10px" }}
           onChange={(value) => setFilterText(value)}
-          // allowClear={false}
         >
           <Option value="">Status</Option>
           <Option value="active">Aktif</Option>
           <Option value="off">Non Aktif</Option>
-
-          {/* {mapel?.map((data: any, key: any) => (
-            <Option value={data.nama}>{data.nama}</Option>
-          ))} */}
         </Select>
         <ButtonPrint componentRef={componentRef} />
         <Search
@@ -166,6 +155,7 @@ export default function ClassroomListTable({ data, id }: any) {
 
   return (
     <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">
+      <AlertComponents alert={alert} setAlert={setAlert} />
       <div className="w-full border p-5 shadow-md">
         <DataTable
           title="Daftar Kelas Anda"
@@ -173,10 +163,8 @@ export default function ClassroomListTable({ data, id }: any) {
           data={filteredItems}
           pagination
           progressPending={loading}
-          // subHeader
           actions={subHeaderComponentMemo}
           defaultSortFieldId={1}
-          //   customStyles={customStyles}
           highlightOnHover
           pointerOnHover
         />

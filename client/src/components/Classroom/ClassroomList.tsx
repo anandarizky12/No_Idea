@@ -29,7 +29,7 @@ function ClassroomList() {
     <div className="flex flex-col items-center  w-full h-5/6">
       <div className="w-full flex flex-col items-center">
         {classes && classroom ? (
-          <ClassroomListTable data={classroom} />
+          <ClassroomListTable data={classroom} user_id={user.id} />
         ) : (
           <Spin />
         )}

@@ -134,7 +134,6 @@ export const createClassroom = (data: any) => {
           window.location.reload();
         })
         .catch((err) => {
-          console.log(err.response.data.message);
           alert(err.response.data.message);
           dispatch({
             type: actionTypes.CREATE_CLASSROOM_FAILED,
@@ -146,8 +145,6 @@ export const createClassroom = (data: any) => {
         type: actionTypes.CREATE_CLASSROOM_FAILED,
         payload: err,
       });
-
-      console.log(err.response.data.message);
     }
   };
 };
@@ -199,10 +196,10 @@ export const editClassroom = (data: any) => {
 };
 
 
-export const editStatusClassroom = (data: any) => {
+export const editStatusClassroom = (data: any, setAlert : any,  user_id : string) => {
   const { status, id } = data;
 
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: any) => {
     const token = getCookie("token");
     const config = {
       headers: {
@@ -223,11 +220,28 @@ export const editStatusClassroom = (data: any) => {
             type: actionTypes.EDIT_STATUS_CLASSROOM,
             payload: res.data,
           });
-          alert("Success");
-          window.location.reload();
-        })
+
+          dispatch({
+            type: actionTypes.GET_ALL_CLASSROOM_TEACHER,
+            payload: null,
+            isLoading: false,
+            isError: false,
+          });
+        
+          setAlert({
+            message : "Classroom Status Edited",
+            typeAlert : 1
+          })
+       
+        }).then(()=>{
+          dispatch(getAllClassroomByTeacherId(user_id));
+      })
       .catch((err) => {
-          console.log(err)
+        setAlert({
+          message : err.response.data.message,
+          typeAlert : 4
+        })
+     
           dispatch({
             type: actionTypes.EDIT_STATUS_CLASSROOM_FAILED,
             payload: err,
@@ -236,7 +250,10 @@ export const editStatusClassroom = (data: any) => {
          
         });
     } catch (err: any) {
-      console.log(err)
+      setAlert({
+        message : err.response.data.message,
+        typeAlert : 4
+      })
       dispatch({
         type: actionTypes.EDIT_STATUS_CLASSROOM_FAILED,
         payload: err,

@@ -173,7 +173,7 @@ export const editTask = (data: any, id: string, class_id : string, setAlert : an
 
           setAlert({
             message : "Edit task Success",
-            typeAler : 1
+            typeAlert : 1
           })
         }).then(()=>{
             dispatch(getTaskInClassroom(class_id))
