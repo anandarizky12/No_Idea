@@ -264,7 +264,6 @@ function CreateTask({ setOpen, open }: any) {
                 key={index}
                 index={index}
                 data={data}
-                setQuestion={setQuestion}
                 question={question}
                 form={form}
               />

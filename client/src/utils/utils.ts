@@ -116,8 +116,6 @@ export const addQuestion = (question : any, setQuestion : any) => {
     alert("Jumlah Soal Maksimal 10");
     return;
   }
-
-  console.log(question)
   const newQuestion: any = question.length >= 1 ? [...question] : [{
     no: 1,
     question_0: null,
