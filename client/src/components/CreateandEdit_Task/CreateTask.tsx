@@ -19,6 +19,7 @@ import Questions from "./Questions";
 import axios from "axios";
 import { AlertComponents } from "../alert/Alert";
 import { Moment } from "moment";
+import ExcelImport from "../Upload/ExcelImport";
 const { Option } = Select;
 
 interface IState {
@@ -40,18 +41,49 @@ function CreateTask({ setOpen, open }: any) {
     message: "",
     typeAlert: 0,
   });
+  const [excelData, setExcelData] = React.useState<any>(null);
+
   const onClose = () => {
     setOpen(false);
   };
 
   const id_user = getCookie("id");
   const [question, setQuestion] = React.useState([
-    {
-      no: 1,
-      question_0: null,
-      answer_key_0: null,
-    },
+    // {
+    //   no: 1,
+    //   question_0: null,
+    //   answer_key_0: null,
+    // },
   ]);
+
+  React.useEffect(() => {
+    if (excelData) {
+      setQuestion([]);
+      let newquestion: any =
+        question.length >= 1
+          ? [...question]
+          : [
+              {
+                no: 1,
+                question_0: null,
+                answer_key_0: null,
+              },
+            ];
+
+      for (let i = 0; i < excelData.length; i++) {
+        newquestion[i][`question_${i}`] = Object.values(excelData[i])[0];
+        newquestion[i][`answer_key_${i}`] = Object.values(excelData[i])[1];
+
+        if (newquestion.length !== excelData.length) {
+          newquestion.push({
+            no: newquestion.length + 1,
+          });
+        }
+      }
+
+      setQuestion(newquestion);
+    }
+  }, [excelData]);
 
   const [state, setState] = React.useState<IState>({
     title: "",
@@ -215,18 +247,29 @@ function CreateTask({ setOpen, open }: any) {
               </Select>
             </Form.Item>
           </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Import Soal Dari Excel"
+              rules={[{ required: true, message: "Pilih Mata Pelajaran" }]}
+            >
+              <ExcelImport excelData={excelData} setExcelData={setExcelData} />
+            </Form.Item>
+          </Col>
         </Row>
 
-        {question.map((data, index) => {
-          return (
-            <Questions
-              key={index}
-              index={index}
-              data={data}
-              question={question}
-            />
-          );
-        })}
+        {question.length >= 1 &&
+          question.map((data, index) => {
+            return (
+              <Questions
+                key={index}
+                index={index}
+                data={data}
+                setQuestion={setQuestion}
+                question={question}
+                form={form}
+              />
+            );
+          })}
         <Row gutter={16}>
           <Col span={12}>
             <Button
@@ -236,7 +279,7 @@ function CreateTask({ setOpen, open }: any) {
               Tambah Soal
             </Button>
             <Button
-              disabled={question.length <= 1 ? true : false}
+              disabled={question.length <= 0 ? true : false}
               onClick={() => deleteQuestion(question, setQuestion)}
               style={{ marginLeft: "20px" }}
             >

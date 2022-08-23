@@ -93,13 +93,7 @@ export const createTask = (data: any, question : any, id : any,setAlert : any, s
             mapel_id: undefined,
           }));
 
-          setQuestion([
-            {
-              no: 1,
-              question_0: null,
-              answer_key_0: null,
-            },
-          ])
+          setQuestion([])
 
           form.resetFields();
 

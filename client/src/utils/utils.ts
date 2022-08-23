@@ -116,15 +116,24 @@ export const addQuestion = (question : any, setQuestion : any) => {
     alert("Jumlah Soal Maksimal 10");
     return;
   }
-  const newQuestion: any = [...question];
+
+  console.log(question)
+  const newQuestion: any = question.length >= 1 ? [...question] : [{
+    no: 1,
+    question_0: null,
+    answer_key_0: null,
+    }];
+  
+  if(question.length < 1) return   setQuestion(newQuestion);
   newQuestion.push({
     no: newQuestion.length + 1,
   });
   setQuestion(newQuestion);
+
 };
 
 export const deleteQuestion = (question : any, setQuestion : any) => {
-  if (question.length <= 1) {
+  if (question.length <= 0) {
     alert("Jumlah Soal Minimal 1");
     return;
   }

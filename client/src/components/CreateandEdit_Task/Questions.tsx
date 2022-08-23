@@ -14,18 +14,13 @@ function Questions(question: any, index: number, data: any) {
             placeholder="Enter Task Name"
             name={`question_${question.index}`}
             autoComplete="off"
+            onChange={(e) =>
+              handleChangeQuestion(e, question.question, question.index)
+            }
             defaultValue={
               question.question[question.index][
                 `${"question_" + question.index}`
               ]
-            }
-            onChange={(e) =>
-              handleChangeQuestion(
-                e,
-                question.question,
-
-                question.index
-              )
             }
           />
         </Form.Item>
