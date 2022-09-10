@@ -17,8 +17,6 @@ export default function ListScoreTable({ data, id }: any) {
   const [filterText, setFilterText] = React.useState("");
   const [filter, setFilter] = React.useState<any>();
   const [mapel, setMapel] = React.useState<any>();
-  const [resetPaginationToggle, setResetPaginationToggle] =
-    React.useState(false);
   const componentRef: any = React.useRef();
   const filteredItems = rows.filter(
     (item: any) =>
@@ -26,7 +24,7 @@ export default function ListScoreTable({ data, id }: any) {
         item.Classroom.name.toLowerCase().includes(filterText.toLowerCase())) ||
       (item.Task.title &&
         item.Task.title.toLowerCase().includes(filterText.toLowerCase())) ||
-      (item.score && item.score == filterText.toLowerCase()) ||
+      (item.score && item.score === filterText.toLowerCase()) ||
       (item.Task.Mapel.nama &&
         item.Task.Mapel.nama.toLowerCase().includes(filterText.toLowerCase()))
   );
@@ -41,13 +39,13 @@ export default function ListScoreTable({ data, id }: any) {
       });
   }, []);
 
-  type DataRow = {
+  interface DataRow {
     name: string;
     email: string;
     phone: string;
     profile: string;
     role: string;
-  };
+  }
 
   const columns: TableColumn<DataRow>[] = [
     {
@@ -124,7 +122,8 @@ export default function ListScoreTable({ data, id }: any) {
         />
       </div>
     );
-  }, [filterText, resetPaginationToggle, filteredItems]);
+    //eslint-disable-next-line
+  }, [filterText, filteredItems, mapel]);
 
   React.useEffect(() => {
     if (data && data.data) {

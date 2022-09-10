@@ -12,7 +12,7 @@ export default function ProtectedRoute({
 
   return isAuthenticated ? (
     allowRole ? (
-      allowRole == role ? (
+      allowRole === role ? (
         Component
       ) : (
         <Unauthorized />

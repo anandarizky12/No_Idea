@@ -1,12 +1,11 @@
 import React from "react";
-import { useNavigate, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { adminLogin } from "../../actions/user";
 import { getCookie } from "../../utils/utils";
 import { AlertComponents } from "../alert/Alert";
-import { Typography } from "antd";
 
-export default function Admin_Login() {
+export default function AdminLogin() {
   const [state, setState] = React.useState({
     email: "",
     password: "",
@@ -20,8 +19,8 @@ export default function Admin_Login() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (token && role == "admin") navigate("/admin");
-  }, [token]);
+    if (token && role === "admin") navigate("/admin");
+  }, [token, role, navigate]);
 
   const handleInput = (e: any) => {
     const { name, value } = e.target;
@@ -92,7 +91,6 @@ export default function Admin_Login() {
                       type="submit"
                     >
                       Login
-                      {/* {loading ? <ButtonLoader /> : "Login"} */}
                     </button>
                   </div>
                 </form>
@@ -104,12 +102,6 @@ export default function Admin_Login() {
           </div>
         </div>
       </div>
-      <Typography className="absolute bottom-5 left-5">
-        Login{" "}
-        <a className="font-bold" onClick={() => navigate("/login")}>
-          User
-        </a>
-      </Typography>
     </div>
   );
 }

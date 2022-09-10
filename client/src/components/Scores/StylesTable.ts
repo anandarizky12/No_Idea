@@ -1,4 +1,4 @@
-import { ConditionalStyles, TableColumn } from "react-data-table-component";
+
 
 export const customStyles = {
   headCells: {
@@ -20,7 +20,3 @@ export const customStyles = {
     },
   },
 };
-
-interface IConditionalStyles {
-  score: string;
-}

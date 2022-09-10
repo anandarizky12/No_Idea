@@ -1,14 +1,15 @@
-import { Tooltip } from "antd";
+import { Spin, Tooltip } from "antd";
 import {
   UserOutlined,
   FundOutlined,
   FilePdfOutlined,
   SnippetsOutlined,
 } from "@ant-design/icons";
-import PopupMenu from "./PopupMenu";
 import { useNavigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
-function Class_card({ classroom, id, user }: any) {
+const PopupMenu = lazy(() => import("./PopupMenu"));
+function Classcard({ classroom, id, user }: any) {
   const navigate = useNavigate();
 
   return (
@@ -32,11 +33,13 @@ function Class_card({ classroom, id, user }: any) {
         >
           {classroom.name}
         </h1>
-        <div className="text-secondary font-bold">
-          {user.role === "guru" ? (
-            <PopupMenu classroom={classroom} id={id} />
-          ) : null}
-        </div>
+        <Suspense fallback={<Spin />}>
+          <div className="text-secondary font-bold">
+            {user.role === "guru" ? (
+              <PopupMenu classroom={classroom} id={id} />
+            ) : null}
+          </div>
+        </Suspense>
       </div>
       <div className="h-full p-2">
         <div className="flex flex-wrap w-64 overflow-hidden">
@@ -86,4 +89,4 @@ function Class_card({ classroom, id, user }: any) {
   );
 }
 
-export default Class_card;
+export default Classcard;

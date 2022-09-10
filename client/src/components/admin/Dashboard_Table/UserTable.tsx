@@ -1,6 +1,5 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import Export from "react-data-table-component";
 import { customStyles } from "./Styles";
 import { TableColumn } from "react-data-table-component";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -14,7 +13,7 @@ import AllUsersPDF from "../../pdf/AllUsersPDF";
 
 const { Search } = Input;
 
-export default function User_Table({
+export default function UserTable({
   users,
   id,
   setIsModalVisible,
@@ -25,8 +24,7 @@ export default function User_Table({
   const dispatch = useDispatch();
   const [rows, setRows] = React.useState([]);
   const [filterText, setFilterText] = React.useState("");
-  const [resetPaginationToggle, setResetPaginationToggle] =
-    React.useState(false);
+
   const componentRef: any = React.useRef();
 
   const handleButtonClick = (id: string) => {
@@ -100,10 +98,10 @@ export default function User_Table({
       cell: (row: any) => (
         <div>
           <span
-            className={`${row.role == "admin" && "bg-blue-500"} ${
-              row.role == "siswa" && "bg-green-500"
+            className={`${row.role === "admin" && "bg-blue-500"} ${
+              row.role === "siswa" && "bg-green-500"
             } ${
-              row.role == "guru" && "bg-red-500"
+              row.role === "guru" && "bg-red-500"
             } p-2  text-xs text-white rounded-md `}
           >
             {row.role}
@@ -150,7 +148,8 @@ export default function User_Table({
         />
       </div>
     );
-  }, [filterText, resetPaginationToggle, filteredItems]);
+    //eslint-disable-next-line
+  }, [filterText, filteredItems]);
 
   React.useEffect(() => {
     if (users && users.task) {
@@ -161,8 +160,6 @@ export default function User_Table({
       setRows([]);
     }
   }, [users, id]);
-
-  console.log(rows);
 
   return (
     <div className="w-full px-12 flex flex-col mt-12 items-center justify-center shadow-md">

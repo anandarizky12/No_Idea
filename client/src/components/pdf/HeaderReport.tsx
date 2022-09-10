@@ -1,8 +1,8 @@
-function Header_Report() {
+function HeaderReport() {
   return (
     <div className="flex border-b border-black py-2">
       <div>
-        <img src="/logo_smk.png" width={100} />
+        <img src="/logo_smk.png" width={100} alt="logo" />
       </div>
       <div className="ml-4 flex flex-col justify-center">
         <h2 className="p-0 m-0 text-2xl font-bold">
@@ -21,4 +21,4 @@ function Header_Report() {
   );
 }
 
-export default Header_Report;
+export default HeaderReport;

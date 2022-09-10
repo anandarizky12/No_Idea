@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import { AlertComponents } from "../../alert/Alert";
 import ImageChange from "../../Profile/ImageChange";
@@ -12,7 +11,7 @@ interface IProps {
   email: string;
   profile: any;
 }
-function Admin_Profile() {
+function AdminProfile() {
   const [alert, setAlert] = React.useState({ message: "", typeAlert: "" });
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
@@ -44,8 +43,6 @@ function Admin_Profile() {
       window.alert(err);
     }
   };
-
-  console.log(state);
 
   return (
     <div className="flex flex-col items-center w-full justify-center mt-28">
@@ -98,4 +95,4 @@ function Admin_Profile() {
   );
 }
 
-export default Admin_Profile;
+export default AdminProfile;

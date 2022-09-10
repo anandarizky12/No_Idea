@@ -1,12 +1,12 @@
 import HomeProfile from "../Profile/HomeProfile";
-import Unfinished_Task from "../Task_home_list/Unfinished_task";
+import UnfinishedTask from "../Task_home_list/Unfinishedtask";
 
 function StudentLayout({
   classes,
   classroom,
   Spin,
   Space,
-  Class_card,
+  Classcard,
   DynamicError,
   user,
 }: any) {
@@ -25,7 +25,7 @@ function StudentLayout({
           {classroom ? (
             classroom.class.map((classroom: any) => {
               return (
-                <Class_card
+                <Classcard
                   key={classroom.Classroom.id}
                   id={classroom.Classroom.id}
                   classroom={classroom.Classroom}
@@ -48,9 +48,8 @@ function StudentLayout({
           )}
         </div>
         <div className="py-2 rounded-md">
-          {/* <Finished_Task /> */}
           <HomeProfile />
-          <Unfinished_Task />
+          <UnfinishedTask />
         </div>
       </div>
     </div>

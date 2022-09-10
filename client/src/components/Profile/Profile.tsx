@@ -22,7 +22,7 @@ function Profile() {
 
   React.useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   const onChangeRadio = ({ target: { value } }: RadioChangeEvent) => {
     setState({ ...state, jk: value });

@@ -16,7 +16,7 @@ export const getClassroomByTeacherId = (id: any) => {
 
     try {
       await axios
-        .get(`/api/getclassroombyteacherid/${id}`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getclassroombyteacherid/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_ALL_CLASSROOM_TEACHER,
@@ -67,14 +67,16 @@ export const getAllClassroomByTeacherId = (id: any) => {
     try {
       await axios
 
-        .get(`/api/getallclassroombyteacherid/${id}`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getallclassroombyteacherid/${id}`, config)
         .then((res) => {
-          dispatch({
-            type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER,
-            payload: res.data,
-            isLoading: false,
-            isError: false,
-          });
+       
+            dispatch({
+              type: actionTypes.GET_WHOLE_CLASSROOM_TEACHER,
+              payload: res.data,
+              isLoading: false,
+              isError: false,
+            });
+
         })
         .catch((err) => {
           if(!err.response){
@@ -121,7 +123,7 @@ export const createClassroom = (data: any) => {
     try {
       await axios
         .post(
-          "/api/createclassroom",
+          `${process.env.REACT_APP_HOST}/api/createclassroom`,
           { name, description, teacher_id, banner },
           config
         )
@@ -164,7 +166,7 @@ export const editClassroom = (data: any) => {
     try {
       await axios
         .patch(
-          `/api/editclassroom/${id}`,
+          `${process.env.REACT_APP_HOST}/api/editclassroom/${id}`,
           { name, description, banner },
           config
         )
@@ -211,7 +213,7 @@ export const editStatusClassroom = (data: any, setAlert : any,  user_id : string
     try {
       await axios
         .patch(
-          `/api/statusclassroom/${id}`,
+          `${process.env.REACT_APP_HOST}/api/statusclassroom/${id}`,
           {status},
           config
         )
@@ -220,22 +222,17 @@ export const editStatusClassroom = (data: any, setAlert : any,  user_id : string
             type: actionTypes.EDIT_STATUS_CLASSROOM,
             payload: res.data,
           });
-
-          dispatch({
-            type: actionTypes.GET_ALL_CLASSROOM_TEACHER,
-            payload: null,
-            isLoading: false,
-            isError: false,
-          });
-        
           setAlert({
             message : "Classroom Status Edited",
             typeAlert : 1
           })
+
        
-        }).then(()=>{
-          dispatch(getAllClassroomByTeacherId(user_id));
-      })
+        })
+        .then(()=>{ 
+          
+          dispatch(getAllClassroomByTeacherId(user_id))
+        })
       .catch((err) => {
         setAlert({
           message : err.response.data.message,
@@ -277,7 +274,7 @@ export const getClassroom = (id: any, setLoading : any) => {
     };
     try {
       await axios
-        .get(`/api/getclassroom/${id}`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getclassroom/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_CLASSROOM,
@@ -329,7 +326,7 @@ export const deleteClassroom = (id: any) => {
     };
     try {
       await axios
-        .delete(`/api/deleteclassroom/${id}`, config)
+        .delete(`${process.env.REACT_APP_HOST}/api/deleteclassroom/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.DELETE_CLASSROOM,
@@ -374,7 +371,7 @@ export const getStudentsinClassroom = (id: any) => {
 
     try {
       await axios
-        .get(`/api/getstudentsinclass/${id}`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getstudentsinclass/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_STUDENTS_IN_CLASSROOM,
@@ -424,7 +421,7 @@ export const getStudentClassroom = () => {
 
     try {
       await axios
-        .get(`/api/getstudentclassroom`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getstudentclassroom`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_STUDENT_CLASSROOM,
@@ -475,7 +472,7 @@ export const joinClassroom = (code: any, setAlert: any, setLoading: any) => {
 
     try {
       await axios
-        .post(`/api/joinclassroom`, { code: code }, config)
+        .post(`${process.env.REACT_APP_HOST}/api/joinclassroom`, { code: code }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.JOIN_CLASSROOM,
@@ -526,7 +523,7 @@ export const createMateri = (data : any) =>{
   
   try{
 
-    await axios.post(`/api/createmateri/${classroom_id}`, {title, description, file}, config)
+    await axios.post(`${process.env.REACT_APP_HOST}/api/createmateri/${classroom_id}`, {title, description, file}, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.CREATE_MATERI,
@@ -573,7 +570,7 @@ export const editMateri = (id : string, data : any) =>{
   const { title, description, file } = data;  
   try{
 
-    await axios.patch(`/api/editmateri/${id}`, {title, description, file}, config)
+    await axios.patch(`${process.env.REACT_APP_HOST}/api/editmateri/${id}`, {title, description, file}, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.EDIT_MATERI,
@@ -617,7 +614,7 @@ export const deleteMateri = (id : string) =>{
 
   try{
 
-    await axios.delete(`/api/deletemateri/${id}`, config)
+    await axios.delete(`${process.env.REACT_APP_HOST}/api/deletemateri/${id}`, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.DELETE_MATERI,
@@ -660,7 +657,7 @@ export const getAllMateri = (id : string | undefined) =>{
     }
   try{
 
-    await axios.get(`/api/allmateri/${id}`,  config)
+    await axios.get(`${process.env.REACT_APP_HOST}/api/allmateri/${id}`,  config)
     .then((res)=>{
       dispatch({
         type : actionTypes.GET_ALL_MATERI,
@@ -704,7 +701,7 @@ export const getMateri = (id : string) =>{
     }
   try{
 
-    await axios.get(`/api/materi/${id}`, config)
+    await axios.get(`${process.env.REACT_APP_HOST}/api/materi/${id}`, config)
     .then((res)=>{
       dispatch({
         type : actionTypes.GET_MATERI,
@@ -815,47 +812,3 @@ export const getAllScoreInApp = () => {
     }
   }
 }
-
-// export const joinClassroom = (code: any) => {
-//   return async (dispatch: Dispatch) => {
-//     const token = getCookie("token");
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     };
-
-//     try {
-//       await axios
-//         .post(`/api/joinclassroom/${code}`, config)
-//         .then((res) => {
-//           dispatch({
-//             type: actionTypes.JOIN_CLASSROOM,
-//             payload: res.data,
-//             isLoading: false,
-//             isError: false,
-//           });
-//           alert("Kelas berhasil diikuti");
-//           window.location.reload();
-//         })
-//         .catch((err) => {
-//           console.log(err.response);
-//           dispatch({
-//             type: actionTypes.JOIN_CLASSROOM_FAILED,
-//             payload: err.response,
-//             isLoading: false,
-//             isError: true,
-//           });
-//         });
-//     } catch (err: any) {
-//       dispatch({
-//         type: actionTypes.JOIN_CLASSROOM_FAILED,
-//         payload: err,
-//         isLoading: false,
-//         isError: true,
-//       });
-//       console.log(err.response);
-//     }
-//   };
-// };

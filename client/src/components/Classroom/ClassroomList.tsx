@@ -15,7 +15,7 @@ function ClassroomList() {
 
   React.useEffect(() => {
     dispatch(getAllClassroomByTeacherId(user.id));
-  }, []);
+  }, [dispatch, user.id]);
 
   if (!classes.isLoading && classes.isError && classes.error)
     return (
@@ -31,7 +31,12 @@ function ClassroomList() {
         {classes && classroom ? (
           <ClassroomListTable data={classroom} user_id={user.id} />
         ) : (
-          <Spin />
+          <div
+            className="flex items-center justify-center"
+            style={{ height: "90vh" }}
+          >
+            <Spin size="large" />
+          </div>
         )}
       </div>
     </div>

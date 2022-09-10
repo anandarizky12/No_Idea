@@ -8,7 +8,7 @@ import DynamicError from "../404/DynamicError";
 import ButtonPrint from "../pdf/Button_PDF";
 import BiodataPDF from "../pdf/Biodata";
 
-function Biodata_Student() {
+function BiodataStudent() {
   const dispatch = useDispatch();
   const { user_id } = useParams();
   const [loading, setLoading] = React.useState(false);
@@ -17,9 +17,7 @@ function Biodata_Student() {
 
   React.useEffect(() => {
     dispatch(getUserById(user_id, setLoading));
-  }, []);
-
-  console.log(user);
+  }, [dispatch, user_id]);
 
   if (!user.isLoading && user.isError && user.error)
     return (
@@ -90,4 +88,4 @@ function Biodata_Student() {
   );
 }
 
-export default Biodata_Student;
+export default BiodataStudent;

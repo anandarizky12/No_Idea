@@ -7,7 +7,6 @@ import { joinClassroom } from "../../actions/classroom";
 import { AlertComponents } from "../alert/Alert";
 export const JoinClass = () => {
   const dispatch = useDispatch();
-
   const [visible, setVisible] = React.useState(false);
   const [code, setCode] = React.useState("");
   const [alert, setAlert] = React.useState({ message: "", typeAlert: "" });

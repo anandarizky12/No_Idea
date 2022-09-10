@@ -8,7 +8,7 @@ interface IProps {
   date: string;
 }
 
-function Card_Materi({ title, description, file, date }: IProps) {
+function CardMateri({ title, description, file, date }: IProps) {
   return (
     <div className="w-full border shadow-md border-b border-gray-300 mb-5 rounded-md text-primary p-4">
       <div className="flex justify-between">
@@ -62,4 +62,4 @@ function Card_Materi({ title, description, file, date }: IProps) {
   );
 }
 
-export default Card_Materi;
+export default CardMateri;

@@ -8,14 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataDashboard } from "../../actions/dashboard";
 import { Button, Spin } from "antd";
 import { getAllUsers } from "../../actions/user";
-import User_Table from "./Dashboard_Table/User_Table";
-import Edit_User from "./Modal/Edit_User";
-import Add_User from "./Modal/Add_User";
+import UserTable from "./Dashboard_Table/UserTable";
+import EditUser from "./Modal/EditUser";
+import AddUser from "./Modal/AddUser";
 import { getAllScoreInApp as getAllScore } from "../../actions/classroom";
-import Scores_Table from "./Dashboard_Table/Scores_Table";
+import ScoresTable from "./Dashboard_Table/ScoresTable";
 import { AlertComponents } from "../alert/Alert";
 
-function Admin_Dashboard() {
+function AdminDashboard() {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [addUserModal, setAddUserModal] = React.useState(false);
@@ -32,8 +32,7 @@ function Admin_Dashboard() {
     dispatch(getDataDashboard());
     dispatch(getAllUsers());
     dispatch(getAllScore());
-  }, []);
-
+  }, [dispatch]);
   return (
     <div className="mt-12 scroll-smooth">
       <div className="w-full bg-pink-400  h-40 ">
@@ -119,8 +118,8 @@ function Admin_Dashboard() {
           </div>
         )}
       </div>
-      <div id="user_table" className="mt-32 w-full">
-        <User_Table
+      <div id="usertable" className="mt-32 w-full">
+        <UserTable
           users={getallusers}
           setIsModalVisible={setIsModalVisible}
           setId={setId}
@@ -128,16 +127,16 @@ function Admin_Dashboard() {
         />
       </div>
       <div id="scores_table" className="mt-32 w-full">
-        <Scores_Table data={getallscore} />
+        <ScoresTable data={getallscore} />
       </div>
 
-      <Edit_User
+      <EditUser
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         id={id}
         setAlert={setAlert}
       />
-      <Add_User
+      <AddUser
         addUserModal={addUserModal}
         setAddUserModal={setAddUserModal}
         setAlert={setAlert}
@@ -147,4 +146,4 @@ function Admin_Dashboard() {
   );
 }
 
-export default Admin_Dashboard;
+export default AdminDashboard;

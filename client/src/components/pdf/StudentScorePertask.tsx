@@ -1,5 +1,5 @@
 import moment from "moment";
-import Header_Report from "./Header_Report";
+import HeaderReport from "./HeaderReport";
 
 function StudentScorePertask({
   data,
@@ -11,7 +11,7 @@ function StudentScorePertask({
 }: any) {
   return (
     <div className="px-7 py-2">
-      <Header_Report />
+      <HeaderReport />
       <h2 className="text-center font-bold text-2xl mt-5">
         Laporan Nilai Tugas
       </h2>
@@ -36,10 +36,6 @@ function StudentScorePertask({
                 <th className="text-left">Rata-Rata Nilai</th>
                 <td>: {average}</td>
               </tr>
-              {/* <tr>
-                <th className="text-left">Jumlah Siswa Menjawab</th>
-                <td>: {data?.Questions.length}</td>
-              </tr> */}
             </tbody>
           </table>
         </div>

@@ -8,7 +8,7 @@ export const login = (email: string, password: string, setAlert: any) =>
   async (dispatch: Dispatch) => {
     try {
       await axios
-        .post("/api/login", { email, password })
+        .post(`${process.env.REACT_APP_HOST}/api/login`, { email, password })
         .then((res) => {
 
           const { name, email, role, token, id, profile } = res.data.data;
@@ -59,7 +59,7 @@ export const register = (state: any, setAlert: any) => async () => {
 
   try {
     await axios
-      .post("/api/register", {
+      .post(`${process.env.REACT_APP_HOST}/api/register`, {
         name,
         email,
         password,
@@ -102,7 +102,7 @@ export const addUser = (state: any, setAlert : any, setState : any, form : any) 
   
   try {
     await axios
-      .post("/api/adduser", {
+      .post(`${process.env.REACT_APP_HOST}/api/adduser`, {
         name,
         email,
         password,
@@ -184,14 +184,16 @@ export const getUser = () => async (dispatch: Dispatch) => {
   };
   try {
     await axios
-      .get("/api/getuser", config)
+      .get(`${process.env.REACT_APP_HOST}/api/getuser`, config)
       .then((res) => {
-        dispatch({
-          type: actionTypes.GET_USER,
-          payload: res.data.data,
-          isLoading: false,
-          isError: false,
-        });
+     
+          dispatch({
+            type: actionTypes.GET_USER,
+            payload: res.data.data,
+            isLoading: false,
+            isError: false,
+          });
+     
       })
       .catch((err) => {
         if(!err.response){
@@ -239,7 +241,7 @@ export const editProfile = (data: any, setAlert: any, setLoading: any) => {
     try {
       setLoading(true);
       await axios
-        .patch("/api/editprofile", data, config)
+        .patch(`${process.env.REACT_APP_HOST}/api/editprofile`, data, config)
         .then((res) => {
           setLoading(false);
 
@@ -304,7 +306,7 @@ export const editProfileAdmin = (data: any, setAlert: any, setLoading: any) => {
     try {
       setLoading(true);
       await axios
-        .patch("/api/editprofile", data, config)
+        .patch(`${process.env.REACT_APP_HOST}/api/editprofile`, data, config)
         .then((res) => {
           setLoading(false);
 
@@ -361,7 +363,7 @@ export const adminLogin = (email: string, password: string, setAlert: any) =>
   async (dispatch: Dispatch) => {
     try {
       await axios
-        .post("/api/admin_login", { email, password })
+        .post(`${process.env.REACT_APP_HOST}/api/admin_login`, { email, password })
         .then((res) => {
 
           const { name, email, role, token, id, profile } = res.data.data;
@@ -402,7 +404,7 @@ export const adminLogin = (email: string, password: string, setAlert: any) =>
         });
         
     }catch (err: any) {
-      console.log(err);
+   
       setAlert({ message: err.message, typeAlert: 4 });
     }
   }
@@ -419,14 +421,16 @@ export const getAllUsers = () => async (dispatch: Dispatch) => {
   };
   try {
     await axios
-      .get("/api/getallusers", config)
+      .get(`${process.env.REACT_APP_HOST}/api/getallusers`, config)
       .then((res) => {
-        dispatch({
-          type: actionTypes.GET_ALL_USERS,
-          payload: res.data.data,
-          isLoading: false,
-          isError: false,
-        });
+     
+          dispatch({
+            type: actionTypes.GET_ALL_USERS,
+            payload: res.data.data,
+            isLoading: false,
+            isError: false,
+          })
+   
       })
       .catch((err) => {
         if(!err.response){
@@ -475,7 +479,7 @@ export const editUser = (data: any, id : any, setAlert : any) => {
 
     try {
       await axios
-        .patch(`/api/edituser/${id}`, data, config)
+        .patch(`${process.env.REACT_APP_HOST}/api/edituser/${id}`, data, config)
         .then((res) => {
       
           dispatch({
@@ -494,7 +498,7 @@ export const editUser = (data: any, id : any, setAlert : any) => {
           })
         
         }).then(()=>{
-            return dispatch(getAllUsers())          
+            dispatch(getAllUsers())          
         })
         .catch((err) => {
             if(!err.response){
@@ -557,7 +561,7 @@ export const getUserById = (id : string | undefined, setLoading :any) => {
     try {
     
       await axios
-        .get(`/api/getuserbyid/${id}`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getuserbyid/${id}`, config)
         .then((res) => {
          
           dispatch({
@@ -618,21 +622,24 @@ export const deleteUser = (id : string, setAlert : any, setRows : any , rows : a
     }
     try {  
       await axios
-        .delete(`/api/deleteuser/${id}`, config)
+        .delete(`${process.env.REACT_APP_HOST}/api/deleteuser/${id}`, config)
         .then((res) => {
       
           dispatch({
             type: actionTypes.DELETE_USER,
             payload: res.data.data,
           });
+         
           setAlert({
             message : "Succesfully delete user",
             typeAlert : 1
           })
+        }).then(()=>{
           let deletedRows = [...rows].filter((data)=>{
            return data.id !== id
           })
           setRows(deletedRows)
+
         })
         .catch((err) => {
             if(!err.response){

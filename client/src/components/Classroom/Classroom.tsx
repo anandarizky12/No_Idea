@@ -21,7 +21,7 @@ function Classroom() {
 
   React.useEffect(() => {
     dispatch(getClassroom(id, setLoading));
-  }, [id]);
+  }, [id, dispatch]);
 
   if (!classes.isLoading && classes.isError && classes.error)
     return (

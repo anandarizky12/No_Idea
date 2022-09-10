@@ -5,7 +5,7 @@ import { getStudentsinClassroom } from "../../actions/classroom";
 import { Spin } from "antd";
 import AvatarCustom from "../Avatar/AvatarCustom";
 
-function Card_Member() {
+function CardMember() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.getStudentsInClassroom);
@@ -13,7 +13,7 @@ function Card_Member() {
 
   React.useEffect(() => {
     dispatch(getStudentsinClassroom(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <div className="border p-4 border-gray-300 w-48  rounded-md  flex flex-col justify-between ">
@@ -37,4 +37,4 @@ function Card_Member() {
   );
 }
 
-export default Card_Member;
+export default CardMember;

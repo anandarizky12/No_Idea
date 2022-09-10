@@ -3,17 +3,24 @@ import { Drawer, Form, Button, Col, Row, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { handleChange } from "../../utils/utils";
 import { editClassroom, getClassroom } from "../../actions/classroom";
-
 import { Space } from "antd";
-function Edit({ setOpenEdit, open, id, classroom }: any) {
+
+interface Props {
+  setOpenEdit: any;
+  open: boolean;
+  id: String;
+  classroom: any;
+}
+function Edit({ setOpenEdit, open, id, classroom }: Props) {
   const dispatch = useDispatch();
+  // eslint-disable-next-line
   const [loading, setLoading] = React.useState(true);
   const onClose = () => {
     setOpenEdit(false);
   };
   React.useEffect(() => {
     dispatch(getClassroom(id, setLoading));
-  }, [id]);
+  }, [id, dispatch]);
 
   const [state, setState] = React.useState({
     name: classroom.name,

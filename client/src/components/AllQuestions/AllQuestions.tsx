@@ -12,28 +12,29 @@ const AllQuestions = () => {
 
   React.useEffect(() => {
     dispatch(getAllQuestions(page, limit));
-  }, []);
+    // eslint-disable-next-line
+  }, [dispatch]);
 
   React.useEffect(() => {
     if (question) {
       setQuestions([...questions, ...question.data.rows]);
       setLoading(false);
     }
+    // eslint-disable-next-line
   }, [question]);
 
-  const handleScroll = () => {
-    const bottom =
-      Math.ceil(window.innerHeight + window.scrollY) >=
-      document.documentElement.scrollHeight;
-
-    if (bottom) {
-      setLoading(true);
-      setPage(page + 1);
-      dispatch(getAllQuestions(page, limit));
-    }
-  };
-
   React.useEffect(() => {
+    const handleScroll = () => {
+      const bottom =
+        Math.ceil(window.innerHeight + window.scrollY) >=
+        document.documentElement.scrollHeight;
+
+      if (bottom) {
+        setLoading(true);
+        setPage(page + 1);
+        dispatch(getAllQuestions(page, limit));
+      }
+    };
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     };
@@ -44,6 +45,7 @@ const AllQuestions = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

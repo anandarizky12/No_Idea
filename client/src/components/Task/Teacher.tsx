@@ -15,7 +15,7 @@ function Teacher({ setOpen, open, classroom, task }: any) {
         </div>
       </div>
     );
-  }, [task]);
+  }, [task, classroom]);
 
   return (
     <div className="flex flex-row items-center justify-between border-b-2 py-5 border-gray-200 w-4/6">

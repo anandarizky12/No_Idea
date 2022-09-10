@@ -1,10 +1,9 @@
 import React from "react";
-import { Avatar, Spin } from "antd";
+import { Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import AvatarCustom from "../Avatar/AvatarCustom";
-import { KeyOutlined } from "@ant-design/icons";
 
 function HomeProfile() {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ function HomeProfile() {
 
   React.useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="p-3 flex items-center border  my-3 bg-white border-gray-300 shadow-sm rounded-md">

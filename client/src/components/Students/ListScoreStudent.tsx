@@ -12,7 +12,7 @@ function ListScoreStudent() {
 
   React.useEffect(() => {
     dispatch(getYourScore());
-  }, []);
+  }, [dispatch]);
 
   if (!data.isLoading && data.isError && data.error)
     return (

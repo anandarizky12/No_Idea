@@ -1,10 +1,10 @@
 import moment from "moment";
-import Header_Report from "./Header_Report";
+import HeaderReport from "./HeaderReport";
 
 function ClassroomListPDF({ data }: any) {
   return (
     <div className="px-7 py-2">
-      <Header_Report />
+      <HeaderReport />
       <h2 className="text-center font-bold text-2xl mt-5">
         Laporan Data Kelas
       </h2>

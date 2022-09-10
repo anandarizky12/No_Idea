@@ -1,9 +1,7 @@
 import axios from "axios";
 import * as actionTypes from "./actions_type/actions_type_dashboard";
-import { getCookie, removeCookie } from "../utils/utils";
+import { getCookie } from "../utils/utils";
 import { Dispatch } from "redux";
-
-
 
 export const getDataDashboard = () => {
     return async (dispatch: Dispatch) => {
@@ -19,7 +17,7 @@ export const getDataDashboard = () => {
         try {
           await axios
     
-            .get(`/api/getalltotal`, config)
+            .get(`${process.env.REACT_APP_HOST}/api/getalltotal`, config)
             .then((res) => {
               dispatch({
                 type: actionTypes.GET_DATA_DASHBOARD,
@@ -51,7 +49,7 @@ export const getDataDashboard = () => {
             isLoading: false,
             isError: true,
           });
-          console.log(err);
+        
         }
       };
     };

@@ -1,10 +1,10 @@
 import { Avatar } from "antd";
-import Header_Report from "./Header_Report";
+import HeaderReport from "./HeaderReport";
 
 function AllUsersPDF({ data }: any) {
   return (
     <div className="px-7 py-2">
-      <Header_Report />
+      <HeaderReport />
       <h2 className="text-center font-bold text-2xl mt-5">
         Laporan Pengguna Aplikasi
       </h2>

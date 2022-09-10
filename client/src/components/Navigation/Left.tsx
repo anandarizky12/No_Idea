@@ -34,7 +34,8 @@ function Left({ setOpen, open }: any): JSX.Element {
     if (user.role === "siswa") {
       dispatch(getStudentClassroom());
     }
-  }, []);
+    //eslint-disable-next-line
+  }, [dispatch]);
 
   return (
     <div>
@@ -89,7 +90,7 @@ function Left({ setOpen, open }: any): JSX.Element {
             <UserOutlined className="text-xl mr-6" />
             Halaman Profile
           </li>
-          {user.role == "siswa" ? (
+          {user.role === "siswa" ? (
             <li
               onClick={() => handleNavigate("/your_score")}
               className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
@@ -99,7 +100,7 @@ function Left({ setOpen, open }: any): JSX.Element {
               Daftar nilai anda
             </li>
           ) : null}
-          {user.role == "guru" ? (
+          {user.role === "guru" ? (
             <li
               onClick={() => handleNavigate("/classlist")}
               className="px-2 left-0 py-4 font-normal text-primary flex items-center flex-row
@@ -109,16 +110,7 @@ function Left({ setOpen, open }: any): JSX.Element {
               Halaman Daftar Kelas
             </li>
           ) : null}
-          {/* {user.role === "guru" ? (
-            <li
-              onClick={() => handleNavigate("/report")}
-              className="px-2 left-0 py-4 font-normal text-primary flex items-centerflex-row rounded-md 
-           hover:text-blue-300 cursor-pointer"
-            >
-              <FileTextOutlined className="text-xl mr-6" />
-              Report Page
-            </li>
-          ) : null} */}
+
           <div className="border-b"></div>
           <li className=" py-4 text- font-semibold text-primary flex items-center">
             Kelas yang diikuti

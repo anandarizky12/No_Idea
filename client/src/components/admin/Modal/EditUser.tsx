@@ -28,7 +28,7 @@ const Edit_User = ({
 
   React.useEffect(() => {
     dispatch(getUserById(id, setLoading));
-  }, [id]);
+  }, [id, dispatch]);
 
   React.useEffect(() => {
     if (user.data) {
