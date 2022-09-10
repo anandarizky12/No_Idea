@@ -83,6 +83,7 @@ function CreateTask({ setOpen, open }: any) {
 
       setQuestion(newquestion);
     }
+    //eslint-disable-next-line
   }, [excelData]);
 
   const [state, setState] = React.useState<IState>({

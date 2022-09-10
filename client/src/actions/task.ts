@@ -16,7 +16,7 @@ export const getTaskInClassroom = (id: any) => {
     try {
      
       await axios
-        .get(`/api/getalltaskinclass/${id}`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getalltaskinclass/${id}`, config)
         .then((res) => {
             dispatch({
                 type: actionTypes.GET_ALL_TASK_IN_CLASS,
@@ -69,7 +69,7 @@ export const createTask = (data: any, question : any, id : any,setAlert : any, s
     const { title, description, timetable,other, user_id, deadline, mapel_id} = data 
     try {
       await axios
-        .post(`/api/createtask/${id}`, {title, description, timetable, other, user_id, deadline, question, mapel_id }, config)
+        .post(`${process.env.REACT_APP_HOST}/api/createtask/${id}`, {title, description, timetable, other, user_id, deadline, question, mapel_id }, config)
         .then((res) => {
           dispatch({
             type: actionTypes.CREATE_TASK,
@@ -149,7 +149,7 @@ export const editTask = (data: any, id: string, class_id : string, setAlert : an
 
     try {
       await axios
-        .put(`/api/edittask/${id}`, data, config)
+        .put(`${process.env.REACT_APP_HOST}/api/edittask/${id}`, data, config)
         .then((res) => {
           dispatch({
             type: actionTypes.EDIT_TASK,
@@ -210,7 +210,7 @@ export const editQuestion = (data: any, id: string, setAlert : any) => {
     };
       try{
         await axios
-        .put(`/api/editquestion/${id}`, data, config)
+        .put(`${process.env.REACT_APP_HOST}/api/editquestion/${id}`, data, config)
         .then((res) => {
           dispatch({
             type: actionTypes.EDIT_QUESTION,
@@ -263,7 +263,7 @@ export const deleteTask = (id: string, class_id :any, setAlert : any) => {
 
     try {
       await axios
-        .delete(`/api/deletetask/${id}`, config)
+        .delete(`${process.env.REACT_APP_HOST}/api/deletetask/${id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.DELETE_TASK,
@@ -328,7 +328,7 @@ export const deleteTask = (id: string, class_id :any, setAlert : any) => {
 //     try {
 //       await axios
 //         .get(
-//           `/api/gettask/${id}?class=${class_id}`,
+//           `${process.env.REACT_APP_HOST}/api/gettask/${id}?class=${class_id}`,
 //           config
 //         )
 //         .then((res) => {
@@ -372,7 +372,7 @@ export const getAllScores = (class_id: any) => {
     };
     try {
       await axios
-        .get(`/api/getallscore/${class_id}`, config)
+        .get(`${process.env.REACT_APP_HOST}/api/getallscore/${class_id}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_ALL_SCORES,
@@ -431,7 +431,7 @@ export const AnswerTask = (data : Idata ) =>{
     try{
      
       await axios
-        .post(`http://localhost:8000/api/answer_tasks/wordnet?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
+        .post(`${process.env.REACT_APP_HOST_2}/api/answer_tasks/wordnet?task_id=${id}&student_id=${user_id}&classroom_id=${class_id}`, { answer } ,config)
         .then((res)=>{
           dispatch({
             type: actionTypes.ANSWER_TASK,
@@ -485,7 +485,7 @@ export const getTask= (task_id: any, id: any) => {
     try {
       await axios
         .get(
-          `/api/getdetailtask/${task_id}/${id}`,
+          `${process.env.REACT_APP_HOST}/api/getdetailtask/${task_id}/${id}`,
           config
         )
         .then((res) => {
@@ -542,7 +542,7 @@ export const getDetailScoreStudent= (task_id: any, id: any, user_id : string | u
     try {
       await axios
         .get(
-          `/api/getscoredetailtask/${user_id}/${task_id}/${id}`,
+          `${process.env.REACT_APP_HOST}/api/getscoredetailtask/${user_id}/${task_id}/${id}`,
           config
         )
         .then((res) => {
@@ -595,7 +595,7 @@ export const getUnfinishedTasks = () => {
       },
     };
     try {
-      await axios.get(`/api/unfinishedtask`, config)
+      await axios.get(`${process.env.REACT_APP_HOST}/api/unfinishedtask`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_UNFINISHED_TASK,
@@ -637,7 +637,7 @@ export const getFinishedTasks = () => {
       },
     };
     try {
-      await axios.get(`/api/finishedtask`, config)
+      await axios.get(`${process.env.REACT_APP_HOST}/api/finishedtask`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_FINISHED_TASK,
@@ -679,7 +679,7 @@ export const getAllTasksScore = (id : string | undefined)=>{
       },
     }
     try {
-      await axios.get(`/api/getalltaskscore/${id}`, config)
+      await axios.get(`${process.env.REACT_APP_HOST}/api/getalltaskscore/${id}`, config)
         .then((res) => {
         
           dispatch({
@@ -721,7 +721,7 @@ export const getAllQuestions = (page : number, limit : number)=>{
       },
     }
     try {
-      await axios.get(`/api/getallquestion?limit=${limit}&page=${page}`, config)
+      await axios.get(`${process.env.REACT_APP_HOST}/api/getallquestion?limit=${limit}&page=${page}`, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_ALL_TASK_QUESTION,
@@ -764,7 +764,7 @@ export const editScore = (score: number, id: string, task_id : string, score_id 
 
     try {
       await axios
-        .patch(`/api/editscore/${id}/${task_id}/${score_id}/${student_id}`, {score : score}, config)
+        .patch(`${process.env.REACT_APP_HOST}/api/editscore/${id}/${task_id}/${score_id}/${student_id}`, {score : score}, config)
         .then((res) => {
           dispatch({
             type: actionTypes.GET_DETAIL_SCORE_STUDENT,

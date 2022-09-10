@@ -1,7 +1,5 @@
 
 import { Modal } from "antd";
-
-
 const { confirm } = Modal;
 
 export default function showConfirm(message: string, action: any) {

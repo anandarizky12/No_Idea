@@ -1,10 +1,12 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Menu, Dropdown, Space } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import Copy from "copy-to-clipboard";
 import { useDispatch } from "react-redux";
 import { deleteClassroom } from "../../actions/classroom";
-import Edit from "../Edit_Classroom/Edit";
+import LoadingPage from "../Lazy/LoadingPage";
+
+const Edit = lazy(() => import("../Edit_Classroom/Edit"));
 
 function PopupMenu({ classroom, id }: any) {
   const dispatch = useDispatch();
@@ -35,12 +37,14 @@ function PopupMenu({ classroom, id }: any) {
       <Dropdown overlay={menu} placement="bottomRight">
         <MoreOutlined className="text-xl hover:cursor-pointer" />
       </Dropdown>
-      <Edit
-        classroom={classroom}
-        id={id}
-        open={open}
-        setOpenEdit={setOpenEdit}
-      />
+      <Suspense fallback={<LoadingPage />}>
+        <Edit
+          classroom={classroom}
+          id={id}
+          open={open}
+          setOpenEdit={setOpenEdit}
+        />
+      </Suspense>
     </Space>
   );
 }
