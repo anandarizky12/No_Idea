@@ -1,9 +1,14 @@
 import "./App.less";
+import { Suspense, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
-import Home from "./components/Home";
+const Login = lazy(() => import("./components/auth/Login"));
+const Register = lazy(() => import("./components/auth/Register"));
+
+const ProtectedRoute = lazy(
+  () => import("./components/protectedRoute/ProtectedRoute")
+);
+const Home = lazy(() => import("./components/Home"));
+
 import Top from "./components/Navigation/Top";
 import My404 from "./components/404/Unauthorized";
 import Classroom from "./components/Classroom/Classroom";
@@ -36,11 +41,11 @@ function App() {
         location.pathname !== "/register" &&
         !location.pathname.includes("/admin") && <Top />}
       <Routes>
+        <Route path="*" element={<My404 />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/login" element={<Login />} />
-        <Route path="*" element={<My404 />} />
         <Route
           path="/admin"
           element={

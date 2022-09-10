@@ -122,12 +122,6 @@ function Login() {
         </Form>
       </Card>
 
-      {/* <img
-        className="grayscale  lg:block hidden"
-        width={400}
-        src={"/logo_SMK.png"}
-      /> */}
-
       {alert.message !== null ? (
         <AlertComponents alert={alert} setAlert={setAlert} />
       ) : null}
@@ -139,12 +133,6 @@ function Login() {
           filter: "grayscale(1)",
         }}
       ></div>
-      <Typography className="absolute bottom-5 left-5">
-        Login{" "}
-        <p className="font-bold" onClick={() => navigate("/admin/login")}>
-          Admin
-        </p>
-      </Typography>
     </div>
   );
 }

@@ -1,13 +1,11 @@
 import React from "react";
-import { Button, message, Upload } from "antd";
+import { Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { NONAME } from "dns";
 import * as XLSX from "xlsx";
 interface IProps {
   setExcelData: any;
-  excelData: any;
 }
-const ExcelImport = ({ excelData, setExcelData }: IProps) => {
+const ExcelImport = ({ setExcelData }: IProps) => {
   const [excelFile, setExcelFile] = React.useState(null);
   const props: any = {
     onChange(info: any) {
@@ -24,52 +22,10 @@ const ExcelImport = ({ excelData, setExcelData }: IProps) => {
           setExcelFile(null);
         }
       } else {
-        console.log("plz select your file");
+        alert("plz select your file");
       }
-
-      //   if (info.file.status !== "uploading") {
-      //     console.log(info.file, info.fileList);
-      //   }
-      //   if (info.file.status === "done") {
-      //     message.success(`${info.file.name} file uploaded successfully`);
-      //   } else if (info.file.status === "error") {
-      //     message.error(`${info.file.name} file upload failed.`);
-      //   }
     },
   };
-
-  //   const handleFile = (e: any) => {
-  //     let selectedFile = e.target.files[0];
-
-  //     if (selectedFile) {
-  //       if (selectedFile) {
-  //         let reader = new FileReader();
-  //         reader.readAsArrayBuffer(selectedFile);
-  //         reader.onload = (e: any) => {
-  //           console.log(e.target.result);
-  //           setExcelFile(e.target.result);
-  //         };
-  //       } else {
-  //         setExcelFile(null);
-  //       }
-  //     } else {
-  //       console.log("plz select your file");
-  //     }
-  //   };
-
-  // submit function
-  //   const handleSubmit = (e: any) => {
-  //     e.preventDefault();
-  //     if (excelFile !== null) {
-  //       const workbook = XLSX.read(excelFile, { type: "buffer" });
-  //       const worksheetName = workbook.SheetNames[0];
-  //       const worksheet = workbook.Sheets[worksheetName];
-  //       const data = XLSX.utils.sheet_to_json(worksheet);
-  //       setExcelData(data);
-  //     } else {
-  //       setExcelData(null);
-  //     }
-  //   };
 
   React.useEffect(() => {
     if (excelFile) {

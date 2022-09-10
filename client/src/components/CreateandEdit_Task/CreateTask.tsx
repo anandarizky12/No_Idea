@@ -252,7 +252,7 @@ function CreateTask({ setOpen, open }: any) {
               label="Import Soal Dari Excel"
               rules={[{ required: true, message: "Pilih Mata Pelajaran" }]}
             >
-              <ExcelImport excelData={excelData} setExcelData={setExcelData} />
+              <ExcelImport setExcelData={setExcelData} />
             </Form.Item>
           </Col>
         </Row>
